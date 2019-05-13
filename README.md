@@ -3,8 +3,8 @@
 
 > 目录结构
 
+* pages  页面.
 
-* pages   页面.
   * home 首页
   * user 用户中心.
   * shop 艺商城.
