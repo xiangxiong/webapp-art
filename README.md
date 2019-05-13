@@ -2,11 +2,10 @@
  * 1、react + redux.
  * 2、组件库 antd-mobile.
  * 3、样式 sass.
- 
+
 > 目录结构
 
 * pages  页面.
-
   * home 首页
   * user 用户中心.
   * shop 艺商城.
