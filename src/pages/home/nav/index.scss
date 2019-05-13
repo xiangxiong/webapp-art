@@ -1,0 +1,19 @@
+.nav-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > img {
+    width: 50px;
+    height: 50px;
+    margin-top: 13px;
+  }
+  & > span {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #333333;
+    letter-spacing: -0.09px;
+    margin-top: 9px;
+  }
+}
