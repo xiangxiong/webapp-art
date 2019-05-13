@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Provider} from 'react-redux';
 import {BrowserRouter,Route} from 'react-router-dom';
 import Login from './pages/login/index';
+import Home from './pages/home/index';
 import store from './store';
 
 class App extends Component{
@@ -9,7 +10,7 @@ class App extends Component{
         return (
             <Provider store={store}>
                 <BrowserRouter>
-                    <Route path='/' component={Login}/>
+                    <Route path='/' component={Home}/>
                 </BrowserRouter>
             </Provider>
        )

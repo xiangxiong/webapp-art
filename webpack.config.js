@@ -55,6 +55,16 @@ module.exports = env =>{
                 //  'less-loader'
                 ]
             },
+            // {
+            //     test: /\.scss$/,
+            //     loaders: [
+            //       'style-loader?sourceMap',
+            //       'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+            //       'resolve-url-loader',
+            //       'sass-loader?sourceMap',
+            //       'px2rem-loader?remUni=75&remPrecision=8'
+            //     ]
+            // },
             {
                 test: /\.scss$/,
                 use: [
@@ -75,16 +85,7 @@ module.exports = env =>{
                     ] //添加组件的插件配置
                 }
             }]
-            // ,{
-            //     test: /\.scss$/,
-            //     loaders: [
-            //       'style-loader?sourceMap',
-            //       'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-            //       'resolve-url-loader',
-            //       'sass-loader?sourceMap',
-            //       'px2rem-loader?remUni=75&remPrecision=8'
-            //     ]
-            //   }
+            
         },
         plugins,
         output:{
