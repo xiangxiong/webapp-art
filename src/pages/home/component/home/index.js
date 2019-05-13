@@ -6,7 +6,9 @@ export default class Main extends PureComponent{
         return (
             <Fragment>
                  <div className="art-main__header">
-
+                    <span>上海</span>
+                    <span></span>
+                    <span></span>
                  </div>
                  <div className="art-main__navitem">
 
