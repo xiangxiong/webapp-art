@@ -1,6 +1,8 @@
 > 技术架构:
  * 1、react + redux.
-
+ * 2、组件库 antd-mobile.
+ * 3、样式 sass.
+ 
 > 目录结构
 
 * pages  页面.
@@ -11,12 +13,13 @@
   * master 艺术大家.
   * cart 购物车.
   * user-login 用户登录.
+  * community 社区.
 
-* components     公用组件库.
+* components   公用组件库.
 
-* utils    公用类库.
+* utils  公用类库.
 
 * statics  字体库和图片资料.
 
 > 约束
-
+* css 写法符合bem 规范.
