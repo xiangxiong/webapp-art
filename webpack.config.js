@@ -85,7 +85,6 @@ module.exports = env =>{
                     ] //添加组件的插件配置
                 }
             }]
-            
         },
         plugins,
         output:{

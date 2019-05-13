@@ -7,8 +7,8 @@ import {Button} from 'antd-mobile';
 class Login extends PureComponent{
 
     componentDidMount(){
-
     }
+    
     render(){
         console.log('this.props',this.props);
         return (
