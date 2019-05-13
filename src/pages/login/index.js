@@ -1,36 +1,36 @@
-import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { LoginWrapper, LoginBox, Input, Button } from './style';
-import { actionCreators } from './store';
+import React,{PureComponent,Fragment} from 'react';
+import './index.scss';
+import {connect} from 'react-redux';
+import {actionCreators} from './store';
+import {Button} from 'antd-mobile';
 
-class Login extends PureComponent {
-	render() {
-		const { loginStatus } = this.props;
-		if (!loginStatus) {
-			return (
-				<LoginWrapper>
-					<LoginBox>
-						<Input placeholder='账号' innerRef={(input) => {this.account = input}}/>
-						<Input placeholder='密码' type='password' innerRef={(input) => {this.password = input}}/>
-						<Button onClick={() => this.props.login(this.account, this.password)}>登陆</Button>
-					</LoginBox>
-				</LoginWrapper>
-			)
-		}else {
-			return <Redirect to='/'/>
-		}
-	}
+class Login extends PureComponent{
+
+    componentDidMount(){
+
+    }
+
+    render(){
+        console.log('this.props',this.props);
+        return (
+            <Fragment>
+                    <Button type="primary">default</Button>
+                	<input placeholder='账号' ref={(input) => {this.account = input}}/>
+					{/* <input placeholder='密码' type='password' ref={(input) => {this.password = input}}/> */}
+                    {/* <button onClick={() => this.props.login(this.account, this.password)}>登陆</button> */}
+            </Fragment>
+        )
+    }
 }
 
 const mapState = (state) => ({
-	loginStatus: state.getIn(['login', 'login'])
+    loginStatus:state.getIn(['login','login'])
 })
 
 const mapDispatch = (dispatch) => ({
-	login(accountElem, passwordElem){
-		dispatch(actionCreators.login(accountElem.value, passwordElem.value))
-	}
+    login(account,password){
+        dispatch(actionCreators.login(account.value,password.value))
+    }
 })
 
-export default connect(mapState, mapDispatch)(Login);
+export default connect(mapState,mapDispatch)(Login);
