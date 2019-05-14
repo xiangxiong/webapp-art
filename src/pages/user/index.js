@@ -2,10 +2,12 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {List} from 'antd-mobile';
 import ProductionItem from '../home/production/index';
+import {connect} from 'react-redux';
+import {getHomeList} from './store/actions';
 
 const Item = List.Item;
 
-export default class User extends PureComponent {
+class User extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -181,4 +183,24 @@ export default class User extends PureComponent {
             </Fragment>
         )
     }
+
+    componentDidMount() {
+        this.props.getHomeList();
+    }
 }
+
+const mapStateToProps = state => {
+    console.log('mapStateToProps', state.user);
+    return {
+        list: state.user.newsList,
+        name: state.user.name
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    getHomeList(){
+        dispatch(getHomeList())
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
