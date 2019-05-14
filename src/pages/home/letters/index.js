@@ -9,7 +9,7 @@ export default class Letters extends PureComponent {
     render() {
         return (
             <div className="letters-main">
-                <img src="/../../../statics/home/letters.png"/>
+               {/* <img src={require('../../../statics/home/letters.png')}/>*/}
             </div>
         )
     }
