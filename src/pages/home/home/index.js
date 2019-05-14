@@ -1,11 +1,11 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import NavItem from './../nav/index';
-import ColumnItem from './../column/index';
-import { Link } from "react-router-dom";
+import Column from '../column/index';
+import ProductionItem from './../production/index';
+import Letters from './../letters/index';
 
-
-export default class Main extends PureComponent{
+export default class Main extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -21,25 +21,45 @@ export default class Main extends PureComponent{
             columnList: [
                 {
                     imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '好货推荐',
+                    title: '「 好货推荐 」',
                     describe: '上千件好物等你来选'
                 },
                 {
                     imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '超值团购',
+                    title: '「 超值团购 」',
                     describe: '邀请好友一起拼团'
                 }
+            ],
+
+            productionList: [
+                {
+                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+                    name: '景德镇紫砂壶',
+                    salesPrice: '￥1998',
+                    marketPrice: '￥1998',
+                    authorName: '宇翔老者',
+                    authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+
+                },
+                {
+                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+                    name: '景德镇紫砂壶',
+                    salesPrice: '￥1998',
+                    marketPrice: '￥1998',
+                    authorName: '宇翔老者',
+                    authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+                },
             ]
         };
     }
 
-    render(){
+    render() {
 
-        const {columnList} = this.state;
+        const {columnList, productionList} = this.state;
 
         return (
             <Fragment>
-                 <div className="art-main__header">
+                <div className="art-main__header">
                     <span>上海</span>
                     <span>
                         <input placeholder="大家都在搜紫砂壶"/>
@@ -60,7 +80,7 @@ export default class Main extends PureComponent{
                 </section>
 
                 <div className="art-main__special">
-                         <Link to="/user">快报</Link>
+                    <Letters/>
                 </div>
 
                 <div className="art-main__recomand">
@@ -70,21 +90,18 @@ export default class Main extends PureComponent{
                 <div className="art-main__interval"/>
 
                 <div className="art-main__column">
-                    <span>栏目</span>
-                    <div>
-                        {columnList.map((column, index) => {
-                            return (
-                                <div key={index.toString()} >
-                                    <ColumnItem {...column}/>
-                                </div>
-                            )
-                        })}
-                    </div>
+                    <Column columnList={columnList}/>
                 </div>
 
                 <div className="art-main__recommend">
                     <span>为你推荐</span>
                     <div>
+                        {productionList.map((production, index) => {
+                            return (
+                                <div key={index.toString()}>
+                                    <ProductionItem {...production}/>
+                                </div>)
+                        })}
                     </div>
                 </div>
             </Fragment>

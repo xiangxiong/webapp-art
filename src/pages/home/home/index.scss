@@ -41,6 +41,13 @@
         }
     }
 
+    &__special {
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 11px;
+        padding-bottom: 11px;
+    }
+
     &__recomand {
         padding-left: 12px;
         padding-right: 12px;
@@ -61,28 +68,8 @@
 
     &__column {
         display: flex;
-        flex-direction: column;
-        margin-left: 9.5px;
-        margin-right: 9.5px;
-        border-bottom: 1px solid #E7E7E7;
-
-        & > span {
-            font-family: PingFangSC-Semibold;
-            font-size: 18px;
-            color: #333333;
-            letter-spacing: -0.13px;
-            margin-top: 6px;
-            text-align: left;
-        }
-
-        & > div {
-            display: flex;
-
-            & > div {
-                flex: 1;
-                height: 84px;
-            }
-        }
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     &__recommend {
@@ -91,13 +78,24 @@
         margin-left: 12px;
         margin-right: 12px;
 
-        & > span {
-            font-family: PingFangSC-Semibold;
-            font-size: 18px;
-            color: #333333;
-            letter-spacing: -0.13px;
-            margin-top: 6px;
-            text-align: left;
+      & > span {
+        font-family: PingFangSC-Semibold;
+        font-size: 18px;
+        color: #333333;
+        letter-spacing: -0.13px;
+        margin-top: 6px;
+        text-align: left;
+      }
+
+        & > div {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            & > div {
+                flex: 1;
+                margin-left: 2.5px;
+                margin-right: 2.5px;
+            }
         }
     }
 

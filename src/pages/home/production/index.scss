@@ -1,0 +1,65 @@
+.production-main {
+  display: flex;
+  flex-direction: column;
+
+
+  &__picture {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 172px;
+    border-radius: 3px;
+  }
+
+  & > span {
+    font-family: PingFangSC-Semibold;
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: -0.09px;
+    margin-top: 3px;
+    text-align: left;
+  }
+
+  &__price {
+    display: flex;
+    margin-top: 3px;
+
+    & > span:nth-child(1) {
+      font-family: PingFangSC-Regular;
+      font-size: 11px;
+      color: #C30F22;
+      letter-spacing: -0.09px;
+      margin-right: 3px;
+    }
+
+    & > span:nth-child(2) {
+      font-family: PingFangSC-Regular;
+      font-size: 10px;
+      color: #888888;
+      letter-spacing: -0.09px;
+    }
+  }
+
+  &__author {
+    display: flex;
+    margin-top: 3px;
+    justify-content: flex-end;
+    align-items: center;
+
+    & > span {
+      font-family: PingFangSC-Regular;
+      font-size: 11px;
+      color: #666666;
+      letter-spacing: -0.09px;
+      margin-right: 5px;
+    }
+
+    & > img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+}

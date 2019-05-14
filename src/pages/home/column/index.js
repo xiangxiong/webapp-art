@@ -3,14 +3,23 @@
  */
 import React, {PureComponent} from 'react';
 import './index.scss';
+import ColumnProductItem from './../columnProduct/index';
 
-export default class ColumnItem extends PureComponent {
+export default class Column extends PureComponent {
 
     render() {
         return (
-            <div className="column-main" style={{backgroundImage: 'url('+this.props.imageUrl+')',backgroundRepeat:'no-repeat'}}>
-                <span>{`「 ${this.props.title} 」`}</span>
-                <span>{this.props.describe}</span>
+            <div className="column-main">
+                <span>栏目</span>
+                <div>
+                    {this.props.columnList.map((column, index) => {
+                        return (
+                            <div key={index.toString()}>
+                                <ColumnProductItem {...column}/>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
