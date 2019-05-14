@@ -3,7 +3,6 @@
  * 1、react + redux + webpack 4.0. 
  * 2、组件库 antd-mobile.
  * 3、样式 sass.
- * 4、react ssr.
 
 > 目录结构
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// todo: 请求拦截器.
+// todo: 增加请求拦截器.
 // https://segmentfault.com/a/1190000016474460#articleHeader4.
 
 const request = function (url, params, config, method) {
