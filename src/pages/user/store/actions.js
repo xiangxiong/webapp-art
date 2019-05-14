@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {CHANGE_LIST} from './contants';
 import {APIURL} from '../../../utils/api';
 import {post} from '../../../utils/request';
