@@ -1,12 +1,32 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
+import {List} from 'antd-mobile';
+import ProductionItem from '../home/production/index';
+
+const Item = List.Item;
 
 export default class User extends PureComponent {
 
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            productionList: [
+                {
+                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+                    name: '景德镇紫砂壶',
+                    salesPrice: '￥1998',
+                    marketPrice: '￥1998',
+
+                },
+                {
+                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
+                    name: '景德镇紫砂壶',
+                    salesPrice: '￥1998',
+                    marketPrice: '￥1998',
+                },
+            ]
+        };
     }
 
     otherInfoItem(number, name) {
@@ -21,24 +41,33 @@ export default class User extends PureComponent {
     orderInfoItem(number, name, url, isShowBorderRight = true) {
 
         return (
-            <div style={{
-                borderRightColor: '#DFDFDF',
-                borderRightStyle: 'solid',
-                borderRightWidth: isShowBorderRight ? '1px' : '0px'
-            }}>
-                {+number > 0 ? (
-                    <div>
-                        <span>{number}</span>
-                    </div>
-                ) : null}
-                <img src={url}/>
-                <span>{name}</span>
+            <div>
+                <div style={{visibility: +number > 0 ? 'visible' : 'hidden'}}>
+                    <span>{number}</span>
+                </div>
+
+                <div style={{
+                    borderRightColor: '#DFDFDF',
+                    borderRightStyle: 'solid',
+                    borderRightWidth: isShowBorderRight ? '1px' : '0px'
+                }}>
+
+                    <img src={url}/>
+                    <span>{name}</span>
+                </div>
             </div>
+        )
+    }
+
+    itemLeftIcon(url) {
+        return (
+            <img src={url} style={{width: '17px', height: '17px'}}/>
         )
     }
 
 
     render() {
+        const {productionList} = this.state;
 
         return (
             <Fragment>
@@ -71,7 +100,6 @@ export default class User extends PureComponent {
                     </div>
 
                     <div style={{width: '97%', height: '1px', backgroundColor: '#E7E7E7', alignSelf: 'center'}}/>
-
                     <div className="art-user__order___stateList">
                         {this.orderInfoItem(0, '待付款', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
                         {this.orderInfoItem(2, '待发货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
@@ -81,6 +109,75 @@ export default class User extends PureComponent {
                     </div>
                 </div>
                 <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
+                <List>
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        合作入驻
+                    </Item>
+
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        好货推荐
+                    </Item>
+
+
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        提现
+                    </Item>
+                </List>
+                <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
+                <List>
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        协议规则
+                    </Item>
+
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        收货地址
+                    </Item>
+
+
+                    <Item
+                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        arrow="horizontal"
+                        onClick={() => {
+                        }}>
+                        联系客服(9:00-21:30)
+                    </Item>
+                </List>
+
+                <div className="art-user__recommend">
+
+                    <span>--为你推荐--</span>
+
+                    <div className="art-user__recommend___content">
+                        {productionList.map((production, index) => {
+                            return (
+                                <div key={index.toString()}>
+                                    <ProductionItem {...production}/>
+                                </div>)
+                        })}
+                    </div>
+
+                </div>
+
             </Fragment>
         )
     }

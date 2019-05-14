@@ -3,6 +3,7 @@ import './index.scss';
 import Letters from '../home/letters/index';
 import Column from '../home/column/index';
 import ProductionItem from '../home/production/index';
+import {Carousel, WingBlank} from 'antd-mobile';
 
 export default class Shop extends PureComponent {
 
@@ -61,7 +62,9 @@ export default class Shop extends PureComponent {
                     authorName: '宇翔老者',
                     authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
                 },
-            ]
+            ],
+
+            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
         };
     }
 
@@ -80,7 +83,34 @@ export default class Shop extends PureComponent {
                     </div>
                 </div>
 
-                <div className="art-shop__carousel"></div>
+                <div className="art-shop__carousel">
+                    <Carousel
+                        autoplay={false}
+                        infinite
+                        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                        afterChange={index => console.log('slide to', index)}
+                    >
+                        {this.state.data.map(val => (
+                            <a
+                                key={val}
+                                href="http://www.alipay.com"
+                                style={{
+                                    display: 'inline-block',
+                                    width: '100%',
+                                    height: '148px',
+                                }}
+                            >
+                                <img
+                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                    alt=""
+                                    style={{width: '100%', height: '148px'}}
+                                    onLoad={() => {
+                                    }}
+                                />
+                            </a>
+                        ))}
+                    </Carousel>
+                </div>
 
                 <div className="art-shop__special">
                     <Letters/>
