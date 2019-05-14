@@ -2,9 +2,11 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import NavItem from './../nav/index';
 import ColumnItem from './../column/index';
-import {ListView} from 'antd-mobile';
+import { Link } from "react-router-dom";
 
-export default class Main extends PureComponent {
+
+export default class Main extends PureComponent{
+
     constructor(props) {
         super(props);
 
@@ -31,15 +33,12 @@ export default class Main extends PureComponent {
         };
     }
 
-    render() {
+    render(){
+
         const {columnList} = this.state;
 
-export default class Main extends PureComponent{
-
-    render(){
         return (
             <Fragment>
-
                  <div className="art-main__header">
                     <span>上海</span>
                     <span>
@@ -61,7 +60,7 @@ export default class Main extends PureComponent{
                 </section>
 
                 <div className="art-main__special">
-                    快报
+                         <Link to="/user">快报</Link>
                 </div>
 
                 <div className="art-main__recomand">
@@ -88,8 +87,6 @@ export default class Main extends PureComponent{
                     <div>
                     </div>
                 </div>
-
-
             </Fragment>
         )
     }
