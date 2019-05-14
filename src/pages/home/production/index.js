@@ -11,6 +11,9 @@ export default class ProductionItem extends PureComponent {
             <div className='production-main'>
                 <div className="production-main__picture"
                      style={{backgroundImage: 'url(' + this.props.imageUrl + ')', backgroundRepeat: 'no-repeat'}}>
+                    <div>
+                        <span>团购中</span>
+                    </div>
                 </div>
                 <span>{this.props.name}</span>
                 <div className="production-main__price">
