@@ -32,10 +32,10 @@ export default class Home extends PureComponent{
           case "USER":
             return (<User/>);     
          default:
-            return (<Main/>)
+            return (<Main/>);
        }
    }
-
+   
    renderContent(pageText){
         return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
@@ -176,10 +176,10 @@ export default class Home extends PureComponent{
               this.setState({
                 selectedTab: 'yellowTab',
               });
-            }}
-          >
+            }}>
             {this.renderContent('USER')}
           </TabBar.Item>
+
         </TabBar>
       </div>
        )

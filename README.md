@@ -1,5 +1,5 @@
 > 技术架构:
- * 1、react + redux.
+ * 1、react + redux + webpack.
  * 2、组件库 antd-mobile.
  * 3、样式 sass.
 
@@ -21,4 +21,5 @@
 * statics  字体库和图片资料.
 
 > 约束
-* css 写法符合bem 规范.
+
+* css 写法符合 bem 规范.

@@ -34,9 +34,13 @@ export default class Main extends PureComponent {
     render() {
         const {columnList} = this.state;
 
+export default class Main extends PureComponent{
+
+    render(){
         return (
             <Fragment>
-                <div className="art-main__header">
+
+                 <div className="art-main__header">
                     <span>上海</span>
                     <span>
                         <input placeholder="大家都在搜紫砂壶"/>
