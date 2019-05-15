@@ -1,29 +1,37 @@
 import * as constants from './constants';
+import {post} from "../../../utils/request";
+import {ProductCommend} from "../../../utils/servicekey";
 
-const changeLogin = () => ({
-    type: constants.CHANGE_LOGIN,
-    value: true
+export const shopCarouselAdList = (DataList) => ({
+    type: constants.SHOP_CAROUSEL_AD_LIST,
+    value: DataList
 });
 
-export const logout = () => ({
-    type: constants.LOGOUT,
-    value: false
+export const shopCommonAdList = (DataList) => ({
+    type: constants.SHOP_COMMON_AD_LIST,
+    value: DataList
 });
 
-export const login = (account, password) => {
+export const shopNewsPagerList = (NewList) => ({
+    type: constants.SHOP_NEWS_PAGER_LIST,
+    value: NewList
+});
+
+export const shopProductCommendList = (DataList) => ({
+    type: constants.SHOP_PRODUCT_COMMEND_LIST,
+    value: DataList
+});
+
+export const showUserLikeProducts = (DataList) => ({
+    type: constants.SHOP_LIKE_PRODUCTS_LIST,
+    value: DataList
+});
+
+export const getProductCommend = (params) => {
     return (dispatch) => {
-        dispatch(changeLogin());
-        // return {
-        //     'data':{login:true}
-        // }
-        // axios.get('/api/login.json?account=' + account + '&password=' + password)
-        // .then((res)=>{
-        //     const result = res.data.data;
-        //     if(result){
-        //         dispatch(changeLogin());
-        //     }else{
-        //         alert('登录失败');
-        //     }
-        // })
+        return post(ProductCommend, params)
+            .then((response) => {
+                dispatch(shopProductCommendList(response.DataList));
+            });
     }
 };

@@ -1,20 +1,17 @@
-import {CHANGE_LIST} from './contants';
+import {USER_CUSTOMER_DETAIL} from './constants';
 
 const defaultState = {
-    newsList:[],
-    name:'dell'
+    customerDetail: {},
 };
 
-export default (state = defaultState,action)=>{
-
-    switch(action.type){
-        case CHANGE_LIST:
+export default (state = defaultState, action) => {
+    switch (action.type) {
+        case USER_CUSTOMER_DETAIL:
             return {
                 ...state,
-                newsList: action.list
-            }
+                customerDetail: action.value
+            };
         default:
             return state;
     }
-    
 }

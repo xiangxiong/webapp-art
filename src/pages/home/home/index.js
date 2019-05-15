@@ -152,7 +152,7 @@ class Main extends PureComponent {
 
 const mapStateToProps = ({home}) => {
     return {
-        carouselAdList: home.newsList,
+        carouselAdList: home.carouselAdList,
         commonAdList: home.commonAdList,
         newsPagerList: home.newsPagerList,
         userLikeProducts: home.userLikeProducts,

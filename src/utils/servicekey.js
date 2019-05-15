@@ -11,3 +11,9 @@ export const NewsPager = 'Art.Service.Info.Dto.Request.NewsPagerRequest';
 //为你推荐
 export const GuessUserLikeProducts = 'Art.Service.Product.Dto.Api.GuessUserLikeProductsRequest';
 
+//获取用户详情
+export const CustomerDetail = 'Art.Service.Customer.Dto.Api.CustomerDetailRequest';
+
+//获取精选商品接口[热销商品]
+export const ProductCommend = 'Art.Service.Product.Dto.Reuqest.ProductCommendRequest';
+

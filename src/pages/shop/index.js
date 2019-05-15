@@ -5,6 +5,8 @@ import Column from '../home/column/index';
 import ProductionItem from '../home/production/index';
 import {Carousel, WingBlank} from 'antd-mobile';
 import {connect} from 'react-redux';
+import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../home/store/actionCreators';
+import {getProductCommend} from './store/actionCreators';
 
 class Shop extends PureComponent {
 
@@ -71,6 +73,8 @@ class Shop extends PureComponent {
 
     render() {
         const {columnList, salesProductionList, likeProductionList} = this.state;
+
+        console.log("porps",this.props);
 
         return (
             <Fragment>
@@ -164,12 +168,43 @@ class Shop extends PureComponent {
             </Fragment>
         )
     }
+
+    componentDidMount() {
+        this.props.getShopAdvertList(2);
+        this.props.getShopNewsPagerList();
+        this.props.getShopAdvertList(21);
+        this.props.getProductCommend();
+        this.props.getUserLikeProducts(11, 2);
+    }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({shop}) => {
+    return {
+        shopCarouselAdList: shop.shopCarouselAdList,
+        shopCommonAdList: shop.shopCommonAdList,
+        shopNewsPagerList: shop.shopNewsPagerList,
+        shopProductCommendList: shop.shopProductCommendList,
+        shopUserLikeProducts: shop.shopUserLikeProducts,
+    }
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    getShopAdvertList: (type) => {
+        dispatch(getAdvertList(type))
+    },
+
+    getShopNewsPagerList: () => {
+        dispatch(getNewsPagerList({CategoryId: 4, CurrentPage: 1, PageSize: 3}))
+    },
+
+    getProductCommend: () => {
+        dispatch(getProductCommend({CategoryId: 4, CurrentPage: 1, PageSize: 3}))
+    },
+
+    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
+        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);
 

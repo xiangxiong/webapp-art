@@ -3,7 +3,7 @@ import './index.scss';
 import {List} from 'antd-mobile';
 import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
-import {getHomeList} from './store/actions';
+import {getCustomerDetail} from './store/actionCreators';
 import history from '@/utils/history';
 
 const Item = List.Item;
@@ -12,7 +12,7 @@ class User extends PureComponent {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             productionList: [
                 {
@@ -33,7 +33,7 @@ class User extends PureComponent {
         this.handleNavUrl = this.handleNavUrl.bind(this);
     }
 
-    handleNavUrl(){
+    handleNavUrl() {
         history.push('/enter');
     }
 
@@ -190,21 +190,19 @@ class User extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getHomeList();
+        this.props.getCustomerDetail();
     }
 }
 
-const mapStateToProps = state => {
-    console.log('mapStateToProps', state.user);
+const mapStateToProps = ({user}) => {
     return {
-        list: state.user.newsList,
-        name: state.user.name
+        customerDetail: user.customerDetail,
     }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
-    getHomeList(){
-        dispatch(getHomeList())
+    getCustomerDetail: (Token, CustomerId, TargetCustomerId) => {
+        dispatch(getCustomerDetail({Token, CustomerId, TargetCustomerId}))
     }
 });
 
