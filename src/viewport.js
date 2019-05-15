@@ -86,7 +86,7 @@
             return false
         }
 
-        document.documentElement.style.fontSize = `${innerWidth * 200 / 320}px`;
+        document.documentElement.style.fontSize = `${innerWidth * 180 / 320}px`;
         hotcss.callback && hotcss.callback()
     }
 
