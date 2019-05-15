@@ -165,7 +165,7 @@ const mapDispatchToProps = dispatch => ({
     },
 
     getNewsPagerList: () => {
-        dispatch(getNewsPagerList({CategoryId: 1, CurrentPage: 1, PageSize: 3}))
+        dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
     },
 
     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
