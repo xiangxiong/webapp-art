@@ -84,32 +84,34 @@ export default class Shop extends PureComponent {
                 </div>
 
                 <div className="art-shop__carousel">
-                    <Carousel
-                        autoplay={false}
-                        infinite
-                        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                        afterChange={index => console.log('slide to', index)}
-                    >
-                        {this.state.data.map(val => (
-                            <a
-                                key={val}
-                                href="http://www.alipay.com"
-                                style={{
-                                    display: 'inline-block',
-                                    width: '100%',
-                                    height: '148px',
-                                }}
-                            >
-                                <img
-                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                    alt=""
-                                    style={{width: '100%', height: '148px'}}
-                                    onLoad={() => {
+                    <WingBlank>
+                        <Carousel
+                            autoplay={false}
+                            infinite
+                            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                            afterChange={index => console.log('slide to', index)}
+                        >
+                            {this.state.data.map(val => (
+                                <a
+                                    key={val}
+                                    href="http://www.alipay.com"
+                                    style={{
+                                        display: 'inline-block',
+                                        width: '100%',
+                                        height: '148px',
                                     }}
-                                />
-                            </a>
-                        ))}
-                    </Carousel>
+                                >
+                                    <img
+                                        src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                        alt=""
+                                        style={{width: '100%', height: '148px'}}
+                                        onLoad={() => {
+                                        }}
+                                    />
+                                </a>
+                            ))}
+                        </Carousel>
+                    </WingBlank>
                 </div>
 
                 <div className="art-shop__special">

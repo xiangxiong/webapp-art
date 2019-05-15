@@ -1,99 +1,116 @@
-.art-main{
+.art-main {
 
-    &__header{
-        height: 176px;
-        width: 100%;
-        background:red;
-        
-        &>span:nth-child(1){
-            font-family: PingFangSC-Medium;
-            font-size: 14px;
-            color: #FFFFFF;
-            letter-spacing: -0.08px;
-            display: inline;
-            float: left;
-            padding: 14px 0px 0px 14px;
-        }
+  &__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 
-        &>span:nth-child(2){
-            opacity: 0.53;
-            background: #FFFFFF;
-            border-radius: 8px;
-            display: inline-block;
-            text-align: center;
-            width: 256px;
-            height: 36px;
-            line-height: 36px;
-            margin-top: 6px;
-        }
+    & > div:nth-child(1) {
+      width: 100%;
+      height: 176px;
+      background-color: #C30F22;
     }
-
-    &__navitem{
-        height: 97px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        border-bottom: 1px solid #E7E7E7;
-
-        &>div{
-            flex: 1;
-            height: 97px;
-        }
-    }
-
-    &__special {
-        padding: 11px 12px;
-    }
-
-    &__recomand {
-        padding-left: 12px;
-        padding-right: 12px;
-        padding-bottom: 10px;
-
-        & > img {
-            width: 100%;
-            height: 86px;
-            border-radius: 3px;
-        }
-    }
-
-    &__interval {
-        width: 100%;
-        height: 12px;
-        background-color: #F3F3F3;
-    }
-
-    &__column {
-        display: flex;
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    &__recommend {
-        display: flex;
-        flex-direction: column;
-        margin-left: 12px;
-        margin-right: 12px;
+    & > div:nth-child(2) {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      padding: 7px 14px 0px 14px;
 
       & > span {
-        font-family: PingFangSC-Semibold;
-        font-size: 18px;
-        color: #333333;
-        letter-spacing: -0.13px;
-        margin-top: 6px;
-        text-align: left;
+        font-family: PingFangSC-Medium;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: -0.08px;
       }
 
-        & > div {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            & > div {
-                flex: 1;
-                margin-left: 2.5px;
-                margin-right: 2.5px;
-            }
-        }
+      & > input {
+        flex: 1;
+        margin: 0px 24px 0px 24px;
+        background-color: #FFFFFFFF;
+        border-radius: 8px;
+        height: 53px;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #b2FFFFFF;
+        letter-spacing: -0.08px;
+        text-align: center;
+      }
+
+      & > img {
+        width: 17px;
+        height: 17px;
+        align-self: center;
+      }
     }
+  }
+
+  &__navitem {
+    height: 97px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #E7E7E7;
+
+    & > div {
+      flex: 1;
+      height: 97px;
+    }
+  }
+
+  &__special {
+    padding: 11px 12px;
+  }
+
+  &__recomand {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 10px;
+
+    & > img {
+      width: 100%;
+      height: 86px;
+      border-radius: 3px;
+    }
+  }
+
+  &__interval {
+    width: 100%;
+    height: 12px;
+    background-color: #F3F3F3;
+  }
+
+  &__column {
+    display: flex;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  &__recommend {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    margin-right: 12px;
+
+    & > span {
+      font-family: PingFangSC-Semibold;
+      font-size: 18px;
+      color: #333333;
+      letter-spacing: -0.13px;
+      margin-top: 6px;
+      text-align: left;
+    }
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      & > div {
+        flex: 1;
+        margin-left: 2.5px;
+        margin-right: 2.5px;
+      }
+    }
+  }
 
 }

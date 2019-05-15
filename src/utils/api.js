@@ -4,6 +4,8 @@ export const MOOCHOST = 'http://yapi.demo.qunar.com/mock/65279/';
 
 export const APIURL = 'http://artapi.laoliwuyou.com/gateway?format=json';
 
+export const PICTUREURL = 'http://res.laoliwuyou.com/icon/';
+
 export const DevEnv = true;
 
 export const HOST = DevEnv ? DEVHOST : MOOCHOST;

@@ -4,6 +4,8 @@ import NavItem from './../nav/index';
 import Column from '../column/index';
 import ProductionItem from './../production/index';
 import Letters from './../letters/index';
+import {PICTUREURL} from '../../../utils/api';
+import {Carousel, WingBlank} from 'antd-mobile';
 
 export default class Main extends PureComponent {
 
@@ -11,10 +13,10 @@ export default class Main extends PureComponent {
         super(props);
 
         this.navDataList = [
-            {imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', name: '大师云集'},
-            {imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', name: '市集'},
-            {imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', name: '艺商城'},
-            {imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', name: '艺社区'},
+            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
+            {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
+            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
+            {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
         ];
 
         this.state = {
@@ -49,7 +51,8 @@ export default class Main extends PureComponent {
                     authorName: '宇翔老者',
                     authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
                 },
-            ]
+            ],
+            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
         };
     }
 
@@ -60,13 +63,42 @@ export default class Main extends PureComponent {
         return (
             <Fragment>
                 <div className="art-main__header">
-                    <span>上海</span>
-                    <span>
-                        <input placeholder="大家都在搜紫砂壶"/>
-                    </span>
-                    <span>
-                        帮助
-                    </span>
+                    <div>
+                        <WingBlank>
+                            <Carousel
+                                autoplay={false}
+                                infinite
+                                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                                afterChange={index => console.log('slide to', index)}
+                            >
+                                {this.state.data.map(val => (
+                                    <a
+                                        key={val}
+                                        href="http://www.alipay.com"
+                                        style={{
+                                            display: 'inline-block',
+                                            width: '100%',
+                                            height: '176px',
+                                        }}
+                                    >
+                                        <img
+                                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                            alt=""
+                                            style={{width: '100%', height: '176px'}}
+                                            onLoad={() => {
+                                            }}
+                                        />
+                                    </a>
+                                ))}
+                            </Carousel>
+                        </WingBlank>
+                    </div>
+
+                    <div>
+                        <span>上海</span>
+                        <input placeholder="大家都在搜紫砂壶" type="text"/>
+                        <img src={`${PICTUREURL}2.png`}/>
+                    </div>
                 </div>
 
                 <section className="art-main__navitem">
