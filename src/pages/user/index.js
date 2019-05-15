@@ -11,7 +11,7 @@ class User extends PureComponent {
 
     constructor(props) {
         super(props);
-
+        
         this.state = {
             productionList: [
                 {
@@ -19,7 +19,6 @@ class User extends PureComponent {
                     name: '景德镇紫砂壶',
                     salesPrice: '￥1998',
                     marketPrice: '￥1998',
-
                 },
                 {
                     imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',

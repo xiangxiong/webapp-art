@@ -27,7 +27,7 @@ const request = function (url, params, config, method) {
   const get = (url, params, config = {}) => {
     return request(url, params, config, 'get')
   }
-
+  
   export {post, get}
 
   

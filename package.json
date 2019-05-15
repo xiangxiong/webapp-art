@@ -15,14 +15,16 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0"
   },
-  "scripts": {
+  "scripts":{
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
+  "devDependencies":{
     "babel-plugin-import": "^1.2.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-px2rem": "^0.3.0",
     "react-app-rewired": "^1.2.9"
   }
 }
