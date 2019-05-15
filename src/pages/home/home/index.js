@@ -6,8 +6,10 @@ import ProductionItem from './../production/index';
 import Letters from './../letters/index';
 import {PICTUREURL} from '../../../utils/api';
 import {Carousel, WingBlank} from 'antd-mobile';
+import {connect} from 'react-redux';
+import {getAdvertList} from '../store/actionCreators';
 
-export default class Main extends PureComponent {
+class Main extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -139,4 +141,23 @@ export default class Main extends PureComponent {
             </Fragment>
         )
     }
+
+    componentDidMount() {
+        this.props.getAdvertList(1);
+    }
 }
+
+const mapStateToProps = ({home}) => {
+    return {
+        list: home.newsList,
+        name: home.name
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    getAdvertList: (type) => {
+        dispatch(getAdvertList(type))
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

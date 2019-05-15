@@ -9,10 +9,10 @@ const changeList = (list)=> ({
 
 export const getHomeList = () => {
     return (dispatch) => {
-          return post('http://yapi.demo.qunar.com/mock/65279/api/v1/product/owner')
-          .then((response)=>{
-                console.log('response',response);
-                dispatch(changeList(response));
-          });
+          // return post('http://yapi.demo.qunar.com/mock/65279/api/v1/product/owner')
+          // .then((response)=>{
+          //       console.log('response',response);
+          //       dispatch(changeList(response));
+          // });
     }
 }

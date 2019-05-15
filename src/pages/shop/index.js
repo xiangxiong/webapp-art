@@ -4,8 +4,9 @@ import Letters from '../home/letters/index';
 import Column from '../home/column/index';
 import ProductionItem from '../home/production/index';
 import {Carousel, WingBlank} from 'antd-mobile';
+import {connect} from 'react-redux';
 
-export default class Shop extends PureComponent {
+class Shop extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -164,3 +165,11 @@ export default class Shop extends PureComponent {
         )
     }
 }
+
+const mapStateToProps = state => {
+};
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+
