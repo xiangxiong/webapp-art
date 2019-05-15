@@ -6,8 +6,10 @@ import User from './pages/user';
 import {Provider} from 'react-redux';
 import store from './store';
 
-class App extends Component {
+class App extends Component{
+
   render() {
+    
     return (
       <Provider store={store}>
             <BrowserRouter>

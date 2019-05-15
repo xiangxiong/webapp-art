@@ -36,6 +36,7 @@ module.exports = {
   entry: [
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
+    require.resolve('./../src/viewport.js'),
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -189,7 +190,7 @@ module.exports = {
                       ],
                       flexbox: 'no-2009',
                     }),
-                    px2rem({remUnit:75})
+                    px2rem({remUnit:200})
                   ],
                 },
               },
