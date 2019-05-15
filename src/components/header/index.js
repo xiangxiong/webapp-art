@@ -2,6 +2,7 @@ import React, {PureComponent,Fragment} from 'react';
 import {NavBar, Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './index.scss';
+import history from '@/utils/history'
 
 class PublicHeader extends PureComponent{
     render(){
@@ -10,7 +11,7 @@ class PublicHeader extends PureComponent{
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => history.go(-1)}
                     >
                     {
                         this.props.title
@@ -24,4 +25,5 @@ class PublicHeader extends PureComponent{
 PublicHeader.propTypes = {
     title:PropTypes.string
 }
+
 export default PublicHeader;
