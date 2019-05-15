@@ -7,7 +7,7 @@ import Letters from './../letters/index';
 import {PICTUREURL} from '../../../utils/api';
 import {Carousel, WingBlank} from 'antd-mobile';
 import {connect} from 'react-redux';
-import {getAdvertList} from '../store/actionCreators';
+import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
 
 class Main extends PureComponent {
 
@@ -144,20 +144,32 @@ class Main extends PureComponent {
 
     componentDidMount() {
         this.props.getAdvertList(1);
+        this.props.getNewsPagerList();
         this.props.getAdvertList(11);
+        this.props.getUserLikeProducts(11, 1);
     }
 }
 
 const mapStateToProps = ({home}) => {
     return {
         carouselAdList: home.newsList,
-        commonAdList: home.commonAdList
+        commonAdList: home.commonAdList,
+        newsPagerList: home.newsPagerList,
+        userLikeProducts: home.userLikeProducts,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     getAdvertList: (type) => {
         dispatch(getAdvertList(type))
+    },
+
+    getNewsPagerList: () => {
+        dispatch(getNewsPagerList({CategoryId: 1, CurrentPage: 1, PageSize: 3}))
+    },
+
+    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
+        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     }
 });
 
