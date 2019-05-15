@@ -3,6 +3,7 @@
  * 1、react + redux + webpack 4.0. 
  * 2、组件库 antd-mobile.
  * 3、样式 sass.
+ * 4、react ssr.
 
 > 目录结构
 
@@ -22,5 +23,5 @@
 * statics  字体库和图片资料.
 
 > 约束
+
 * css 写法符合 bem 规范.
-* 启动项目 node 版本需要 7.0 以上.
