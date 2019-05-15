@@ -11,7 +11,6 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-const px2rem = require('postcss-px2rem')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -36,7 +35,6 @@ module.exports = {
   entry: [
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
-    require.resolve('./../src/viewport.js'),
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -142,6 +140,10 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
+          {
+            test:/\.scss$/,
+            loaders:['style-loader','css-loader','sass-loader'],
+         },
           // Process JS with Babel.
           {
             test: /\.(js|jsx)$/,
@@ -164,8 +166,8 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.(css|scss|sass)$/,
-            use:[
+            test: /\.css$/,
+            use: [
               require.resolve('style-loader'),
               {
                 loader: require.resolve('css-loader'),
@@ -190,13 +192,9 @@ module.exports = {
                       ],
                       flexbox: 'no-2009',
                     }),
-                    px2rem({remUnit:200})
                   ],
                 },
               },
-              {
-                 loader:require.resolve('sass-loader')
-              }
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
