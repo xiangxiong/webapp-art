@@ -88,7 +88,7 @@ export default class Home extends PureComponent{
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
 
-          <TabBar.Item
+          {/* <TabBar.Item
             icon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' }}
             selectedIcon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg' }}
             title="艺术大家"
@@ -118,7 +118,7 @@ export default class Home extends PureComponent{
             }}
           >
             {this.renderContent('CART')}
-          </TabBar.Item>
+          </TabBar.Item> */}
 
           <TabBar.Item
             icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg' }}

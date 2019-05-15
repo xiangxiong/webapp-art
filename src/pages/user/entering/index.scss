@@ -1,0 +1,18 @@
+@import './../../../style/index.scss';
+
+.art-entering{
+    &__arts{
+        margin-top: 9px;
+    }
+}
+
+.am-list-body {
+    position: relative;
+    background-color: #f5f5f9;
+    border-top: 1PX solid #ddd;
+    border-bottom: 1PX solid #ddd;
+}
+
+.am-list-item .am-list-line .am-list-content{
+    color: $color-text-base;
+}

@@ -1,0 +1,9 @@
+@import './../../style/index.scss';
+
+.am-navbar-light .am-navbar-title {
+    color: $color-nav-base;
+}
+.am-navbar-light {
+    background-color: #fff;
+    color: $color-nav-arrow;
+}

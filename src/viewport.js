@@ -102,7 +102,6 @@
     window.addEventListener("load", hotcss.mresize, false)
     // 防止不明原因的bug。load之后再调用一次。
 
-
     setTimeout(() => {
         hotcss.mresize()
         // 防止某些机型怪异现象，异步再调用一次

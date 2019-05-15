@@ -4,6 +4,7 @@ import {List} from 'antd-mobile';
 import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
 import {getHomeList} from './store/actions';
+import history from '@/utils/history';
 
 const Item = List.Item;
 
@@ -28,6 +29,12 @@ class User extends PureComponent {
                 },
             ]
         };
+
+        this.handleNavUrl = this.handleNavUrl.bind(this);
+    }
+
+    handleNavUrl(){
+        history.push('/enter');
     }
 
     otherInfoItem(number, name) {
@@ -38,6 +45,7 @@ class User extends PureComponent {
             </div>
         )
     }
+
 
     orderInfoItem(number, name, url, isShowBorderRight = true) {
 
@@ -114,9 +122,8 @@ class User extends PureComponent {
                     <Item
                         thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
                         arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        合作入驻
+                        onClick={this.handleNavUrl}>
+                        合作入住
                     </Item>
 
                     <Item
@@ -126,7 +133,6 @@ class User extends PureComponent {
                         }}>
                         好货推荐
                     </Item>
-
 
                     <Item
                         thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}

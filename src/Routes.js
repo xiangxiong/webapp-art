@@ -1,5 +1,6 @@
 import Cart from './pages/cart';
 import Home from './pages/home';
+import Enter from './pages/user/entering';
 
 export default [
     {
@@ -21,5 +22,11 @@ export default [
         component: Cart,
         exact:true,
         key:'cart'
+    },
+    {
+        path: "/enter",
+        component: Enter,
+        exact:true,
+        key:'enter'
     }
 ];
