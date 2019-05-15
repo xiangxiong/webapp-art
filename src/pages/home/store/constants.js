@@ -1,2 +1,2 @@
-export const CHANGE_LOGIN = 'login/CHANGE_LOGIN';
-export const LOGOUT = 'login/LOGOUT';
+export const CAROUSEL_AD_LIST = 'home/carouselAdList';
+export const COMMON_AD_LIST = 'home/commonAdList';

@@ -144,13 +144,14 @@ class Main extends PureComponent {
 
     componentDidMount() {
         this.props.getAdvertList(1);
+        this.props.getAdvertList(11);
     }
 }
 
 const mapStateToProps = ({home}) => {
     return {
-        list: home.newsList,
-        name: home.name
+        carouselAdList: home.newsList,
+        commonAdList: home.commonAdList
     }
 };
 
