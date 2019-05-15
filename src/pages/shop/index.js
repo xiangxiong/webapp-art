@@ -7,6 +7,7 @@ import {Carousel, WingBlank} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../home/store/actionCreators';
 import {getProductCommend} from './store/actionCreators';
+import {PICTUREURL} from "../../utils/api";
 
 class Shop extends PureComponent {
 
@@ -14,19 +15,6 @@ class Shop extends PureComponent {
         super(props);
 
         this.state = {
-            columnList: [
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '「 好货推荐 」',
-                    describe: '上千件好物等你来选'
-                },
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '「 超值团购 」',
-                    describe: '邀请好友一起拼团'
-                }
-            ],
-
             salesProductionList: [
                 {
                     imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
@@ -74,7 +62,7 @@ class Shop extends PureComponent {
     render() {
         const {columnList, salesProductionList, likeProductionList} = this.state;
 
-        console.log("porps",this.props);
+        console.log("porps", this.props);
 
         return (
             <Fragment>
@@ -128,7 +116,7 @@ class Shop extends PureComponent {
                 </div>
 
                 <div className="art-shop__column">
-                    <Column columnList={columnList}/>
+                    <Column leftPictureUrl={`${PICTUREURL}30.png`} rightPictureUrl={`${PICTUREURL}31.png`}/>
                 </div>
 
                 <div className="art-shop__recommend">

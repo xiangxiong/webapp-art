@@ -20,47 +20,10 @@ class Main extends PureComponent {
             {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
             {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
         ];
-
-        this.state = {
-            columnList: [
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '「 好货推荐 」',
-                    describe: '上千件好物等你来选'
-                },
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    title: '「 超值团购 」',
-                    describe: '邀请好友一起拼团'
-                }
-            ],
-
-            productionList: [
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    name: '景德镇紫砂壶',
-                    salesPrice: '￥1998',
-                    marketPrice: '￥1998',
-                    authorName: '宇翔老者',
-                    authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-
-                },
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    name: '景德镇紫砂壶',
-                    salesPrice: '￥1998',
-                    marketPrice: '￥1998',
-                    authorName: '宇翔老者',
-                    authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                },
-            ],
-            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
-        };
     }
 
     render() {
-
-        const {columnList, productionList} = this.state;
+        const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
 
         return (
             <Fragment>
@@ -73,10 +36,10 @@ class Main extends PureComponent {
                                 beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
                                 afterChange={index => console.log('slide to', index)}
                             >
-                                {this.state.data.map(val => (
+                                {carouselAdList.map((carouselAd, index) => (
                                     <a
-                                        key={val}
-                                        href="http://www.alipay.com"
+                                        key={index.toString()}
+                                        href={carouselAd.SkipUrl}
                                         style={{
                                             display: 'inline-block',
                                             width: '100%',
@@ -84,7 +47,7 @@ class Main extends PureComponent {
                                         }}
                                     >
                                         <img
-                                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                            src={carouselAd.ImgUrl}
                                             alt=""
                                             style={{width: '100%', height: '176px'}}
                                             onLoad={() => {
@@ -114,23 +77,23 @@ class Main extends PureComponent {
                 </section>
 
                 <div className="art-main__special">
-                    <Letters/>
+                    <Letters data={newsPagerList}/>
                 </div>
 
                 <div className="art-main__recomand">
-                    <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
+                    {commonAdList && commonAdList.length > 0 ? <img src={commonAdList[0].ImgUrl}/> : null}
                 </div>
 
                 <div className="art-main__interval"/>
 
                 <div className="art-main__column">
-                    <Column columnList={columnList}/>
+                    <Column leftPictureUrl={`${PICTUREURL}30.png`} rightPictureUrl={`${PICTUREURL}31.png`}/>
                 </div>
 
                 <div className="art-main__recommend">
                     <span>为你推荐</span>
                     <div>
-                        {productionList.map((production, index) => {
+                        {userLikeProducts.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
                                     <ProductionItem {...production}/>
