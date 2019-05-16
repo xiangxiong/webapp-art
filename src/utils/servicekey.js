@@ -38,3 +38,14 @@ export const AddressDelete = 'Art.Service.Customer.Dto.Api.AddressDeleteRequest'
 //设为默认收货地址
 export const AddressSetDefault = 'Art.Service.Customer.Dto.Api.AddressSetDefaultRequest';
 
+//获取商城商品详情
+export const WorthGoodsDetail = 'Art.Service.Product.Dto.Request.WorthGoodsDetailRequest';
+
+//买家/卖家 订单列表
+export const QueryCustomerOrderList = 'Art.Service.Order.Dto.Request.api.QueryCustomerOrderListRequest';
+
+//卖家/买家 订单详情
+export const GetOrderDetail = 'Art.Service.Order.Dto.Request.api.GetOrderDetailRequest';
+
+//按主单号获取的订单详情
+export const POrderInfo = 'Art.Service.Order.Dto.Request.api.POrderInfoRequest';

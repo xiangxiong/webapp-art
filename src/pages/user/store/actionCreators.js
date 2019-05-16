@@ -8,7 +8,10 @@ import {
     AddressAdd,
     AddressUpdate,
     AddressDelete,
-    AddressSetDefault
+    AddressSetDefault,
+    QueryCustomerOrderList,
+    GetOrderDetail,
+    POrderInfo
 } from "../../../utils/servicekey";
 import history from '@/utils/history';
 
@@ -25,6 +28,21 @@ export const userDictAdList = (DictValueList) => ({
 export const userAddressList = (DataList) => ({
     type: constants.USER_ADDRESS_LIST,
     value: DataList
+});
+
+export const queryCustomerOrderList = (DataList) => ({
+    type: constants.USER_ORDER_LIST,
+    value: DataList
+});
+
+export const orderDetail = (data) => ({
+    type: constants.USER_ORDER_DETAIL,
+    value: data
+});
+
+export const pOrderInfo = (OrderInfo) => ({
+    type: constants.USER_PORDER_INFO,
+    value: OrderInfo
 });
 
 export const getCustomerDetail = (params) => {
@@ -105,6 +123,33 @@ export const getAddressSetDefault = (params) => {
                 if (response) {
                     history.push('');
                 }
+            });
+    }
+};
+
+export const getQueryCustomerOrderList = (params) => {
+    return (dispatch) => {
+        return post(QueryCustomerOrderList, params)
+            .then((response) => {
+                dispatch(queryCustomerOrderList(response.DataList));
+            });
+    }
+};
+
+export const getGetOrderDetail = (params) => {
+    return (dispatch) => {
+        return post(GetOrderDetail, params)
+            .then((response) => {
+                dispatch(orderDetail(response.data));
+            });
+    }
+};
+
+export const getPOrderInfo = (params) => {
+    return (dispatch) => {
+        return post(POrderInfo, params)
+            .then((response) => {
+                dispatch(pOrderInfo(response.OrderInfo));
             });
     }
 };

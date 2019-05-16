@@ -1,9 +1,19 @@
-import {USER_CUSTOMER_DETAIL, USER_ADDRESS_LIST, USER_DICT_LIST} from './constants';
+import {
+    USER_CUSTOMER_DETAIL,
+    USER_ADDRESS_LIST,
+    USER_DICT_LIST,
+    USER_ORDER_LIST,
+    USER_ORDER_DETAIL,
+    USER_PORDER_INFO
+} from './constants';
 
 const defaultState = {
     customerDetail: {},
     userAddressList: [],
     userDictList: [],
+    userOrderList: [],
+    userOrderDetail: {},
+    userPOrderInfo: {}
 };
 
 export default (state = defaultState, action) => {
@@ -22,6 +32,21 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 userDictList: action.value
+            };
+        case USER_ORDER_LIST:
+            return {
+                ...state,
+                userOrderList: action.value
+            };
+        case USER_ORDER_DETAIL:
+            return {
+                ...state,
+                userOrderDetail: action.value
+            };
+        case USER_PORDER_INFO:
+            return {
+                ...state,
+                userPOrderInfo: action.value
             };
         default:
             return state;

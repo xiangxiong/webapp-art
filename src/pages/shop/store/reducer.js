@@ -6,6 +6,7 @@ const defaultState = {
     shopNewsPagerList: [],
     shopProductCommendList: [],
     shopUserLikeProducts: [],
+    shopWorthGoodsDetail: {}
 };
 export default (state = defaultState, action) => {
     switch (action.type) {
@@ -19,6 +20,8 @@ export default (state = defaultState, action) => {
             return {...state, shopProductCommendList: action.value};
         case constants.SHOP_LIKE_PRODUCTS_LIST:
             return {...state, shopUserLikeProducts: action.value};
+        case constants.SHOP_WORTH_GOODS_DETAIL:
+            return {...state, shopWorthGoodsDetail: action.value};
         default:
             return state;
     }
