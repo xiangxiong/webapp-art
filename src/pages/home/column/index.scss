@@ -1,24 +1,37 @@
 .art-column__main {
-  width: 349px;
+  width: 351px;
   margin: 0 auto;
 
   & > h3 {
+    margin: 0 0 5px 0;
     font-family: PingFangSC-Semibold;
     font-size: 18px;
     color: #333333;
     letter-spacing: -0.13px;
     text-align: left;
+    height: 25px;
+    line-height: 25px
   }
 
   &___left {
     float: left;
     width: 172px;
-    height: 74px;
+    height: 84px;
+
+    & > img {
+      width: 172px;
+      height: 84px;
+    }
   }
 
   &___right {
     float: right;
     width: 172px;
-    height: 74px;
+    height: 84px;
+
+    & > img {
+      width: 172px;
+      height: 84px;
+    }
   }
 }

@@ -11,10 +11,12 @@ export default class Column extends PureComponent {
         return (
             <div className="art-column__main">
                 <h3>栏目</h3>
-                <div className="art-column__main___left" style={{backgroundImage: 'url(' + leftPictureUrl + ')'}}>
+                <div className="art-column__main___left">
+                    <img src={leftPictureUrl}/>
                 </div>
 
-                <div className="art-column__main___right" style={{backgroundImage: 'url(' + rightPictureUrl + ')'}}>
+                <div className="art-column__main___right">
+                    <img src={rightPictureUrl}/>
                 </div>
             </div>
         )

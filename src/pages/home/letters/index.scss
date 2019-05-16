@@ -1,4 +1,4 @@
-.letters-main {
+.art-letters__main {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -14,8 +14,12 @@
   height: 18px;
   line-height: 18px;
   text-align: left;
-  font-family: PingFangSC-Regular;
-  font-size: 13px;
-  color: #666666;
-  letter-spacing: -0.09px;
+
+  & > a {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #666666;
+    letter-spacing: -0.09px;
+  }
+
 }

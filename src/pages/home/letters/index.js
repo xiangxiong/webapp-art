@@ -10,11 +10,10 @@ export default class Letters extends PureComponent {
 
     render() {
         const {data} = this.props;
-
         return (
-            <div className="letters-main">
+            <div className="art-letters__main">
                 <img src={`${PICTUREURL}6.png`}/>
-                {(data && data.length > 0) ? (
+                {data && data.length > 0 ? (
                     <Carousel className="my-carousel"
                               dots={false}
                               dragging={false}

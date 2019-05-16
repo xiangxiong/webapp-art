@@ -71,7 +71,6 @@ class Main extends PureComponent {
                                 <NavItem {...navData}/>
                             </div>)
                     })}
-
                 </section>
 
                 <div className="art-main__special">
@@ -88,8 +87,9 @@ class Main extends PureComponent {
                     <Column leftPictureUrl={`${PICTUREURL}30.png`} rightPictureUrl={`${PICTUREURL}31.png`}/>
                 </div>
 
-                <div className="art-main__recommend">
-                    <span>为你推荐</span>
+                <h3 className="art-main__recommend">为你推荐</h3>
+
+                <div className="art-main__recommendProduct">
                     <div>
                         {userLikeProducts.map((production, index) => {
                             return (
