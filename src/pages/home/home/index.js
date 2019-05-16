@@ -28,12 +28,10 @@ class Main extends PureComponent {
         return (
             <Fragment>
                 <div className="art-main__header">
-                    <div>
+                    <div className="art-main__header___carousel">
                         <Carousel
                             autoplay={false}
                             infinite
-                            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                            afterChange={index => console.log('slide to', index)}
                         >
                             {carouselAdList.map((carouselAd, index) => (
                                 <a
@@ -41,25 +39,25 @@ class Main extends PureComponent {
                                     href={carouselAd.SkipUrl}
                                     style={{
                                         display: 'inline-block',
-                                        width: '100%',
+                                        width: '375px',
                                         height: '176px',
                                     }}
                                 >
                                     <img
                                         src={carouselAd.ImgUrl}
-                                        alt=""
-                                        style={{width: '100%', height: '176px'}}
-                                        onLoad={() => {
-                                        }}
+                                        style={{width: '375px', height: '176px'}}
                                     />
                                 </a>
                             ))}
                         </Carousel>
                     </div>
 
-                    <div>
+                    <div className="art-main__header___search">
                         <span>上海</span>
-                        <input placeholder="大家都在搜紫砂壶" type="text"/>
+                        <div>
+                            <img src={`${PICTUREURL}51.png`}/>
+                            <span>大家都在搜紫砂壶</span>
+                        </div>
                         <img src={`${PICTUREURL}2.png`}/>
                     </div>
                 </div>

@@ -53,24 +53,23 @@ class Shop extends PureComponent {
                     authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
                 },
             ],
-
-            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
         };
     }
 
     render() {
-        const {columnList, salesProductionList, likeProductionList} = this.state;
+        const {salesProductionList, likeProductionList} = this.state;
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
 
         return (
             <Fragment>
                 <div className="art-shop__header">
-                    <div></div>
-
                     <div>
-                        <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
+                        <img src={`${PICTUREURL}51.png`}/>
+                        <span>大家都在搜紫砂壶</span>
+                    </div>
+                    <div>
+                        <img src={`${PICTUREURL}50.png`}/>
                         <span>分类</span>
-
                     </div>
                 </div>
 
@@ -78,25 +77,20 @@ class Shop extends PureComponent {
                     <Carousel
                         autoplay={false}
                         infinite
-                        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                        afterChange={index => console.log('slide to', index)}
                     >
-                        {this.state.data.map(val => (
+                        {shopCarouselAdList.map((shopCarouselAd, index) => (
                             <a
-                                key={val}
-                                href="http://www.alipay.com"
+                                key={index.toString()}
+                                href={shopCarouselAd.SkipUrl}
                                 style={{
                                     display: 'inline-block',
-                                    width: '100%',
+                                    width: '375px',
                                     height: '148px',
                                 }}
                             >
                                 <img
-                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                    alt=""
-                                    style={{width: '100%', height: '148px'}}
-                                    onLoad={() => {
-                                    }}
+                                    src={shopCarouselAd.ImgUrl}
+                                    style={{width: '375px', height: '148px'}}
                                 />
                             </a>
                         ))}
