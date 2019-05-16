@@ -140,10 +140,6 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
-          {
-            test:/\.scss$/,
-            loaders:['style-loader','css-loader','sass-loader'],
-         },
           // Process JS with Babel.
           {
             test: /\.(js|jsx)$/,
@@ -166,8 +162,8 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.css$/,
-            use: [
+            test: /\.(css|scss|sass)$/,
+            use:[
               require.resolve('style-loader'),
               {
                 loader: require.resolve('css-loader'),
@@ -191,10 +187,13 @@ module.exports = {
                         'not ie < 9', // React doesn't support IE8 anyway
                       ],
                       flexbox: 'no-2009',
-                    }),
+                    })
                   ],
                 },
               },
+              {
+                 loader:require.resolve('sass-loader')
+              }
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.

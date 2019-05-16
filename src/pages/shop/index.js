@@ -67,6 +67,7 @@ class Shop extends PureComponent {
                         <img src={`${PICTUREURL}51.png`}/>
                         <span>大家都在搜紫砂壶</span>
                     </div>
+                    
                     <div>
                         <img src={`${PICTUREURL}50.png`}/>
                         <span>分类</span>
