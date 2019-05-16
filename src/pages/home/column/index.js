@@ -9,15 +9,12 @@ export default class Column extends PureComponent {
     render() {
         const {leftPictureUrl, rightPictureUrl} = this.props;
         return (
-            <div className="column-main">
-                <span>栏目</span>
-                <div>
-                    <div>
-                        <img src={leftPictureUrl}/>
-                    </div>
-                    <div>
-                        <img src={rightPictureUrl}/>
-                    </div>
+            <div className="art-column__main">
+                <h3>栏目</h3>
+                <div className="art-column__main___left" style={{backgroundImage: 'url(' + leftPictureUrl + ')'}}>
+                </div>
+
+                <div className="art-column__main___right" style={{backgroundImage: 'url(' + rightPictureUrl + ')'}}>
                 </div>
             </div>
         )

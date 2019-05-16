@@ -1,26 +1,24 @@
-.column-main {
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #E7E7E7;
-  width: 100%;
+.art-column__main {
+  width: 349px;
+  margin: 0 auto;
 
-  & > span {
+  & > h3 {
     font-family: PingFangSC-Semibold;
     font-size: 18px;
     color: #333333;
     letter-spacing: -0.13px;
-    margin-top: 6px;
     text-align: left;
   }
 
-  & > div {
-    display: flex;
-    padding-top: 5px;
-    padding-bottom: 10px;
+  &___left {
+    float: left;
+    width: 172px;
+    height: 74px;
+  }
 
-    & > div {
-      flex: 1;
-      height: 84px;
-    }
+  &___right {
+    float: right;
+    width: 172px;
+    height: 74px;
   }
 }

@@ -14,41 +14,23 @@ export default class Letters extends PureComponent {
         return (
             <div className="letters-main">
                 <img src={`${PICTUREURL}6.png`}/>
-
                 {(data && data.length > 0) ? (
-                    <div>
-                        <Carousel
-                            dots={false}
-                            vertical={true}
-                            infinite
-                        >
-                            {this.props.data.map((item, index) => (
-                                <a
-                                    key={index.toString()}
-                                    href={item.LinkUrl}
-                                    style={{
-                                        display: 'inline-block',
-                                        width: '100%',
-                                        height: '18px',
-                                        backgroundColor: '#0e80d2',
-                                    }}
-                                >
-                                    <span style={{
-                                        fontFamily: 'PingFangSC-Regular',
-                                        fontSize: '13px',
-                                        color: ' #666666',
-                                        letterSpacing: '-0.09px',
-                                        textAlign: 'left',
-                                        width: '100%',
-                                        height: '18px',
-                                        backgroundColor: '#C30F22',
-                                    }}>
+                    <Carousel className="my-carousel"
+                              dots={false}
+                              dragging={false}
+                              swiping={false}
+                              autoplay
+                              infinite>
+                        {data.map((item, index) => {
+                            return (
+                                <div className="v-item" key={index.toString()}>
+                                    <a href={item.LinkUrl}>
                                         {item.Title}
-                                        </span>
-                                </a>
-                            ))}
-                        </Carousel>
-                    </div>
+                                    </a>
+                                </div>
+                            )
+                        })}
+                    </Carousel>
                 ) : null}
             </div>
         )
