@@ -11,7 +11,7 @@ import {PICTUREURL} from "../../utils/api";
 
 class Shop extends PureComponent {
 
-    constructor(props) {
+    constructor(props){
         super(props);
 
         this.state = {
@@ -23,7 +23,6 @@ class Shop extends PureComponent {
                     marketPrice: '￥1998',
                     authorName: '宇翔老者',
                     authorHead: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-
                 },
                 {
                     imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',

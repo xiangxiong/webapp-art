@@ -11,7 +11,7 @@ class App extends Component{
       <Provider store={store}>
             <Router history={history}>
                 {
-                   routes.map(route => (
+                   routes.map(route =>(
                         <Route {...route} />
                    ))
                 }

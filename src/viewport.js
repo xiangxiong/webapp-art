@@ -9,13 +9,14 @@
             dpr = window.devicePixelRatio || 1,
             maxWidth = 540,
             designWidth = 0
-
+            
         dpr = dpr >= 3 ? 3 : (dpr >= 2 ? 2 : 1)
 
         // 允许通过自定义name为hotcss的meta头，通过initial-dpr来强制定义页面缩放
         if (hotcssEl) {
             const hotcssCon = hotcssEl.getAttribute("content");
             if (hotcssCon) {
+
                 const initialDprMatch = hotcssCon.match(/initial\-dpr=([\d\.]+)/)
                 if (initialDprMatch) {
                     dpr = parseFloat(initialDprMatch[1])
@@ -73,7 +74,7 @@
         // rem可能为小数，这里不再做处理了
         return rem * 20 * designWidth / 320
     }
-
+    
     hotcss.mresize = function () {
         // 对，这个就是核心方法了，给HTML设置font-size。
         let innerWidth = document.documentElement.getBoundingClientRect().width || window.innerWidth

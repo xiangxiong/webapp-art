@@ -29,7 +29,7 @@ class User extends PureComponent {
                 },
             ]
         };
-
+        
         this.handleNavUrl = this.handleNavUrl.bind(this);
     }
 

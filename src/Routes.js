@@ -1,21 +1,14 @@
 import Cart from './pages/cart';
 import Home from './pages/home';
 import Enter from './pages/user/entering';
+import Applcation from './pages/user/application';
 
 export default [
     {
       path: "/",
       component: Home,
       exact:true,
-      key: 'home',
-      routes:[
-          // {
-          //   path: "/ttt",
-          //   component: Cart,
-          //   exact:true,
-          //   key:'ttt'
-          // }
-      ]
+      key: 'home'
     },
     {
         path: "/cart",
@@ -28,5 +21,11 @@ export default [
         component: Enter,
         exact:true,
         key:'enter'
+    },
+    {
+        path: "/application",
+        component: Applcation,
+        exact:true,
+        key:'application'
     }
 ];
