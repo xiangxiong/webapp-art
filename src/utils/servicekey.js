@@ -16,3 +16,6 @@ export const CustomerDetail = 'Art.Service.Customer.Dto.Api.CustomerDetailReques
 
 //获取精选商品接口[热销商品]
 export const ProductCommend = 'Art.Service.Product.Dto.Reuqest.ProductCommendRequest';
+
+//用户申请入驻
+export const CreateIntertionalPartener = 'Art.Service.Product.Dto.Api.CreateIntertionalPartenerRequest';

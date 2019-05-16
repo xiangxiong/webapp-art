@@ -1,6 +1,7 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {CustomerDetail} from "../../../utils/servicekey";
+import {CustomerDetail, CreateIntertionalPartener} from "../../../utils/servicekey";
+import history from '@/utils/history';
 
 export const userCarouselAdList = (DataList) => ({
     type: constants.USER_CUSTOMER_DETAIL,
@@ -16,3 +17,13 @@ export const getCustomerDetail = (params) => {
     }
 };
 
+export const getCreateIntertionalPartener = (params) => {
+    return (dispatch) => {
+        return post(CreateIntertionalPartener, params)
+            .then((response) => {
+                if(response){
+                    history.push('/pend');
+                }
+            });
+    }
+};
