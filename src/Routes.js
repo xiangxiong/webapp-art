@@ -1,6 +1,8 @@
 import Cart from './pages/cart';
 import Home from './pages/home';
 import Enter from './pages/user/entering';
+import Pending from '@/pages/user/pending';
+import Pay from '@/pages/user/pay';
 import Applcation from './pages/user/application';
 
 export default [
@@ -28,4 +30,19 @@ export default [
         exact:true,
         key:'application'
     }
+    ,
+    {
+        path: "/pend",
+        component: Pending,
+        exact:true,
+        key:'pend'
+    }
+    ,
+    {
+        path: "/pay",
+        component: Pay,
+        exact:true,
+        key:'pay'
+    }
 ];
+

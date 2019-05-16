@@ -1,0 +1,35 @@
+@import './../../../style/index.scss';
+
+.art-pending{
+    &__success{
+        height:32px;
+        font-size:16px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        text-align: center;
+        color:rgba(197,33,37,1);
+        line-height:26px;
+    }
+
+    &__content{
+        font-size:16px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(68,68,68,1);
+        text-align: center;
+        margin: 0 20px 0 20px;
+    }
+
+    &__contact{
+        height:45px;
+        background:rgba(197,33,37,1);
+        border-radius:2px;
+        margin: 50px 15px 0 15px;
+        line-height: 45px;
+        text-align: center;
+        font-size:16px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+    }
+}

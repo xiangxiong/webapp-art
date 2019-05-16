@@ -1,0 +1,92 @@
+@import './../../../style/index.scss';
+
+$component:'.art-add';
+
+#{$component}{
+
+    &__option-cnt{
+        display: flex;
+    }
+
+    &__icon-cnt{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $border-radius-circle;
+        width: 25px;
+        min-width: 25px;
+        height: 25px;
+        margin-left:25px;
+        margin-right: 10px;
+        color: transparent;
+        border: 2px solid rgba($color: $art-checkbox-icon-color, $alpha: 0.2);
+        background-color: $color-bg-color;
+        box-sizing: border-box;
+        transition: all 0.2s;
+    }
+
+    &__pay{
+        width:160px;
+        font-size:15px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(33,111,199,1);
+        text-align: center;
+        margin: 0 auto;
+        padding-top: 11px;
+        padding-bottom: 10px;
+    }
+
+    &__desc{
+        @include flex(row);
+        background: $color-bg-color;
+        padding: 13px;
+        @include border-thin-bottom($width:1PX);
+
+        &>div:nth-child(1){
+            width:25%;
+            color: $color-warn;
+            font-size: $font-size-xs;
+        }
+
+        &>div:nth-child(2){
+            width:55%;
+            color: $color-grey-7;
+        }
+
+        &>div:nth-child(3){
+            width:20%;
+        }
+    }
+
+    &__option{
+        background: $color-bg-color;
+        border-radius: $border-radius-md;
+        margin: 18px;
+
+        &--selected{
+            #{$component}__icon-cnt{
+                color: $art-checkbox-icon-color-checked;
+                border: none;
+                background-color: $art-checkbox-icon-color;
+            }
+        }
+    }
+
+    &__paysure{
+        background:$color-warn;
+        border-radius:2px;
+        margin: 30px 29px 40px 29px;
+        height: 45px;
+        text-align: center;
+        line-height: 45px;
+        color: $color-bg-color;
+    }
+}
+
+.my-radio .am-radio {
+    padding: 2.5px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-right: 5px;
+}
