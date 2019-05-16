@@ -160,7 +160,13 @@ class Application extends PureComponent {
     }
 
     handleSubmit() {
-        const {type, Provider, Phone} = this.state;
+        history.push('/pend');
+        const {type, Provider, Phone, isAgreement} = this.state;
+        const {ShippingAddress, ShippingContactWith} = this.props;
+
+        if (!isAgreement) {
+            return
+        }
 
         let params = {};
 
@@ -176,8 +182,8 @@ class Application extends PureComponent {
         params.CategoryId = '';
         params.Phone = Phone;
         params.Provider = Provider;
-        params.AddDetail = '';
-        params.Linkman = '';
+        params.AddDetail = ShippingAddress;
+        params.Linkman = ShippingContactWith;
         params.BussinesImage = '';
         params.IdentityImage1 = '';
         params.IdentityImage2 = '';
@@ -207,7 +213,11 @@ class Application extends PureComponent {
                         type === "art" ? RenderArtForm() : RenderShopForm()
                     }
                     <div className="art-application__form-agree">
-                        <Radio className="my-radio" onChange={e => console.log('checkbox', e)}>我已同意并同意遵守合作条款</Radio>
+                        <Radio className="my-radio"
+                               onChange={e => {
+                                   this.setState({isAgreement: e.target.checked})
+                               }}
+                        >我已同意并同意遵守合作条款</Radio>
                     </div>
                     <div className="art-application__action">
                         <Button onClick={this.handleSubmit}>提交</Button>

@@ -19,3 +19,22 @@ export const ProductCommend = 'Art.Service.Product.Dto.Reuqest.ProductCommendReq
 
 //用户申请入驻
 export const CreateIntertionalPartener = 'Art.Service.Product.Dto.Api.CreateIntertionalPartenerRequest';
+
+//获取保证金缴纳列表
+export const Dict = 'Art.Service.Basis.Dto.DictRequest';
+
+//收货地址列表
+export const AddressList = 'Art.Service.Customer.Dto.Api.AddressListRequest';
+
+//添加收货地址
+export const AddressAdd = 'Art.Service.Customer.Dto.Api.AddressAddRequest';
+
+//更新收货地址
+export const AddressUpdate = 'Art.Service.Customer.Dto.Api.AddressUpdateRequest';
+
+//删除收货地址
+export const AddressDelete = 'Art.Service.Customer.Dto.Api.AddressDeleteRequest';
+
+//设为默认收货地址
+export const AddressSetDefault = 'Art.Service.Customer.Dto.Api.AddressSetDefaultRequest';
+
