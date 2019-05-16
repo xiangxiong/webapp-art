@@ -9,7 +9,10 @@
 * pages  页面.
   * home 首页
   * user 用户中心.
+    * address 地址管理
+    * order 订单管理.
   * shop 艺商城.
+    * productDetails 商品详情.
   * master 艺术大家.
   * cart 购物车.
   * user-login 用户登录.
