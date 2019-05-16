@@ -1,20 +1,20 @@
-.production-main {
+.art-production_main {
   display: flex;
   flex-direction: column;
 
 
   &__picture {
-    margin-top: 8px;
     display: flex;
     justify-content: flex-end;
     height: 172px;
+    width: 172px;
     border-radius: 3px;
 
     & > div {
       width: 46px;
       height: 21px;
       border-radius: 100px;
-      background-color: #C30F22;
+      background-color: #E87908;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -77,6 +77,7 @@
     & > img {
       width: 20px;
       height: 20px;
+      border-radius: 50%;
     }
   }
 

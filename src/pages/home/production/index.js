@@ -3,29 +3,34 @@
  */
 import React, {PureComponent} from 'react';
 import './index.scss';
+import {SERVICEPICTUREURL} from '../../../utils/api';
 
 export default class ProductionItem extends PureComponent {
 
     render() {
+        const {ImgPath, IsGroup, ProductName = '', SalePrice = '', MarketPrice = '', ProviderName = '', ProviderImg = ''} = this.props;
+
         return (
-            <div className='production-main'>
-                <div className="production-main__picture"
-                     style={{backgroundImage: 'url(' + this.props.imageUrl + ')', backgroundRepeat: 'no-repeat'}}>
-                    <div>
-                        <span>团购中</span>
-                    </div>
+            <div className='art-production_main'>
+                <div className="art-production_main__picture"
+                     style={{backgroundImage: 'url(' + `${SERVICEPICTUREURL}${ImgPath}` + ')', backgroundRepeat: 'no-repeat'}}>
+                    {IsGroup ? (
+                        <div>
+                            <span>团购中</span>
+                        </div>
+                    ) : null}
                 </div>
-                <span>{this.props.name}</span>
-                <div className="production-main__price">
-                    <span>{this.props.salesPrice}</span>
+                <span>{ProductName}</span>
+                <div className="art-production_main__price">
+                    <span>{`￥${SalePrice}`}</span>
                     <span>
-                        <s>{this.props.marketPrice}</s>
+                        <s>{`￥${MarketPrice}`}</s>
                     </span>
                 </div>
 
-                <div className="production-main__author">
-                    <span>{this.props.authorName}</span>
-                    <img src={this.props.authorHead}/>
+                <div className="art-production_main__author">
+                    <span>{ProviderName}</span>
+                    <img src={ProviderImg}/>
                 </div>
 
             </div>

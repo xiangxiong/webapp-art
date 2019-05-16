@@ -92,7 +92,7 @@ class Main extends PureComponent {
                         {userLikeProducts.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
-                                    <ProductionItem {...production}/>
+                                   {/* <ProductionItem {...production}/>*/}
                                 </div>)
                         })}
                     </div>

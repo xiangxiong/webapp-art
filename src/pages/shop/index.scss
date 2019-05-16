@@ -116,12 +116,20 @@
 
   &__recommend {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: 12px;
     margin-right: 12px;
 
-    &___title {
+    &___left {
+      //background-color: #E87908;
+      width: 172px;
+      height: 172px;
+    }
 
+    &___right {
+      background-color: #C30F22;
+      width: 172px;
+      height: 172px;
     }
 
     &___content {

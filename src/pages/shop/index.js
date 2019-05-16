@@ -117,13 +117,15 @@ class Shop extends PureComponent {
                 </div>
 
                 <div className="art-shop__recommend">
-                    <div className="art-shop__recommend___content">
-                        {salesProductionList.map((production, index) => {
-                            return (
-                                <div key={index.toString()}>
-                                    <ProductionItem {...production}/>
-                                </div>)
-                        })}
+                    <div className="art-shop__recommend___left" style={{marginRight: '5px'}}>
+                        <ProductionItem {...shopUserLikeProducts[0]}/>
+
+
+                        {/*  <ProductionItem {...production}/>*/}
+                    </div>
+
+                    <div className="art-shop__recommend___right">
+                        {/*<ProductionItem {...production}/>*/}
                     </div>
                 </div>
 
@@ -137,7 +139,7 @@ class Shop extends PureComponent {
                         {salesProductionList.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
-                                    <ProductionItem {...production}/>
+                                    {/* <ProductionItem {...production}/>*/}
                                 </div>)
                         })}
                     </div>
