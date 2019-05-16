@@ -6,7 +6,6 @@
  * 4、react ssr.
 
 > 目录结构
-
 * pages  页面.
   * home 首页
   * user 用户中心.
@@ -23,5 +22,4 @@
 * statics  字体库和图片资料.
 
 > 约束
-
 * css 写法符合 bem 规范.
