@@ -49,3 +49,6 @@ export const GetOrderDetail = 'Art.Service.Order.Dto.Request.api.GetOrderDetailR
 
 //按主单号获取的订单详情
 export const POrderInfo = 'Art.Service.Order.Dto.Request.api.POrderInfoRequest';
+
+//创建订单
+export const CreateOrder = 'Art.Service.Order.Dto.Request.api.CreateOrderRequest';

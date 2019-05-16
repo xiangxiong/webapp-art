@@ -11,7 +11,8 @@ import {
     AddressSetDefault,
     QueryCustomerOrderList,
     GetOrderDetail,
-    POrderInfo
+    POrderInfo,
+    CreateOrder
 } from "../../../utils/servicekey";
 import history from '@/utils/history';
 
@@ -154,3 +155,13 @@ export const getPOrderInfo = (params) => {
     }
 };
 
+export const getCreateOrder = (params) => {
+    return (dispatch) => {
+        return post(CreateOrder, params)
+            .then((response) => {
+                if (response) {
+                    history.push('');
+                }
+            });
+    }
+};
