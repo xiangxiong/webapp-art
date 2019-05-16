@@ -18,8 +18,8 @@ const PublicHeader = (props) => {
             </NavBar>
         </Fragment>
     )
-};
-   
+}
+  
 PublicHeader.propTypes = {
     title:PropTypes.string
 }
