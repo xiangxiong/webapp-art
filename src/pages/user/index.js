@@ -4,7 +4,7 @@ import {List} from 'antd-mobile';
 import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
-import history from '@/utils/history';
+import history from './../../utils/history';
 
 const Item = List.Item;
 

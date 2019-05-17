@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react';
-import PublicHeader from '@/components/header';
-import history from '@/utils/history';
+import PublicHeader from './../../../components/header';
+import history from './../../../utils/history';
 import './index.scss';
 
 const LoadData = () => {

@@ -15,7 +15,7 @@ import {
     CreateOrder,
     QueryCategoryList
 } from "../../../utils/servicekey";
-import history from '@/utils/history';
+import history from '../../../utils/history';
 
 export const userCarouselAdList = (DataList) => ({
     type: constants.USER_CUSTOMER_DETAIL,

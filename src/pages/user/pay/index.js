@@ -1,5 +1,5 @@
 import React,{useState,Fragment,PureComponent} from 'react';
-import PublicHeader from '@/components/header';
+import PublicHeader from './../../../components/header';
 import './index.scss';
 import connect from "react-redux/es/connect/connect";
 import {getDict} from "../store/actionCreators";

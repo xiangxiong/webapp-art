@@ -1,8 +1,8 @@
 import Cart from './pages/cart';
 import Home from './pages/home';
 import Enter from './pages/user/entering';
-import Pending from '@/pages/user/pending';
-import Pay from '@/pages/user/pay';
+import Pending from './pages/user/pending';
+import Pay from './pages/user/pay';
 import Applcation from './pages/user/application';
 
 export default [

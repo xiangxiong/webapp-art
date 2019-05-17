@@ -2,7 +2,7 @@ import React, {PureComponent,Fragment} from 'react';
 import {NavBar, Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './index.scss';
-import history from '@/utils/history'
+import history from './../../utils/history'
 
 const PublicHeader = (props) => {
     return (
