@@ -33,13 +33,13 @@ export const getAdvertList = (AppAdType) => {
         return post(AppAdCommon, {AppAdType})
             .then((response) => {
                 if (AppAdType === 1) {
-                    dispatch(carouselAdList(response.DataList));
+                    dispatch(carouselAdList(response.Data.DataList));
                 } else if (AppAdType === 11) {
-                    dispatch(commonAdList(response.DataList));
+                    dispatch(commonAdList(response.Data.DataList));
                 } else if (AppAdType === 2) {
-                    dispatch(shopCarouselAdList(response.DataList));
+                    dispatch(shopCarouselAdList(response.Data.DataList));
                 } else if (AppAdType === 21) {
-                    dispatch(shopCommonAdList(response.DataList));
+                    dispatch(shopCommonAdList(response.Data.DataList));
                 } else if (AppAdType === 3) {
                 } else if (AppAdType === 31) {
                 } else if (AppAdType === 4) {
@@ -59,9 +59,9 @@ export const getNewsPagerList = (params) => {
                 }
 
                 if (params.CategoryId == 3) {
-                    dispatch(newsPagerList(response.NewList));
+                    dispatch(newsPagerList(response.Data.NewList));
                 } else if (params.CategoryId == 4) {
-                    dispatch(shopNewsPagerList(response.NewList));
+                    dispatch(shopNewsPagerList(response.Data.NewList));
                 } else if (params.CategoryId == 5) {
                 }
             });
@@ -77,9 +77,9 @@ export const getUserLikeProducts = (params) => {
                 }
 
                 if (params.Position === 1) {
-                    dispatch(userLikeProducts(response.DataList));
+                    dispatch(userLikeProducts(response.Data.DataList));
                 } else if (params.Position === 2) {
-                    dispatch(showUserLikeProducts(response.DataList));
+                    dispatch(showUserLikeProducts(response.Data.DataList));
                 }
             });
     }

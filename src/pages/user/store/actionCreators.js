@@ -56,7 +56,7 @@ export const getCustomerDetail = (params) => {
     return (dispatch) => {
         return post(CustomerDetail, params)
             .then((response) => {
-                dispatch(userCarouselAdList(response.Entity));
+                dispatch(userCarouselAdList(response.Data.Entity));
             });
     }
 };
@@ -76,7 +76,7 @@ export const getDict = (params) => {
     return (dispatch) => {
         return post(Dict, params)
             .then((response) => {
-                dispatch(userDictAdList(response.DictValueList));
+                dispatch(userDictAdList(response.Data.DictValueList));
             });
     }
 };
@@ -85,7 +85,7 @@ export const getAddressList = (params) => {
     return (dispatch) => {
         return post(AddressList, params)
             .then((response) => {
-                dispatch(userAddressList(response.DataList));
+                dispatch(userAddressList(response.Data.DataList));
             });
     }
 };
@@ -138,7 +138,7 @@ export const getQueryCustomerOrderList = (params) => {
     return (dispatch) => {
         return post(QueryCustomerOrderList, params)
             .then((response) => {
-                dispatch(queryCustomerOrderList(response.DataList));
+                dispatch(queryCustomerOrderList(response.Data.DataList));
             });
     }
 };
@@ -147,7 +147,7 @@ export const getGetOrderDetail = (params) => {
     return (dispatch) => {
         return post(GetOrderDetail, params)
             .then((response) => {
-                dispatch(orderDetail(response.data));
+                dispatch(orderDetail(response.Data.data));
             });
     }
 };
@@ -156,7 +156,7 @@ export const getPOrderInfo = (params) => {
     return (dispatch) => {
         return post(POrderInfo, params)
             .then((response) => {
-                dispatch(pOrderInfo(response.OrderInfo));
+                dispatch(pOrderInfo(response.Data.OrderInfo));
             });
     }
 };
@@ -177,7 +177,7 @@ export const getQueryCategoryList = (params) => {
         return post(QueryCategoryList, params)
             .then((response) => {
                 console.log("getQueryCategoryList response", response);
-                dispatch(queryCategoryList(response.DataList));
+                dispatch(queryCategoryList(response.Data.DataList));
             });
     }
 };

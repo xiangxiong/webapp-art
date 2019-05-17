@@ -36,7 +36,7 @@ export const getProductCommend = (params) => {
     return (dispatch) => {
         return post(ProductCommend, params)
             .then((response) => {
-                dispatch(shopProductCommendList(response.DataList));
+                dispatch(shopProductCommendList(response.Data.DataList));
             });
     }
 };
@@ -45,7 +45,7 @@ export const getWorthGoodsDetail = (params) => {
     return (dispatch) => {
         return post(WorthGoodsDetail, params)
             .then((response) => {
-                dispatch(worthGoodsDetail(response.Entity));
+                dispatch(worthGoodsDetail(response.Data.Entity));
             });
     }
 };

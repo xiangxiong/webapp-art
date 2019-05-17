@@ -78,12 +78,14 @@ class Application extends PureComponent {
     };
 
     handleChange(files, type, index) {
-        console.log("handleChange", files, type, index);
+        this.setState({
+            files,
+        });
     }
 
     handleSubmit() {
         history.push('/pend');
-        const {type, Provider, Phone, isAgreement, CategoryId} = this.state;
+        const {type, Provider, Phone, isAgreement, CategoryId, files} = this.state;
         const {ShippingAddress = "huhu", ShippingContactWith = "sdf"} = this.props;
 
         if (!isAgreement) {
@@ -92,8 +94,8 @@ class Application extends PureComponent {
 
         let params = {};
 
-        params.Token = '';
-        params.CustomerId = '';
+        params.Token = '1180036515879212';
+        params.CustomerId = '124';
 
         if (type === "art") {
             params.CooperationWay = '1';
@@ -106,10 +108,10 @@ class Application extends PureComponent {
         params.Provider = Provider;
         params.AddDetail = ShippingAddress;
         params.Linkman = ShippingContactWith;
-        params.BussinesImage = '';
-        params.IdentityImage1 = '';
-        params.IdentityImage2 = '';
-        params.LogoImage = '';
+        params.BussinesImage = files[0].url;
+        params.IdentityImage1 = files[0].url;
+        params.IdentityImage2 = files[0].url;
+        params.LogoImage = files[0].url;
 
         this.props.getCreateIntertionalPartener(params);
     }
@@ -231,7 +233,7 @@ class Application extends PureComponent {
                     onChange={this.handleChange}
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={files.length < 7}
-                    multiple={true}
+                    multiple={false}
                 />
 
                 <div className={uploadPanel}>
