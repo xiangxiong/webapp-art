@@ -16,7 +16,7 @@ class AddressList extends PureComponent {
     };
 
     showAddressItem = (userAddress, index) => {
-        const {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault} = userAddress;
+        let {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault, AddressId} = userAddress;
 
         return (
             <div className="art-add__item" key={index.toString()}>
@@ -27,16 +27,31 @@ class AddressList extends PureComponent {
                     </div>
 
                     <div>
+                        <div>
                         <span
-                            className={IsDefault == 1 ? 'art-add__item___left____default' : 'art-add__item___left____noDefault'}>
+                            style={{
+                                color: IsDefault == 1 ? '#C52125' : '#C6C6C6',
+                                borderColor: IsDefault == 1 ? 'rgba(197,33,37,1)' : 'rgba(198,198,198,1)'
+                            }}
+                            onClick={() => {
+                                if (IsDefault != 1) {
+                                    this.props.getAddressSetDefault('token', AddressId);
+                                }
+                            }}
+                        >
                             {IsDefault == 1 ? '默认' : '设为默认'}
                             </span>
-                        <span className="">{ShippingAddress}</span>
+                        </div>
+                        <span>{ShippingAddress}</span>
                     </div>
                 </div>
 
                 <div className="art-add__item___right">
-                    <img src=""/>
+                    <div className="art-icon art-icon-add"
+                         onClick={() => {
+                             this.props.getAddressDelete('token', [AddressId]);
+                         }}>
+                    </div>
                 </div>
             </div>
         )
@@ -47,11 +62,21 @@ class AddressList extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader title="地址管理"/>
-                <div className="art-add">
-                    {userAddressList.map((userAddress, index) => {
-                        return this.showAddressItem(userAddress, index);
-                    })}
+                <div>
+                    <PublicHeader title="地址管理"/>
+                    <div className="art-add">
+                        {userAddressList.map((userAddress, index) => {
+                            return this.showAddressItem(userAddress, index);
+                        })}
+                    </div>
+
+                    <div className="art-add__bottom"
+                         onClick={() => {
+                             this.goAddAddress()
+                         }}>
+                        <div className="art-icon art-icon-add"></div>
+                        <span>新建地址</span>
+                    </div>
                 </div>
             </Fragment>
         )
