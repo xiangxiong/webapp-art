@@ -1,13 +1,9 @@
 @import './../../../style/index.scss';
 
-$component:'.art-add';
-
-#{$component}{
-
+.art-add{
     &__option-cnt{
         display: flex;
     }
-
     &__icon-cnt{
         display: inline-flex;
         align-items: center;
@@ -65,7 +61,7 @@ $component:'.art-add';
         margin: 18px;
 
         &--selected{
-            #{$component}__icon-cnt{
+            &art-add__icon-cnt{
                 color: $art-checkbox-icon-color-checked;
                 border: none;
                 background-color: $art-checkbox-icon-color;

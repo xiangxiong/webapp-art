@@ -1,5 +1,5 @@
 import React,{useState,Fragment,PureComponent} from 'react';
-import PublicHeader from '@/components/header';
+import PublicHeader from './../../../components/header';
 import './index.scss';
 
 class Pay extends PureComponent{
@@ -11,7 +11,7 @@ class Pay extends PureComponent{
     render(){
         const {type} = this.props.location.state;
         const title = type === "art" ? "成为合作艺术家" : "成为艺术商城商户";
-
+        
         return (
             <Fragment>
                <PublicHeader title={title}/>

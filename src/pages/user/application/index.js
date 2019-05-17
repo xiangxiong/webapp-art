@@ -1,10 +1,10 @@
 import React, {PureComponent, Fragment, useState} from 'react';
 import {List, InputItem, Radio, Button, ActionSheet} from 'antd-mobile';
 import './index.scss';
-import PublicHeader from '@/components/header'
+import PublicHeader from './../../../components/header'
 import {ImagePicker} from 'antd-mobile';
 import classNames from 'classnames';
-import history from '@/utils/history';
+import history from './../../../utils/history';
 import {getCreateIntertionalPartener, getQueryCategoryList} from "../store/actionCreators";
 import connect from "react-redux/es/connect/connect";
 
