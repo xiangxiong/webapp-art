@@ -1,132 +1,19 @@
-.art-main {
+.art-main{
 
-  &__header {
-    width: 375px;
-    height: 176px;
-    display: flex;
-    flex-direction: column;
 
-    &___carousel {
-      width: 375px;
-      height: 176px;
-    }
-
-    &___search {
-      margin-top: 8px;
-      position: absolute;
-      width: 375px;
-      height: 36px;
-      display: flex;
-      flex-direction: row;
-      padding: 0 17px 0 14px;
-
-      & > span {
-        font-family: PingFangSC-Medium;
-        font-size: 14px;
-        color: #FFFFFF;
-        letter-spacing: -0.08px;
-      }
-
-      & > div {
-        flex: 1;
-        margin: 0 24px 0 24px;
-        height: 36px;
-        opacity: 0.53;
-        background: #CCCCCC;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-
-        & > img {
-          width: 12px;
-          height: 12px;
-          margin-right: 5px;
-        }
-
-        & > span {
-          opacity: 0.7;
-          font-family: PingFangSC-Regular;
-          font-size: 13px;
-          color: #626262;
-          letter-spacing: -0.09px;
-        }
-      }
-
-      & > img {
-        width: 17px;
-        height: 17px;
-        align-self: center;
-      }
-    }
+  &__header{
+    width:100%;
+    height: 170px;
   }
 
-  &__navitem {
-    height: 97px;
-    width: 375px;
-    display: flex;
+  &__navitem{
+    display:flex;
     flex-direction: row;
-    border-bottom: 1px solid #E7E7E7;
 
-    & > div {
-      flex: 1;
-      height: 97px;
-    }
+     &>div{
+       flex: 1;
+     }
   }
 
-  &__special {
-    padding: 11px 12px;
-  }
-
-  &__recomand {
-    padding: 0 12px 10px 12px;
-    width: 375px;
-    height: 96px;
-
-    & > img {
-      width: 351px;
-      height: 86px;
-      border-radius: 3px;
-    }
-  }
-
-  &__interval {
-    width: 375px;
-    height: 12px;
-    background-color: #F3F3F3;
-  }
-
-  &__column {
-    width: 351px;
-    height: 131px;
-    border-bottom: 1px solid #E7E7E7;
-    margin: 6px 12px 11px 12px;
-  }
-
-  &__recommend {
-    clear: both;
-    margin: 7px 12px 0 12px;
-    font-family: PingFangSC-Semibold;
-    font-size: 18px;
-    color: #333333;
-    letter-spacing: -0.13px;
-    text-align: left;
-    height: 25px;
-    line-height: 25px
-  }
-
-  &____recommendProduct {
-    & > div {
-      display: flex;
-      flex-direction: row;
-      width: 375px;
-      & > div {
-        flex: 1;
-        margin-left: 2.5px;
-        margin-right: 2.5px;
-      }
-    }
-  }
 
 }

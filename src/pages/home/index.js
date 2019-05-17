@@ -7,7 +7,6 @@ import Master from './../master/index';
 import Cart from './../cart/index';
 import User from './../user/index';
 
-
 export default class Home extends PureComponent{
 
    constructor(props){
@@ -18,7 +17,7 @@ export default class Home extends PureComponent{
             fullScreen: true,
         };
    }
-
+   
    renderFactory(pageText){
        switch(pageText){
           case "MAIN":
@@ -50,8 +49,8 @@ export default class Home extends PureComponent{
        return (
         <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
         <TabBar
-          unselectedTintColor="#949494"
-          tintColor="#33A3F4"
+          unselectedTintColor="#888888"
+          tintColor="#E87908"
           barTintColor="white"
           hidden={this.state.hidden}
           tabBarPosition="bottom"
@@ -59,8 +58,8 @@ export default class Home extends PureComponent{
           <TabBar.Item
             title="首页"
             key="Home"
-            icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg' }}
-            selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg' }}
+            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/Page 1.svg' }}
+            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/Page 1.svg' }}
             selected={this.state.selectedTab === 'blueTab'}
             onPress={() => {
               this.setState({
@@ -73,8 +72,8 @@ export default class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' }}
-            selectedIcon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg' }}
+            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/13.svg' }}
+            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/28.svg' }}
             title="艺商城"
             key="shop"
             selected={this.state.selectedTab === 'redTab'}
@@ -88,9 +87,9 @@ export default class Home extends PureComponent{
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
 
-          {/* <TabBar.Item
-            icon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' }}
-            selectedIcon={{ uri: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg' }}
+          <TabBar.Item
+            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
+            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
             title="艺术大家"
             key="art"
             selected={this.state.selectedTab === 'artTab'}
@@ -105,8 +104,8 @@ export default class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-            selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
+            selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
             title="购物车"
             key="cart"
             dot 
@@ -118,11 +117,11 @@ export default class Home extends PureComponent{
             }}
           >
             {this.renderContent('CART')}
-          </TabBar.Item> */}
+          </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg' }}
-            selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg' }}
+            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
+            selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
             title="我的"
             key="my"
             selected={this.state.selectedTab === 'yellowTab'}

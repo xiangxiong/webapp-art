@@ -5,7 +5,7 @@ import Column from '../column/index';
 import ProductionItem from './../production/index';
 import Letters from './../letters/index';
 import {PICTUREURL} from '../../../utils/api';
-import {Carousel} from 'antd-mobile';
+import {Carousel,WingBlank} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
 
@@ -20,14 +20,81 @@ class Main extends PureComponent {
             {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
             {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
         ];
+
+        this.state = {
+            data: ['1', '2', '3'],
+            imgHeight: 176,
+        };
     }
 
     render() {
-        const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
+        // const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
 
         return (
             <Fragment>
                 <div className="art-main__header">
+                <Carousel
+                    autoplay={false}
+                    infinite
+                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                    afterChange={index => console.log('slide to', index)}
+                    >
+                    {this.state.data.map(val => (
+                        <a
+                        key={val}
+                        href="http://www.alipay.com"
+                        style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                        >
+                        <img
+                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                            alt=""
+                            style={{ width: '100%', verticalAlign: 'top' }}
+                            onLoad={() => {
+                            // fire window resize event to change height
+                            window.dispatchEvent(new Event('resize'));
+                            this.setState({ imgHeight: 'auto' });
+                            }}
+                        />
+                        </a>
+                    ))}
+                    </Carousel>
+                </div>
+
+                <div className="art-main__navitem">
+                        <div>
+                            <p></p>
+                            <span>大师云集</span>
+                        </div>
+                        <div>
+                            <p></p>
+                            <span>市集</span>
+                        </div>
+                        <div>
+                             <p></p>
+                            <span>艺商城</span>
+                        </div>
+                        <div>
+                            <p></p>
+                            <span>艺社区</span>
+                        </div>
+                </div>
+
+                <div className="art-main__message">
+
+                </div>
+
+                <div className="art-main__banner">
+
+                </div>
+
+                <div className="art-main__cloumn">
+
+                </div>
+
+                <div className="art-main__recommend">
+
+                </div>
+                {/* <div className="art-main__header">
                     <div className="art-main__header___carousel">
                         <Carousel
                             autoplay={false}
@@ -92,16 +159,22 @@ class Main extends PureComponent {
                         {userLikeProducts.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
-                                   {/* <ProductionItem {...production}/>*/}
                                 </div>)
                         })}
                     </div>
                 </div>
+            */}
             </Fragment>
         )
     }
 
     componentDidMount() {
+         // simulate img loading
+        setTimeout(() => {
+            this.setState({
+            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+            });
+        }, 100);
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
