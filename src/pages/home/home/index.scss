@@ -120,12 +120,19 @@
     }
 
     &-item{
-      flex: 1;
+      width: 50%;
 
       &>p:nth-child(2){
-        color: rebeccapurple;
+        height: 20px;
+        line-height: 20px;
+        text-align: left;
+        @include fontsize;
+        margin: 3px 9px 3px 0px;
       }
-      
+
+      &>p:nth-child(3){
+        text-align: left;
+      }
     }
 
     &-img{
@@ -134,7 +141,77 @@
       border-radius: 3px;
     }
 
+    &-money{
+      @include fontsize;
+      color: $color-warn;
+    }
+
+    &-marketprice{
+      @include fontsize;
+      font-size: 10px;
+      text-decoration: line-through;
+      color: #888888;
+      display: inline-block;
+      padding-left: 3px;
+    }
+
+    &-avatar{
+      width: 20px;
+      height: 20px;
+      border-radius: 30px;
+    }
+
+    &-name{
+      height: 20px;
+      line-height: 20px;
+      position: relative;
+      bottom: 4px;
+      right: 5px;
+    }
+
+    &-user{
+      text-align: right;
+      line-height: 30px;
+      height: 30px;
+    }
   }
+
+  &__search{
+    position: fixed;
+    top: 0px;
+    z-index: 1000;
+    height: 71px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-top: 18px;
+    
+    &>div:nth-child(1){
+      position: relative;
+      top:5px;
+      color: $color-bg-color;
+      width: 25%;
+    }
+
+    &>div:nth-child(2){
+      width: 65%;
+      &>input{
+        width: 256px;
+        border-radius: 3px;
+      }
+    }
+    &>div:nth-child(3){
+      position: relative;
+      top:5px;
+      width: 20%;
+    }
+  }
+}
+
+.am-list-item.am-input-item {
+  height: 0.44rem;
+  border-radius: 3px;
+  padding-left: 0.15rem;
 }
 
 .img-mrg-right{

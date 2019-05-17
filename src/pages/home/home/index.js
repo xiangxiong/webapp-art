@@ -5,9 +5,11 @@ import Column from '../column/index';
 import ProductionItem from './../production/index';
 import Letters from './../letters/index';
 import {PICTUREURL} from '../../../utils/api';
-import {Carousel,WingBlank} from 'antd-mobile';
+import {Carousel,InputItem} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
+
+var startX,startY,endX,endY;
 
 class Main extends PureComponent {
 
@@ -25,6 +27,51 @@ class Main extends PureComponent {
             data: ['1', '2', '3'],
             imgHeight: 176,
         };
+        this.initEvent();
+    }
+
+    initEvent(){
+        this.onTouchStart = this.handleTouchStart.bind(this);
+        this.onTouchEvent = this.handleTouchMove.bind(this);
+        this.onTouchEnd = this.handleTouchEnd.bind(this);
+    }
+
+    handleTouchStart(e){
+        var touch = e.targetTouches[0];
+        console.log('touch',touch);
+        // 滑动起点的坐标
+        startX = touch.pageX;
+        startY = touch.pageY;
+
+        console.log('onTouchStart',e);
+    }
+
+    handleTouchMove(e){
+        var touch = e.targetTouches[0];
+        console.log('touch',touch);
+        endX = touch.pageX;
+        endY = touch.pageY;
+    }
+
+    handleTouchEnd(e){
+        e.preventDefault();
+
+        var distanceX = endX - startX,
+            distanceY = endY - endX;
+        
+        if(30<distanceY){
+            
+        }
+
+        console.log('distanceX',distanceX);
+        console.log('distanceY',distanceY);
+
+        startX = startY = endX = endY = 0;
+        distanceX = 0;
+        distanceY = 0;
+
+        console.log('distanceX',distanceX);
+        console.log('distanceY',distanceY);
     }
 
     render() {
@@ -32,7 +79,18 @@ class Main extends PureComponent {
 
         return (
             <Fragment>
-                <div className="art-main">
+                <div className="art-main" 
+                onTouchMove={this.handleTouchMove}
+                onTouchStart={this.handleTouchStart}
+                onTouchEnd={this.handleTouchEnd}>
+                    <div className="art-main__search">
+                        <div>上海</div>
+                        <div>
+                            <InputItem/>
+                        </div>
+                        <div>问好</div>
+                    </div>
+
                     <div className="art-main__header">
                     <Carousel
                         autoplay={false}
@@ -125,18 +183,45 @@ class Main extends PureComponent {
                                 <div className="art-main__recommend-img img-mrg-right">
                                 </div>
                                 <p>景德镇紫砂壶</p>
-                                <p>2</p>
-                                <div>2</div>
+                                <p><i className="art-main__recommend-money">￥1988</i> 
+                                <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                <div className="art-main__recommend-user">
+                                    <span className="art-main__recommend-name">宇翔老者</span>
+                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                </div>
                             </div>
                             <div className="art-main__recommend-item">
-                                <div className="art-main__recommend-img img-mrg-left">
-                                    2
+                                <div className="art-main__recommend-img img-mrg-right">
                                 </div>
-                                <p>
-                                
-                                </p>
-                                <p>2</p>
-                                <div>2</div>
+                                <p>景德镇紫砂壶</p>
+                                <p><i className="art-main__recommend-money">￥1988</i> 
+                                <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                <div className="art-main__recommend-user">
+                                    <span className="art-main__recommend-name">宇翔老者</span>
+                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                </div>
+                            </div>
+                            <div className="art-main__recommend-item">
+                                <div className="art-main__recommend-img img-mrg-right">
+                                </div>
+                                <p>景德镇紫砂壶</p>
+                                <p><i className="art-main__recommend-money">￥1988</i> 
+                                <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                <div className="art-main__recommend-user">
+                                    <span className="art-main__recommend-name">宇翔老者</span>
+                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                </div>
+                            </div>
+                            <div className="art-main__recommend-item">
+                                <div className="art-main__recommend-img img-mrg-right">
+                                </div>
+                                <p>景德镇紫砂壶</p>
+                                <p><i className="art-main__recommend-money">￥1988</i> 
+                                <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                <div className="art-main__recommend-user">
+                                    <span className="art-main__recommend-name">宇翔老者</span>
+                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                </div>
                             </div>
                         </div>
                     </div>

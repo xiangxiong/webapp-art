@@ -20,6 +20,7 @@
   ) {
     @include border-thin($color, $style, top, $width);
   }
+
   
   @mixin border-thin-left(
     $color: $color-border-light,
