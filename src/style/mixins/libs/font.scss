@@ -1,5 +1,8 @@
-@mixin fontsize {
-    font-family: PingFangSC-Semibold;
-    font-size: $font-size-lg;
-    color: #333333;
+@charset "UTF-8";
+
+@mixin fontsize($family:$font-family,$size:$font-size-base,$color:$color-grey-0,$weight:$font-weight) {
+  font-family: $family;
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
 }

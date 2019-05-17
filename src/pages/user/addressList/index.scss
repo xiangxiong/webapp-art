@@ -1,15 +1,16 @@
 @import './../../../style/index.scss';
 
-.art-addAddress {
+.art-add {
   background: $color-bg-color;
 
   &__item {
-    height: 70px;
+    height: 105px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 29px 0 29px;
+    padding: 0 14.5px 0 14.5px;
+    background-color: aquamarine;
 
     &___left {
       display: flex;
@@ -18,30 +19,51 @@
       margin-right: 5px;
       background-color: #7DD6D0;
 
-      &____name {
+      & > div:nth-child(1) {
         display: flex;
         height: 30px;
-        font-size: 15px;
-        font-family: MicrosoftYaHei;
-        font-weight: 400;
-        color: #000000;
         line-height: 30px;
+        @include fontsize(MicrosoftYaHei, 30px, #000000);
 
         & > span:nth-child(1) {
           width: 75px;
           background-color: #E87908;
         }
         & > span:nth-child(2) {
+          flex: 1;
           background-color: #C30F22;
         }
       }
 
-      &____detail {
-        & > span {
+      & > div:nth-child(2) {
+        display: flex;
+        height: 32px;
+        align-items: center;
+
+        & ____default {
+          width: 75px;
+          height: 32px;
+          background: rgba(255, 255, 255, 1);
+          border: 1px solid rgba(197, 33, 37, 1);
+          border-radius: 4px;
+          @include fontsize(MicrosoftYaHei, 24px, #C52125);
+          line-height: 32px;
+        }
+
+        & ____noDefault {
+          width: 75px;
+          height: 32px;
+          background: rgba(255, 255, 255, 1);
+          border: 1px solid rgba(198, 198, 198, 1);
+          border-radius: 4px;
+          @include fontsize(MicrosoftYaHei, 24px, #C6C6C6);
+          line-height: 32px;
+        }
+
+        & > span:nth-child(2) {
           height: 26px;
-          font-size: 13px;
-          font-family: MicrosoftYaHei;
-          color: #444444;
+          flex: 1;
+          @include fontsize(MicrosoftYaHei, 26px, #444444);
           line-height: 26px;
           margin-top: 18px;
         }
