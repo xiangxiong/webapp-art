@@ -15,24 +15,27 @@ class AddressList extends PureComponent {
         history.push('/addAddress')
     };
 
-    showAddressItem = (userAddress) => {
+    showAddressItem = (userAddress, index) => {
         const {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault} = userAddress;
 
         return (
-            <div className="art-addAddress__item">
-                <div className="art-addAddress__item___left">
-                    <div className="art-addAddress__item___left____name">
+            <div className="art-add__item" key={index.toString()}>
+                <div className="art-add__item___left">
+                    <div >
                         <span>{ShippingContactWith}</span>
                         <span>{ShippingPhone}</span>
                     </div>
 
-                    <div className="art-addAddress__item___left____detail">
-                        <div></div>
-                        <span>{ShippingAddress}</span>
+                    <div>
+                        <span
+                            className={IsDefault == 1 ? 'art-add__item___left____default' : 'art-add__item___left____noDefault'}>
+                            {IsDefault == 1 ? '默认' : '设为默认'}
+                            </span>
+                        <span className="">{ShippingAddress}</span>
                     </div>
                 </div>
 
-                <div className="art-addAddress__item___right">
+                <div className="art-add__item___right">
                     <img src=""/>
                 </div>
             </div>
@@ -45,9 +48,9 @@ class AddressList extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="地址管理"/>
-                <div className="art-addAddress">
+                <div className="art-add">
                     {userAddressList.map((userAddress, index) => {
-                        return this.showAddressItem(userAddress);
+                        return this.showAddressItem(userAddress, index);
                     })}
                 </div>
             </Fragment>
