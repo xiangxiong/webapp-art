@@ -31,14 +31,46 @@ class Main extends PureComponent{
                 {
                     'art-main__search-bg':false
                 }
-            )
+            ),
+            items:4,
+            hasMoreItems: true
         };
-        this.initEvent();
     }
 
-    initEvent(){
+    showRecomandItem(){
+        var items = [];
+
+        for(var i = 0; i <  this.state.items; i++){
+            items.push(<div key={i} className="art-main__recommend-item">
+            <div className="art-main__recommend-img img-mrg-right">
+            </div>
+            <p>景德镇紫砂壶</p>
+            <p><i className="art-main__recommend-money">￥1988</i> 
+            <i className="art-main__recommend-marketprice">￥1988</i></p>
+            <div className="art-main__recommend-user">
+                <span className="art-main__recommend-name">宇翔老者</span>
+                <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+            </div>
+        </div>);
+        }
+
+        return items;
     }
 
+    loadMoreItem(){
+        if(this.state.items === 20){
+            this.setState({
+                hasMoreItems:false
+            });
+        }else{
+            setTimeout(()=>{
+                // todo: 异步加载数据.
+                this.setState({
+                    items:this.state.items + 4
+                });
+            },2000);
+        }
+    }
 
     render() {
         const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
@@ -50,6 +82,7 @@ class Main extends PureComponent{
                 ref="artScroll"
                 style={{overflow:"auto",height:document.documentElement.clientHeight}}
                 >
+
                     <div className={scrollCss}>
                         <div>上海</div>
                         <div>
@@ -58,141 +91,149 @@ class Main extends PureComponent{
                         <div>问好</div>
                     </div>
 
-                    <div className="art-main__header">
-                    <Carousel
-                        autoplay={false}
-                        infinite
-                        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                        afterChange={index => console.log('slide to', index)}
-                        >
-                        {this.state.data.map(val => (
-                            <a
-                            key={val}
-                            href="http://www.alipay.com"
-                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                    <InfiniteScroll
+                        loadMore={this.loadMoreItem.bind(this)}
+                        hasMore={this.state.hasMoreItems}
+                        loader={<div className="loader"> 正在加载中... </div>}
+                        useWindow={false}>
+
+                        <div className="art-main__header">
+                        <Carousel
+                            autoplay={false}
+                            infinite
+                            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                            afterChange={index => console.log('slide to', index)}
                             >
-                            <img
-                                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                alt=""
-                                className="art-main__header-img"
-                                onLoad={() => {
-                                // fire window resize event to change height
-                                window.dispatchEvent(new Event('resize'));
-                                this.setState({ imgHeight: 'auto' });
-                                }}
-                            />
-                            </a>
-                        ))}
-                        </Carousel>
-                    </div>
+                            {this.state.data.map(val => (
+                                <a
+                                key={val}
+                                href="http://www.alipay.com"
+                                style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                >
+                                <img
+                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                    alt=""
+                                    className="art-main__header-img"
+                                    onLoad={() => {
+                                    // fire window resize event to change height
+                                    window.dispatchEvent(new Event('resize'));
+                                    this.setState({ imgHeight: 'auto' });
+                                    }}
+                                />
+                                </a>
+                            ))}
+                            </Carousel>
+                        </div>
 
-                    <div className="art-main__navitem">
-                            {
-                                this.navDataList.map((navData, index) => {
-                                    return (
-                                        <div key={index.toString()}>
-                                            <div className="art-main__navitem-img-wrapper">
-                                                <img className="art-main__navitem-img" src={navData.imageUrl}/>
+                        <div className="art-main__navitem">
+                                {
+                                    this.navDataList.map((navData, index) => {
+                                        return (
+                                            <div key={index.toString()}>
+                                                <div className="art-main__navitem-img-wrapper">
+                                                    <img className="art-main__navitem-img" src={navData.imageUrl}/>
+                                                </div>
+                                                <span className="art-main__navitem-title" >{navData.name}</span>
                                             </div>
-                                            <span className="art-main__navitem-title" >{navData.name}</span>
-                                        </div>
-                                    )
-                                })
-                            }
-                    </div>
+                                        )
+                                    })
+                                }
+                        </div>
 
-                    <div className="art-main__message">
-                        <Letters data={newsPagerList}/>
-                    </div>
+                        <div className="art-main__message">
+                            <Letters data={newsPagerList}/>
+                        </div>
 
-                    <div className="art-main__banner"
-                        style={{
-                            background:`url(${ commonAdList && commonAdList.length > 0 ? commonAdList[0].ImgUrl : ''})`,
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "contain"
-                        }}
-                    >
-                    </div>
-
-                    <div className="art-main__space"></div>
-
-                    <div className="art-main__column">
-                        <h2>栏目</h2>
-                        <div className="art-main__column-content">
-                            <div className="art-main__column-content-recomand"
+                        <div className="art-main__banner"
                             style={{
-                                background:`url(${PICTUREURL}30.png)`,
-                                marginRight: "3px",
-                                backgroundRepeat: "repeat",
+                                background:`url(${ commonAdList && commonAdList.length > 0 ? commonAdList[0].ImgUrl : ''})`,
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
                                 backgroundSize: "contain"
-                            }}>
-                            </div>
-                            <div className="art-main__column-content-invent"
-                            style={{
-                                background:`url(${PICTUREURL}31.png)`,
-                                marginLeft: "3px",
-                                backgroundRepeat: "repeat",
-                                backgroundSize: "contain"
-                            }}>
-                            </div>
+                            }}
+                        >
                         </div>
-                    </div>
 
-                    <div className="art-main__column-border"></div>
+                        <div className="art-main__space"></div>
 
-                    <div className="art-main__recommend">
-                        <div className="art-main__recommend-title"> 
-                            为你推荐
-                        </div>
-                        <div className="art-main__recommend-content">
-                            <div className="art-main__recommend-item">
-                                <div className="art-main__recommend-img img-mrg-right">
+                        <div className="art-main__column">
+                            <h2>栏目</h2>
+                            <div className="art-main__column-content">
+                                <div className="art-main__column-content-recomand"
+                                style={{
+                                    background:`url(${PICTUREURL}30.png)`,
+                                    marginRight: "3px",
+                                    backgroundRepeat: "repeat",
+                                    backgroundSize: "contain"
+                                }}>
                                 </div>
-                                <p>景德镇紫砂壶</p>
-                                <p><i className="art-main__recommend-money">￥1988</i> 
-                                <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                <div className="art-main__recommend-user">
-                                    <span className="art-main__recommend-name">宇翔老者</span>
-                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                </div>
-                            </div>
-                            <div className="art-main__recommend-item">
-                                <div className="art-main__recommend-img img-mrg-right">
-                                </div>
-                                <p>景德镇紫砂壶</p>
-                                <p><i className="art-main__recommend-money">￥1988</i> 
-                                <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                <div className="art-main__recommend-user">
-                                    <span className="art-main__recommend-name">宇翔老者</span>
-                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                </div>
-                            </div>
-                            <div className="art-main__recommend-item">
-                                <div className="art-main__recommend-img img-mrg-right">
-                                </div>
-                                <p>景德镇紫砂壶</p>
-                                <p><i className="art-main__recommend-money">￥1988</i> 
-                                <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                <div className="art-main__recommend-user">
-                                    <span className="art-main__recommend-name">宇翔老者</span>
-                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                </div>
-                            </div>
-                            <div className="art-main__recommend-item">
-                                <div className="art-main__recommend-img img-mrg-right">
-                                </div>
-                                <p>景德镇紫砂壶</p>
-                                <p><i className="art-main__recommend-money">￥1988</i> 
-                                <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                <div className="art-main__recommend-user">
-                                    <span className="art-main__recommend-name">宇翔老者</span>
-                                    <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                <div className="art-main__column-content-invent"
+                                style={{
+                                    background:`url(${PICTUREURL}31.png)`,
+                                    marginLeft: "3px",
+                                    backgroundRepeat: "repeat",
+                                    backgroundSize: "contain"
+                                }}>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                        <div className="art-main__column-border"></div>
+
+                        <div className="art-main__recommend">
+                            <div className="art-main__recommend-title"> 
+                                为你推荐
+                            </div>
+                            <div className="art-main__recommend-content">
+                                <div className="art-main__recommend-item">
+                                    <div className="art-main__recommend-img img-mrg-right">
+                                    </div>
+                                    <p>景德镇紫砂壶</p>
+                                    <p><i className="art-main__recommend-money">￥1988</i> 
+                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                    <div className="art-main__recommend-user">
+                                        <span className="art-main__recommend-name">宇翔老者</span>
+                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                    </div>
+                                </div>
+                                <div className="art-main__recommend-item">
+                                    <div className="art-main__recommend-img img-mrg-right">
+                                    </div>
+                                    <p>景德镇紫砂壶</p>
+                                    <p><i className="art-main__recommend-money">￥1988</i> 
+                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                    <div className="art-main__recommend-user">
+                                        <span className="art-main__recommend-name">宇翔老者</span>
+                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                    </div>
+                                </div>
+                                <div className="art-main__recommend-item">
+                                    <div className="art-main__recommend-img img-mrg-right">
+                                    </div>
+                                    <p>景德镇紫砂壶</p>
+                                    <p><i className="art-main__recommend-money">￥1988</i> 
+                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                    <div className="art-main__recommend-user">
+                                        <span className="art-main__recommend-name">宇翔老者</span>
+                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                    </div>
+                                </div>
+                                <div className="art-main__recommend-item">
+                                    <div className="art-main__recommend-img img-mrg-right">
+                                    </div>
+                                    <p>景德镇紫砂壶</p>
+                                    <p><i className="art-main__recommend-money">￥1988</i> 
+                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
+                                    <div className="art-main__recommend-user">
+                                        <span className="art-main__recommend-name">宇翔老者</span>
+                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
+                                    </div>
+                                </div>
+                                {this.showRecomandItem()}
+                            </div>
+                        </div>
+                        
+                    </InfiniteScroll>
                 </div>
                
                 {/* <div className="art-main__header">
