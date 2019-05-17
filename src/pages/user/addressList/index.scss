@@ -1,0 +1,61 @@
+@import './../../../style/index.scss';
+
+.art-addAddress {
+  background: $color-bg-color;
+
+  &__item {
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 29px 0 29px;
+
+    &___left {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin-right: 5px;
+      background-color: #7DD6D0;
+
+      &____name {
+        display: flex;
+        height: 30px;
+        font-size: 15px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: #000000;
+        line-height: 30px;
+
+        & > span:nth-child(1) {
+          width: 75px;
+          background-color: #E87908;
+        }
+        & > span:nth-child(2) {
+          background-color: #C30F22;
+        }
+      }
+
+      &____detail {
+        & > span {
+          height: 26px;
+          font-size: 13px;
+          font-family: MicrosoftYaHei;
+          color: #444444;
+          line-height: 26px;
+          margin-top: 18px;
+        }
+      }
+    }
+
+    &___right {
+      background-color: #E87908;
+
+      & > img {
+        width: 34px;
+        height: 34px;
+      }
+    }
+  }
+
+}

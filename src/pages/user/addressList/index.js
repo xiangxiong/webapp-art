@@ -5,15 +5,38 @@ import {getAddressList, getAddressSetDefault, getAddressDelete} from '../store/a
 import PublicHeader from './../../../components/header'
 import history from './../../../utils/history';
 
-class addressList extends PureComponent {
+class AddressList extends PureComponent {
 
     constructor(props) {
         super(props);
-
     }
 
     goAddAddress = () => {
         history.push('/addAddress')
+    };
+
+    showAddressItem = (userAddress) => {
+        const {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault} = userAddress;
+
+        return (
+            <div className="art-addAddress__item">
+                <div className="art-addAddress__item___left">
+                    <div className="art-addAddress__item___left____name">
+                        <span>{ShippingContactWith}</span>
+                        <span>{ShippingPhone}</span>
+                    </div>
+
+                    <div className="art-addAddress__item___left____detail">
+                        <div></div>
+                        <span>{ShippingAddress}</span>
+                    </div>
+                </div>
+
+                <div className="art-addAddress__item___right">
+                    <img src=""/>
+                </div>
+            </div>
+        )
     };
 
     render() {
@@ -22,8 +45,10 @@ class addressList extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="地址管理"/>
-                <div>
-
+                <div className="art-addAddress">
+                    {userAddressList.map((userAddress, index) => {
+                        return this.showAddressItem(userAddress);
+                    })}
                 </div>
             </Fragment>
         )
@@ -54,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(addressList);
+export default connect(mapStateToProps, mapDispatchToProps)(AddressList);

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {getAddressAdd} from '../store/actionCreators';
 import PublicHeader from './../../../components/header';
 
-class addAddress extends PureComponent {
+class AddAddress extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -54,4 +54,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(addAddress);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAddress);
