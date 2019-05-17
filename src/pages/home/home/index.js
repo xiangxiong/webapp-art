@@ -28,72 +28,121 @@ class Main extends PureComponent {
     }
 
     render() {
-        // const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
+        const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
 
         return (
             <Fragment>
-                <div className="art-main__header">
-                <Carousel
-                    autoplay={false}
-                    infinite
-                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                    afterChange={index => console.log('slide to', index)}
-                    >
-                    {this.state.data.map(val => (
-                        <a
-                        key={val}
-                        href="http://www.alipay.com"
-                        style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                <div className="art-main">
+                    <div className="art-main__header">
+                    <Carousel
+                        autoplay={false}
+                        infinite
+                        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                        afterChange={index => console.log('slide to', index)}
                         >
-                        <img
-                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                            alt=""
-                            style={{ width: '100%', verticalAlign: 'top' }}
-                            onLoad={() => {
-                            // fire window resize event to change height
-                            window.dispatchEvent(new Event('resize'));
-                            this.setState({ imgHeight: 'auto' });
-                            }}
-                        />
-                        </a>
-                    ))}
-                    </Carousel>
-                </div>
+                        {this.state.data.map(val => (
+                            <a
+                            key={val}
+                            href="http://www.alipay.com"
+                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                            >
+                            <img
+                                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                alt=""
+                                className="art-main__header-img"
+                                onLoad={() => {
+                                // fire window resize event to change height
+                                window.dispatchEvent(new Event('resize'));
+                                this.setState({ imgHeight: 'auto' });
+                                }}
+                            />
+                            </a>
+                        ))}
+                        </Carousel>
+                    </div>
 
-                <div className="art-main__navitem">
-                        <div>
-                            <p></p>
-                            <span>大师云集</span>
+                    <div className="art-main__navitem">
+                            {
+                                this.navDataList.map((navData, index) => {
+                                    return (
+                                        <div key={index.toString()}>
+                                            <div className="art-main__navitem-img-wrapper">
+                                                <img className="art-main__navitem-img" src={navData.imageUrl}/>
+                                            </div>
+                                            <span className="art-main__navitem-title" >{navData.name}</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                    </div>
+
+                    <div className="art-main__message">
+                        <Letters data={newsPagerList}/>
+                    </div>
+
+                    <div className="art-main__banner"
+                        style={{
+                            background:`url(${ commonAdList && commonAdList.length > 0 ? commonAdList[0].ImgUrl : ''})`,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "contain"
+                        }}
+                    >
+                    </div>
+
+                    <div className="art-main__space"></div>
+
+                    <div className="art-main__column">
+                        <h2>栏目</h2>
+                        <div className="art-main__column-content">
+                            <div className="art-main__column-content-recomand"
+                            style={{
+                                background:`url(${PICTUREURL}30.png)`,
+                                marginRight: "3px",
+                                backgroundRepeat: "repeat",
+                                backgroundSize: "contain"
+                            }}>
+                            </div>
+                            <div className="art-main__column-content-invent"
+                            style={{
+                                background:`url(${PICTUREURL}31.png)`,
+                                marginLeft: "3px",
+                                backgroundRepeat: "repeat",
+                                backgroundSize: "contain"
+                            }}>
+                            </div>
                         </div>
-                        <div>
-                            <p></p>
-                            <span>市集</span>
+                    </div>
+
+                    <div className="art-main__column-border"></div>
+
+                    <div className="art-main__recommend">
+                        <div className="art-main__recommend-title"> 
+                            为你推荐
                         </div>
-                        <div>
-                             <p></p>
-                            <span>艺商城</span>
+                        <div className="art-main__recommend-content">
+                            <div className="art-main__recommend-item">
+                                <div className="art-main__recommend-img img-mrg-right">
+                                </div>
+                                <p>景德镇紫砂壶</p>
+                                <p>2</p>
+                                <div>2</div>
+                            </div>
+                            <div className="art-main__recommend-item">
+                                <div className="art-main__recommend-img img-mrg-left">
+                                    2
+                                </div>
+                                <p>
+                                
+                                </p>
+                                <p>2</p>
+                                <div>2</div>
+                            </div>
                         </div>
-                        <div>
-                            <p></p>
-                            <span>艺社区</span>
-                        </div>
-                </div>
-
-                <div className="art-main__message">
+                    </div>
 
                 </div>
-
-                <div className="art-main__banner">
-
-                </div>
-
-                <div className="art-main__cloumn">
-
-                </div>
-
-                <div className="art-main__recommend">
-
-                </div>
+               
                 {/* <div className="art-main__header">
                     <div className="art-main__header___carousel">
                         <Carousel

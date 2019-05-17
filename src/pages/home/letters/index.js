@@ -6,8 +6,8 @@ import './index.scss';
 import {PICTUREURL} from '../../../utils/api';
 import {Carousel} from 'antd-mobile';
 
-export default class Letters extends PureComponent {
-
+export default class Letters extends PureComponent{
+    
     render() {
         const {data} = this.props;
         return (

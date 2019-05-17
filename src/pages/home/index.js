@@ -17,7 +17,7 @@ export default class Home extends PureComponent{
             fullScreen: true,
         };
    }
-   
+
    renderFactory(pageText){
        switch(pageText){
           case "MAIN":

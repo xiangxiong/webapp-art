@@ -59,15 +59,9 @@ export const getNewsPagerList = (params) => {
                 }
 
                 if (params.CategoryId == 3) {
-<<<<<<< HEAD
                     dispatch(newsPagerList(response.Data.NewList));
                 } else if (params.CategoryId == 4) {
                     dispatch(shopNewsPagerList(response.Data.NewList));
-=======
-                    // dispatch(newsPagerList(response.NewList));
-                } else if (params.CategoryId == 4) {
-                    // dispatch(shopNewsPagerList(response.NewList));
->>>>>>> rewrite home page
                 } else if (params.CategoryId == 5) {
                 }
             });

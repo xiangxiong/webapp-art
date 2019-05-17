@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.scss';
+import './style/reset.scss';
 import {Button,TabBar} from 'antd-mobile';
 import {Router,Route} from 'react-router-dom';
 import routes from './Routes';

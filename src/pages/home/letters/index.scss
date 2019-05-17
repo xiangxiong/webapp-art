@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  padding-left: 14px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  
   & > img {
     width: 35px;
     height: 20px;
@@ -21,5 +24,4 @@
     color: #666666;
     letter-spacing: -0.09px;
   }
-
 }
