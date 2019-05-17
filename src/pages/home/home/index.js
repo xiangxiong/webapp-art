@@ -8,10 +8,10 @@ import {PICTUREURL} from '../../../utils/api';
 import {Carousel,InputItem} from 'antd-mobile';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
+import InfiniteScroll from 'react-infinite-scroller';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
 
-
-class Main extends PureComponent {
+class Main extends PureComponent{
 
     constructor(props) {
         super(props);
