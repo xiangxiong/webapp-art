@@ -4,11 +4,13 @@ import {
     USER_DICT_LIST,
     USER_ORDER_LIST,
     USER_ORDER_DETAIL,
-    USER_PORDER_INFO
+    USER_PORDER_INFO,
+    USER_QUERY_CATEGORY_LIST
 } from './constants';
 
 const defaultState = {
     customerDetail: {},
+    userCategoryList: [],
     userAddressList: [],
     userDictList: [],
     userOrderList: [],
@@ -47,6 +49,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 userPOrderInfo: action.value
+            };
+        case USER_QUERY_CATEGORY_LIST:
+            return {
+                ...state,
+                userCategoryList: action.value
             };
         default:
             return state;

@@ -20,6 +20,9 @@ export const ProductCommend = 'Art.Service.Product.Dto.Reuqest.ProductCommendReq
 //用户申请入驻
 export const CreateIntertionalPartener = 'Art.Service.Product.Dto.Api.CreateIntertionalPartenerRequest';
 
+//艺商城分类信息返回
+export const QueryCategoryList = 'Art.Service.Product.Dto.Api.QueryCategoryListRequest';
+
 //获取保证金缴纳列表
 export const Dict = 'Art.Service.Basis.Dto.DictRequest';
 

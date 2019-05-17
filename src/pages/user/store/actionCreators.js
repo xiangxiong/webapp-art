@@ -12,7 +12,8 @@ import {
     QueryCustomerOrderList,
     GetOrderDetail,
     POrderInfo,
-    CreateOrder
+    CreateOrder,
+    QueryCategoryList
 } from "../../../utils/servicekey";
 import history from '@/utils/history';
 
@@ -44,6 +45,11 @@ export const orderDetail = (data) => ({
 export const pOrderInfo = (OrderInfo) => ({
     type: constants.USER_PORDER_INFO,
     value: OrderInfo
+});
+
+export const queryCategoryList = (DataList) => ({
+    type: constants.USER_QUERY_CATEGORY_LIST,
+    value: DataList
 });
 
 export const getCustomerDetail = (params) => {
@@ -162,6 +168,16 @@ export const getCreateOrder = (params) => {
                 if (response) {
                     history.push('');
                 }
+            });
+    }
+};
+
+export const getQueryCategoryList = (params) => {
+    return (dispatch) => {
+        return post(QueryCategoryList, params)
+            .then((response) => {
+                console.log("getQueryCategoryList response", response);
+                dispatch(queryCategoryList(response.DataList));
             });
     }
 };

@@ -1,11 +1,11 @@
 import React, {PureComponent, Fragment, useState} from 'react';
-import {List, InputItem, Radio, Button} from 'antd-mobile';
+import {List, InputItem, Radio, Button, ActionSheet} from 'antd-mobile';
 import './index.scss';
 import PublicHeader from '@/components/header'
 import {ImagePicker} from 'antd-mobile';
 import classNames from 'classnames';
 import history from '@/utils/history';
-import {getCreateIntertionalPartener} from "../store/actionCreators";
+import {getCreateIntertionalPartener, getQueryCategoryList} from "../store/actionCreators";
 import connect from "react-redux/es/connect/connect";
 
 const data = [];
@@ -15,107 +15,6 @@ const handleUpload = (files, type, index) => {
     this.setState({
         files,
     });
-}
-
-const UploadImage = (files, pickers, type) => {
-
-    let itemClass = classNames({
-        'art-application__upload-item': type !== 'art',
-        'art-application__upload-art-item': type === 'art'
-    })
-
-    return (
-        pickers.map(picker => (
-            <div className={itemClass} key={picker.title}>
-                <ImagePicker
-                    files={files}
-                    onChange={this.handleChange}
-                    onImageClick={(index, fs) => console.log(index, fs)}
-                    selectable={files.length < 7}
-                    multiple={false}
-                />
-                <h4 className="art-application__upload-desc"> {picker.title}  </h4>
-            </div>
-        ))
-    )
-}
-
-const RenderShopForm = (props) => {
-    return (
-        <List>
-            <InputItem
-                clear
-                placeholder="请输入真实姓名"
-                onChange={(v) => {
-                    this.setState({Provider: v})
-                }}
-            >商户名称</InputItem>
-            <InputItem
-                clear
-                placeholder="请输入从事品类"
-                ref={el => this.inputRef = el}
-            >从事品类</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请输入联系电话"
-                onChange={(v) => {
-                    this.setState({Phone: v})
-                }}
-            >联系电话</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请选择联系地址"
-                ref={el => this.inputRef = el}
-            >联系地址</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请输入(0-30字)"
-                ref={el => this.inputRef = el}
-            >商户简介</InputItem>
-        </List>
-    )
-}
-
-const RenderArtForm = (props) => {
-    return (
-        <List>
-            <InputItem
-                clear
-                placeholder="请输入真实姓名"
-                onChange={(v) => {
-                    this.setState({Provider: v})
-                }}
-            >姓名</InputItem>
-            <InputItem
-                clear
-                placeholder="请输入从事品类"
-                ref={el => this.inputRef = el}
-            >从事品类</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请输入联系电话"
-                onChange={(v) => {
-                    this.setState({Phone: v})
-                }}
-            >联系电话</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请选择联系地址"
-                ref={el => this.inputRef = el}
-            >联系地址</InputItem>
-
-            <InputItem
-                clear
-                placeholder="请输入(0-30字)"
-                ref={el => this.inputRef = el}
-            >个人简介</InputItem>
-        </List>
-    )
 }
 
 const shopsTitle = [
@@ -154,15 +53,38 @@ class Application extends PureComponent {
     initEvent() {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
-    handleChange() {
+    handleCategory = () => {
+        let {userCategoryList} = this.props;
+
+        let BUTTONS = userCategoryList.map(userCategory => {
+            return userCategory.CategoryName
+        });
+
+        ActionSheet.showActionSheetWithOptions({
+                options: BUTTONS,
+                cancelButtonIndex: BUTTONS.length - 1,
+                destructiveButtonIndex: BUTTONS.length - 2,
+                message: '从事品类',
+                maskClosable: true,
+                'data-seed': 'logId',
+            },
+            (buttonIndex) => {
+                let userCategory = userCategoryList[buttonIndex];
+                this.setState({CategoryId: userCategory.CategoryId, CategoryName: userCategory.CategoryName});
+            });
+    };
+
+    handleChange(files, type, index) {
+        console.log("handleChange", files, type, index);
     }
 
     handleSubmit() {
         history.push('/pend');
-        const {type, Provider, Phone, isAgreement} = this.state;
-        const {ShippingAddress, ShippingContactWith} = this.props;
+        const {type, Provider, Phone, isAgreement, CategoryId} = this.state;
+        const {ShippingAddress = "huhu", ShippingContactWith = "sdf"} = this.props;
 
         if (!isAgreement) {
             return
@@ -179,7 +101,7 @@ class Application extends PureComponent {
             params.CooperationWay = '2';
         }
 
-        params.CategoryId = '';
+        params.CategoryId = CategoryId;
         params.Phone = Phone;
         params.Provider = Provider;
         params.AddDetail = ShippingAddress;
@@ -190,6 +112,106 @@ class Application extends PureComponent {
         params.LogoImage = '';
 
         this.props.getCreateIntertionalPartener(params);
+    }
+
+    UploadImage = (files, pickers, type) => {
+        let itemClass = classNames({
+            'art-application__upload-item': type !== 'art',
+            'art-application__upload-art-item': type === 'art'
+        });
+
+        return (
+            pickers.map(picker => (
+                <div className={itemClass} key={picker.title}>
+                    <ImagePicker
+                        files={files}
+                        onChange={this.handleChange}
+                        onImageClick={(index, fs) => console.log(index, fs)}
+                        selectable={files.length < 7}
+                        multiple={true}
+                    />
+                    <h4 className="art-application__upload-desc"> {picker.title}  </h4>
+                </div>
+            ))
+        )
+    };
+
+    RenderShopForm = (props) => {
+        let {CategoryName} = this.state;
+
+        return (
+            <List>
+                <InputItem
+                    clear
+                    placeholder="请输入真实姓名"
+                    onChange={(v) => {
+                        this.setState({Provider: v})
+                    }}
+                >商户名称</InputItem>
+                <InputItem
+                    clear
+                    placeholder="请输入从事品类"
+                    value={CategoryName}
+                    editable={false}
+                    onClick={() => this.handleCategory()}
+                >从事品类</InputItem>
+
+                <InputItem
+                    clear
+                    placeholder="请输入联系电话"
+                    onChange={(v) => {
+                        this.setState({Phone: v})
+                    }}
+                >联系电话</InputItem>
+
+                <InputItem
+                    clear
+                    placeholder="请选择联系地址"
+                    editable={false}
+                    extra=">"
+                    onClick={() => history.push('')}
+                >联系地址</InputItem>
+            </List>
+        )
+    }
+
+    RenderArtForm = (props) => {
+        let {CategoryName} = this.state;
+
+        return (
+            <List>
+                <InputItem
+                    clear
+                    placeholder="请输入真实姓名"
+                    onChange={(v) => {
+                        this.setState({Provider: v})
+                    }}
+                >姓名</InputItem>
+                <InputItem
+                    clear
+                    placeholder="请输入从事品类"
+                    value={CategoryName}
+                    editable={false}
+                    onClick={() => this.handleCategory()}
+                >从事品类</InputItem>
+
+                <InputItem
+                    clear
+                    placeholder="请输入联系电话"
+                    onChange={(v) => {
+                        this.setState({Phone: v})
+                    }}
+                >联系电话</InputItem>
+
+                <InputItem
+                    clear
+                    placeholder="请选择联系地址"
+                    extra=">"
+                    editable={false}
+                    onClick={() => history.push('')}
+                >联系地址</InputItem>
+            </List>
+        )
     }
 
     render() {
@@ -203,14 +225,23 @@ class Application extends PureComponent {
         return (
             <div className="art-application">
                 <PublicHeader title={title}/>
+
+                <ImagePicker
+                    files={files}
+                    onChange={this.handleChange}
+                    onImageClick={(index, fs) => console.log(index, fs)}
+                    selectable={files.length < 7}
+                    multiple={true}
+                />
+
                 <div className={uploadPanel}>
                     {
-                        UploadImage(files, pickers, type)
+                        //this.UploadImage(files, pickers, type)
                     }
                 </div>
                 <div className="art-application__form">
                     {
-                        type === "art" ? RenderArtForm() : RenderShopForm()
+                        type === "art" ? this.RenderArtForm() : this.RenderShopForm()
                     }
                     <div className="art-application__form-agree">
                         <Radio className="my-radio"
@@ -234,16 +265,28 @@ class Application extends PureComponent {
             </div>
         )
     }
+
+
+    componentDidMount() {
+        this.props.getQueryCategoryList({IsOnlyOneCategory: 1});
+    }
 }
 
-const mapStateToProps = (state) => {
-    return {}
+const mapStateToProps = ({user}) => {
+    return {
+        userCategoryList: user.userCategoryList,
+    }
 };
 
 const mapDispatchToProps = dispatch => ({
     getCreateIntertionalPartener: (params) => {
         dispatch(getCreateIntertionalPartener(params))
+    },
+
+    getQueryCategoryList: (params) => {
+        dispatch(getQueryCategoryList(params))
     }
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Application);
