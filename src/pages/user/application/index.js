@@ -171,7 +171,7 @@ class Application extends PureComponent {
                     placeholder="请选择联系地址"
                     editable={false}
                     extra=">"
-                    onClick={() => history.push('')}
+                    onClick={() => history.push('/addressList')}
                 >联系地址</InputItem>
             </List>
         )
@@ -210,7 +210,7 @@ class Application extends PureComponent {
                     placeholder="请选择联系地址"
                     extra=">"
                     editable={false}
-                    onClick={() => history.push('')}
+                    onClick={() => history.push('/addressList')}
                 >联系地址</InputItem>
             </List>
         )
