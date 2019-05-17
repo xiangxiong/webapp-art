@@ -5,6 +5,7 @@ import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
+import {pictureUrl} from '../../utils/StringUtil';
 
 const Item = List.Item;
 
@@ -29,7 +30,7 @@ class User extends PureComponent {
                 },
             ]
         };
-        
+
         this.handleNavUrl = this.handleNavUrl.bind(this);
     }
 
@@ -78,14 +79,28 @@ class User extends PureComponent {
     render() {
         const {productionList} = this.state;
 
+        const {
+            UserName = '',
+            ImageThumb,
+            Money = '',
+            CollectCount = '',
+            FollowCount = '',
+            VisitCount = '',
+            GroupCount = '',
+            AwaitPayCount = '',
+            AwaitShipCount = '',
+            AwaitReceiptCount = '',
+            AwaitCommentCount = ''
+        } = this.props.customerDetail;
+
         return (
             <Fragment>
                 <div className="art-user__header">
                     <div className="art-user__header___basicInfo">
-                        <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
+                        <img src={pictureUrl(ImageThumb)}/>
                         <div>
-                            <span>{'柳士勇'}</span>
-                            <span>{'账户余额：8890元'}</span>
+                            <span>{UserName}</span>
+                            <span>{`账户余额${Money}元`}</span>
                         </div>
                         <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
                     </div>
@@ -93,12 +108,11 @@ class User extends PureComponent {
                     <div style={{width: '100%', height: '1px', backgroundColor: '#E7E7E7'}}/>
 
                     <div className="art-user__header___otherInfo">
-                        {this.otherInfoItem(45, '收藏')}
-                        {this.otherInfoItem(45, '关注')}
-                        {this.otherInfoItem(45, '足记')}
-                        {this.otherInfoItem(56, '团购')}
+                        {this.otherInfoItem(CollectCount, '收藏')}
+                        {this.otherInfoItem(FollowCount, '关注')}
+                        {this.otherInfoItem(VisitCount, '足记')}
+                        {this.otherInfoItem(GroupCount, '团购')}
                     </div>
-
 
                 </div>
                 <div className="art-user__order">
@@ -110,11 +124,10 @@ class User extends PureComponent {
 
                     <div style={{width: '97%', height: '1px', backgroundColor: '#E7E7E7', alignSelf: 'center'}}/>
                     <div className="art-user__order___stateList">
-                        {this.orderInfoItem(0, '待付款', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(2, '待发货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(0, '待收货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(0, '待评价', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(0, '退货/售后', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', false)}
+                        {this.orderInfoItem(AwaitPayCount, '待付款', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        {this.orderInfoItem(AwaitShipCount, '待发货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        {this.orderInfoItem(AwaitReceiptCount, '待收货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
+                        {this.orderInfoItem(AwaitCommentCount, '待评价', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', false)}
                     </div>
                 </div>
                 <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
@@ -190,7 +203,7 @@ class User extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getCustomerDetail();
+        this.props.getCustomerDetail('11');
     }
 }
 
@@ -201,8 +214,8 @@ const mapStateToProps = ({user}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getCustomerDetail: (Token, CustomerId, TargetCustomerId) => {
-        dispatch(getCustomerDetail({Token, CustomerId, TargetCustomerId}))
+    getCustomerDetail: (CustomerId) => {
+        dispatch(getCustomerDetail({CustomerId}))
     }
 });
 

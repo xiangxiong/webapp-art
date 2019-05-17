@@ -13,11 +13,12 @@ import {
     GetOrderDetail,
     POrderInfo,
     CreateOrder,
-    QueryCategoryList
+    QueryCategoryList,
+    QueryIntertionalPartener
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 
-export const userCarouselAdList = (DataList) => ({
+export const userCustomerDetail = (DataList) => ({
     type: constants.USER_CUSTOMER_DETAIL,
     value: DataList
 });
@@ -52,11 +53,16 @@ export const queryCategoryList = (DataList) => ({
     value: DataList
 });
 
+export const queryIntertionalPartener = (Entity) => ({
+    type: constants.USER_QUERY_INTERTIONAL_PARTENER,
+    value: Entity
+});
+
 export const getCustomerDetail = (params) => {
     return (dispatch) => {
         return post(CustomerDetail, params)
             .then((response) => {
-                dispatch(userCarouselAdList(response.Data.Entity));
+                dispatch(userCustomerDetail(response.Data.Entity));
             });
     }
 };
@@ -176,8 +182,16 @@ export const getQueryCategoryList = (params) => {
     return (dispatch) => {
         return post(QueryCategoryList, params)
             .then((response) => {
-                console.log("getQueryCategoryList response", response);
                 dispatch(queryCategoryList(response.Data.DataList));
+            });
+    }
+};
+
+export const getQueryIntertionalPartener = (params) => {
+    return (dispatch) => {
+        return post(QueryIntertionalPartener, params)
+            .then((response) => {
+                dispatch(queryIntertionalPartener(response.Data.Entity));
             });
     }
 };

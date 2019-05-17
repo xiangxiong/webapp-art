@@ -26,7 +26,7 @@ const request = function (servicekey, jsonobjparam, method) {
             },
             timeout: 3000
         }).then(response => {
-            console.log('servicekey ', servicekey, ' response ', response);
+            //console.log('servicekey ', servicekey, ' response ', response);
             if (response.status === 200) {
                 if (response.data && response.data.code === 200) {
                     resolve(response.data.DataObject)

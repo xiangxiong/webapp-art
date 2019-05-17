@@ -108,10 +108,10 @@ class Application extends PureComponent {
         params.Provider = Provider;
         params.AddDetail = ShippingAddress;
         params.Linkman = ShippingContactWith;
-        params.BussinesImage = files[0].url;
-        params.IdentityImage1 = files[0].url;
-        params.IdentityImage2 = files[0].url;
-        params.LogoImage = files[0].url;
+        params.BussinesImageData = files[0].url;
+        params.IdentityImage1Data = files[0].url;
+        params.IdentityImage2Data = files[0].url;
+        params.LogoImageData = files[0].url;
 
         this.props.getCreateIntertionalPartener(params);
     }
