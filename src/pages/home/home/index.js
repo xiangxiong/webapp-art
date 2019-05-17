@@ -7,9 +7,9 @@ import Letters from './../letters/index';
 import {PICTUREURL} from '../../../utils/api';
 import {Carousel,InputItem} from 'antd-mobile';
 import {connect} from 'react-redux';
+import classNames from 'classnames';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
 
-var startX,startY,endX,endY;
 
 class Main extends PureComponent {
 
@@ -26,64 +26,31 @@ class Main extends PureComponent {
         this.state = {
             data: ['1', '2', '3'],
             imgHeight: 176,
+            scrollCss:classNames(
+                'art-main__search',
+                {
+                    'art-main__search-bg':false
+                }
+            )
         };
         this.initEvent();
     }
 
     initEvent(){
-        this.onTouchStart = this.handleTouchStart.bind(this);
-        this.onTouchEvent = this.handleTouchMove.bind(this);
-        this.onTouchEnd = this.handleTouchEnd.bind(this);
     }
 
-    handleTouchStart(e){
-        var touch = e.targetTouches[0];
-        console.log('touch',touch);
-        // 滑动起点的坐标
-        startX = touch.pageX;
-        startY = touch.pageY;
-
-        console.log('onTouchStart',e);
-    }
-
-    handleTouchMove(e){
-        var touch = e.targetTouches[0];
-        console.log('touch',touch);
-        endX = touch.pageX;
-        endY = touch.pageY;
-    }
-
-    handleTouchEnd(e){
-        e.preventDefault();
-
-        var distanceX = endX - startX,
-            distanceY = endY - endX;
-        
-        if(30<distanceY){
-            
-        }
-
-        console.log('distanceX',distanceX);
-        console.log('distanceY',distanceY);
-
-        startX = startY = endX = endY = 0;
-        distanceX = 0;
-        distanceY = 0;
-
-        console.log('distanceX',distanceX);
-        console.log('distanceY',distanceY);
-    }
 
     render() {
         const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
+        const {scrollCss} = this.state;
 
         return (
             <Fragment>
                 <div className="art-main" 
-                onTouchMove={this.handleTouchMove}
-                onTouchStart={this.handleTouchStart}
-                onTouchEnd={this.handleTouchEnd}>
-                    <div className="art-main__search">
+                ref="artScroll"
+                style={{overflow:"auto",height:document.documentElement.clientHeight}}
+                >
+                    <div className={scrollCss}>
                         <div>上海</div>
                         <div>
                             <InputItem/>
@@ -303,6 +270,35 @@ class Main extends PureComponent {
     }
 
     componentDidMount() {
+
+        console.log("this.refs.artScroll",this.refs.artScroll);
+
+        this.refs.artScroll.addEventListener("scroll",()=>{
+            // console.log('addEventListener');
+            // console.log('this.refs.myscroll.scrollTop',);
+            // console.log('this.refs.myscroll.clientHeight ',this.refs.artScroll.clientHeight );
+            if(this.refs.artScroll.scrollTop>176){
+                this.setState({
+                    scrollCss:classNames(
+                        'art-main__search',
+                        {
+                            'art-main__search-bg':true
+                        }
+                    )
+                })
+            }
+            else{
+                this.setState({
+                    scrollCss:classNames(
+                        'art-main__search',
+                        {
+                            'art-main__search-bg':false
+                        }
+                    )
+                })
+            }
+        });
+
          // simulate img loading
         setTimeout(() => {
             this.setState({

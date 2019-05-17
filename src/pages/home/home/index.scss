@@ -186,6 +186,11 @@
     flex-direction: row;
     padding-top: 18px;
     
+    &-bg{
+      background: $color-grey-0;
+      opacity: 0.8;
+    }
+
     &>div:nth-child(1){
       position: relative;
       top:5px;
