@@ -125,7 +125,19 @@
         }
 
         &__content{
-            padding: 13.5px;
+            padding: 0 13.5px 13.5px 13.5px;
+
+            &>p{
+                font-size:13px;
+                font-family:MicrosoftYaHei;
+                font-weight:400;
+                color:rgba(122,122,122,1);
+            }
+        }
+
+        &__picture{
+            width: 100%;
+            height: 278px;
         }
 
         &>:nth-child(1){

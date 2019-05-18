@@ -82,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
     },
 
     getProductCommend: () => {
-        dispatch(getProductCommend({CommendType: 4, CurrentPage: 1, PageSize: 4}))
+        dispatch(getProductCommend({CommendType: 1, CurrentPage: 1, PageSize: 4}))
     },
 
     getUserLikeProducts: (CustomerId) => {
