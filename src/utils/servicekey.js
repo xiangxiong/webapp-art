@@ -58,3 +58,6 @@ export const CreateOrder = 'Art.Service.Order.Dto.Request.api.CreateOrderRequest
 
 //查询商家入驻意向信息
 export const QueryIntertionalPartener = 'Art.Service.Product.Dto.Api.QueryIntertionalPartenerRequest';
+
+//获取商品评价列表
+export const ProductComment = 'Art.Service.Customer.Dto.Api.ProductCommentRequest';

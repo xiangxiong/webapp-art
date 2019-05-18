@@ -156,6 +156,7 @@
     &__comment{
         display: flex;
         flex-direction: row;
+        margin-top: 5px;
 
         &-avatar{
             width: 10%;
@@ -189,10 +190,8 @@
             flex-wrap: wrap;
 
             &>div{
-                flex: 1;
                 width: 70px;
                 height: 70px;
-                background: red;
                 margin:2px;
                 border-radius: 4px;   
             }

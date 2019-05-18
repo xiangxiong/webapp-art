@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {ProductCommend, WorthGoodsDetail} from "../../../utils/servicekey";
+import {ProductCommend, WorthGoodsDetail, ProductComment} from "../../../utils/servicekey";
 
 export const shopCarouselAdList = (DataList) => ({
     type: constants.SHOP_CAROUSEL_AD_LIST,
@@ -32,6 +32,10 @@ export const worthGoodsDetail = (Entity) => ({
     value: Entity
 });
 
+export const productComment = (Data) => ({
+    type: constants.SHOP_PRODUCT_COMMENT,
+    value: Data
+});
 export const getProductCommend = (params) => {
     return (dispatch) => {
         return post(ProductCommend, params)
@@ -46,6 +50,15 @@ export const getWorthGoodsDetail = (params) => {
         return post(WorthGoodsDetail, params)
             .then((response) => {
                 dispatch(worthGoodsDetail(response.Data.Entity));
+            });
+    }
+};
+export const getProductComment = (params) => {
+    return (dispatch) => {
+        return post(ProductComment, params)
+            .then((response) => {
+            console.log("response",response);
+                dispatch(productComment(response.Data));
             });
     }
 };

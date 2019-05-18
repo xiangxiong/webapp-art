@@ -3,7 +3,7 @@ import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getWorthGoodsDetail} from '../store/actionCreators';
+import {getWorthGoodsDetail, getProductComment} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/stringUtil';
 
 class Detail extends PureComponent {
@@ -13,7 +13,7 @@ class Detail extends PureComponent {
             MainImgs = [],
             Name,
             Brief,
-            BrowseImages=[],
+            BrowseImages = [],
             KillPrice,
             MarketPrice,
             ProviderName,
@@ -23,8 +23,9 @@ class Detail extends PureComponent {
 
         let carouselData = MainImgs.map((mainImg) => {
             return {ImgUrl: mainImg}
-
         });
+
+        let {TotalRecords, DataList = []} = this.props.showProductComment;
 
         return (
             <Fragment>
@@ -100,28 +101,38 @@ class Detail extends PureComponent {
 
                     <div className="art-product__homepage">
                         <div className="art-product__homepage__detail">
-                            评价(230)
+                            {`评价(${TotalRecords})`}
                         </div>
                     </div>
 
-                    <div className="art-product__comment">
-                        <div className="art-product__comment-avatar">
-                            <div className="art-product__comment-avatar-item"></div>
-                        </div>
-                        <div className="art-product__comment-username">
-                            小兰****天
-                        </div>
-                    </div>
-                    <div className="art-product__comment-content">
-                        贴心设计，现代玉雕分为南派、北派。南派以扬州为代表，特点是细腻形象
-                    </div>
+                    {DataList.map((data, index) => {
+                        return (
+                            <div key={index.toString()}>
+                                <div className="art-product__comment">
+                                    <div className="art-product__comment-avatar">
+                                        <div className="art-product__comment-avatar-item"></div>
+                                    </div>
+                                    <div className="art-product__comment-username">
+                                        {data.CustomerName}
+                                    </div>
+                                </div>
+                                <div className="art-product__comment-content">
+                                    {data.Content}
+                                </div>
 
-                    <div className="art-product__comment-image">
-                        <div>1</div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div></div>
-                    </div>
+                                <div className="art-product__comment-image">
+                                    <div
+                                        style={{
+                                            background: `url(${pictureUrl(data.HeadImage)})`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "contain"
+                                        }}>
+
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
 
                 <div className="art-product__comment-whiteSpace">
@@ -150,18 +161,24 @@ class Detail extends PureComponent {
     componentDidMount() {
         const {ProductId} = this.props.location.state;
         this.props.getWorthGoodsDetail(ProductId);
+        this.props.getProductComment([ProductId], '11');
     }
 }
 
 const mapStateToProps = ({shop}) => {
     return {
         shopWorthGoodsDetail: shop.shopWorthGoodsDetail,
+        showProductComment: shop.showProductComment,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     getWorthGoodsDetail: (ProdId, PromotionId) => {
         dispatch(getWorthGoodsDetail({ProdId, PromotionId}))
+    },
+
+    getProductComment: (ProdIds, CustomerId) => {
+        dispatch(getProductComment({ProdIds, CustomerId, CommentType: 9, CurrentPage: 1, PageSize: 50}))
     },
 });
 

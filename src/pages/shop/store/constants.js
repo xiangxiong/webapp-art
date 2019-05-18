@@ -4,3 +4,4 @@ export const SHOP_NEWS_PAGER_LIST = 'shop/newsPagerList';
 export const SHOP_PRODUCT_COMMEND_LIST = 'shop/productCommendList';
 export const SHOP_LIKE_PRODUCTS_LIST = 'shop/userLikeProductsList';
 export const SHOP_WORTH_GOODS_DETAIL = 'shop/worthGoodsDetail';
+export const SHOP_PRODUCT_COMMENT = 'shop/ProductComment';
