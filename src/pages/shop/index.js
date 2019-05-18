@@ -34,7 +34,7 @@ class Shop extends PureComponent {
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">
-                            {shopProductCommendList.slice(0, 4).map((shopProductCommend, index) => {
+                            {shopProductCommendList.map((shopProductCommend, index) => {
                                 return <Product key={index.toString()} {...shopProductCommend}/>
                             })}
                         </div>
@@ -43,7 +43,7 @@ class Shop extends PureComponent {
                     <div className="art-shop__hot">
                         <Title title="猜你喜欢" more="更多"/>
                         <div className="art-shop__hot-content">
-                            {shopUserLikeProducts.slice(0, 4).map((shopProductCommend, index) => {
+                            {shopUserLikeProducts.map((shopProductCommend, index) => {
                                 return <Product key={index.toString()} {...shopProductCommend}/>
                             })}
                         </div>
@@ -58,7 +58,7 @@ class Shop extends PureComponent {
         this.props.getShopNewsPagerList();
         this.props.getShopAdvertList(21);
         this.props.getProductCommend();
-        this.props.getUserLikeProducts(11, 1);
+        this.props.getUserLikeProducts(11);
     }
 }
 
@@ -82,11 +82,11 @@ const mapDispatchToProps = dispatch => ({
     },
 
     getProductCommend: () => {
-        dispatch(getProductCommend({CategoryId: 4, CurrentPage: 1, PageSize: 3}))
+        dispatch(getProductCommend({CommendType: 4, CurrentPage: 1, PageSize: 4}))
     },
 
-    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
-        dispatch(getUserLikeProducts({CustomerId, Position: 2, CurrentPage, PageSize}))
+    getUserLikeProducts: (CustomerId) => {
+        dispatch(getUserLikeProducts({CustomerId, Position: 2, CurrentPage: 1, PageSize: 4}))
     }
 });
 
