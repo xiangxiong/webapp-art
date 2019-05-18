@@ -52,7 +52,7 @@ class Shop extends PureComponent {
             </Fragment>
         )
     }
-
+    
     componentDidMount() {
         this.props.getShopAdvertList(2);
         this.props.getShopNewsPagerList();
