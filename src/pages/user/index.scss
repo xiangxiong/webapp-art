@@ -1,3 +1,5 @@
+@import './../../style/index.scss';
+
 .art-user {
 
   &__header {
@@ -78,7 +80,7 @@
       }
     }
   }
-
+  
   &__order {
     width: 100%;
     display: flex;

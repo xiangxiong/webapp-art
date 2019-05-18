@@ -1,147 +1,21 @@
-.art-shop {
+.art-shop{
+    background: #FFFFFF;
 
-  &__header {
-    height: 32px;
-    margin: 7px 10px 7px 10px;
-    display: flex;
-    flex-direction: row;
-
-    & > div:nth-child(1) {
-      flex: 1;
-      height: 32px;
-      opacity: 0.53;
-      background: #CCCCCC;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      margin-right: 12px;
-
-      & > img {
-        width: 12px;
-        height: 12px;
-        margin-right: 5px;
-      }
-
-      & > span {
-        opacity: 0.7;
-        font-family: PingFangSC-Regular;
-        font-size: 13px;
-        color: #626262;
-        letter-spacing: -0.09px;
-      }
+    &__hot{
+        margin: 0 12px 0px 12px;
     }
 
-    & > div:nth-child(2) {
-      display: flex;
-      flex-direction: column;
-      width: 24px;
-      align-items: center;
-
-      & > img {
-        width: 24px;
-        height: 16px;
-      }
-
-      & > span {
-        font-family: PingFangSC-Semibold;
-        font-size: 10px;
-        color: #666666;
-        letter-spacing: -0.07px;
-        height: 14px;
-        line-height: 14px;
-        margin-top: 3px;
-      }
+    &__hot-content{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
-  }
-
-  &__carousel {
-    width: 375px;
-    height: 148px;
-  }
-
-  &__special {
-    padding: 11px 12px;
-  }
-
-  &__recomand {
-    padding: 0 12px 10px 12px;
-    width: 375px;
-    height: 96px;
-
-    & > img {
-      width: 351px;
-      height: 86px;
-      border-radius: 3px;
+    
+    &__border{
+        border-bottom: 1px solid #E7E7E7;
+        width: 93%;
+        margin: 0 auto;
+        margin-bottom: 17px;
     }
-  }
-
-  &__interval {
-    width: 375px;
-    height: 12px;
-    background-color: #F3F3F3;
-  }
-
-  &__column {
-    width: 351px;
-    height: 131px;
-    border-bottom: 1px solid #E7E7E7;
-    margin: 6px 12px 11px 12px;
-  }
-
-  &__recommendTitle {
-    padding: 7px 12px 6px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 25px;
-
-    & > h3 {
-      font-family: PingFangSC-Semibold;
-      font-size: 18px;
-      color: #333333;
-      letter-spacing: -0.13px;
-      height: 25px;
-      line-height: 25px;
-    }
-
-    & > span {
-      font-family: PingFangSC-Regular;
-      font-size: 12px;
-      color: #888888;
-      letter-spacing: -0.09px;
-    }
-  }
-
-  &__recommend {
-    display: flex;
-    flex-direction: row;
-    margin-left: 12px;
-    margin-right: 12px;
-
-    &___left {
-      //background-color: #E87908;
-      width: 172px;
-      height: 172px;
-    }
-
-    &___right {
-      background-color: #C30F22;
-      width: 172px;
-      height: 172px;
-    }
-
-    &___content {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-
-      & > div {
-        flex: 1;
-        margin-left: 2.5px;
-        margin-right: 2.5px;
-      }
-    }
-  }
 }
