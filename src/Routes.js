@@ -6,6 +6,7 @@ import Pay from './pages/user/pay';
 import Applcation from './pages/user/application';
 import  addressList from './pages/user/addressList';
 import  addAddress from './pages/user/addAddress';
+import Detail  from './pages/shop/detail';
 
 export default [
     {
@@ -52,11 +53,16 @@ export default [
         exact: true,
         key: 'addressList'
     },
-
     {
         path: "/addAddress",
         component: addAddress,
         exact: true,
         key: 'addAddress'
+    },
+    {
+        path: "/detail",
+        component: Detail,
+        exact: true,
+        key: 'detail'
     }
 ];

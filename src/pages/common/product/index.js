@@ -2,12 +2,18 @@ import React from 'react';
 import './index.scss';
 import PropTypes from 'prop-types';
 import  {pictureUrl} from '../../../utils/stringUtil';
+import history from './../../../utils/history';
+
+function  handleJumpUrl(){
+    history.push('./detail')
+}
+
 
 const Product = (props) => {
     let {ImgPath = '', ProductName = '', SalePrice = '', MarketPrice = '', ProviderName = '', ProviderImg, index = 0} = props;
 
     return (
-        <div className="art-main__recommend-item" key={index.toString()}>
+        <div className="art-main__recommend-item" key={index.toString()} onClick={handleJumpUrl}>
             <div className="art-main__recommend-img img-mrg-right"
                  style={{
                      background: `url(${pictureUrl(ImgPath)})`,

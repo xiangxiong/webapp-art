@@ -3,41 +3,75 @@ import {NavBar, Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
-import classNames from 'classnames';
 
-const PublicHeader = (props) => {
-    const {title,bgColor,fontColor,icon} = props;
+// const PublicHeader = (bgColor,title,icon) => {
 
-    console.log('props',props);
+//     return (
+//         <Fragment>
+//             <NavBar
+//                  style={{background:bgColor,color:'#FFFFFF'}}
+//                  mode="light"
+//                  icon={<Icon type={icon}/>}
+//                  onLeftClick={() => history.go(-1)}
+//                 >
+//                 {
+//                     title
+//                 }
+//             </NavBar>
+//         </Fragment>
+//     )
+// }
 
-    const fontStyle = {
-        background:bgColor,
-        color:fontColor
-    };
+class PublicHeader extends React.Component{
 
-    return (
-        <Fragment>
+    constructor(props){
+        super(props);
+        const {title} = props;
+        this.state = {
+            title:title
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        const {title} = nextProps;
+
+        if(title !== this.state.title){
+            this.setState({
+                title:title
+            })
+        }
+    }
+
+    render(){
+        const {bgColor,icon,share} = this.props;
+        const {title} = this.state;
+
+        return (
+           <Fragment>
             <NavBar
                  style={{background:bgColor,color:'#FFFFFF'}}
                  mode="light"
                  icon={<Icon type={icon}/>}
                  onLeftClick={() => history.go(-1)}
+                 rightContent={
+                       share && <div className="art-icon art-icon-share"></div>
+                  }
                 >
                 {
                     title
                 }
             </NavBar>
         </Fragment>
-    )
+        )
+    }
 }
 
-PublicHeader.defaultProps = {
-    bgColor:'light',
-    color:'',
-    fontColor:'#FFFFFF',
-    icon:'left'
-};
-  
+PublicHeader.defaultProps ={
+    bgColor:'#E87908',
+    icon:'left',
+    share:''
+}
+
 PublicHeader.propTypes = {
     title:PropTypes.string,
     bgColor:PropTypes.string,

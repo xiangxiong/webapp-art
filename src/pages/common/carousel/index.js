@@ -7,12 +7,11 @@ import  {pictureUrl} from '../../../utils/stringUtil';
 export default class CarouselBanner extends PureComponent{
     constructor(props){
         super(props);
-        this.state = {
-                imgHeight: 176
-        };
     }
     render(){
-        const {data} = this.props;
+        const {data,imgHeight} = this.props;
+        const  aimgHeight = imgHeight === 'auto' ? '1.76rem': imgHeight;
+        console.log('imgHeight',aimgHeight);
 
         return (
             <div className="art-main__header">
@@ -26,12 +25,16 @@ export default class CarouselBanner extends PureComponent{
                     <a
                     key={index.toString()}
                     href={item.SkipUrl}
-                    style={{ display: 'inline-block', width: '100%', height: '1.76rem' }}
+                    style={{ display: 'inline-block', width: '100%', height: aimgHeight }}
                     >
                     <img
                         src={pictureUrl(item.ImgUrl)}
                         alt=""
-                        className="art-main__header-img"
+                        style={{
+                            width:'100%',
+                            height: aimgHeight
+                        }}
+                        // className="art-main__header-img"
                         onLoad={() => {
                             // fire window resize event to change height
                             window.dispatchEvent(new Event('resize'));
@@ -47,7 +50,8 @@ export default class CarouselBanner extends PureComponent{
 }
 
 CarouselBanner.defaultProps = {
-    data: []
+    data: [],
+    imgHeight:'1.76rem'
 };
 
 CarouselBanner.propTypes = {
