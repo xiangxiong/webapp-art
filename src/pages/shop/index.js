@@ -189,7 +189,7 @@ class Shop extends PureComponent {
         this.props.getShopNewsPagerList();
         this.props.getShopAdvertList(21);
         this.props.getProductCommend();
-        this.props.getUserLikeProducts(11, 2);
+        this.props.getUserLikeProducts(11, 1);
     }
 }
 
@@ -217,7 +217,7 @@ const mapDispatchToProps = dispatch => ({
     },
 
     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
-        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
+        dispatch(getUserLikeProducts({CustomerId, Position: 2, CurrentPage, PageSize}))
     }
 });
 

@@ -5,7 +5,7 @@ import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
-import {pictureUrl} from '../../utils/StringUtil';
+import {pictureUrl} from '../../utils/stringUtil';
 
 const Item = List.Item;
 
