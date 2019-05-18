@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import  {pictureUrl} from '../../../utils/stringUtil';
 
 const Product = (props) => {
-    let {ImgPath = '', ProductName = '', SalePrice = '', MarketPrice = '', ProviderName = '', ProviderImg} = props;
+    let {ImgPath = '', ProductName = '', SalePrice = '', MarketPrice = '', ProviderName = '', ProviderImg, index = 0} = props;
 
     return (
-        <div className="art-main__recommend-item">
+        <div className="art-main__recommend-item" key={index.toString()}>
             <div className="art-main__recommend-img img-mrg-right"
                  style={{
                      background: `url(${pictureUrl(ImgPath)})`,

@@ -1,7 +1,6 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {List} from 'antd-mobile';
-import ProductionItem from '../home/production/index';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
@@ -188,7 +187,6 @@ class User extends PureComponent {
                         {productionList.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
-                                    <ProductionItem {...production}/>
                                 </div>)
                         })}
                     </div>

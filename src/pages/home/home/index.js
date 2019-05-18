@@ -48,7 +48,7 @@ class Main extends PureComponent{
         var items = [];
 
         for (var i = 0; i < userLikeProducts.length; i++) {
-            items.push(<Product {...userLikeProducts[i]}/>);
+            items.push(<Product {...userLikeProducts[i]} index={i}/>);
         }
 
         return items;
