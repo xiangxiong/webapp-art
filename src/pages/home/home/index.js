@@ -198,7 +198,6 @@ const mapDispatchToProps = dispatch => ({
     getAdvertList: (type) => {
         dispatch(getAdvertList(type))
     },
-
     getNewsPagerList: () => {
         dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
     },

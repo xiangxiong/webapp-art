@@ -5,14 +5,10 @@ import PropTypes from 'prop-types';
 import  {pictureUrl} from '../../../utils/stringUtil';
 
 export default class CarouselBanner extends PureComponent{
-    constructor(props){
-        super(props);
-    }
     render(){
         const {data,imgHeight} = this.props;
         const  aimgHeight = imgHeight === 'auto' ? '1.76rem': imgHeight;
-        console.log('imgHeight',aimgHeight);
-
+        
         return (
             <div className="art-main__header">
             <Carousel
