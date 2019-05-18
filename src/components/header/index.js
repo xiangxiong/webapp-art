@@ -3,25 +3,45 @@ import {NavBar, Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
+import classNames from 'classnames';
 
 const PublicHeader = (props) => {
+    const {title,bgColor,fontColor,icon} = props;
+
+    console.log('props',props);
+
+    const fontStyle = {
+        background:bgColor,
+        color:fontColor
+    };
+
     return (
         <Fragment>
             <NavBar
-                mode="light"
-                icon={<Icon type="left" />}
-                onLeftClick={() => history.go(-1)}
+                 style={{background:bgColor,color:'#FFFFFF'}}
+                 mode="light"
+                 icon={<Icon type={icon}/>}
+                 onLeftClick={() => history.go(-1)}
                 >
                 {
-                    props.title
+                    title
                 }
             </NavBar>
         </Fragment>
     )
 }
+
+PublicHeader.defaultProps = {
+    bgColor:'light',
+    color:'',
+    fontColor:'#FFFFFF',
+    icon:'left'
+};
   
 PublicHeader.propTypes = {
-    title:PropTypes.string
+    title:PropTypes.string,
+    bgColor:PropTypes.string,
+    icon:PropTypes.string
 }
 
 export default PublicHeader;

@@ -17,7 +17,7 @@
   * cart 购物车.
   * user-login 用户登录.
   * community 社区.
-  
+
 * components   公用组件库.
 
 * utils  公用类库.
@@ -26,3 +26,5 @@
 
 > 约束
 * css 写法符合 bem 规范.
+* 公共配色和字体全部引用style 文件里面的.
+* 小图标全部引用icon.scss

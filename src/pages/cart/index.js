@@ -8,11 +8,11 @@ export default class Cart extends PureComponent{
             <div>
                 购物车
                 <InputItem
-            type='money'
-            defaultValue={100}
-            placeholder="start from left"
-            clear
-            moneyKeyboardAlign="left"
+                type='money'
+                defaultValue={100}
+                placeholder="start from left"
+                clear
+                moneyKeyboardAlign="left"
             >光标在左</InputItem>
             </div>
         )

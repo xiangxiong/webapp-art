@@ -1,0 +1,39 @@
+
+.art-shop{
+    &__search{
+      height: 46px;
+      display: flex;
+      flex-direction: row;
+    }
+  
+    &__search>div:nth-child(1){
+      width: 90%;
+      height: 46px;
+      margin: 7px 10px 7px 7px;
+    }
+  
+    &__search>div:nth-child(2){
+      height: 32px;
+      line-height: 32px;
+      width: 10%;
+      position: relative;
+      top: 2px;
+      right: 2px;
+    }
+  
+    &__input{
+      height: 32px;
+      opacity: 0.53;
+      background: #CCCCCC;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      text-align: center;
+  
+      &-text{
+        position: relative;
+        top: -20px;
+        left: 0px;
+      }
+    }
+  }

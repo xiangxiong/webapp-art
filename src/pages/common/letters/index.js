@@ -1,18 +1,20 @@
 /**
  * Created by huhaibin on 2019/5/13.
  */
-import React, {PureComponent} from 'react';
+import React from 'react';
 import './index.scss';
 import {PICTUREURL} from '../../../utils/api';
 import {Carousel} from 'antd-mobile';
+import PropTypes from 'prop-types';
 
-export default class Letters extends PureComponent{
-    
-    render() {
-        const {data} = this.props;
+const Letters = (props) =>{
+        const {data} = props;
+
         return (
             <div className="art-letters__main">
+
                 <img src={`${PICTUREURL}6.png`}/>
+
                 {data && data.length > 0 ? (
                     <Carousel className="my-carousel"
                               dots={false}
@@ -32,6 +34,15 @@ export default class Letters extends PureComponent{
                     </Carousel>
                 ) : null}
             </div>
-        )
-    }
+   )
 }
+
+Letters.defaultProps ={
+    data:[]
+}
+
+Letters.propTypes = {
+    data:PropTypes.array
+}
+
+export default Letters;

@@ -1,16 +1,23 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
-import Letters from '../home/letters/index';
-import Column from '../home/column/index';
+import Column from '../common/column/index';
 import ProductionItem from '../home/production/index';
 import {Carousel} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../home/store/actionCreators';
 import {getProductCommend} from './store/actionCreators';
 import {PICTUREURL} from "../../utils/api";
+import PublicHeader from './../../components/header';
+import SearchCategory from  './search/index';
+import CarouselBanner from '../common/carousel';
+import Advert from './../common/advert';
+import Letters from '../common/letters/index';
+import Space from '../common/space';
+import Cloumn from '../common/column';
+import Product from './../common/product';
+import Title from './../common/title';
 
 class Shop extends PureComponent {
-
     constructor(props) {
         super(props);
 
@@ -62,6 +69,36 @@ class Shop extends PureComponent {
 
         return (
             <Fragment>
+                <div className="art-shop">
+                    <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/>
+                    <SearchCategory/>
+                    <CarouselBanner/>
+                    <Letters data={null}/>
+                    <Advert commonAdList={null}/>
+                    <Space/>
+                    <Cloumn data={null}/>
+                    <div className="art-shop__hot">
+                        <Title title="热销作品" more="更多"/>
+                        <div className="art-shop__hot-content">
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                        </div>
+                    </div>
+                    <div className="art-shop__border"></div>
+                    <div className="art-shop__hot">
+                        <Title title="猜你喜欢" more="更多"/>
+                        <div className="art-shop__hot-content">
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                        </div>
+                    </div>
+                </div>
+             
+{/*                
                 <div className="art-shop__header">
                     <div>
                         <img src={`${PICTUREURL}51.png`}/>
@@ -122,11 +159,9 @@ class Shop extends PureComponent {
                         <ProductionItem {...shopUserLikeProducts[0]}/>
 
 
-                        {/*  <ProductionItem {...production}/>*/}
                     </div>
 
                     <div className="art-shop__recommend___right">
-                        {/*<ProductionItem {...production}/>*/}
                     </div>
                 </div>
 
@@ -140,11 +175,11 @@ class Shop extends PureComponent {
                         {salesProductionList.map((production, index) => {
                             return (
                                 <div key={index.toString()}>
-                                    {/* <ProductionItem {...production}/>*/}
                                 </div>)
                         })}
                     </div>
                 </div>
+            */}
             </Fragment>
         )
     }

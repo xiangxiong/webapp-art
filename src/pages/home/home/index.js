@@ -1,15 +1,21 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import NavItem from './../nav/index';
-import Column from '../column/index';
 import ProductionItem from './../production/index';
-import Letters from './../letters/index';
+
 import {PICTUREURL} from '../../../utils/api';
-import {Carousel,InputItem} from 'antd-mobile';
+import {InputItem} from 'antd-mobile';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import InfiniteScroll from 'react-infinite-scroller';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
+import CarouselBanner from '../../common/carousel';
+import Column from '../../common/column';
+import Advert from '../../common/advert';
+import Letters from '../../common/letters/index';
+import Space from '../../common/space';
+import Product from './../../common/product';
+import Title from './../../common/title';
 
 class Main extends PureComponent{
 
@@ -24,7 +30,7 @@ class Main extends PureComponent{
         ];
 
         this.state = {
-            data: ['1', '2', '3'],
+            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             imgHeight: 176,
             scrollCss:classNames(
                 'art-main__search',
@@ -32,6 +38,12 @@ class Main extends PureComponent{
                     'art-main__search-bg':false
                 }
             ),
+            searchCss:classNames('art-main__search-input',{
+                'art-main__search-input-bg':false
+            }),
+            address:classNames('art-main__search-address',{
+                'art-main__search-address-bg':false
+            }),
             items:4,
             hasMoreItems: true
         };
@@ -74,56 +86,28 @@ class Main extends PureComponent{
 
     render() {
         const {carouselAdList, commonAdList, newsPagerList, userLikeProducts} = this.props;
-        const {scrollCss} = this.state;
+        const {scrollCss,searchCss,address} = this.state;
 
         return (
             <Fragment>
                 <div className="art-main" 
                 ref="artScroll"
-                style={{overflow:"auto",height:document.documentElement.clientHeight}}
-                >
-
+                style={{overflow:"auto",height:document.documentElement.clientHeight}}>
                     <div className={scrollCss}>
-                        <div>上海</div>
+                        <div className={address}>上海</div>
                         <div>
-                            <InputItem/>
+                            <input className={searchCss} placeholder="大家都在搜紫砂壶"/>
                         </div>
-                        <div>问好</div>
+                        <div className="art-icon art-icon-helper"></div>
                     </div>
 
                     <InfiniteScroll
                         loadMore={this.loadMoreItem.bind(this)}
                         hasMore={this.state.hasMoreItems}
-                        loader={<div className="loader"> 正在加载中... </div>}
+                        loader={<div className="art-main__loader"> 正在努力加载中... </div>}
                         useWindow={false}>
 
-                        <div className="art-main__header">
-                        <Carousel
-                            autoplay={false}
-                            infinite
-                            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                            afterChange={index => console.log('slide to', index)}
-                            >
-                            {this.state.data.map(val => (
-                                <a
-                                key={val}
-                                href="http://www.alipay.com"
-                                style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                                >
-                                <img
-                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                    alt=""
-                                    className="art-main__header-img"
-                                    onLoad={() => {
-                                    // fire window resize event to change height
-                                    window.dispatchEvent(new Event('resize'));
-                                    this.setState({ imgHeight: 'auto' });
-                                    }}
-                                />
-                                </a>
-                            ))}
-                            </Carousel>
-                        </div>
+                        <CarouselBanner data={this.state.data}/>
 
                         <div className="art-main__navitem">
                                 {
@@ -140,102 +124,31 @@ class Main extends PureComponent{
                                 }
                         </div>
 
-                        <div className="art-main__message">
-                            <Letters data={newsPagerList}/>
-                        </div>
+                        <Letters data={newsPagerList}/>
 
-                        <div className="art-main__banner"
-                            style={{
-                                background:`url(${ commonAdList && commonAdList.length > 0 ? commonAdList[0].ImgUrl : ''})`,
-                                backgroundPosition: "center",
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "contain"
-                            }}
-                        >
-                        </div>
+                        <Advert commonAdList={commonAdList}/>
 
-                        <div className="art-main__space"></div>
+                        <Space/>
 
-                        <div className="art-main__column">
-                            <h2>栏目</h2>
-                            <div className="art-main__column-content">
-                                <div className="art-main__column-content-recomand"
-                                style={{
-                                    background:`url(${PICTUREURL}30.png)`,
-                                    marginRight: "3px",
-                                    backgroundRepeat: "repeat",
-                                    backgroundSize: "contain"
-                                }}>
-                                </div>
-                                <div className="art-main__column-content-invent"
-                                style={{
-                                    background:`url(${PICTUREURL}31.png)`,
-                                    marginLeft: "3px",
-                                    backgroundRepeat: "repeat",
-                                    backgroundSize: "contain"
-                                }}>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="art-main__column-border"></div>
+                        <Column imgUrl={PICTUREURL}/>
 
                         <div className="art-main__recommend">
-                            <div className="art-main__recommend-title"> 
-                                为你推荐
-                            </div>
+                            
+                            <Title title="为你推荐"/>
+
                             <div className="art-main__recommend-content">
-                                <div className="art-main__recommend-item">
-                                    <div className="art-main__recommend-img img-mrg-right">
-                                    </div>
-                                    <p>景德镇紫砂壶</p>
-                                    <p><i className="art-main__recommend-money">￥1988</i> 
-                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                    <div className="art-main__recommend-user">
-                                        <span className="art-main__recommend-name">宇翔老者</span>
-                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                    </div>
-                                </div>
-                                <div className="art-main__recommend-item">
-                                    <div className="art-main__recommend-img img-mrg-right">
-                                    </div>
-                                    <p>景德镇紫砂壶</p>
-                                    <p><i className="art-main__recommend-money">￥1988</i> 
-                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                    <div className="art-main__recommend-user">
-                                        <span className="art-main__recommend-name">宇翔老者</span>
-                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                    </div>
-                                </div>
-                                <div className="art-main__recommend-item">
-                                    <div className="art-main__recommend-img img-mrg-right">
-                                    </div>
-                                    <p>景德镇紫砂壶</p>
-                                    <p><i className="art-main__recommend-money">￥1988</i> 
-                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                    <div className="art-main__recommend-user">
-                                        <span className="art-main__recommend-name">宇翔老者</span>
-                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                    </div>
-                                </div>
-                                <div className="art-main__recommend-item">
-                                    <div className="art-main__recommend-img img-mrg-right">
-                                    </div>
-                                    <p>景德镇紫砂壶</p>
-                                    <p><i className="art-main__recommend-money">￥1988</i> 
-                                    <i className="art-main__recommend-marketprice">￥1988</i></p>
-                                    <div className="art-main__recommend-user">
-                                        <span className="art-main__recommend-name">宇翔老者</span>
-                                        <img className="art-main__recommend-avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558103882846&di=1762f1769f1c241ec54f8b8e04d26e48&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F23%2F20160623160926_fxMCc.jpeg"/>
-                                    </div>
-                                </div>
+                                <Product/>
+                                <Product/>
+                                <Product/>
+                                <Product/>
                                 {this.showRecomandItem()}
                             </div>
+
                         </div>
-                        
+                  
                     </InfiniteScroll>
                 </div>
-               
+
                 {/* <div className="art-main__header">
                     <div className="art-main__header___carousel">
                         <Carousel
@@ -325,7 +238,13 @@ class Main extends PureComponent{
                         {
                             'art-main__search-bg':true
                         }
-                    )
+                    ),
+                    searchCss:classNames('art-main__search-input',{
+                        'art-main__search-input-bg':true
+                    }),
+                    address:classNames('art-main__search-address',{
+                        'art-main__search-address-bg':true
+                    })
                 })
             }
             else{
@@ -335,7 +254,13 @@ class Main extends PureComponent{
                         {
                             'art-main__search-bg':false
                         }
-                    )
+                    ),
+                    searchCss:classNames('art-main__search-input',{
+                        'art-main__search-input-bg':false
+                    }),
+                    address:classNames('art-main__search-address',{
+                        'art-main__search-address-bg':false
+                    })
                 })
             }
         });

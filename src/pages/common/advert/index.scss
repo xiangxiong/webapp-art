@@ -1,0 +1,11 @@
+@import './../../../style/index.scss';
+
+.art-main{
+    
+  &__banner{
+        height: 86px;
+        background: red;
+        margin: 0 12px 10px 12px;
+        border-radius: 4px;
+  }
+}

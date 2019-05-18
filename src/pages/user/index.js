@@ -47,7 +47,6 @@ class User extends PureComponent {
         )
     }
 
-
     orderInfoItem(number, name, url, isShowBorderRight = true) {
 
         return (
@@ -113,12 +112,10 @@ class User extends PureComponent {
                         {this.otherInfoItem(VisitCount, '足记')}
                         {this.otherInfoItem(GroupCount, '团购')}
                     </div>
-
                 </div>
                 <div className="art-user__order">
                     <div className="art-user__order___title">
                         <span>我的订单</span>
-
                         <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
                     </div>
 

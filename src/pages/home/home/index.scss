@@ -8,6 +8,12 @@
     height: 176px;
   }
 
+  &__loader{
+    height: 48px;
+    line-height: 48px;
+    width: 100%;
+  }
+
   &__header-img{
     width:100%;
     height: 176px;
@@ -51,57 +57,11 @@
     border-radius: 4px;
   }
 
-  &__space{
-    height: 12px;
-    background: $color-bg-home-color;
-  }
-
-  &__column{
-
-    &>h2{
-      margin: 8px 12px 7px 12px;
-      text-align: left;
-      font-family: PingFangSC-Semibold;
-      font-size: 18px;
-      color: #333333;
-      letter-spacing: -0.13px;
-    }
-
-    &-content{
-      width: 100%;
-      height: 95px;
-      padding: 0 12px 0 12px;
-      display: flex;
-      flex-direction: row;
-
-      &-invent{
-        flex: 1;
-        background: #333333;
-        height: 84px;
-        border-radius: 4px;
-      }
-
-      &-recomand{
-        flex: 1;
-        background: #333333;
-        height: 84px;
-        width: 100%;
-        border-radius: 4px;
-      }
-    }
-
-    &-border{
-      width: 93%;
-      margin: 0 12px 0 12px;
-      height: 2px;
-      border-bottom: 1px solid #ddd;
-    }
-  }
+ 
 
   &__recommend{
-
     margin: 0 12px 0px 12px;
-
+    
     &-title{
       margin-top: 10px;
       height: 25px;
@@ -110,7 +70,7 @@
       color: #333333;
       letter-spacing: -0.13px;
       text-align: left;
-    }
+    } 
 
     &-content{
       width: 100%;
@@ -180,30 +140,50 @@
     position: fixed;
     top: 0px;
     z-index: 1000;
-    height: 71px;
+    height: 60px;
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding-top: 18px;
+    padding-top: 12px;
     
     &-bg{
-      background: $color-grey-0;
-      opacity: 0.8;
+      background: $color-bg-color;
+      color: #888888;
     }
 
     &>div:nth-child(1){
       position: relative;
       top:5px;
-      color: $color-bg-color;
       width: 25%;
+    }
+
+    &-input{
+      width: 256px;
+      border-radius: 3px;
+      opacity: 0.53;
+      background: #FFFFFF;
+      border-radius: 8px;
+      height: 36px;
+      line-height: 36px;
+      border: none;
+      text-align: center;
+
+      &-bg{
+        background: $color-grey-4;
+        opacity: 0.53;
+      }
+    }
+
+    &-address{
+       color: $color-bg-color; 
+
+       &-bg{
+         color: #333333;
+       }
     }
 
     &>div:nth-child(2){
       width: 65%;
-      &>input{
-        width: 256px;
-        border-radius: 3px;
-      }
     }
     &>div:nth-child(3){
       position: relative;
