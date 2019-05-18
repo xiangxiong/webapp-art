@@ -1,0 +1,11 @@
+@import './../../../style/index.scss';
+
+.art-add {
+  background: $color-bg-color;
+
+  &__agreement {
+    text-align: center;
+    height: 14px;
+    line-height: 14px;
+  }
+}

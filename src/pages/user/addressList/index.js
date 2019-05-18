@@ -62,21 +62,19 @@ class AddressList extends PureComponent {
 
         return (
             <Fragment>
-                <div>
-                    <PublicHeader title="地址管理"/>
-                    <div className="art-add">
-                        {userAddressList.map((userAddress, index) => {
-                            return this.showAddressItem(userAddress, index);
-                        })}
-                    </div>
+                <PublicHeader title="地址管理"/>
+                <div className="art-add">
+                    {userAddressList.map((userAddress, index) => {
+                        return this.showAddressItem(userAddress, index);
+                    })}
+                </div>
 
-                    <div className="art-add__bottom"
-                         onClick={() => {
-                             this.goAddAddress()
-                         }}>
-                        <div className="art-icon art-icon-add"></div>
-                        <span>新建地址</span>
-                    </div>
+                <div className="art-add__bottom"
+                     onClick={() => {
+                         this.goAddAddress()
+                     }}>
+                    <div className="art-icon art-icon-add"></div>
+                    <span>新建地址</span>
                 </div>
             </Fragment>
         )

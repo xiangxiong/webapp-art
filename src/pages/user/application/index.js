@@ -1,5 +1,5 @@
 import React, {PureComponent, Fragment, useState} from 'react';
-import {List, InputItem, Radio, Button, ActionSheet} from 'antd-mobile';
+import {List, InputItem, Checkbox, Button, ActionSheet} from 'antd-mobile';
 import './index.scss';
 import PublicHeader from './../../../components/header'
 import {ImagePicker} from 'antd-mobile';
@@ -8,6 +8,7 @@ import history from './../../../utils/history';
 import {getCreateIntertionalPartener, getQueryCategoryList} from "../store/actionCreators";
 import connect from "react-redux/es/connect/connect";
 
+const AgreeItem = Checkbox.AgreeItem;
 const data = [];
 
 const handleUpload = (files, type, index) => {
@@ -246,11 +247,14 @@ class Application extends PureComponent {
                         type === "art" ? this.RenderArtForm() : this.RenderShopForm()
                     }
                     <div className="art-application__form-agree">
-                        <Radio className="my-radio"
-                               onChange={e => {
-                                   this.setState({isAgreement: e.target.checked})
-                               }}
-                        >我已同意并同意遵守合作条款</Radio>
+                        <AgreeItem
+                            data-seed="logId"
+                            className="my-radio"
+                            onChange={e => {
+                                this.setState({isAgreement: e.target.checked})
+                            }}>
+                            我已同意并同意遵守合作条款
+                        </AgreeItem>
                     </div>
                     <div className="art-application__action">
                         <Button onClick={this.handleSubmit}>提交</Button>

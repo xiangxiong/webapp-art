@@ -4,6 +4,7 @@
  * 2、组件库 antd-mobile.
  * 3、样式 sass.
  * 4、react ssr.
+ * 5、rc-form.
 
 > 目录结构
 * pages  页面.
@@ -19,6 +20,8 @@
   * community 社区.
   
 * components   公用组件库.
+
+* data   公用数据.
 
 * utils  公用类库.
 
