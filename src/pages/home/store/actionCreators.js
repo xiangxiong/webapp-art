@@ -23,9 +23,10 @@ const newsPagerList = (NewList) => ({
     value: NewList
 });
 
-const userLikeProducts = (DataList) => ({
+const userLikeProducts = (Data, CurrentPage) => ({
     type: constants.USER_LIKE_PRODUCTS_LIST,
-    value: DataList
+    value: Data,
+    CurrentPage
 });
 
 export const getAdvertList = (AppAdType) => {
@@ -77,7 +78,7 @@ export const getUserLikeProducts = (params) => {
                 }
 
                 if (params.Position === 1) {
-                    dispatch(userLikeProducts(response.Data.DataList));
+                    dispatch(userLikeProducts(response.Data, params.CurrentPage));
                 } else if (params.Position === 2) {
                     dispatch(showUserLikeProducts(response.Data.DataList));
                 }

@@ -4,7 +4,7 @@ const defaultState = {
     carouselAdList: [],
     commonAdList: [],
     newsPagerList: [],
-    userLikeProducts: []
+    userLikeProducts: {}
 };
 export default (state = defaultState, action) => {
     switch (action.type) {
@@ -15,8 +15,13 @@ export default (state = defaultState, action) => {
         case constants.NEWS_PAGER_LIST:
             return {...state, newsPagerList: action.value};
         case constants.USER_LIKE_PRODUCTS_LIST:
-            return {...state, userLikeProducts: action.value};
-
+            if (action.CurrentPage == 1) {
+                return {...state, userLikeProducts: action.value};
+            } else {
+                const {DataList} = Object.assign({}, state.userLikeProducts);
+                let newData = action.value.DataList.concat(DataList);
+                return {...state, userLikeProducts: {...state.userLikeProducts, ...{DataList: newData}}};
+            }
         default:
             return state;
     }

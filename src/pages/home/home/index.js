@@ -41,31 +41,34 @@ class Main extends PureComponent{
             }),
             hasMoreItems: true
         };
+        this.currentPage=1;//为你推荐 当前页
     }
 
     showRecomandItem() {
-        const {userLikeProducts} = this.props;
+        const {DataList = []} = this.props.userLikeProducts;
         var items = [];
 
-        for (var i = 0; i < userLikeProducts.length; i++) {
-            items.push(<Product {...userLikeProducts[i]} index={i} key={i.toString()}/>);
+        for (var i = 0; i < DataList.length; i++) {
+            items.push(<Product {...DataList[i]} index={i} key={i.toString()}/>);
         }
 
         return items;
     }
 
     loadMoreItem(){
-        if(this.state.items === 20){
-            this.setState({
-                hasMoreItems:false
-            });
+        const {DataList = [], TotalRecords} = this.props.userLikeProducts;
+
+        if (DataList.length >= TotalRecords) {
+            this.setState({hasMoreItems:false});
         }else{
-            setTimeout(()=>{
-                // todo: 异步加载数据.
-                this.setState({
-                    items:this.state.items + 4
+            setTimeout(() => {
+                this.setState({hasMoreItems: false}, () => {
+                    this.currentPage = ++this.currentPage;
+                    this.props.getUserLikeProducts(11, this.currentPage).then(() => {
+                        this.setState({hasMoreItems: true});
+                    });
                 });
-            },2000);
+            }, 2000);
         }
     }
 
@@ -178,7 +181,7 @@ class Main extends PureComponent{
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
-        this.props.getUserLikeProducts(11, 1);
+        this.props.getUserLikeProducts(11, this.currentPage);
     }
 }
 
@@ -200,9 +203,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
     },
 
-    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 10) => {
+    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
         dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-    }
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
