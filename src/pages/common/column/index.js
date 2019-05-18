@@ -3,10 +3,11 @@
  */
 import React from 'react';
 import './index.scss';
+import {PICTUREURL} from '../../../utils/api';
 
 const Column = (props) => {
 
-        const {imgUrl} = props;
+        const {leftImgUrl, rightImgUrl} = props;
 
         return (
             <>
@@ -15,7 +16,7 @@ const Column = (props) => {
                             <div className="art-main__column-content">
                                 <div className="art-main__column-content-recomand"
                                 style={{
-                                    background:`url(${imgUrl}30.png)`,
+                                    background:`url(${PICTUREURL + leftImgUrl})`,
                                     marginRight: "3px",
                                     backgroundRepeat: "repeat",
                                     backgroundSize: "contain"
@@ -25,7 +26,7 @@ const Column = (props) => {
                                 </div>
                                 <div className="art-main__column-content-invent"
                                 style={{
-                                    background:`url(${imgUrl}31.png)`,
+                                    background:`url(${PICTUREURL + rightImgUrl})`,
                                     marginLeft: "3px",
                                     backgroundRepeat: "repeat",
                                     backgroundSize: "contain"

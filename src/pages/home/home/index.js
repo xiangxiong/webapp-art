@@ -115,7 +115,7 @@ class Main extends PureComponent{
 
                         <Space/>
 
-                        <Column imgUrl={PICTUREURL}/>
+                        <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
 
                         <div className="art-main__recommend">
 

@@ -9,10 +9,9 @@ import CarouselBanner from '../common/carousel';
 import Advert from './../common/advert';
 import Letters from '../common/letters/index';
 import Space from '../common/space';
-import Cloumn from '../common/column';
+import Column from '../common/column';
 import Product from './../common/product';
 import Title from './../common/title';
-import {PICTUREURL} from '../../utils/api';
 
 class Shop extends PureComponent {
     constructor(props) {
@@ -31,7 +30,7 @@ class Shop extends PureComponent {
                     <Letters data={shopNewsPagerList}/>
                     <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
-                    <Cloumn imgUrl={PICTUREURL}/>
+                    <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">
