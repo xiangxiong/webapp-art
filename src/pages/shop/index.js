@@ -12,6 +12,7 @@ import Space from '../common/space';
 import Cloumn from '../common/column';
 import Product from './../common/product';
 import Title from './../common/title';
+import {PICTUREURL} from '../../utils/api';
 
 class Shop extends PureComponent {
     constructor(props) {
@@ -26,28 +27,26 @@ class Shop extends PureComponent {
                 <div className="art-shop">
                     <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/>
                     <SearchCategory/>
-                    <CarouselBanner/>
-                    <Letters data={null}/>
-                    <Advert commonAdList={null}/>
+                    <CarouselBanner data={shopCarouselAdList}/>
+                    <Letters data={shopNewsPagerList}/>
+                    <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
-                    <Cloumn data={null}/>
+                    <Cloumn imgUrl={PICTUREURL}/>
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">
-                            <Product/>
-                            <Product/>
-                            <Product/>
-                            <Product/>
+                            {shopProductCommendList.slice(0, 4).map((shopProductCommend, index) => {
+                                return <Product key={index.toString()} {...shopProductCommend}/>
+                            })}
                         </div>
                     </div>
                     <div className="art-shop__border"></div>
                     <div className="art-shop__hot">
                         <Title title="猜你喜欢" more="更多"/>
                         <div className="art-shop__hot-content">
-                            <Product/>
-                            <Product/>
-                            <Product/>
-                            <Product/>
+                            {shopUserLikeProducts.slice(0, 4).map((shopProductCommend, index) => {
+                                return <Product key={index.toString()} {...shopProductCommend}/>
+                            })}
                         </div>
                     </div>
                 </div>
