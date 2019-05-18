@@ -48,7 +48,7 @@ class Main extends PureComponent{
         var items = [];
 
         for (var i = 0; i < userLikeProducts.length; i++) {
-            items.push(<Product {...userLikeProducts[i]} index={i}/>);
+            items.push(<Product {...userLikeProducts[i]} index={i} key={i.toString()}/>);
         }
 
         return items;
@@ -89,7 +89,7 @@ class Main extends PureComponent{
                     <InfiniteScroll
                         loadMore={this.loadMoreItem.bind(this)}
                         hasMore={this.state.hasMoreItems}
-                        loader={<div className="art-main__loader"> 正在努力加载中... </div>}
+                        loader={<div className="art-main__loader" key={0}> 正在努力加载中... </div>}
                         useWindow={false}>
 
                         <CarouselBanner data={carouselAdList}/>
