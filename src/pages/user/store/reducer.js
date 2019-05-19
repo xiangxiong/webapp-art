@@ -1,6 +1,5 @@
 import {
     USER_CUSTOMER_DETAIL,
-    USER_ADDRESS_LIST,
     USER_DICT_LIST,
     USER_QUERY_CATEGORY_LIST,
     USER_QUERY_INTERTIONAL_PARTENER
@@ -9,7 +8,6 @@ import {
 const defaultState = {
     customerDetail: {},
     userCategoryList: [],
-    userAddressList: [],
     userDictList: [],
     userIntertionalPartener: {},
 };
@@ -20,11 +18,6 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 customerDetail: action.value
-            };
-        case USER_ADDRESS_LIST:
-            return {
-                ...state,
-                userAddressList: action.value
             };
         case USER_DICT_LIST:
             return {

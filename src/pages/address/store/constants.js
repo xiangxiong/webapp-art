@@ -1,0 +1,1 @@
+export const ADDRESS_LIST = 'address/AddressList';

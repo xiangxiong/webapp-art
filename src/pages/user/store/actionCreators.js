@@ -4,11 +4,6 @@ import {
     CustomerDetail,
     CreateIntertionalPartener,
     Dict,
-    AddressList,
-    AddressAdd,
-    AddressUpdate,
-    AddressDelete,
-    AddressSetDefault,
     QueryCategoryList,
     QueryIntertionalPartener
 } from "../../../utils/servicekey";
@@ -22,11 +17,6 @@ export const userCustomerDetail = (DataList) => ({
 export const userDictAdList = (DictValueList) => ({
     type: constants.USER_DICT_LIST,
     value: DictValueList
-});
-
-export const userAddressList = (DataList) => ({
-    type: constants.USER_ADDRESS_LIST,
-    value: DataList
 });
 
 export const queryCategoryList = (DataList) => ({
@@ -67,60 +57,6 @@ export const getDict = (params) => {
             });
     }
 };
-
-export const getAddressList = (params) => {
-    return (dispatch) => {
-        return post(AddressList, params)
-            .then((response) => {
-                dispatch(userAddressList(response.Data.DataList));
-            });
-    }
-};
-
-export const getAddressAdd = (params) => {
-    return (dispatch) => {
-        return post(AddressAdd, params)
-            .then((response) => {
-                if (response) {
-                    history.push('');
-                }
-            });
-    }
-};
-
-export const getAddressUpdate = (params) => {
-    return (dispatch) => {
-        return post(AddressUpdate, params)
-            .then((response) => {
-                if (response) {
-                    history.push('');
-                }
-            });
-    }
-};
-
-export const getAddressDelete = (params) => {
-    return (dispatch) => {
-        return post(AddressDelete, params)
-            .then((response) => {
-                if (response) {
-                    history.push('/pend');
-                }
-            });
-    }
-};
-
-export const getAddressSetDefault = (params) => {
-    return (dispatch) => {
-        return post(AddressSetDefault, params)
-            .then((response) => {
-                if (response) {
-                    history.push('');
-                }
-            });
-    }
-};
-
 
 export const getQueryCategoryList = (params) => {
     return (dispatch) => {

@@ -15,8 +15,8 @@ class AddressList extends PureComponent {
         history.push('/addAddress')
     };
 
-    showAddressItem = (userAddress, index) => {
-        let {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault, AddressId} = userAddress;
+    showAddressItem = (address, index) => {
+        let {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault, AddressId} = address;
 
         return (
             <div className="art-add__item" key={index.toString()}>
@@ -58,14 +58,14 @@ class AddressList extends PureComponent {
     };
 
     render() {
-        const {userAddressList} = this.props;
+        const {addressList} = this.props;
 
         return (
             <Fragment>
                 <PublicHeader title="地址管理"/>
                 <div className="art-add">
-                    {userAddressList.map((userAddress, index) => {
-                        return this.showAddressItem(userAddress, index);
+                    {addressList.map((address, index) => {
+                        return this.showAddressItem(address, index);
                     })}
                 </div>
 
@@ -85,9 +85,9 @@ class AddressList extends PureComponent {
     }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({address}) => {
     return {
-        userAddressList: user.userAddressList,
+        addressList: address.addressList,
     }
 };
 
