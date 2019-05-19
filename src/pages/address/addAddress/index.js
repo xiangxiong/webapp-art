@@ -31,11 +31,11 @@ class AddAddress extends PureComponent {
         //是否默认  1 是,2 否
         Dto.IsDefault = isDefault ? 1 : '2';
         //邮编
-        Dto.ShippingZip = '';
+        Dto.ShippingZip = '123456';
         //地址标签
-        Dto.AddressLabel = '';
+        Dto.AddressLabel = '0';
 
-        this.props.getAddressAdd('', Dto);
+        this.props.getAddressAdd('1180036515879212', Dto);
     };
 
     render() {
@@ -44,7 +44,7 @@ class AddAddress extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="新建地址"/>
-                <div className="art-addAddress">
+                <div className="art-add">
                     <List>
                         <InputItem
                             clear
@@ -85,17 +85,25 @@ class AddAddress extends PureComponent {
                                 this.setState({ShippingAddress: v})
                             }}>
                         </TextareaItem>
-                    </List>
 
-                    <div className="art-addAddress__agreement">
-                        <AgreeItem data-seed="logId"
-                                   onChange={e => {
-                                       this.setState({isDefault: e.target.checked})
-                                   }}>
-                            设为默认地址
-                        </AgreeItem>
-                    </div>
+                        <div className="art-add__agreement">
+                            <AgreeItem data-seed="logId"
+                                       onChange={e => {
+                                           this.setState({isDefault: e.target.checked})
+                                       }}>
+                                设为默认地址
+                            </AgreeItem>
+                        </div>
+                    </List>
                 </div>
+
+                <div className="art-add__bottom"
+                     onClick={() => {
+                         this.onSubmit()
+                     }}>
+                    <span>保存</span>
+                </div>
+
             </Fragment>
         )
     }

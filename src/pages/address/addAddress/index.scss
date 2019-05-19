@@ -5,7 +5,28 @@
 
   &__agreement {
     text-align: center;
-    height: 14px;
-    line-height: 14px;
+    display: flex;
+    justify-content: center;
+    background: $color-bg-color;
+  }
+  &__bottom {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 20px;
+    height: 46px;
+    width: 90%;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(197, 33, 37, 1);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > span:nth-child(2) {
+      height: 15px;
+      @include fontsize(MicrosoftYaHei, 30px, #C52125);
+      line-height: 15px;
+    }
   }
 }

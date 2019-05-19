@@ -50,7 +50,7 @@ const navItems = [
     {
         title:'收货地址',
         icon:'art-icon art-icon-user-recepter',
-        routeUrl:''
+        routeUrl:'/addressList'
     },
     {
         title:'我的银行卡',
@@ -88,7 +88,7 @@ const customerNavItems = [
     {
         title:'收货地址',
         icon:'art-icon art-icon-user-recepter',
-        routeUrl:''
+        routeUrl:'/addressList'
     },
     {
         title:'联系客服(9:00-21:30)',

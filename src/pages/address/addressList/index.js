@@ -19,8 +19,8 @@ class AddressList extends PureComponent {
         let {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault, AddressId} = address;
 
         return (
-            <div className="art-add__item" key={index.toString()}>
-                <div className="art-add__item___left">
+            <div className="art-list__item" key={index.toString()}>
+                <div className="art-list__item___left">
                     <div >
                         <span>{ShippingContactWith}</span>
                         <span>{ShippingPhone}</span>
@@ -46,7 +46,7 @@ class AddressList extends PureComponent {
                     </div>
                 </div>
 
-                <div className="art-add__item___right">
+                <div className="art-list__item___right">
                     <div className="art-icon art-icon-add"
                          onClick={() => {
                              this.props.getAddressDelete('token', [AddressId]);
@@ -63,13 +63,13 @@ class AddressList extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="地址管理"/>
-                <div className="art-add">
+                <div className="art-list">
                     {addressList.map((address, index) => {
                         return this.showAddressItem(address, index);
                     })}
                 </div>
 
-                <div className="art-add__bottom"
+                <div className="art-list__bottom"
                      onClick={() => {
                          this.goAddAddress()
                      }}>
