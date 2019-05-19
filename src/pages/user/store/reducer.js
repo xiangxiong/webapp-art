@@ -2,9 +2,6 @@ import {
     USER_CUSTOMER_DETAIL,
     USER_ADDRESS_LIST,
     USER_DICT_LIST,
-    USER_ORDER_LIST,
-    USER_ORDER_DETAIL,
-    USER_PORDER_INFO,
     USER_QUERY_CATEGORY_LIST,
     USER_QUERY_INTERTIONAL_PARTENER
 } from './constants';
@@ -14,9 +11,6 @@ const defaultState = {
     userCategoryList: [],
     userAddressList: [],
     userDictList: [],
-    userOrderList: [],
-    userOrderDetail: {},
-    userPOrderInfo: {},
     userIntertionalPartener: {},
 };
 
@@ -36,21 +30,6 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 userDictList: action.value
-            };
-        case USER_ORDER_LIST:
-            return {
-                ...state,
-                userOrderList: action.value
-            };
-        case USER_ORDER_DETAIL:
-            return {
-                ...state,
-                userOrderDetail: action.value
-            };
-        case USER_PORDER_INFO:
-            return {
-                ...state,
-                userPOrderInfo: action.value
             };
         case USER_QUERY_CATEGORY_LIST:
             return {

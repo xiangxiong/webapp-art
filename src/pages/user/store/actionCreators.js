@@ -9,10 +9,6 @@ import {
     AddressUpdate,
     AddressDelete,
     AddressSetDefault,
-    QueryCustomerOrderList,
-    GetOrderDetail,
-    POrderInfo,
-    CreateOrder,
     QueryCategoryList,
     QueryIntertionalPartener
 } from "../../../utils/servicekey";
@@ -31,21 +27,6 @@ export const userDictAdList = (DictValueList) => ({
 export const userAddressList = (DataList) => ({
     type: constants.USER_ADDRESS_LIST,
     value: DataList
-});
-
-export const queryCustomerOrderList = (DataList) => ({
-    type: constants.USER_ORDER_LIST,
-    value: DataList
-});
-
-export const orderDetail = (data) => ({
-    type: constants.USER_ORDER_DETAIL,
-    value: data
-});
-
-export const pOrderInfo = (OrderInfo) => ({
-    type: constants.USER_PORDER_INFO,
-    value: OrderInfo
 });
 
 export const queryCategoryList = (DataList) => ({
@@ -140,43 +121,6 @@ export const getAddressSetDefault = (params) => {
     }
 };
 
-export const getQueryCustomerOrderList = (params) => {
-    return (dispatch) => {
-        return post(QueryCustomerOrderList, params)
-            .then((response) => {
-                dispatch(queryCustomerOrderList(response.Data.DataList));
-            });
-    }
-};
-
-export const getGetOrderDetail = (params) => {
-    return (dispatch) => {
-        return post(GetOrderDetail, params)
-            .then((response) => {
-                dispatch(orderDetail(response.Data.data));
-            });
-    }
-};
-
-export const getPOrderInfo = (params) => {
-    return (dispatch) => {
-        return post(POrderInfo, params)
-            .then((response) => {
-                dispatch(pOrderInfo(response.Data.OrderInfo));
-            });
-    }
-};
-
-export const getCreateOrder = (params) => {
-    return (dispatch) => {
-        return post(CreateOrder, params)
-            .then((response) => {
-                if (response) {
-                    history.push('');
-                }
-            });
-    }
-};
 
 export const getQueryCategoryList = (params) => {
     return (dispatch) => {
