@@ -10,21 +10,21 @@ import history from './../../../utils/history';
 class Detail extends PureComponent {
 
     handleBuy = () => {
-        history.push('./submitorder');
+        history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
     };
 
     render() {
         let {
             MainImgs = [],
+            ImageNames = [],
             Name,
             Brief,
-            BrowseImages = [],
             KillPrice,
             MarketPrice,
-            ProviderName,
-            ProviderLogo,
-            ProviderLabel,
+            Provider = {},
         } = this.props.shopWorthGoodsDetail;
+
+        const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount} = Provider;
 
         let carouselData = MainImgs.map((mainImg) => {
             return {ImgUrl: mainImg}
@@ -61,7 +61,7 @@ class Detail extends PureComponent {
                         <div>
                             <div className="art-product__homepage-avatar"
                                  style={{
-                                     background: `url(${pictureUrl(ProviderLogo)})`,
+                                     background: `url(${pictureUrl(ImageName)})`,
                                      marginRight: "3px",
                                      backgroundRepeat: "no-repeat",
                                      backgroundSize: "contain"
@@ -70,7 +70,9 @@ class Detail extends PureComponent {
                         </div>
                         <div>
                             <h4 className="art-product__homepage-master">{ProviderName}</h4>
-                            <span className="art-product__homepage-auth">作品：245件 月销：755件 粉丝：345个</span>
+                            <span className="art-product__homepage-auth">
+                                {`作品：${ProductCount}件 月销：${MonthSalesCount}件 粉丝：${FansCount}个`}
+                                </span>
                         </div>
                         <div>
                             <div className="art-product__homepage-jump">去逛逛</div>
@@ -89,12 +91,12 @@ class Detail extends PureComponent {
                         <p>{Brief}</p>
                     </div>
 
-                    {BrowseImages.map((browseImage, index) => {
+                    {ImageNames.map((imageName, index) => {
                         return (
                             <div className="art-product__homepage__picture"
                                  key={index.toString()}
                                  style={{
-                                     background: `url(${pictureUrl(browseImage)})`,
+                                     background: `url(${pictureUrl(imageName)})`,
                                      backgroundRepeat: "no-repeat",
                                      backgroundSize: "contain"
                                  }}>
@@ -111,29 +113,24 @@ class Detail extends PureComponent {
                     </div>
 
                     {DataList.map((data, index) => {
+                        const {HeadImage, CustomerName, Content} = data;
                         return (
-                            <div key={index.toString()}>
+                            <div key={index.toString()} style={{'borderBottom': '1px solid #E7E7E7'}}>
                                 <div className="art-product__comment">
                                     <div className="art-product__comment-avatar">
-                                        <div className="art-product__comment-avatar-item"></div>
+                                        <div className="art-product__comment-avatar-item"
+                                             style={{
+                                                 background: `url(${pictureUrl(HeadImage)})`,
+                                                 backgroundRepeat: "no-repeat",
+                                                 backgroundSize: "contain"
+                                             }}></div>
                                     </div>
                                     <div className="art-product__comment-username">
-                                        {data.CustomerName}
+                                        {CustomerName}
                                     </div>
                                 </div>
                                 <div className="art-product__comment-content">
-                                    {data.Content}
-                                </div>
-
-                                <div className="art-product__comment-image">
-                                    <div
-                                        style={{
-                                            background: `url(${pictureUrl(data.HeadImage)})`,
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundSize: "contain"
-                                        }}>
-
-                                    </div>
+                                    {Content}
                                 </div>
                             </div>
                         )

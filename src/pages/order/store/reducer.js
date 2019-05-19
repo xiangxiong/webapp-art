@@ -1,6 +1,7 @@
-import {ORDER_LIST, ORDER_DETAIL, PORDER_INFO} from './constants';
+import {DEFAULT_ADDRESS, ORDER_LIST, ORDER_DETAIL, PORDER_INFO} from './constants';
 
 const defaultState = {
+    defaultAddress: {},
     orderList: [],
     orderDetail: {},
     pPOrderInfo: {},
@@ -8,6 +9,11 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case DEFAULT_ADDRESS:
+            return {
+                ...state,
+                defaultAddress: action.value
+            };
         case ORDER_LIST:
             return {
                 ...state,

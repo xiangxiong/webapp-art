@@ -1,7 +1,13 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {CreateOrder, QueryCustomerOrderList, GetOrderDetail, POrderInfo} from "../../../utils/servicekey";
+import {AddressList, CreateOrder, QueryCustomerOrderList, GetOrderDetail, POrderInfo} from "../../../utils/servicekey";
 import history from '../../../utils/history';
+import {Toast} from 'antd-mobile';
+
+export const defaultAddress = (addressObj) => ({
+    type: constants.DEFAULT_ADDRESS,
+    value: addressObj
+});
 
 export const queryCustomerOrderList = (DataList) => ({
     type: constants.ORDER_LIST,
@@ -18,12 +24,28 @@ export const pOrderInfo = (OrderInfo) => ({
     value: OrderInfo
 });
 
+export const getDefaultAddress = (params) => {
+    return (dispatch) => {
+        return post(AddressList, params)
+            .then((response) => {
+                let DataList = response.Data.DataList;
+                DataList.map(data => {
+                    if (data.IsDefault == 0) {
+                        dispatch(defaultAddress(data));
+                    }
+                });
+            });
+    }
+};
+
 export const getCreateOrder = (params) => {
     return (dispatch) => {
         return post(CreateOrder, params)
             .then((response) => {
-                if (response) {
-                    //history.push('');
+                if (response.Data && response.Data.Status == 200) {
+                    history.push('./payorder');
+                } else {
+                    Toast.info(response.Message);
                 }
             });
     }

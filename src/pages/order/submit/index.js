@@ -4,59 +4,98 @@ import PublicHeader from './../../../components/header';
 import {TextareaItem} from 'antd-mobile';
 import Action from './../action';
 import {connect} from 'react-redux';
-import {getCreateOrder} from '../store/actionCreators';
+import {getCreateOrder, getDefaultAddress} from '../store/actionCreators';
+import  {pictureUrl} from '../../../utils/stringUtil';
 
 class SubmitOrder extends PureComponent {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            UsrMemo: ''
+        };
+    }
+
     HandleSubmitOrder = () => {
-        console.log('HandleSubmitOrder');
+        const {UsrMemo = ''} = this.state;
+
+        let {productList = []} = this.props.location.state;
+
+        let OrderItems = [];
+        productList.map((product) => {
+            const {ProdId, KillPrice, productNumber = 1} = product;
+            let OrderItem = {ProdId, UnitPrice: KillPrice, PromotionId: '0', Quantity: productNumber, CartId: '0'};
+
+            OrderItems.push(OrderItem);
+        });
+
+        const {AddressId = ''} = this.props.defaultAddress;
+
+        this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
     };
 
     render() {
+        let {productList = []} = this.props.location.state;
+        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
+
+        let money = 0;
+        productList.map((product) => {
+            const {KillPrice, productNumber = 1} = product;
+            money += KillPrice * productNumber;
+        });
 
         return (
             <Fragment>
                 <PublicHeader title="确认订单" bgColor="#E87908"/>
 
                 <div className="art-order-detail__adress">
-                    <div>柳士勇</div>
-                    <div>152****1363</div>
+                    <div>{ShippingContactWith}</div>
+                    <div>{ShippingPhone}</div>
                 </div>
 
                 <div className="art-order-detail__location">
                     <div>
                         <span className="art-order-detail__location-default">默认</span>
                     </div>
-                    <div>上海市浦东新区杨新路118号</div>
+                    <div>{ShippingAddress}</div>
                 </div>
 
-                <div className="art-order-detail__bussinss">
+                {productList.map((product, index) => {
+                    const {ProviderName, Name, KillPrice, productNumber = 1, MainImgs = []} = product;
+                    return (
+                        <div className="art-order-detail__bussinss" key={index.toString()}>
 
-                    <div className="art-order-detail__bussinss-title">
-                        <div className="art-order-detail__bussinss-title-name">黄焖鸡</div>
-                        <div className="art-order-detail__bussinss-title-count">5件</div>
-                    </div>
+                            <div className="art-order-detail__bussinss-title">
+                                <div className="art-order-detail__bussinss-title-name">{ProviderName}</div>
+                                <div className="art-order-detail__bussinss-title-count">{`${productNumber}件`}</div>
+                            </div>
 
-                    <div className="art-order-detail__bussinss-order">
-                        <div className="art-order-detail__bussinss-order-img">
-                            <div>
+                            <div className="art-order-detail__bussinss-order">
+                                <div className="art-order-detail__bussinss-order-img">
+                                    <div style={{
+                                        background: `url(${MainImgs.length > 0 ? pictureUrl(MainImgs[0]) : ''})`,
+                                        marginRight: "3px",
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "contain"
+                                    }}>
+                                    </div>
+                                </div>
+                                <div className="art-order-detail__bussinss-order-product">
+                                    <h3>
+                                        {Name}
+                                    </h3>
+                                </div>
+                                <div className="art-order-detail__bussinss-order-price">
+                        <span>
+                            {`￥${KillPrice}`}
+                        </span>
+                                </div>
                             </div>
                         </div>
-                        <div className="art-order-detail__bussinss-order-product">
-                            <h3>
-                                新疆和田玉
-                            </h3>
-                            <p>
-                                20克 白色
-                            </p>
-                        </div>
-                        <div className="art-order-detail__bussinss-order-price">
-                        <span>
-                        ￥0.0
-                        </span>
-                        </div>
-                    </div>
+                    )
+                })}
 
+                <div className="art-order-detail__bussinss">
                     <div className="art-order-detail__bussinss-title">
                         <div className="art-order-detail__bussinss-title-name">运费</div>
                         <div className="art-order-detail__bussinss-title-count">￥ 0.0</div>
@@ -65,34 +104,45 @@ class SubmitOrder extends PureComponent {
                     <div className="art-order-detail__bussinss-title">
                         <div className="art-order-detail__bussinss-title-name">实付款( 含运费):</div>
                         <div className="art-order-detail__bussinss-title-count"
-                             style={{color: '#F35576', fontSize: '36px', border: 'none'}}>￥120.0
+                             style={{color: '#F35576', fontSize: '36px', border: 'none'}}>{`￥${money}`}
                         </div>
                     </div>
-
                 </div>
 
                 <div className="art-order-detail__comment">
                     <TextareaItem
-                        value="给卖家留言"
+                        placeholder="给卖家留言"
                         rows={5}
+                        onChange={(v) => {
+                            this.setState({UsrMemo: v})
+                        }}
                     />
                 </div>
 
-                <Action text="提交订单" price="1234"/>
+                <Action text="提交订单" price={money} HandleSubmitOrder={() => {
+                    this.HandleSubmitOrder()
+                }}/>
             </Fragment>
         )
     }
 
     componentDidMount() {
-        this.props.getCreateOrder('11');
+        this.props.getDefaultAddress('11');
+
     }
 }
 
-const mapStateToProps = (state) => {
-    return {}
+const mapStateToProps = ({order}) => {
+    return {
+        defaultAddress: order.defaultAddress,
+    }
 };
 
 const mapDispatchToProps = dispatch => ({
+    getDefaultAddress: (CustomerId) => {
+        dispatch(getDefaultAddress({CustomerId, PageIndex: 1, PageSize: 50}))
+    },
+
     getCreateOrder: (CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
         dispatch(getCreateOrder({CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId}))
     }
