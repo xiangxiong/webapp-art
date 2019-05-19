@@ -87,7 +87,7 @@ export default class Home extends PureComponent{
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
 
-          <TabBar.Item
+          {/* <TabBar.Item
             icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
             selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
             title="艺术大家"
@@ -108,7 +108,6 @@ export default class Home extends PureComponent{
             selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
             title="购物车"
             key="cart"
-            dot 
             selected={this.state.selectedTab === 'greenTab'}
             onPress={() => {
               this.setState({
@@ -117,7 +116,7 @@ export default class Home extends PureComponent{
             }}
           >
             {this.renderContent('CART')}
-          </TabBar.Item>
+          </TabBar.Item> */}
 
           <TabBar.Item
             icon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}

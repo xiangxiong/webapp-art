@@ -8,7 +8,6 @@ function  handleJumpUrl(ProductId){
     history.push('./detail', {ProductId})
 }
 
-
 const Product = (props) => {
     let {ImgPath = '', ProductName = '', SalePrice = '', MarketPrice = '', ProviderName = '', ProviderImg, index = 0, ProductId} = props;
 
