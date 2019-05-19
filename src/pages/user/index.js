@@ -103,20 +103,6 @@ class User extends PureComponent {
         super(props);
 
         this.state = {
-            productionList: [
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    name: '景德镇紫砂壶',
-                    salesPrice: '￥1998',
-                    marketPrice: '￥1998',
-                },
-                {
-                    imageUrl: 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg',
-                    name: '景德镇紫砂壶',
-                    salesPrice: '￥1998',
-                    marketPrice: '￥1998',
-                },
-            ],
             user:'卖家'
         };
 
@@ -167,49 +153,7 @@ class User extends PureComponent {
         })
     }
 
-    otherInfoItem(number, name) {
-        return (
-            <div>
-                <span>{number}</span>
-                <span>{name}</span>
-            </div>
-        )
-    }
-
-    orderInfoItem(number, name, url, isShowBorderRight = true) {
-
-        return (
-            <div>
-                <div style={{visibility: +number > 0 ? 'visible' : 'hidden'}}>
-                    <span>{number}</span>
-                </div>
-
-                <div style={{
-                    borderRightColor: '#DFDFDF',
-                    borderRightStyle: 'solid',
-                    borderRightWidth: isShowBorderRight ? '1px' : '0px'
-                }}>
-
-                    <img src={url}/>
-                    <span>{name}</span>
-                </div>
-            </div>
-        )
-    }
-
-    itemLeftIcon(url) {
-        return (
-            <img src={url} style={{width: '17px', height: '17px'}}/>
-        )
-    }
-
-
-
-
-
     render() {
-        const {productionList} = this.state;
-
         const tabs = [
             { title: '我是买家' },
             { title: '我是卖家' }
@@ -231,17 +175,35 @@ class User extends PureComponent {
 
         return (
             <Fragment>
-                <Header src={pictureUrl(ImageThumb)}/>
+                <Header
+                    src={pictureUrl(ImageThumb)}
+                    UserName={UserName}
+                    Money={Money}
+                    CollectCount={CollectCount}
+                    FollowCount={FollowCount}
+                    VisitCount={VisitCount}
+                    GroupCount={GroupCount}
+                />
                 <Tabs tabs={tabs} initialPage={1}>
                     <div style={styles.tab}>
-                         <OrderItem/>
+                         <OrderItem
+                             AwaitPayCount={AwaitPayCount}
+                             AwaitShipCount={AwaitShipCount}
+                             AwaitReceiptCount={AwaitReceiptCount}
+                             AwaitCommentCount={AwaitCommentCount}
+                         />
                          <div className="art-user__space"></div>
                          <div className="art-user__nav">
                                 {this.bindBuyList()}
                         </div>
                     </div>
                     <div style={styles.tab}>
-                        <OrderItem/>
+                        <OrderItem
+                            AwaitPayCount={AwaitPayCount}
+                            AwaitShipCount={AwaitShipCount}
+                            AwaitReceiptCount={AwaitReceiptCount}
+                            AwaitCommentCount={AwaitCommentCount}
+                        />
                         <div className="art-user__space"></div>
                         <div className="art-user__nav">
                                 {this.bindSellList()}

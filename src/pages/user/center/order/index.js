@@ -2,7 +2,8 @@ import React,{Fragment} from 'react';
 import {Badge} from 'antd-mobile';
 import './index.scss';
 
-const OrderItem = () =>{
+const OrderItem = (props) =>{
+    const {AwaitPayCount, AwaitShipCount, AwaitReceiptCount, AwaitCommentCount} = props;
     return (
         <Fragment>
               <div className="art-user__order">
@@ -13,24 +14,22 @@ const OrderItem = () =>{
                             <div>
                                 <div className="art-icon art-icon-order-wait"></div>
                                 <p>待付款</p>
-                                <Badge text={'3'}></Badge> 
+                                <Badge text={AwaitPayCount > 0 ? AwaitPayCount : ''}></Badge>
                             </div>
                             <div>
                             <div className="art-icon art-icon-order-deliver"></div>
                                 <p>待发货</p>
-                                <Badge text={'3'}></Badge> 
+                                <Badge text={AwaitShipCount > 0 ? AwaitShipCount : ''}></Badge>
                             </div>
                             <div>
                                 <div className="art-icon art-icon-order-recevier"></div>
                                 <p>待收货</p>
+                                <Badge text={AwaitReceiptCount > 0 ? AwaitReceiptCount : ''}></Badge>
                             </div>
                             <div>
                             <div className="art-icon art-icon-order-comment"></div>
                                 <p>待评价</p>
-                            </div>
-                            <div>
-                            <div className="art-icon art-icon-order-return"></div>
-                                <p>退货/售后</p>
+                                <Badge text={AwaitCommentCount > 0 ? AwaitCommentCount : ''}></Badge>
                             </div>
                         </div>
                        

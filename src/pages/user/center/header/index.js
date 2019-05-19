@@ -2,15 +2,16 @@ import React,{Fragment} from 'react';
 import './index.scss';
 
 const Header = (props) =>{
+    const {src, UserName, Money, CollectCount, FollowCount, VisitCount, GroupCount} = props;
     return (
         <Fragment>
                 <div className="art-user__info">
                      <div>
-                         <img src={props.src}/>
+                         <img src={src}/>
                      </div>
                      <div>
-                         <div>柳大海</div>
-                         <div>账户余额: 80000</div>
+                         <div>{UserName}</div>
+                         <div>{`账户余额: ${Money}`}</div>
                      </div>
                      <div className="art-icon art-icon-user-arrow"></div>
                 </div>
@@ -18,18 +19,18 @@ const Header = (props) =>{
                 <div className="art-user__action">
                     <div>
                         <h4>45</h4>
-                        <p>收藏</p>
+                        <p>{CollectCount}</p>
                     </div>
                     <div>
                         <h4>45</h4>
-                        <p>关注</p>
+                        <p>{FollowCount}</p>
                     </div>
                     <div>
                     <h4>45</h4>
-                        <p>足迹</p>
+                        <p>{VisitCount}</p>
                     </div>
                     <div> <h4>45</h4>
-                        <p>团购</p></div>
+                        <p>{GroupCount}</p></div>
                 </div>
                
         </Fragment>
