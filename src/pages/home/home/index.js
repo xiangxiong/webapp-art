@@ -204,7 +204,6 @@ const mapDispatchToProps = dispatch => ({
 
     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
         dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

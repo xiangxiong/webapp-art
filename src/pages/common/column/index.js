@@ -21,8 +21,8 @@ const Column = (props) => {
                                     backgroundRepeat: "repeat",
                                     backgroundSize: "contain"
                                 }}>
-                                    {/*<h3>「 大师云集 」 </h3>
-                                    <p>上千件好物等你来选</p>*/}
+                                    <h3>「 大师云集 」 </h3>
+                                    <p>上千件好物等你来选</p>
                                 </div>
                                 <div className="art-main__column-content-invent"
                                 style={{
@@ -31,8 +31,8 @@ const Column = (props) => {
                                     backgroundRepeat: "repeat",
                                     backgroundSize: "contain"
                                 }}>
-                                    {/*<h3>「 大师印象 」 </h3>
-                                    <p>邀请好友一起拼团</p>*/}
+                                    <h3>「 大师印象 」 </h3>
+                                    <p>邀请好友一起拼团</p>
                                 </div>
                             </div>
                     </div>

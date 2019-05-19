@@ -12,7 +12,7 @@ export default class Home extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
-            selectedTab: 'blueTab',
+            selectedTab: 'yellowTab',
             hidden: false,
             fullScreen: true,
         };

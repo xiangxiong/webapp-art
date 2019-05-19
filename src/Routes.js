@@ -4,9 +4,11 @@ import Enter from './pages/user/entering';
 import Pending from './pages/user/pending';
 import Pay from './pages/user/pay';
 import Applcation from './pages/user/application';
-import  addressList from './pages/user/addressList';
-import  addAddress from './pages/user/addAddress';
+import addressList from './pages/user/addressList';
+import addAddress from './pages/user/addAddress';
 import Detail  from './pages/shop/detail';
+import SubmitOrder from './pages/order/submit';
+import PayOrder from './pages/order/pay';
 
 export default [
     {
@@ -64,5 +66,17 @@ export default [
         component: Detail,
         exact: true,
         key: 'detail'
+    },
+    {
+        path:"/submitorder",
+        component:SubmitOrder,
+        exact: true,
+        key:'submitorder'
+    },
+    {
+        path:"/payorder",
+        component:PayOrder,
+        exact: true,
+        key:'payorder'
     }
 ];

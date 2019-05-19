@@ -1,0 +1,28 @@
+@import './../../../style/index.scss';
+ 
+.art-order-pay{
+    &__message{
+        display: flex;
+        flex-direction: row;
+        background: #FFFFFF;
+
+        &>div:nth-child(1){
+            width: 20%;
+            height: 30px;
+            padding-left: 15px;
+            padding-top: 15px;
+        }
+
+        &>div:nth-child(2){
+            width: 70%;
+            height: 30px;
+            padding-top: 15px;
+        }
+
+        &>div:nth-child(3){
+            width: 10%;
+            height: 30px;
+            padding-top: 15px;
+        }
+    }
+}

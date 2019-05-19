@@ -19,7 +19,7 @@
   * user-login 用户登录.
   * community 社区.
   * product 产品详情.
-    * 
+  * 
 
 * components   公用组件库.
 

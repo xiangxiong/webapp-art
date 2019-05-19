@@ -93,7 +93,37 @@ class User extends PureComponent {
 
         return (
             <Fragment>
-                <div className="art-user__header">
+                <div className="art-user__info">
+                     <div>
+                         <img src={pictureUrl(ImageThumb)}/>
+                     </div>
+                     <div>
+                         <div>柳大海</div>
+                         <div>账户余额: 80000</div>
+                     </div>
+                     <div className="art-icon art-icon-user-arrow"></div>
+                </div>
+                <div className="art-user__action">
+                    <div>
+                        <h4>45</h4>
+                        <p>收藏</p>
+                    </div>
+                    <div>
+                        <h4>45</h4>
+                        <p>收藏</p>
+                    </div>
+                    <div>
+                    <h4>45</h4>
+                        <p>收藏</p>
+                    </div>
+                    <div> <h4>45</h4>
+                        <p>收藏</p></div>
+                </div>
+                <div>
+
+                </div>
+
+                {/* <div className="art-user__header">
                     <div className="art-user__header___basicInfo">
                         <img src={pictureUrl(ImageThumb)}/>
                         <div>
@@ -112,12 +142,12 @@ class User extends PureComponent {
                         {this.otherInfoItem(GroupCount, '团购')}
                     </div>
                 </div>
+
                 <div className="art-user__order">
                     <div className="art-user__order___title">
                         <span>我的订单</span>
                         <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
                     </div>
-
                     <div style={{width: '97%', height: '1px', backgroundColor: '#E7E7E7', alignSelf: 'center'}}/>
                     <div className="art-user__order___stateList">
                         {this.orderInfoItem(AwaitPayCount, '待付款', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
@@ -126,6 +156,7 @@ class User extends PureComponent {
                         {this.orderInfoItem(AwaitCommentCount, '待评价', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', false)}
                     </div>
                 </div>
+
                 <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
                 <List>
                     <Item
@@ -191,7 +222,7 @@ class User extends PureComponent {
                         })}
                     </div>
 
-                </div>
+                </div> */}
 
             </Fragment>
         )

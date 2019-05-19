@@ -176,7 +176,6 @@
 
     &-address{
        color: $color-bg-color; 
-
        &-bg{
          color: #333333;
        }
@@ -185,6 +184,7 @@
     &>div:nth-child(2){
       width: 65%;
     }
+
     &>div:nth-child(3){
       position: relative;
       top:5px;

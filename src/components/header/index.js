@@ -4,24 +4,6 @@ import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
 
-// const PublicHeader = (bgColor,title,icon) => {
-
-//     return (
-//         <Fragment>
-//             <NavBar
-//                  style={{background:bgColor,color:'#FFFFFF'}}
-//                  mode="light"
-//                  icon={<Icon type={icon}/>}
-//                  onLeftClick={() => history.go(-1)}
-//                 >
-//                 {
-//                     title
-//                 }
-//             </NavBar>
-//         </Fragment>
-//     )
-// }
-
 class PublicHeader extends React.Component{
 
     constructor(props){
@@ -43,7 +25,7 @@ class PublicHeader extends React.Component{
     }
 
     render(){
-        const {bgColor,icon,share} = this.props;
+        const {bgColor,icon,share,text} = this.props;
         const {title} = this.state;
 
         return (
