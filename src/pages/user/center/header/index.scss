@@ -1,0 +1,74 @@
+@import './../../../../style/index.scss';
+
+.art-user{
+    &__info{
+      display: flex;
+      flex-direction:row;
+      height: 90px;
+      background: #E87908;
+      border-bottom: 0.5px solid #FFFFFF;
+  
+      &>div:nth-child(1){
+        width: 25%;
+  
+        &>img{
+          width: 60px;
+          height: 60px;
+          margin: 14px;
+          border-radius:50%;
+        }
+      }
+  
+      &>div:nth-child(2){
+        width: 65%;
+  
+        &>div:nth-child(1){
+          text-align:left;
+          margin-top: 25px;
+          font-size:18px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:rgba(255,255,255,1);
+        }
+  
+        &>div:nth-child(2){
+          padding-top: 8px;
+          text-align:left;
+          font-size:16px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:rgba(255,255,255,1);
+        }
+      }
+  
+      &>div:nth-child(3){
+        width: 10%;
+        margin-top: 34px;
+      }
+  
+    }
+  
+    &__action{
+      display: flex;
+      flex-direction: row;
+      height: 55px;
+      background: #E87908;
+  
+      &>div:nth-child(-n+4){
+        flex:1;
+        text-align: center;
+        &>h4{
+          color: #FFFFFF;
+          font-size:18px;
+          font-family:MicrosoftYaHei-Bold;
+          font-weight:bold;
+          color:#FFFFFF;
+          padding-top: 9px;
+        }
+        &>p{
+          padding-top: 4px;
+          color:#FFFFFF;
+        }
+      }
+    }
+  }

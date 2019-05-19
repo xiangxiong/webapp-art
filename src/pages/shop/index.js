@@ -24,7 +24,7 @@ class Shop extends PureComponent {
         return (
             <Fragment>
                 <div className="art-shop">
-                    <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/>
+                    {/* <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/> */}
                     <SearchCategory/>
                     <CarouselBanner data={shopCarouselAdList}/>
                     <Letters data={shopNewsPagerList}/>

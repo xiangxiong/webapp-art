@@ -1,0 +1,20 @@
+@import './../../../../style/index.scss';
+
+.art-user{
+  &__order-list{
+    display: flex;
+    flex-direction: row;
+    
+    &>div{
+      flex:1;
+
+      &>div{
+        margin-top: 13px;
+      }
+      
+      &>p{
+        margin-top: 8px;
+      }
+    }
+  }
+}

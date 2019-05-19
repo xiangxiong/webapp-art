@@ -1,12 +1,101 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
-import {List} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
 import {pictureUrl} from '../../utils/stringUtil';
+import Header from './center/header';
+import { Tabs,List } from 'antd-mobile';
+import OrderItem from './center/order';
 
 const Item = List.Item;
+
+const styles = {};
+styles.tab = { 
+    backgroundColor: '#fff',
+    height:"40px"
+}
+
+const navItems = [
+    {
+        title:'发布作品',
+        icon:'art-icon art-icon-user-release',
+        routeUrl:''
+    },
+    {
+        title:'发布大师印象',
+        icon:'art-icon art-icon-user-release-master',
+        routeUrl:''
+    },
+    {
+        title:'作品库',
+        icon:'art-icon art-icon-user-works',
+        routeUrl:''
+    },
+    {
+        title:'订单管理',
+        icon:'art-icon art-icon-user-order',
+        routeUrl:''
+    },
+    {
+        title:'提现',
+        icon:'art-icon art-icon-user-cash',
+        routeUrl:''
+    },
+    {
+        title:'协议规则',
+        icon:'art-icon art-icon-user-rule',
+        routeUrl:''
+    },
+    {
+        title:'收货地址',
+        icon:'art-icon art-icon-user-recepter',
+        routeUrl:''
+    },
+    {
+        title:'我的银行卡',
+        icon:'art-icon art-icon-user-bankcard',
+        routeUrl:''
+    },
+    {
+        title:'联系客服(9:00-21:30)',
+        icon:'art-icon art-icon-user-service',
+        routeUrl:''
+    }
+]
+
+const customerNavItems = [
+    {
+        title:'合作入住',
+        icon:'art-icon art-icon-user-cor',
+        routeUrl:'/application'
+    },
+    {
+        title:'好货推荐',
+        icon:'art-icon art-icon-user-recomand',
+        routeUrl:''
+    },
+    {
+        title:'提现',
+        icon:'art-icon art-icon-user-cash',
+        routeUrl:''
+    },
+    {
+        title:'协议规则',
+        icon:'art-icon art-icon-user-rule',
+        routeUrl:''
+    },
+    {
+        title:'收货地址',
+        icon:'art-icon art-icon-user-recepter',
+        routeUrl:''
+    },
+    {
+        title:'联系客服(9:00-21:30)',
+        icon:'art-icon art-icon-user-service',
+        routeUrl:''
+    }
+];
 
 class User extends PureComponent {
 
@@ -27,14 +116,55 @@ class User extends PureComponent {
                     salesPrice: '￥1998',
                     marketPrice: '￥1998',
                 },
-            ]
+            ],
+            user:'卖家'
         };
 
+        this.bindEvents();
+    }
+
+    bindEvents(){
         this.handleNavUrl = this.handleNavUrl.bind(this);
     }
 
-    handleNavUrl() {
-        history.push('/enter');
+    handleNavUrl(url){
+        history.push(url);
+    }
+
+    bindSellList(){
+       return navItems.map(navItem=>{
+            const activeSpace =  navItem.title==="订单管理" ?  <div className="art-user__space"></div> : "";
+            return (
+                <List>
+                    <Item
+                    arrow="horizontal"
+                    onClick={()=>{
+                        this.handleNavUrl(navItem.routeUrl)
+                    }}>
+                        <div> <span className={navItem.icon}></span> {navItem.title}</div>
+                    </Item>
+                    {activeSpace}
+                </List>
+            )
+        })
+    }
+
+    bindBuyList(){
+        return customerNavItems.map(navItem=>{
+            const activeSpace =  navItem.title==="提现" ?  <div className="art-user__space"></div> : "";
+            return (
+                <List>
+                    <Item
+                    arrow="horizontal"
+                    onClick={()=>{
+                        this.handleNavUrl(navItem.routeUrl)
+                    }}>
+                        <div> <span className={navItem.icon}></span> {navItem.title}</div>
+                    </Item>
+                    {activeSpace}
+                </List>
+            )
+        })
     }
 
     otherInfoItem(number, name) {
@@ -74,8 +204,16 @@ class User extends PureComponent {
     }
 
 
+
+
+
     render() {
         const {productionList} = this.state;
+
+        const tabs = [
+            { title: '我是买家' },
+            { title: '我是卖家' }
+        ];
 
         const {
             UserName = '',
@@ -93,137 +231,26 @@ class User extends PureComponent {
 
         return (
             <Fragment>
-                <div className="art-user__info">
-                     <div>
-                         <img src={pictureUrl(ImageThumb)}/>
-                     </div>
-                     <div>
-                         <div>柳大海</div>
-                         <div>账户余额: 80000</div>
-                     </div>
-                     <div className="art-icon art-icon-user-arrow"></div>
-                </div>
-                <div className="art-user__action">
-                    <div>
-                        <h4>45</h4>
-                        <p>收藏</p>
-                    </div>
-                    <div>
-                        <h4>45</h4>
-                        <p>收藏</p>
-                    </div>
-                    <div>
-                    <h4>45</h4>
-                        <p>收藏</p>
-                    </div>
-                    <div> <h4>45</h4>
-                        <p>收藏</p></div>
-                </div>
-                <div>
-
-                </div>
-
-                {/* <div className="art-user__header">
-                    <div className="art-user__header___basicInfo">
-                        <img src={pictureUrl(ImageThumb)}/>
-                        <div>
-                            <span>{UserName}</span>
-                            <span>{`账户余额${Money}元`}</span>
+                <Header src={pictureUrl(ImageThumb)}/>
+                <Tabs tabs={tabs} initialPage={1}>
+                    <div style={styles.tab}>
+                         <OrderItem/>
+                         <div className="art-user__space"></div>
+                         <div className="art-user__nav">
+                                {this.bindBuyList()}
                         </div>
-                        <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
                     </div>
-
-                    <div style={{width: '100%', height: '1px', backgroundColor: '#E7E7E7'}}/>
-
-                    <div className="art-user__header___otherInfo">
-                        {this.otherInfoItem(CollectCount, '收藏')}
-                        {this.otherInfoItem(FollowCount, '关注')}
-                        {this.otherInfoItem(VisitCount, '足记')}
-                        {this.otherInfoItem(GroupCount, '团购')}
+                    <div style={styles.tab}>
+                        <OrderItem/>
+                        <div className="art-user__space"></div>
+                        <div className="art-user__nav">
+                                {this.bindSellList()}
+                        </div>
+                        <div className="art-user__recomand">
+                             - 为你推荐 -
+                        </div>
                     </div>
-                </div>
-
-                <div className="art-user__order">
-                    <div className="art-user__order___title">
-                        <span>我的订单</span>
-                        <img src="http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg"/>
-                    </div>
-                    <div style={{width: '97%', height: '1px', backgroundColor: '#E7E7E7', alignSelf: 'center'}}/>
-                    <div className="art-user__order___stateList">
-                        {this.orderInfoItem(AwaitPayCount, '待付款', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(AwaitShipCount, '待发货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(AwaitReceiptCount, '待收货', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        {this.orderInfoItem(AwaitCommentCount, '待评价', 'http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg', false)}
-                    </div>
-                </div>
-
-                <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
-                <List>
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={this.handleNavUrl}>
-                        合作入住
-                    </Item>
-
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        好货推荐
-                    </Item>
-
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        提现
-                    </Item>
-                </List>
-                <div style={{width: '100%', height: '20px', backgroundColor: '#F3F3F3'}}/>
-                <List>
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        协议规则
-                    </Item>
-
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        收货地址
-                    </Item>
-
-
-                    <Item
-                        thumb={this.itemLeftIcon('http://pic29.nipic.com/20130601/12122227_123051482000_2.jpg')}
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        联系客服(9:00-21:30)
-                    </Item>
-                </List>
-
-                <div className="art-user__recommend">
-
-                    <span>--为你推荐--</span>
-
-                    <div className="art-user__recommend___content">
-                        {productionList.map((production, index) => {
-                            return (
-                                <div key={index.toString()}>
-                                </div>)
-                        })}
-                    </div>
-
-                </div> */}
-
+                </Tabs>
             </Fragment>
         )
     }
