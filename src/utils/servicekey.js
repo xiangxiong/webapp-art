@@ -15,7 +15,7 @@ export const GuessUserLikeProducts = 'Art.Service.Product.Dto.Api.GuessUserLikeP
 export const CustomerDetail = 'Art.Service.Customer.Dto.Api.CustomerDetailRequest';
 
 //获取精选商品接口[热销商品]
-export const ProductCommend = 'Art.Service.Product.Dto.Reuqest.ProductCommendRequest';
+export const ProductCommend = 'Art.Service.Product.Dto.Request.ProductCommendRequest';
 
 //用户申请入驻
 export const CreateIntertionalPartener = 'Art.Service.Product.Dto.Api.CreateIntertionalPartenerRequest';
