@@ -23,7 +23,7 @@ export const getCreateOrder = (params) => {
         return post(CreateOrder, params)
             .then((response) => {
                 if (response) {
-                    history.push('');
+                    //history.push('');
                 }
             });
     }

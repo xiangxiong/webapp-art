@@ -6,11 +6,12 @@ import {connect} from 'react-redux';
 import {getWorthGoodsDetail, getProductComment} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/stringUtil';
 import history from './../../../utils/history';
-function handleBuy(){
-    history.push('./submitorder');
-}
 
 class Detail extends PureComponent {
+
+    handleBuy = () => {
+        history.push('./submitorder');
+    };
 
     render() {
         let {
@@ -155,7 +156,12 @@ class Detail extends PureComponent {
                         <div className="art-icon art-icon-collect"></div>
                         <p>收藏</p>
                     </div>
-                    <div onClick={handleBuy}>立即购买</div>
+                    <div
+                        onClick={() => {
+                            this.handleBuy()
+                        }}>
+                        立即购买
+                    </div>
                     <div>购物车</div>
                 </div>
             </Fragment>

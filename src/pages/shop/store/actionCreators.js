@@ -57,7 +57,6 @@ export const getProductComment = (params) => {
     return (dispatch) => {
         return post(ProductComment, params)
             .then((response) => {
-            console.log("response",response);
                 dispatch(productComment(response.Data));
             });
     }
