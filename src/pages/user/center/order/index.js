@@ -1,6 +1,7 @@
 import React,{Fragment} from 'react';
 import {Badge} from 'antd-mobile';
 import './index.scss';
+import history from '../../../../utils/history';
 
 const OrderItem = (props) =>{
 
@@ -9,7 +10,7 @@ const OrderItem = (props) =>{
     return (
         <Fragment>
               <div className="art-user__order">
-                            <h3> 我的订单 </h3>
+                            <h3 onClick={()=>{history.push('/orderList')}}> 我的订单 </h3>
                             <div className="art-icon art-icon-order-arrow"></div>
                         </div>
                         <div className="art-user__order-list">

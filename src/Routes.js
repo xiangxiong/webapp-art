@@ -10,6 +10,8 @@ import Detail  from './pages/shop/detail';
 import SubmitOrder from './pages/order/submit';
 import PayOrder from './pages/order/pay';
 import Works from './pages/user/works';
+import OrderList from './pages/order/orderList';
+import OrderDetails from './pages/order/orderDetails';
 
 export default [
     {
@@ -85,6 +87,18 @@ export default [
         component:Works,
         exact: true,
         key:'work'
+    },
+    {
+        path:"/orderList",
+        component:OrderList,
+        exact: true,
+        key:'orderList'
+    },
+    {
+        path:"/orderDetails",
+        component:OrderDetails,
+        exact: true,
+        key:'orderDetails'
     }
 ];
 
