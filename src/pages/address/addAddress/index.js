@@ -115,7 +115,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = dispatch => ({
     getAddressAdd: (token, Dto) => {
-        dispatch(getAddressAdd({token, Dto: JSON.stringify(Dto)}))
+        dispatch(getAddressAdd({token, Dto: Dto}))
     }
 });
 

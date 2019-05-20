@@ -35,7 +35,7 @@ class AddressList extends PureComponent {
                             }}
                             onClick={() => {
                                 if (IsDefault != 1) {
-                                    this.props.getAddressSetDefault('token', AddressId);
+                                    this.props.getAddressSetDefault('1180036515879212', AddressId);
                                 }
                             }}
                         >
@@ -49,7 +49,7 @@ class AddressList extends PureComponent {
                 <div className="art-list__item___right">
                     <div className="art-icon art-icon-add"
                          onClick={() => {
-                             this.props.getAddressDelete('token', [AddressId]);
+                             this.props.getAddressDelete('1180036515879212', [AddressId]);
                          }}>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ class AddressList extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getAddressList('11', 1, 50);
+        this.props.getAddressList('124', 1, 50);
     }
 }
 
