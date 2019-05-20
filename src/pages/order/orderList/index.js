@@ -26,7 +26,9 @@ class OrderList extends PureComponent {
         super(props);
     }
 
-    getTabProduct = () => {
+    getTabProduct = (order) => {
+        const {} = order;
+
         return (
             <div className="art-list__bussinss">
                 <Space/>
@@ -94,23 +96,33 @@ class OrderList extends PureComponent {
                           initialPage={1}>
 
                         <div style={styles.tab}>
-                            {this.getTabProduct()}
+                            {orderList.map((order, index) => {
+                                return this.getTabProduct(order, index)
+                            })}
                         </div>
 
                         <div style={styles.tab}>
-                            {this.getTabProduct()}
+                            {orderList.map((order, index) => {
+                                return this.getTabProduct(order, index)
+                            })}
                         </div>
 
                         <div style={styles.tab}>
-                            {this.getTabProduct()}
+                            {orderList.map((order, index) => {
+                                return this.getTabProduct(order, index)
+                            })}
                         </div>
 
                         <div style={styles.tab}>
-                            {this.getTabProduct()}
+                            {orderList.map((order, index) => {
+                                return this.getTabProduct(order, index)
+                            })}
                         </div>
 
                         <div style={styles.tab}>
-                            {this.getTabProduct()}
+                            {orderList.map((order, index) => {
+                                return this.getTabProduct(order, index)
+                            })}
                         </div>
                     </Tabs>
                 </div>
@@ -119,7 +131,7 @@ class OrderList extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getQueryCustomerOrderList('124', 1, 50);
+        this.props.getQueryCustomerOrderList(11, -1, 1);
     }
 }
 
@@ -130,8 +142,8 @@ const mapStateToProps = ({order}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getQueryCustomerOrderList: (CustomerId, ProviderId, OrderStatus, CurrentPage, PageSize = 10) => {
-        dispatch(getQueryCustomerOrderList({CustomerId, ProviderId, OrderStatus, CurrentPage, PageSize}))
+    getQueryCustomerOrderList: (CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize = 10) => {
+        dispatch(getQueryCustomerOrderList({CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize}))
     }
 });
 
