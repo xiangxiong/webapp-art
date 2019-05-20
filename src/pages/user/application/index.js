@@ -234,9 +234,8 @@ class Application extends PureComponent {
                     onChange={this.handleChange}
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={files.length < 7}
-                    multiple={false}
-                />
-
+                    multiple={false}/>
+                    
                 <div className={uploadPanel}>
                     {
                         //this.UploadImage(files, pickers, type)

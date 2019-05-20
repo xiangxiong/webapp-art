@@ -14,7 +14,7 @@ const request = function (servicekey, jsonobjparam, method) {
             }
         ]
     };
-
+    
     return new Promise((resolve, reject) => {
         axios({
             method,

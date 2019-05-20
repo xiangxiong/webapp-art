@@ -20,7 +20,7 @@ const navItems = [
     {
         title:'发布作品',
         icon:'art-icon art-icon-user-release',
-        routeUrl:''
+        routeUrl:'/work'
     },
     {
         title:'发布大师印象',
@@ -153,6 +153,44 @@ class User extends PureComponent {
         })
     }
 
+<<<<<<< HEAD
+=======
+    otherInfoItem(number, name) {
+        return (
+            <div>
+                <span>{number}</span>
+                <span>{name}</span>
+            </div>
+        )
+    }
+
+    orderInfoItem(number, name, url, isShowBorderRight = true) {
+
+        return (
+            <div>
+                <div style={{visibility: +number > 0 ? 'visible' : 'hidden'}}>
+                    <span>{number}</span>
+                </div>
+
+                <div style={{
+                    borderRightColor: '#DFDFDF',
+                    borderRightStyle: 'solid',
+                    borderRightWidth: isShowBorderRight ? '1px' : '0px'
+                }}>
+                    <img src={url}/>
+                    <span>{name}</span>
+                </div>
+            </div>
+        )
+    }
+
+    itemLeftIcon(url) {
+        return (
+            <img src={url} style={{width: '17px', height: '17px'}}/>
+        )
+    }
+
+>>>>>>> init
     render() {
         const tabs = [
             { title: '我是买家' },
@@ -209,7 +247,7 @@ class User extends PureComponent {
                                 {this.bindSellList()}
                         </div>
                         <div className="art-user__recomand">
-                             - 为你推荐 -
+                              - 为你推荐 -
                         </div>
                     </div>
                 </Tabs>

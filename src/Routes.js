@@ -9,6 +9,7 @@ import addAddress from './pages/address/addAddress';
 import Detail  from './pages/shop/detail';
 import SubmitOrder from './pages/order/submit';
 import PayOrder from './pages/order/pay';
+import Works from './pages/user/works';
 
 export default [
     {
@@ -78,5 +79,13 @@ export default [
         component:PayOrder,
         exact: true,
         key:'payorder'
+    },
+    {
+        path:"/work",
+        component:Works,
+        exact: true,
+        key:'work'
     }
 ];
+
+
