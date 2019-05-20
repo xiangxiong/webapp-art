@@ -5,6 +5,7 @@ import PublicHeader from './../../../components/header';
 import {getQueryCustomerOrderList} from '../store/actionCreators';
 import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
+import  {pictureUrl} from '../../../utils/stringUtil';
 
 const orderTabs = [
     {title: '全部'},
@@ -14,73 +15,121 @@ const orderTabs = [
     {title: '待评价'},
 ];
 
-const styles = {};
-styles.tab = {
-    backgroundColor: '#fff',
-    height: "800px",
-};
-
 class OrderList extends PureComponent {
 
     constructor(props) {
         super(props);
     }
 
-    getTabProduct = (order) => {
-        const {} = order;
+    getTabProduct = (order, index) => {
+        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount, SOAmount, StatusValue} = order;
 
         return (
-            <div className="art-list__bussinss">
+            <div className="art-list__bussinss" key={index.toString()}>
                 <Space/>
 
                 <div className="art-list__bussinss-title">
-                    <div className="art-list__bussinss-title-name">{'硕嘉贸易'}</div>
-                    <div className="art-list__bussinss-title-count">{'卖家已付款'}</div>
+                    <div className="art-list__bussinss-title-name">{ProviderName}</div>
+                    <div className="art-list__bussinss-title-count">{OrderStatusName}</div>
                 </div>
 
-                <div className="art-list__bussinss-order">
-                    <div className="art-list__bussinss-order-img">
-                        <div style={{
-                            background: '#E87908',
-                            marginRight: "3px",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "contain"
-                        }}>
+                {Details.map((detail, index) => {
+                    const {ImageName, ProductName, LastPrice, Quantity} = detail;
+                    return (
+                        <div className="art-list__bussinss-order" key={index.toString()}>
+                            <div className="art-list__bussinss-order-img">
+                                <div style={{
+                                    background: `url(${pictureUrl(ImageName)})`,
+                                    marginRight: "3px",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "contain"
+                                }}>
+                                </div>
+                            </div>
+                            <div className="art-list__bussinss-order-product">
+                                <h3>
+                                    {ProductName}
+                                </h3>
+                            </div>
+                            <div className="art-list__bussinss-order-price">
+                        <span>
+                            {`￥${LastPrice}`}
+                        </span>
+                                <span>
+                            {`×${Quantity}`}
+                        </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="art-list__bussinss-order-product">
-                        <h3>
-                            {'新疆和田玉'}
-                        </h3>
-                    </div>
-                    <div className="art-list__bussinss-order-price">
-                        <span>
-                            {`￥298.0`}
-                        </span>
-                        <span>
-                            {`×5`}
-                        </span>
-                    </div>
-                </div>
+                    )
+                })}
 
                 <div className="art-list__bussinss-total">
-                    <span>共2件商品 合计:￥98.00(运费￥12.00)</span>
+                    <span>{`共${ProductCount}件商品 合计:￥${SOAmount}(运费￥0)`}</span>
                 </div>
 
                 <div className="art-list__bussinss-operation">
-                    {this.getOrderOperation()}
+                    {this.getOrderOperation(StatusValue)}
                 </div>
             </div>
         )
     };
 
 
-    getOrderOperation = () => {
-        return (
-            <div className="art-list__bussinss-operation-item">
-                取消订单
-            </div>
-        )
+    //付款
+    onPayment = () => {
+
+    };
+
+    //确认收货
+    confirmGoods = () => {
+
+    };
+
+    //评价
+    evaluation = () => {
+
+    };
+
+    //申请退货
+    returnGoods = () => {
+    };
+
+    getOrderOperation = (StatusValue) => {
+        switch (StatusValue) {
+            case 0:
+                return (
+                    <div className="art-list__bussinss-operation-item" onClick={() => {
+                        this.onPayment();
+                    }}>
+                        立即付款
+                    </div>
+                );
+            case 1:
+                return '';
+            case 2:
+                return (
+                    <div className="art-list__bussinss-operation-item" onClick={() => {
+                        this.confirmGoods();
+                    }}>
+                        确认收货
+                    </div>
+                );
+            case 3:
+                return (
+                    <div style={{display: 'flex', dipflexDirection: 'row'}}>
+                        <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item" onClick={() => {
+                            this.evaluation();
+                        }}>
+                            评价
+                        </div>
+                        <div className="art-list__bussinss-operation-item" onClick={() => {
+                            this.returnGoods();
+                        }}>
+                            申请退货
+                        </div>
+                    </div>
+                )
+        }
     };
 
 
@@ -93,33 +142,36 @@ class OrderList extends PureComponent {
 
                 <div className="art-list">
                     <Tabs tabs={orderTabs}
-                          initialPage={1}>
+                          initialPage={1}
+                          onChange={(tab, index) => {
+                              this.props.getQueryCustomerOrderList(11, index - 1, 1);
+                          }}>
 
-                        <div style={styles.tab}>
+                        <div>
                             {orderList.map((order, index) => {
                                 return this.getTabProduct(order, index)
                             })}
                         </div>
 
-                        <div style={styles.tab}>
+                        <div>
                             {orderList.map((order, index) => {
                                 return this.getTabProduct(order, index)
                             })}
                         </div>
 
-                        <div style={styles.tab}>
+                        <div>
                             {orderList.map((order, index) => {
                                 return this.getTabProduct(order, index)
                             })}
                         </div>
 
-                        <div style={styles.tab}>
+                        <div>
                             {orderList.map((order, index) => {
                                 return this.getTabProduct(order, index)
                             })}
                         </div>
 
-                        <div style={styles.tab}>
+                        <div>
                             {orderList.map((order, index) => {
                                 return this.getTabProduct(order, index)
                             })}
