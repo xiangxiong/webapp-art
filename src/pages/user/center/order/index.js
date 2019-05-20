@@ -3,7 +3,9 @@ import {Badge} from 'antd-mobile';
 import './index.scss';
 
 const OrderItem = (props) =>{
+
     const {AwaitPayCount, AwaitShipCount, AwaitReceiptCount, AwaitCommentCount} = props;
+    
     return (
         <Fragment>
               <div className="art-user__order">

@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import PropTypes from 'prop-types';
 import  {pictureUrl} from '../../../utils/stringUtil';
 import history from './../../../utils/history';
 
@@ -18,10 +17,7 @@ const Product = (props) => {
              }}>
             <div className="art-main__recommend-img img-mrg-right"
                  style={{
-                     background: `url(${pictureUrl(ImgPath)})`,
-                     marginRight: "3px",
-                     backgroundRepeat: "repeat",
-                     backgroundSize: "contain"
+                     background: `url(${pictureUrl(ImgPath)}) 0% 0% / cover`
                  }}>
             </div>
             <p>{ProductName}</p>

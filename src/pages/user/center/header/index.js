@@ -18,19 +18,19 @@ const Header = (props) =>{
                 
                 <div className="art-user__action">
                     <div>
-                        <h4>45</h4>
-                        <p>{CollectCount}</p>
+                        <h4>{CollectCount}</h4>
+                        <p>收藏</p>
                     </div>
                     <div>
-                        <h4>45</h4>
-                        <p>{FollowCount}</p>
+                        <h4>{FollowCount}</h4>
+                        <p>关注</p>
                     </div>
                     <div>
-                    <h4>45</h4>
-                        <p>{VisitCount}</p>
+                    <h4>{VisitCount}</h4>
+                        <p>足迹</p>
                     </div>
-                    <div> <h4>45</h4>
-                        <p>{GroupCount}</p></div>
+                    <div> <h4>{GroupCount}</h4>
+                        <p>团购</p></div>
                 </div>
                
         </Fragment>

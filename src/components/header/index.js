@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
 
-class PublicHeader extends React.Component{
+class PublicHeader extends PureComponent{
 
     constructor(props){
         super(props);
@@ -16,7 +16,6 @@ class PublicHeader extends React.Component{
 
     componentWillReceiveProps(nextProps){
         const {title} = nextProps;
-
         if(title !== this.state.title){
             this.setState({
                 title:title
@@ -30,20 +29,20 @@ class PublicHeader extends React.Component{
 
         return (
            <Fragment>
-            <NavBar
-                 style={{background:bgColor,color:'#FFFFFF'}}
-                 mode="light"
-                 icon={<Icon type={icon}/>}
-                 onLeftClick={() => history.go(-1)}
-                 rightContent={
-                       share && <div className="art-icon art-icon-share"></div>
-                  }
-                >
-                {
-                    title
-                }
-            </NavBar>
-        </Fragment>
+                <NavBar
+                    style={{background:bgColor,color:'#FFFFFF'}}
+                    mode="light"
+                    icon={<Icon type={icon}/>}
+                    onLeftClick={() => history.go(-1)}
+                    rightContent={
+                        share && <div className="art-icon art-icon-share"></div>
+                    }
+                    >
+                    {
+                        title
+                    }
+                </NavBar>
+            </Fragment>
         )
     }
 }

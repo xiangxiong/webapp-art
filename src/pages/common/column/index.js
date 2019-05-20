@@ -18,18 +18,16 @@ const Column = (props) => {
                                 style={{
                                     background:`url(${PICTUREURL + leftImgUrl})`,
                                     marginRight: "3px",
-                                    backgroundRepeat: "repeat",
-                                    backgroundSize: "contain"
+                                    backgroundSize: "100%"
                                 }}>
                                     <h3>「 大师云集 」 </h3>
                                     <p>上千件好物等你来选</p>
                                 </div>
                                 <div className="art-main__column-content-invent"
                                 style={{
-                                    background:`url(${PICTUREURL + rightImgUrl})`,
+                                    background:`url(${PICTUREURL + rightImgUrl}) 100%`,
                                     marginLeft: "3px",
-                                    backgroundRepeat: "repeat",
-                                    backgroundSize: "contain"
+                                    backgroundSize: "100%"
                                 }}>
                                     <h3>「 大师印象 」 </h3>
                                     <p>邀请好友一起拼团</p>

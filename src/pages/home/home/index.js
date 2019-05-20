@@ -47,11 +47,9 @@ class Main extends PureComponent{
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
-
         for (var i = 0; i < DataList.length; i++) {
             items.push(<Product {...DataList[i]} index={i} key={i.toString()}/>);
         }
-
         return items;
     }
 
