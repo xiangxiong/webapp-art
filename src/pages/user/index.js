@@ -7,6 +7,10 @@ import {pictureUrl} from '../../utils/stringUtil';
 import Header from './center/header';
 import {Tabs, List} from 'antd-mobile';
 import OrderItem from './center/order';
+import {getUserLikeProducts, clearUserLikeProducts} from '../home/store/actionCreators';
+import Product from '../common/product';
+import Title from '../common/title';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const Item = List.Item;
 
@@ -103,9 +107,10 @@ class User extends PureComponent {
         super(props);
 
         this.state = {
-            user: '卖家'
+            user: '卖家',
+            hasMoreItems: true
         };
-
+        this.currentPage = 1;//为你推荐 当前页
         this.bindEvents();
     }
 
@@ -153,6 +158,33 @@ class User extends PureComponent {
         })
     }
 
+    showRecomandItem() {
+        const {DataList = []} = this.props.userLikeProducts;
+        var items = [];
+        for (var i = 0; i < DataList.length; i++) {
+            items.push(<Product {...DataList[i]} index={i} key={i.toString()}/>);
+        }
+        return items;
+    }
+
+    loadMoreItem() {
+        debugger;
+        const {DataList = [], TotalRecords} = this.props.userLikeProducts;
+
+        if (DataList.length >= TotalRecords) {
+            this.setState({hasMoreItems: false});
+        } else {
+            setTimeout(() => {
+                this.setState({hasMoreItems: false}, () => {
+                    this.currentPage = ++this.currentPage;
+                    this.props.getUserLikeProducts(11, this.currentPage).then(() => {
+                        this.setState({hasMoreItems: true});
+                    });
+                });
+            }, 200);
+        }
+    }
+
     render() {
         const tabs = [
             {title: '我是买家'},
@@ -186,16 +218,32 @@ class User extends PureComponent {
                 />
                 <Tabs tabs={tabs} initialPage={1}>
                     <div style={styles.tab}>
-                        <OrderItem
-                            AwaitPayCount={AwaitPayCount}
-                            AwaitShipCount={AwaitShipCount}
-                            AwaitReceiptCount={AwaitReceiptCount}
-                            AwaitCommentCount={AwaitCommentCount}
-                        />
-                        <div className="art-user__space"></div>
-                        <div className="art-user__nav">
-                            {this.bindBuyList()}
-                        </div>
+                        <InfiniteScroll
+                            loadMore={this.loadMoreItem.bind(this)}
+                            hasMore={this.state.hasMoreItems}
+                            loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}
+                            useWindow={false}>
+
+                            <OrderItem
+                                AwaitPayCount={AwaitPayCount}
+                                AwaitShipCount={AwaitShipCount}
+                                AwaitReceiptCount={AwaitReceiptCount}
+                                AwaitCommentCount={AwaitCommentCount}
+                            />
+                            <div className="art-user__space"></div>
+                            <div className="art-user__nav">
+                                {this.bindBuyList()}
+                            </div>
+                            <div className="art-user__recommend">
+
+                                <Title title="为你推荐"/>
+
+                                <div className="art-user__recommend-content">
+                                    {this.showRecomandItem()}
+                                </div>
+
+                            </div>
+                        </InfiniteScroll>
                     </div>
                     <div style={styles.tab}>
                         <OrderItem
@@ -208,9 +256,6 @@ class User extends PureComponent {
                         <div className="art-user__nav">
                             {this.bindSellList()}
                         </div>
-                        <div className="art-user__recomand">
-                            - 为你推荐 -
-                        </div>
                     </div>
                 </Tabs>
             </Fragment>
@@ -218,20 +263,28 @@ class User extends PureComponent {
     }
 
     componentDidMount() {
+        this.props.clearUserLikeProducts();
         this.props.getCustomerDetail('11');
+        this.props.getUserLikeProducts(11, this.currentPage);
     }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({user, home}) => {
     return {
         customerDetail: user.customerDetail,
+        userLikeProducts: home.userLikeProducts,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
+    clearUserLikeProducts: () => {
+        dispatch(clearUserLikeProducts())
+    },
     getCustomerDetail: (CustomerId) => {
         dispatch(getCustomerDetail({CustomerId}))
-    }
+    },
+    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
+        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

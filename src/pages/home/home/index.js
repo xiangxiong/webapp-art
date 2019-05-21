@@ -66,7 +66,7 @@ class Main extends PureComponent{
                         this.setState({hasMoreItems: true});
                     });
                 });
-            }, 2000);
+            }, 200);
         }
     }
 

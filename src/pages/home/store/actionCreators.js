@@ -29,6 +29,11 @@ const userLikeProducts = (Data, CurrentPage) => ({
     CurrentPage
 });
 
+export const clearUserLikeProducts = (Data) => ({
+    type: constants.CLEAR_USER_LIKE_PRODUCTS_LIST,
+    value: {},
+});
+
 export const getAdvertList = (AppAdType) => {
     return (dispatch) => {
         return post(AppAdCommon, {AppAdType})

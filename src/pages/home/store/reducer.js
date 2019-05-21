@@ -22,6 +22,8 @@ export default (state = defaultState, action) => {
                 let newData = action.value.DataList.concat(DataList);
                 return {...state, userLikeProducts: {...state.userLikeProducts, ...{DataList: newData}}};
             }
+        case constants.CLEAR_USER_LIKE_PRODUCTS_LIST:
+            return {...state, userLikeProducts: action.value};
         default:
             return state;
     }
