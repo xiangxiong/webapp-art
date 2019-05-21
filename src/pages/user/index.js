@@ -5,95 +5,95 @@ import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
 import {pictureUrl} from '../../utils/stringUtil';
 import Header from './center/header';
-import { Tabs,List } from 'antd-mobile';
+import {Tabs, List} from 'antd-mobile';
 import OrderItem from './center/order';
 
 const Item = List.Item;
 
 const styles = {};
-styles.tab = { 
+styles.tab = {
     backgroundColor: '#fff',
-    height:"40px"
+    height: "40px"
 }
 
 const navItems = [
     {
-        title:'发布作品',
-        icon:'art-icon art-icon-user-release',
-        routeUrl:'/work'
+        title: '发布作品',
+        icon: 'art-icon art-icon-user-release',
+        routeUrl: '/work'
     },
     {
-        title:'发布大师印象',
-        icon:'art-icon art-icon-user-release-master',
-        routeUrl:''
+        title: '发布大师印象',
+        icon: 'art-icon art-icon-user-release-master',
+        routeUrl: ''
     },
     {
-        title:'作品库',
-        icon:'art-icon art-icon-user-works',
-        routeUrl:''
+        title: '作品库',
+        icon: 'art-icon art-icon-user-works',
+        routeUrl: ''
     },
     {
-        title:'订单管理',
-        icon:'art-icon art-icon-user-order',
-        routeUrl:''
+        title: '订单管理',
+        icon: 'art-icon art-icon-user-order',
+        routeUrl: ''
     },
     {
-        title:'提现',
-        icon:'art-icon art-icon-user-cash',
-        routeUrl:''
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: ''
     },
     {
-        title:'协议规则',
-        icon:'art-icon art-icon-user-rule',
-        routeUrl:''
+        title: '协议规则',
+        icon: 'art-icon art-icon-user-rule',
+        routeUrl: ''
     },
     {
-        title:'收货地址',
-        icon:'art-icon art-icon-user-recepter',
-        routeUrl:'/addressList'
+        title: '收货地址',
+        icon: 'art-icon art-icon-user-recepter',
+        routeUrl: '/addressList'
     },
     {
-        title:'我的银行卡',
-        icon:'art-icon art-icon-user-bankcard',
-        routeUrl:''
+        title: '我的银行卡',
+        icon: 'art-icon art-icon-user-bankcard',
+        routeUrl: ''
     },
     {
-        title:'联系客服(9:00-21:30)',
-        icon:'art-icon art-icon-user-service',
-        routeUrl:''
+        title: '联系客服(9:00-21:30)',
+        icon: 'art-icon art-icon-user-service',
+        routeUrl: ''
     }
 ];
 
 const customerNavItems = [
     {
-        title:'合作入住',
-        icon:'art-icon art-icon-user-cor',
-        routeUrl:'/application'
+        title: '合作入住',
+        icon: 'art-icon art-icon-user-cor',
+        routeUrl: '/application'
     },
     {
-        title:'好货推荐',
-        icon:'art-icon art-icon-user-recomand',
-        routeUrl:''
+        title: '好货推荐',
+        icon: 'art-icon art-icon-user-recomand',
+        routeUrl: ''
     },
     {
-        title:'提现',
-        icon:'art-icon art-icon-user-cash',
-        routeUrl:''
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: ''
     },
     {
-        title:'协议规则',
-        icon:'art-icon art-icon-user-rule',
-        routeUrl:''
+        title: '协议规则',
+        icon: 'art-icon art-icon-user-rule',
+        routeUrl: ''
     },
     {
-        title:'收货地址',
-        icon:'art-icon art-icon-user-recepter',
-        routeUrl:'/addressList'
+        title: '收货地址',
+        icon: 'art-icon art-icon-user-recepter',
+        routeUrl: '/addressList'
     },
     {
-        title:'联系客服(9:00-21:30)',
-        icon:'art-icon art-icon-user-service',
-        routeUrl:''
+        title: '联系客服(9:00-21:30)',
+        icon: 'art-icon art-icon-user-service',
+        routeUrl: ''
     }
 ];
 
@@ -103,31 +103,31 @@ class User extends PureComponent {
         super(props);
 
         this.state = {
-            user:'卖家'
+            user: '卖家'
         };
 
         this.bindEvents();
     }
 
-    bindEvents(){
+    bindEvents() {
         this.handleNavUrl = this.handleNavUrl.bind(this);
     }
 
-    handleNavUrl(url){
+    handleNavUrl(url) {
         history.push(url);
     }
 
-    bindSellList(){
-       return navItems.map(navItem=>{
-            const activeSpace =  navItem.title==="订单管理" ?  <div className="art-user__space"></div> : "";
+    bindSellList() {
+        return navItems.map((navItem, index) => {
+            const activeSpace = navItem.title === "订单管理" ? <div className="art-user__space"></div> : "";
             return (
-                <List>
+                <List key={index.toString()}>
                     <Item
-                    arrow="horizontal"
-                    onClick={()=>{
-                        this.handleNavUrl(navItem.routeUrl)
-                    }}>
-                        <div> <span className={navItem.icon}></span> {navItem.title}</div>
+                        arrow="horizontal"
+                        onClick={() => {
+                            this.handleNavUrl(navItem.routeUrl)
+                        }}>
+                        <div><span className={navItem.icon}></span> {navItem.title}</div>
                     </Item>
                     {activeSpace}
                 </List>
@@ -135,17 +135,17 @@ class User extends PureComponent {
         })
     }
 
-    bindBuyList(){
-        return customerNavItems.map(navItem=>{
-            const activeSpace =  navItem.title==="提现" ?  <div className="art-user__space"></div> : "";
+    bindBuyList() {
+        return customerNavItems.map((navItem, index) => {
+            const activeSpace = navItem.title === "提现" ? <div className="art-user__space"></div> : "";
             return (
-                <List>
+                <List key={index.toString()}>
                     <Item
-                    arrow="horizontal"
-                    onClick={()=>{
-                        this.handleNavUrl(navItem.routeUrl)
-                    }}>
-                        <div> <span className={navItem.icon}></span> {navItem.title}</div>
+                        arrow="horizontal"
+                        onClick={() => {
+                            this.handleNavUrl(navItem.routeUrl)
+                        }}>
+                        <div><span className={navItem.icon}></span> {navItem.title}</div>
                     </Item>
                     {activeSpace}
                 </List>
@@ -155,8 +155,8 @@ class User extends PureComponent {
 
     render() {
         const tabs = [
-            { title: '我是买家' },
-            { title: '我是卖家' }
+            {title: '我是买家'},
+            {title: '我是卖家'}
         ];
 
         const {
@@ -186,15 +186,15 @@ class User extends PureComponent {
                 />
                 <Tabs tabs={tabs} initialPage={1}>
                     <div style={styles.tab}>
-                         <OrderItem
-                             AwaitPayCount={AwaitPayCount}
-                             AwaitShipCount={AwaitShipCount}
-                             AwaitReceiptCount={AwaitReceiptCount}
-                             AwaitCommentCount={AwaitCommentCount}
-                         />
-                         <div className="art-user__space"></div>
-                         <div className="art-user__nav">
-                                {this.bindBuyList()}
+                        <OrderItem
+                            AwaitPayCount={AwaitPayCount}
+                            AwaitShipCount={AwaitShipCount}
+                            AwaitReceiptCount={AwaitReceiptCount}
+                            AwaitCommentCount={AwaitCommentCount}
+                        />
+                        <div className="art-user__space"></div>
+                        <div className="art-user__nav">
+                            {this.bindBuyList()}
                         </div>
                     </div>
                     <div style={styles.tab}>
@@ -206,10 +206,10 @@ class User extends PureComponent {
                         />
                         <div className="art-user__space"></div>
                         <div className="art-user__nav">
-                                {this.bindSellList()}
+                            {this.bindSellList()}
                         </div>
                         <div className="art-user__recomand">
-                              - 为你推荐 -
+                            - 为你推荐 -
                         </div>
                     </div>
                 </Tabs>

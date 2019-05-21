@@ -6,6 +6,7 @@ import {getQueryCustomerOrderList} from '../store/actionCreators';
 import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/stringUtil';
+import ArtListView from '../../../components/artListView';
 
 const orderTabs = [
     {title: '全部'},
@@ -22,7 +23,7 @@ class OrderList extends PureComponent {
     }
 
     getTabProduct = (order, index) => {
-        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount, SOAmount, StatusValue} = order;
+        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = ''} = order;
 
         return (
             <div className="art-list__bussinss" key={index.toString()}>
@@ -34,7 +35,7 @@ class OrderList extends PureComponent {
                 </div>
 
                 {Details.map((detail, index) => {
-                    const {ImageName, ProductName, LastPrice, Quantity} = detail;
+                    const {ImageName = '', ProductName = '', LastPrice = '', Quantity = ''} = detail;
                     return (
                         <div className="art-list__bussinss-order" key={index.toString()}>
                             <div className="art-list__bussinss-order-img">
@@ -117,9 +118,10 @@ class OrderList extends PureComponent {
             case 3:
                 return (
                     <div style={{display: 'flex', dipflexDirection: 'row'}}>
-                        <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item" onClick={() => {
-                            this.evaluation();
-                        }}>
+                        <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
+                             onClick={() => {
+                                 this.evaluation();
+                             }}>
                             评价
                         </div>
                         <div className="art-list__bussinss-operation-item" onClick={() => {
@@ -132,6 +134,15 @@ class OrderList extends PureComponent {
         }
     };
 
+
+    showOrderList = (orderList) => {
+        return (
+            <ArtListView
+                data={orderList}
+                renderRow={this.getTabProduct}
+            />
+        );
+    };
 
     render() {
         const {orderList = []} = this.props;
@@ -148,33 +159,23 @@ class OrderList extends PureComponent {
                           }}>
 
                         <div>
-                            {orderList.map((order, index) => {
-                                return this.getTabProduct(order, index)
-                            })}
+                            {this.showOrderList(orderList)}
                         </div>
 
                         <div>
-                            {orderList.map((order, index) => {
-                                return this.getTabProduct(order, index)
-                            })}
+                            {this.showOrderList(orderList)}
                         </div>
 
                         <div>
-                            {orderList.map((order, index) => {
-                                return this.getTabProduct(order, index)
-                            })}
+                            {this.showOrderList(orderList)}
                         </div>
 
                         <div>
-                            {orderList.map((order, index) => {
-                                return this.getTabProduct(order, index)
-                            })}
+                            {this.showOrderList(orderList)}
                         </div>
 
                         <div>
-                            {orderList.map((order, index) => {
-                                return this.getTabProduct(order, index)
-                            })}
+                            {this.showOrderList(orderList)}
                         </div>
                     </Tabs>
                 </div>
