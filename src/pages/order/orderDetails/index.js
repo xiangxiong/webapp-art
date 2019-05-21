@@ -11,7 +11,7 @@ class OrderDetails extends PureComponent {
     }
 
     render() {
-        const {} = this.props.orderDetail;
+        //const {} = this.props.orderDetail;
 
         return (
             <Fragment>

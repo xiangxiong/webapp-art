@@ -7,6 +7,7 @@ import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/stringUtil';
 import ArtListView from '../../../components/artListView';
+import history from './../../../utils/history';
 
 const orderTabs = [
     {title: '全部'},
@@ -26,7 +27,7 @@ class OrderList extends PureComponent {
         const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = ''} = order;
 
         return (
-            <div className="art-list__bussinss" key={index.toString()}>
+            <div className="art-list__bussinss" key={index.toString()} onClick={() => history.push('./orderDetails')}>
                 <Space/>
 
                 <div className="art-list__bussinss-title">
