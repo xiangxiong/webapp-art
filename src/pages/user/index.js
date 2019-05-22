@@ -159,7 +159,6 @@ class User extends PureComponent {
         })
     }
 
-<<<<<<< HEAD
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
@@ -186,12 +185,10 @@ class User extends PureComponent {
             }, 200);
         }
     }
-
-=======
     handleTestClick(){
         history.push('/oauth');
     }
->>>>>>> add wechat login
+    
     render() {
         const tabs = [
             {title: '我是买家'},
