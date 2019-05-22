@@ -3,4 +3,196 @@
 .art-details {
   background: $color-bg-color;
 
+  &__address {
+    height: 70px;
+    display: flex;
+    margin-left: 15px;
+    padding-right: 15px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(235, 235, 235, 1);
+
+    &___left {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin-right: 5px;
+
+      & > div:nth-child(1) {
+        display: flex;
+        height: 15px;
+        line-height: 15px;
+        @include fontsize(MicrosoftYaHei, 30px, #000000);
+
+        & > span:nth-child(1) {
+          width: 75px;
+        }
+        & > span:nth-child(2) {
+          flex: 1;
+        }
+      }
+
+      & > div:nth-child(2) {
+        display: flex;
+        height: 16px;
+        margin-top: 9px;
+        align-items: center;
+
+        & > div {
+          height: 16px;
+          width: 75px;
+          line-height: 16px;
+        }
+
+        & > span {
+          height: 13px;
+          flex: 1;
+          @include fontsize(MicrosoftYaHei, 26px, #444444);
+          line-height: 13px;
+        }
+      }
+    }
+
+  }
+
+  &__product {
+    //height:223px;
+    background: #FFFFFF;
+    width: 100%;
+    margin-top: 10px;
+
+    &-title {
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      border-bottom: 1px solid #EBEBEB;
+
+      &-name {
+        width: 50%;
+        text-align: left;
+        line-height: 40px;
+        padding-left: 15px;
+        font-size: 13px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(39, 39, 39, 1);
+      }
+
+      &-count {
+        width: 50%;
+        text-align: right;
+        line-height: 40px;
+        padding-right: 15px;
+        font-size: 13px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(122, 122, 122, 1);
+      }
+    }
+
+    &-order {
+      display: flex;
+      flex-direction: row;
+      height: 99px;
+      border-bottom: 1px solid #EBEBEB;
+
+      &-img {
+        width: 20%;
+
+        & > div {
+          width: 68px;
+          height: 68px;
+          background: gray;
+          margin: 15px 0 0 15px;
+          border-radius: 4px;
+        }
+      }
+
+      &-product {
+        width: 60%;
+        padding-top: 30px;
+        margin-left: 15px;
+
+        & > p {
+          margin-top: 5px;
+          font-size: 13px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: #999999;
+        }
+      }
+
+      &-price {
+        width: 20%;
+
+        & > span {
+          padding-top: 36px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &__operation {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+
+    &-service {
+      height: 38px;
+      background: rgba(246, 246, 246, 1);
+      border: 1px solid rgba(233, 233, 233, 1);
+      border-radius: 3px;
+      margin-right: 17px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > span {
+        height: 14px;
+        font-size: 14px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(68, 68, 68, 1);
+        line-height: 14px;
+      }
+    }
+
+    &-phone {
+      height: 38px;
+      background: rgba(246, 246, 246, 1);
+      border: 1px solid rgba(233, 233, 233, 1);
+      border-radius: 3px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > span {
+        height: 14px;
+        font-size: 14px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(68, 68, 68, 1);
+        line-height: 14px;
+      }
+    }
+  }
+
+  &__describe {
+    padding: 15px 0px 15px 15px;
+
+    & > p {
+      height: 16px;
+      font-size: 12px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(56, 56, 56, 1);
+      line-height: 16px;
+    }
+
+  }
+
 }
