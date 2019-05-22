@@ -20,15 +20,12 @@ const Oauth = () =>{
                 wechat: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wechat}&redirect_uri=${redirectUrl}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`
             };
             window.top.location.href = oauthUri.wechat;
-            console.log('getUrlParam',getUrlParam('code'));
         }
         console.log('init');
     }
 
     useEffect(()=>{
         setCode(getUrlParam("code"))
-        console.log('useEffect');
-        window.addEventListener('touchstart',retry);
         init();
     });
 

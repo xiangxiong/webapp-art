@@ -9,18 +9,23 @@ import User from './../user/index';
 import {getUrlParam} from './../../utils/common';
 import {connect} from 'react-redux';
 import {getWxLoginInfo} from './store/actionCreators';
+import './../../utils/storage';
+import _ from 'lodash';
+import history from './../../utils/history';
 
 class Home extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
-            selectedTab: 'yellowTab',
+            selectedTab: 'redTab',
             hidden: false,
             fullScreen: true,
+            isSelected:false
         };
    }
    
    renderFactory(pageText){
+     console.log('pageText',pageText);
        switch(pageText){
           case "MAIN":
             return (<Main/>);
@@ -37,6 +42,14 @@ class Home extends PureComponent{
        }
    }
 
+   handleHasLogin(){
+      let storage = Storage.Base.getInstance();
+      // console.log("localStorage userinfo",Storage.Base.getInstance().get('userinfo'));
+       if(storage.get('userinfo')==null){
+            history.push('/oauth');
+       }
+    }
+
    renderContent(pageText){
         return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
@@ -48,8 +61,21 @@ class Home extends PureComponent{
   }
 
   componentDidMount(){
-     console.log('getUrlParam',getUrlParam('code'));
-     this.props.getAuthInfo(getUrlParam('code'));
+    let storage = Storage.Base.getInstance();
+
+    if(storage.get('userinfo')==null){
+        this.props.getAuthInfo({code:getUrlParam('code')}).then((res)=>{
+          console.log('res',res);
+          storage.set('userinfo',JSON.stringify({userName:'xiang'}),10000);
+          // 新增用户信息.
+        })
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.state.isSelected){
+      this.handleHasLogin()
+    }
   }
 
   render(){
@@ -86,7 +112,7 @@ class Home extends PureComponent{
             selected={this.state.selectedTab === 'redTab'}
             onPress={() => {
               this.setState({
-                selectedTab: 'redTab',
+                selectedTab: 'redTab'
               });
             }}
             data-seed="logId1"
@@ -134,6 +160,7 @@ class Home extends PureComponent{
             onPress={() => {
               this.setState({
                 selectedTab: 'yellowTab',
+                isSelected:true
               });
             }}>
             {this.renderContent('USER')}
@@ -145,15 +172,14 @@ class Home extends PureComponent{
 }
 
 const mapStateToProps = (state) => {
-  console.log('authInfo',state.home.authInfo);
   return {
      authInfo:state.home.authInfo
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-   getAuthInfo:(code)=>{
-     dispatch(getWxLoginInfo({code:code}))
+   getAuthInfo:(params)=>{
+     return dispatch(getWxLoginInfo(params))
    }
 })
 

@@ -58,7 +58,7 @@
             this.navigatorAgent();  
         }
     };
-    
+
     try{
         let sessionConfig = JSON.parse(sessionStorage.globalConfig || '{}');
         sessionConfig.console != undefined &&

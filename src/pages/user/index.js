@@ -11,9 +11,9 @@ import {getUserLikeProducts, clearUserLikeProducts} from '../home/store/actionCr
 import Product from '../common/product';
 import Title from '../common/title';
 import InfiniteScroll from 'react-infinite-scroller';
+import '../../utils/storage';
 
 const Item = List.Item;
-
 const styles = {};
 styles.tab = {
     backgroundColor: '#fff',
@@ -169,7 +169,6 @@ class User extends PureComponent {
     }
 
     loadMoreItem() {
-        debugger;
         const {DataList = [], TotalRecords} = this.props.userLikeProducts;
 
         if (DataList.length >= TotalRecords) {
@@ -185,10 +184,11 @@ class User extends PureComponent {
             }, 200);
         }
     }
-    
+
     handleTestClick(){
         history.push('/oauth');
     }
+
     
     render() {
         const tabs = [
@@ -268,7 +268,7 @@ class User extends PureComponent {
         )
     }
 
-    componentDidMount() {
+    componentDidMount(){
         this.props.clearUserLikeProducts();
         this.props.getCustomerDetail('11');
         this.props.getUserLikeProducts(11, this.currentPage);

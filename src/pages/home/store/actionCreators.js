@@ -1,5 +1,5 @@
 import * as constants from './constants';
-import {post} from '../../../utils/request';
+import {post,testRequest} from '../../../utils/request';
 import {AppAdCommon, NewsPager, GuessUserLikeProducts,GET_WECHAT_API} from '../../../utils/servicekey';
 import {
     shopCarouselAdList,
@@ -63,7 +63,6 @@ export const getNewsPagerList = (params) => {
                 if (!params || !params.CategoryId) {
                     return
                 }
-
                 if (params.CategoryId == 3) {
                     dispatch(newsPagerList(response.Data.NewList));
                 } else if (params.CategoryId == 4) {
@@ -97,11 +96,11 @@ const wxLoginInfo = (data) => ({
 })
 
 export const getWxLoginInfo = (params) =>{
+    console.log('params',params);
     return (dispatch) => {
         return post(GET_WECHAT_API,params).then((response)=>{
-                   console.log('response',response);
-                   console.log('GET_WECHAT_API params',params);
-                   dispatch(wxLoginInfo(response));
+             console.log('response',response);
+             dispatch(wxLoginInfo(response));
         });
     }
 }

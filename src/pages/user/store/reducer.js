@@ -17,7 +17,6 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-    console.log('action.value',action.value);
     switch (action.type) {
         case USER_CUSTOMER_DETAIL:
             return {

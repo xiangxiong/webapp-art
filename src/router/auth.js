@@ -5,12 +5,15 @@ import {Route,Redirect} from 'react-router-dom';
 export const PrivateRoute = ({component: ComposedComponent,...rest}) =>{
    
     class Authentication extends PureComponent{
+
         render(){
+
             let isLogin = this.props.isLogin
                 ? this.props.isLogin
-                : sessionStorage.getItem("userinfo") 
-                    ? sessionStorage.getItem("userinfo")
+                : localStorage.get("userinfo") 
+                    ? localStorage.get("userinfo")
                     : "";
+            
             return (
                 <Route
                     {...rest}

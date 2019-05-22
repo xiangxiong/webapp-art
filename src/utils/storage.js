@@ -1,12 +1,14 @@
-var Storage = {};
+window.Storage = {};
 
 Storage.Base = (function(){
     var uniqInstance;
 
     function init(){
-        
+
+        console.log('init');
         var set = function(key,value,time){
             try{
+                console.log('key');
                 if(!localStorage){
                     return false;
                 }
@@ -36,8 +38,10 @@ Storage.Base = (function(){
                 }
                 // 缓存过期
                 if(now > result.exp){
-
+                    remove(key);
+                    return "";
                 }
+                return result.val;
             }
             catch(e)
             {
