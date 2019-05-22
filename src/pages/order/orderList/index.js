@@ -5,7 +5,7 @@ import PublicHeader from './../../../components/header';
 import {getQueryCustomerOrderList} from '../store/actionCreators';
 import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
-import  {pictureUrl} from '../../../utils/stringUtil';
+import  {pictureUrl} from '../../../utils/common';
 import ArtListView from '../../../components/artListView';
 import history from './../../../utils/history';
 

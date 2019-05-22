@@ -259,29 +259,16 @@ class User extends PureComponent {
                         />
                         <div className="art-user__space"></div>
                         <div className="art-user__nav">
-<<<<<<< HEAD
                             {this.bindSellList()}
                         </div>
-=======
-                                {this.bindSellList()}
-                        </div>
-                        {/* <div className="art-user__recomand">
-                              - 为你推荐 -
-                        </div> */}
->>>>>>> add wechat login
                     </div>
                 </Tabs>
             </Fragment>
         )
     }
-<<<<<<< HEAD
 
     componentDidMount() {
         this.props.clearUserLikeProducts();
-=======
-    
-    componentDidMount(){
->>>>>>> add wechat login
         this.props.getCustomerDetail('11');
         this.props.getUserLikeProducts(11, this.currentPage);
     }
