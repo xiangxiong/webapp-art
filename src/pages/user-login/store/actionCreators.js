@@ -1,30 +1,17 @@
-import axios from 'axios';
 import * as constants from './constants';
+import {post} from './../../../utils/request';
+import {GET_WECHAT_API} from './../../../utils/servicekey';
 
-const changeLogin = () => ({
-    type:constants.CHANGE_LOGIN,
-    value: true
+const weixinLogin = (params) => ({
+    type:constants.WEIXIN_LOGIN,
+    value: params
 })
 
-export const logout = () => ({
-    type:constants.LOGOUT,
-    value: false
-})
-
-export const login = (account,password) => {
+export const wxLogin = (params) => {
     return (dispatch) => {
-        dispatch(changeLogin());
-        // return {
-        //     'data':{login:true}
-        // }
-        // axios.get('/api/login.json?account=' + account + '&password=' + password)
-        // .then((res)=>{
-        //     const result = res.data.data;
-        //     if(result){
-        //         dispatch(changeLogin());
-        //     }else{
-        //         alert('登录失败');
-        //     }
-        // })
+        return post(GET_WECHAT_API,params).then((response)=>{
+            console.log('response',response);
+            dispatch(weixinLogin(response));
+        })
     }
 }

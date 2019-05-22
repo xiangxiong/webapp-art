@@ -8,6 +8,8 @@ export const PICTUREURL = 'http://res.laoliwuyou.com/icon/';
 
 export const SERVICEPICTUREURL = 'http://res.laoliwuyou.com';
 
+export const PRODUCTURL = 'http://art.laoliwuyou.com/';
+
 export const DevEnv = true;
 
 export const HOST = DevEnv ? DEVHOST : MOOCHOST;

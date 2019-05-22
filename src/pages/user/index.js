@@ -3,7 +3,7 @@ import './index.scss';
 import {connect} from 'react-redux';
 import {getCustomerDetail} from './store/actionCreators';
 import history from './../../utils/history';
-import {pictureUrl} from '../../utils/stringUtil';
+import {pictureUrl} from '../../utils/common';
 import Header from './center/header';
 import {Tabs, List} from 'antd-mobile';
 import OrderItem from './center/order';
@@ -116,6 +116,7 @@ class User extends PureComponent {
 
     bindEvents() {
         this.handleNavUrl = this.handleNavUrl.bind(this);
+        this.handleTestClick = this.handleTestClick.bind(this);
     }
 
     handleNavUrl(url) {
@@ -158,6 +159,7 @@ class User extends PureComponent {
         })
     }
 
+<<<<<<< HEAD
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
@@ -185,6 +187,11 @@ class User extends PureComponent {
         }
     }
 
+=======
+    handleTestClick(){
+        history.push('/oauth');
+    }
+>>>>>>> add wechat login
     render() {
         const tabs = [
             {title: '我是买家'},
@@ -216,6 +223,7 @@ class User extends PureComponent {
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
                 />
+                <div onClick={this.handleTestClick}>测试</div>
                 <Tabs tabs={tabs} initialPage={1}>
                     <div style={styles.tab}>
                         <InfiniteScroll
@@ -254,16 +262,29 @@ class User extends PureComponent {
                         />
                         <div className="art-user__space"></div>
                         <div className="art-user__nav">
+<<<<<<< HEAD
                             {this.bindSellList()}
                         </div>
+=======
+                                {this.bindSellList()}
+                        </div>
+                        {/* <div className="art-user__recomand">
+                              - 为你推荐 -
+                        </div> */}
+>>>>>>> add wechat login
                     </div>
                 </Tabs>
             </Fragment>
         )
     }
+<<<<<<< HEAD
 
     componentDidMount() {
         this.props.clearUserLikeProducts();
+=======
+    
+    componentDidMount(){
+>>>>>>> add wechat login
         this.props.getCustomerDetail('11');
         this.props.getUserLikeProducts(11, this.currentPage);
     }

@@ -61,3 +61,16 @@ export const QueryIntertionalPartener = 'Art.Service.Product.Dto.Api.QueryIntert
 
 //获取商品评价列表
 export const ProductComment = 'Art.Service.Customer.Dto.Api.ProductCommentRequest';
+
+/**
+ *  发布商品. 
+ *  */
+export const PUBLISH_PRODUCT_API = 'Art.Service.Product.Dto.Api.ProviderPublishProductRequest';
+
+// 获取二级分类.
+export const PUBLISH_USER_TYPE = 'Art.Service.Product.Dto.Api.QueryCategoryListRequest';
+
+/*
+  用户登录
+*/
+export const GET_WECHAT_API = 'Art.Service.Customer.Dto.Api.GetWeChatUserRequest';

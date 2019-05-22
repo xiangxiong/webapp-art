@@ -1,5 +1,5 @@
 import React, {PureComponent, Fragment, useState} from 'react';
-import {List, InputItem, Checkbox, Button, ActionSheet} from 'antd-mobile';
+import {List, Flex,InputItem, Checkbox, Button, ActionSheet} from 'antd-mobile';
 import './index.scss';
 import PublicHeader from './../../../components/header'
 import {ImagePicker} from 'antd-mobile';
@@ -54,7 +54,6 @@ class Application extends PureComponent {
     initEvent() {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleCategory = () => {
@@ -235,7 +234,7 @@ class Application extends PureComponent {
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={files.length < 7}
                     multiple={false}/>
-                    
+
                 <div className={uploadPanel}>
                     {
                         //this.UploadImage(files, pickers, type)
@@ -287,11 +286,9 @@ const mapDispatchToProps = dispatch => ({
     getCreateIntertionalPartener: (params) => {
         dispatch(getCreateIntertionalPartener(params))
     },
-
     getQueryCategoryList: (params) => {
         dispatch(getQueryCategoryList(params))
     }
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Application);

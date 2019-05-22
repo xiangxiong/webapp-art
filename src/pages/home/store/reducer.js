@@ -4,7 +4,8 @@ const defaultState = {
     carouselAdList: [],
     commonAdList: [],
     newsPagerList: [],
-    userLikeProducts: {}
+    userLikeProducts: {},
+    authInfo:{}
 };
 export default (state = defaultState, action) => {
     switch (action.type) {
@@ -22,8 +23,14 @@ export default (state = defaultState, action) => {
                 let newData = action.value.DataList.concat(DataList);
                 return {...state, userLikeProducts: {...state.userLikeProducts, ...{DataList: newData}}};
             }
+<<<<<<< HEAD
         case constants.CLEAR_USER_LIKE_PRODUCTS_LIST:
             return {...state, userLikeProducts: action.value};
+=======
+        case constants.WEIXIN_LOGIN:
+            console.log('WEIXIN_LOGIN',action.value);
+            return {...state,authInfo:action.value}
+>>>>>>> add wechat login
         default:
             return state;
     }

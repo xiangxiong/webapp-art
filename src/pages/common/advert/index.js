@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import  {pictureUrl} from '../../../utils/stringUtil';
+import  {pictureUrl} from '../../../utils/common';
 
 const Advert = (props) => {
 

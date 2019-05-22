@@ -39,7 +39,7 @@ class AddAddress extends PureComponent {
     };
 
     render() {
-        const {getFieldProps} = this.props.form;
+        const {} = this.props.form;
 
         return (
             <Fragment>
@@ -68,7 +68,7 @@ class AddAddress extends PureComponent {
                             extra="请选择"
                             data={addressData}
                             title="选择地区"
-                            {...getFieldProps('addressData')}
+                            {...('addressData')}
                             onOk={e => {
                                 this.setState({addressID: e})
                             }}>

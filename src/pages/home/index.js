@@ -1,4 +1,4 @@
-import React,{PureComponent,Fragment} from 'react';
+import React,{PureComponent} from 'react';
 import {TabBar} from 'antd-mobile';
 import './index.scss';
 import Main from './home/index';
@@ -6,9 +6,11 @@ import Shop from './../shop/index';
 import Master from './../master/index';
 import Cart from './../cart/index';
 import User from './../user/index';
+import {getUrlParam} from './../../utils/common';
+import {connect} from 'react-redux';
+import {getWxLoginInfo} from './store/actionCreators';
 
-export default class Home extends PureComponent{
-
+class Home extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
@@ -34,7 +36,7 @@ export default class Home extends PureComponent{
             return (<Main/>);
        }
    }
-   
+
    renderContent(pageText){
         return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
@@ -43,6 +45,11 @@ export default class Home extends PureComponent{
                 }
             </div>
         );
+  }
+
+  componentDidMount(){
+     console.log('getUrlParam',getUrlParam('code'));
+     this.props.getAuthInfo(getUrlParam('code'));
   }
 
   render(){
@@ -131,9 +138,23 @@ export default class Home extends PureComponent{
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>
-
         </TabBar>
       </div>
-       )
+     )
    }
 }
+
+const mapStateToProps = (state) => {
+  console.log('authInfo',state.home.authInfo);
+  return {
+     authInfo:state.home.authInfo
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+   getAuthInfo:(code)=>{
+     dispatch(getWxLoginInfo({code:code}))
+   }
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

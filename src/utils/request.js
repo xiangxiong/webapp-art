@@ -4,8 +4,9 @@ import {APIURL} from './api';
 // todo: 增加请求拦截器.
 // https://segmentfault.com/a/1190000016474460#articleHeader4.
 
-const request = function (servicekey, jsonobjparam, method) {
 
+// todo: APIURL 需要发生变化.
+const request = function (servicekey, jsonobjparam, method){
     let params = {
         ParamList: [
             {
@@ -14,7 +15,7 @@ const request = function (servicekey, jsonobjparam, method) {
             }
         ]
     };
-    
+
     return new Promise((resolve, reject) => {
         axios({
             method,
@@ -25,7 +26,7 @@ const request = function (servicekey, jsonobjparam, method) {
                 Accept: 'application/json'
             },
             timeout: 3000
-        }).then(response => {
+        }).then(response =>{
             //console.log('servicekey ', servicekey, ' response ', response);
             if (response.status === 200) {
                 if (response.data && response.data.code === 200) {

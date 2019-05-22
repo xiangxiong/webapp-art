@@ -4,7 +4,7 @@ import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
 import {getWorthGoodsDetail, getProductComment} from '../store/actionCreators';
-import  {pictureUrl} from '../../../utils/stringUtil';
+import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 
 class Detail extends PureComponent {

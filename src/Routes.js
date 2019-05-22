@@ -10,8 +10,12 @@ import Detail  from './pages/shop/detail';
 import SubmitOrder from './pages/order/submit';
 import PayOrder from './pages/order/pay';
 import Works from './pages/user/works';
+<<<<<<< HEAD
 import OrderList from './pages/order/orderList';
 import OrderDetails from './pages/order/orderDetails';
+=======
+import Oauth from './pages/user-login/oauth';
+>>>>>>> add wechat login
 
 export default [
     {
@@ -73,7 +77,6 @@ export default [
     {
         path:"/submitorder",
         component:SubmitOrder,
-        exact: true,
         key:'submitorder'
     },
     {
@@ -85,7 +88,6 @@ export default [
     {
         path:"/work",
         component:Works,
-        exact: true,
         key:'work'
     },
     {
@@ -99,7 +101,10 @@ export default [
         component:OrderDetails,
         exact: true,
         key:'orderDetails'
+    },
+    {
+        path:"/oauth",
+        component:Oauth,
+        key:'oauth'
     }
 ];
-
-

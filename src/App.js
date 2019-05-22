@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './style/reset.scss';
-import {Button,TabBar} from 'antd-mobile';
 import {Router,Route} from 'react-router-dom';
 import routes from './Routes';
 import {Provider} from 'react-redux';
 import store from './store';
 import history from './utils/history';
+import {PrivateRoute} from './router/auth'; 
+
 
 class App extends Component{
   render() {
@@ -22,4 +23,5 @@ class App extends Component{
     );
   }
 }
+
 export default App;

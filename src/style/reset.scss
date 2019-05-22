@@ -13,21 +13,20 @@ center, u, b, i {
     outline: 0;
     font-weight: normal;
     font-style: normal;
-    font-size: 100%;
     font-family: inherit;
     vertical-align: baseline
 }
-body {
+body{
     line-height: 1;
     background: #f5f5f5;
 }
 :focus {
     outline: 0
 }
-ol, ul {
+ol, ul{
     list-style: none
 }
-table {
+table{
     border-collapse: collapse;
     border-spacing: 0
 }

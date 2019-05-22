@@ -41,6 +41,7 @@ class Main extends PureComponent{
             }),
             hasMoreItems: true
         };
+
         this.currentPage=1;//为你推荐 当前页
     }
 
@@ -133,10 +134,11 @@ class Main extends PureComponent{
             </Fragment>
         )
     }
+    
+    componentWillMount(){
+    }
 
     componentDidMount() {
-
-        console.log("this.refs.artScroll",this.refs.artScroll);
 
         this.refs.artScroll.addEventListener("scroll",()=>{
             // console.log('addEventListener');
@@ -175,6 +177,8 @@ class Main extends PureComponent{
                 })
             }
         });
+
+        
 
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();

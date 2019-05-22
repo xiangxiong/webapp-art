@@ -19,14 +19,10 @@
   * user-login 用户登录.
   * community 社区.
   * product 产品详情.
-  * 
-
+  
 * components   公用组件库.
-
 * data   公用数据.
-
 * utils  公用类库.
-
 * statics  字体库和图片资料.
 
 > 约束

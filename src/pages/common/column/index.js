@@ -6,9 +6,8 @@ import './index.scss';
 import {PICTUREURL} from '../../../utils/api';
 
 const Column = (props) => {
-
         const {leftImgUrl, rightImgUrl} = props;
-
+        
         return (
             <>
                     <div className="art-main__column">

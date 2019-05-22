@@ -2,7 +2,9 @@ import {
     USER_CUSTOMER_DETAIL,
     USER_DICT_LIST,
     USER_QUERY_CATEGORY_LIST,
-    USER_QUERY_INTERTIONAL_PARTENER
+    USER_QUERY_INTERTIONAL_PARTENER,
+    USER_WORKS_ADD,
+    USER_WORKS_PRODUCT_TYPE
 } from './constants';
 
 const defaultState = {
@@ -10,9 +12,12 @@ const defaultState = {
     userCategoryList: [],
     userDictList: [],
     userIntertionalPartener: {},
+    publishReponse:{},
+    userProductTypes:[]
 };
 
 export default (state = defaultState, action) => {
+    console.log('action.value',action.value);
     switch (action.type) {
         case USER_CUSTOMER_DETAIL:
             return {
@@ -34,6 +39,16 @@ export default (state = defaultState, action) => {
                 ...state,
                 userIntertionalPartener: action.value
             };
+        case USER_WORKS_ADD:
+            return {
+                ...state,
+                publishReponse:action.value
+            }
+        case USER_WORKS_PRODUCT_TYPE:
+            return {
+                ...state,
+                userProductTypes:action.value
+            }
         default:
             return state;
     }

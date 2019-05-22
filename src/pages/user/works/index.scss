@@ -5,8 +5,52 @@
         position: relative;
         top: 0px;
         left: 30px;
+
+        &-text{
+            height: 50px;
+            padding-left: 20px;
+            color: #666666;
+        }
     }
     &__upload-1{
         position: relative;
     }
+
+    &__footer{
+        height: 50px;
+        line-height: 50px;
+        margin: 12px;
+    }
+}
+
+.am-flexbox .am-flexbox-item {
+    box-sizing: border-box;
+    flex: 1 1;
+    margin-left: 0.08rem;
+    min-width: 0.8rem;
+}
+
+.am-image-picker-list {
+    padding: 0.09rem 0.08rem 0 0.2rem;
+    margin-bottom: 0.15rem;
+}
+
+.am-image-picker-list .am-flexbox {
+    margin-bottom: 0.06rem;
+    margin-right: 0.06rem;
+}
+
+.am-flexbox.am-flexbox-align-center {
+    align-items: center;
+    background: #ffffff;
+}
+
+.am-image-picker-list .am-flexbox .am-flexbox-item {
+    position: relative;
+    margin-right: 0.06rem;
+    margin-left: 0;
+}
+
+.am-list-item .am-list-line .am-list-extra {
+    color: #E87908;
 }

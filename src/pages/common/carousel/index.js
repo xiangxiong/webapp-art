@@ -2,7 +2,7 @@ import React,{PureComponent} from 'react';
 import {Carousel} from 'antd-mobile';
 import './index.scss';
 import PropTypes from 'prop-types';
-import  {pictureUrl} from '../../../utils/stringUtil';
+import  {pictureUrl} from '../../../utils/common';
 
 export default class CarouselBanner extends PureComponent{
     render(){

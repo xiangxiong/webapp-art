@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import {post} from '../../../utils/request';
-import {AppAdCommon, NewsPager, GuessUserLikeProducts} from '../../../utils/servicekey';
+import {AppAdCommon, NewsPager, GuessUserLikeProducts,GET_WECHAT_API} from '../../../utils/servicekey';
 import {
     shopCarouselAdList,
     shopCommonAdList,
@@ -81,7 +81,6 @@ export const getUserLikeProducts = (params) => {
                 if (!params || !params.Position) {
                     return
                 }
-
                 if (params.Position === 1) {
                     dispatch(userLikeProducts(response.Data, params.CurrentPage));
                 } else if (params.Position === 2) {
@@ -90,3 +89,19 @@ export const getUserLikeProducts = (params) => {
             });
     }
 };
+
+
+const wxLoginInfo = (data) => ({
+    type:constants.WEIXIN_LOGIN,
+    value:data
+})
+
+export const getWxLoginInfo = (params) =>{
+    return (dispatch) => {
+        return post(GET_WECHAT_API,params).then((response)=>{
+                   console.log('response',response);
+                   console.log('GET_WECHAT_API params',params);
+                   dispatch(wxLoginInfo(response));
+        });
+    }
+}

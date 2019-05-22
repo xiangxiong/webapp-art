@@ -5,7 +5,7 @@ import {TextareaItem} from 'antd-mobile';
 import Action from './../action';
 import {connect} from 'react-redux';
 import {getCreateOrder, getDefaultAddress} from '../store/actionCreators';
-import  {pictureUrl} from '../../../utils/stringUtil';
+import  {pictureUrl} from '../../../utils/common';
 
 class SubmitOrder extends PureComponent {
 
@@ -139,11 +139,10 @@ const mapStateToProps = ({order}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getDefaultAddress: (CustomerId) => {
+    getDefaultAddress:(CustomerId) => {
         dispatch(getDefaultAddress({CustomerId, PageIndex: 1, PageSize: 50}))
     },
-
-    getCreateOrder: (CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
+    getCreateOrder:(CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
         dispatch(getCreateOrder({CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId}))
     }
 });

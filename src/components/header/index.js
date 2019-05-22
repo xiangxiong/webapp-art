@@ -24,9 +24,9 @@ class PublicHeader extends PureComponent{
     }
 
     render(){
-        const {bgColor,icon,share,text} = this.props;
+        const {bgColor,icon,share} = this.props;
         const {title} = this.state;
-
+        
         return (
            <Fragment>
                 <NavBar

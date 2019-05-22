@@ -15,7 +15,7 @@ const Header = (props) =>{
                      </div>
                      <div className="art-icon art-icon-user-arrow"></div>
                 </div>
-                
+
                 <div className="art-user__action">
                     <div>
                         <h4>{CollectCount}</h4>
@@ -36,5 +36,4 @@ const Header = (props) =>{
         </Fragment>
     )
 }
-
 export default Header;

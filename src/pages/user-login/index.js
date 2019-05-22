@@ -2,7 +2,6 @@ import React,{PureComponent,Fragment} from 'react';
 import './index.scss';
 import {connect} from 'react-redux';
 import {actionCreators} from './store';
-import {Button} from 'antd-mobile';
 
 class Login extends PureComponent{
 
