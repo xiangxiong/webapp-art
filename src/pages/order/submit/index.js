@@ -8,7 +8,7 @@ import {getCreateOrder, getDefaultAddress} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 
 class SubmitOrder extends PureComponent {
-
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,6 @@ class SubmitOrder extends PureComponent {
         });
 
         const {AddressId = ''} = this.props.defaultAddress;
-
         this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
     };
 

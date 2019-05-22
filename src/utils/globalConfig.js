@@ -13,7 +13,6 @@
          *  限制打开环境
          *  */
         navigatorAgent(){
-            return;
             if(!this.globalConfig.debug && !this.isValidNavigator()){
                 window.top.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=XXX&connect_redirect=1#wechat_redirect';
             }

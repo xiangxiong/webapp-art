@@ -17,7 +17,7 @@ class Main extends PureComponent{
 
     constructor(props) {
         super(props);
-
+        
         this.navDataList = [
             {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
             {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
@@ -119,12 +119,10 @@ class Main extends PureComponent{
                         <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
 
                         <div className="art-main__recommend">
-
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">
                                 {this.showRecomandItem()}
                             </div>
-
                         </div>
 
                     </InfiniteScroll>
@@ -132,10 +130,10 @@ class Main extends PureComponent{
             </Fragment>
         )
     }
-    
+
     componentWillMount(){
     }
-
+    
     componentDidMount() {
         this.refs.artScroll.addEventListener("scroll",()=>{
             // console.log('addEventListener');

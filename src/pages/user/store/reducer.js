@@ -4,7 +4,8 @@ import {
     USER_QUERY_CATEGORY_LIST,
     USER_QUERY_INTERTIONAL_PARTENER,
     USER_WORKS_ADD,
-    USER_WORKS_PRODUCT_TYPE
+    USER_WORKS_PRODUCT_TYPE,
+    USER_WORKS_LIST
 } from './constants';
 
 const defaultState = {
@@ -13,7 +14,8 @@ const defaultState = {
     userDictList: [],
     userIntertionalPartener: {},
     publishReponse:{},
-    userProductTypes:[]
+    userProductTypes:[],
+    workList:[]
 };
 
 export default (state = defaultState, action) => {
@@ -47,6 +49,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 userProductTypes:action.value
+            }
+        case USER_WORKS_LIST:
+            return {
+                ...state,
+                workList:action.value
             }
         default:
             return state;

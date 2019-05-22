@@ -5,7 +5,6 @@ import {ImagePicker,Flex,List,InputItem,TextareaItem,Button,WhiteSpace,Picker,To
 import { createForm } from 'rc-form';
 import {connect} from 'react-redux';
 import {createProduct,getProductType} from './../store/actionCreators';
-import { stringify } from 'postcss';
 
 const data = [];
 const orders =  [
@@ -94,21 +93,20 @@ class Works extends PureComponent{
     onSubmit = () => {
       const {mainFiles,detailFiles,videoFiles} = this.state;
       console.log('mainFiles',mainFiles);
-     
+      
       if(mainFiles.length === 0){
         Toast.fail('请上传主图', 1);
         return;
       }
+
       if(detailFiles.length === 0){
         Toast.fail('请上传细节图', 1);
         return;
       }
 
-
       this.props.form.validateFields({ force: true }, (error) => {
         // this.props.createProduct(this.props.form.getFieldsValue());
         console.log('createProduct',this.props.form.getFieldsValue());
-
         const data = this.props.form.getFieldsValue();
 
         let Base64 = {
@@ -151,7 +149,9 @@ class Works extends PureComponent{
             SortOrder:0
           }]
         };
+
         this.props.createProduct(product);
+
         return;
         if (!error) {
           console.log(this.props.form.getFieldsValue());

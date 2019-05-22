@@ -8,7 +8,7 @@ import Cart from './../cart/index';
 import User from './../user/index';
 import {getUrlParam} from './../../utils/common';
 import {connect} from 'react-redux';
-import {getWxLoginInfo} from './store/actionCreators';
+import {getOauthInfo,wxLogin} from './store/actionCreators';
 import './../../utils/storage';
 import _ from 'lodash';
 import history from './../../utils/history';
@@ -23,9 +23,8 @@ class Home extends PureComponent{
             isSelected:false
         };
    }
-   
+
    renderFactory(pageText){
-     console.log('pageText',pageText);
        switch(pageText){
           case "MAIN":
             return (<Main/>);
@@ -44,7 +43,7 @@ class Home extends PureComponent{
 
    handleHasLogin(){
       let storage = Storage.Base.getInstance();
-      // console.log("localStorage userinfo",Storage.Base.getInstance().get('userinfo'));
+      console.log("localStorage userinfo",Storage.Base.getInstance().get('userinfo'));
        if(storage.get('userinfo')==null){
             history.push('/oauth');
        }
@@ -59,16 +58,28 @@ class Home extends PureComponent{
             </div>
         );
   }
-
+  
   componentDidMount(){
-    let storage = Storage.Base.getInstance();
+     this.initLogin();
+  }
 
+  async initLogin(){
+    let storage = Storage.Base.getInstance();
     if(storage.get('userinfo')==null){
-        this.props.getAuthInfo({code:getUrlParam('code')}).then((res)=>{
-          console.log('res',res);
-          storage.set('userinfo',JSON.stringify({userName:'xiang'}),10000);
-          // 新增用户信息.
-        })
+        const result = await this.props.getAuthInfo({code:getUrlParam('code')});
+        var openId = result.Data.OpenId;
+        storage.set("oauthInfo",result);
+        if(!_.isEmpty(openId)){
+            const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
+            storage.set("userInfo",userInfo);
+            if(!userInfo.Data.Register){
+                history.push('/bind');
+                console.log('去绑定手机');
+            }else{
+                history.push('/home');
+                console.log('登录成功');
+            }
+        }
     }
   }
 
@@ -171,6 +182,7 @@ class Home extends PureComponent{
    }
 }
 
+
 const mapStateToProps = (state) => {
   return {
      authInfo:state.home.authInfo
@@ -179,8 +191,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
    getAuthInfo:(params)=>{
-     return dispatch(getWxLoginInfo(params))
+     return dispatch(getOauthInfo(params))
+   },
+   handleWxLogin:(params)=>{
+     return dispatch(wxLogin(params))
    }
-})
+});
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home);

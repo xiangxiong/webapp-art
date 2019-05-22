@@ -7,13 +7,12 @@ export const PrivateRoute = ({component: ComposedComponent,...rest}) =>{
     class Authentication extends PureComponent{
 
         render(){
-
             let isLogin = this.props.isLogin
                 ? this.props.isLogin
                 : localStorage.get("userinfo") 
                     ? localStorage.get("userinfo")
                     : "";
-            
+                    
             return (
                 <Route
                     {...rest}

@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import {post,testRequest} from '../../../utils/request';
-import {AppAdCommon, NewsPager, GuessUserLikeProducts,GET_WECHAT_API} from '../../../utils/servicekey';
+import {AppAdCommon, NewsPager, GuessUserLikeProducts,GET_WECHAT_API,WX_PARENTER_LOGIN} from '../../../utils/servicekey';
 import {
     shopCarouselAdList,
     shopCommonAdList,
@@ -89,18 +89,22 @@ export const getUserLikeProducts = (params) => {
     }
 };
 
-
 const wxLoginInfo = (data) => ({
     type:constants.WEIXIN_LOGIN,
     value:data
-})
+});
 
-export const getWxLoginInfo = (params) =>{
-    console.log('params',params);
-    return (dispatch) => {
-        return post(GET_WECHAT_API,params).then((response)=>{
-             console.log('response',response);
-             dispatch(wxLoginInfo(response));
-        });
+export const getOauthInfo = (params) =>{
+    return async () => {
+        const result = await post(GET_WECHAT_API,params);
+        return result;
     }
 }
+
+export const wxLogin = (params) =>{
+    return async () => {
+        const result = await post(WX_PARENTER_LOGIN,params);
+        return result;
+    }
+}
+

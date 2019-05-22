@@ -1,0 +1,52 @@
+.art-user-login{
+    margin-top: 150px;
+    height: 300px;
+    background: #ffffff;
+
+    &__logo{
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        background:red;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    &>h3{
+        margin: 0 auto;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    &-send{
+        position: relative;
+        top: -175px;
+        left: 220px;
+        width: 100px;
+        height: 50px;
+    }
+}
+
+.art-user-login-wrapper{
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    background: #ffffff;
+    left: 0px;
+    right: 0px;
+}
+
+.am-list-item.am-input-item {
+    height: 0.44rem;
+    border-radius: 0.03rem;
+    padding-left: 0.15rem;
+    margin: 10px;
+}
+
+.am-button-primary {
+    color: #fff;
+    background-color: #108ee9;
+    border: 1PX solid #108ee9;
+    border-radius: 0.05rem;
+    margin: 28px;
+}
