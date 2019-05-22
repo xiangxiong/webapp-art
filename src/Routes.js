@@ -10,13 +10,9 @@ import Detail  from './pages/shop/detail';
 import SubmitOrder from './pages/order/submit';
 import PayOrder from './pages/order/pay';
 import Works from './pages/user/works';
-<<<<<<< HEAD
 import OrderList from './pages/order/orderList';
 import OrderDetails from './pages/order/orderDetails';
-=======
 import Oauth from './pages/user-login/oauth';
->>>>>>> add wechat login
-
 export default [
     {
         path: "/",
