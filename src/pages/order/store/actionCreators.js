@@ -1,6 +1,13 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {AddressList, CreateOrder, QueryCustomerOrderList, GetOrderDetail, POrderInfo} from "../../../utils/servicekey";
+import {
+    AddressList,
+    CreateOrder,
+    QueryCustomerOrderList,
+    GetOrderDetail,
+    POrderInfo,
+    WebSite
+} from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
 
@@ -43,7 +50,8 @@ export const getCreateOrder = (params) => {
         return post(CreateOrder, params)
             .then((response) => {
                 if (response.Data && response.Data.Status == 200) {
-                    history.push('./payorder');
+                    let {OrderAmount, SONumber} = response.Data;
+                    history.push('./payorder', {OrderAmount, SONumber});
                 } else {
                     Toast.info(response.Message);
                 }
@@ -74,6 +82,16 @@ export const getPOrderInfo = (params) => {
         return post(POrderInfo, params)
             .then((response) => {
                 dispatch(pOrderInfo(response.Data.OrderInfo));
+            });
+    }
+};
+
+export const getWebSite = (params) => {
+    return (dispatch) => {
+        return post(WebSite, params)
+            .then((response) => {
+                console.log("response", response);
+                //dispatch(pOrderInfo(response.Data.OrderInfo));
             });
     }
 };

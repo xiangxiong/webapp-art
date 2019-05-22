@@ -63,7 +63,7 @@ export const QueryIntertionalPartener = 'Art.Service.Product.Dto.Api.QueryIntert
 export const ProductComment = 'Art.Service.Customer.Dto.Api.ProductCommentRequest';
 
 /**
- *  发布商品. 
+ *  发布商品.
  *  */
 export const PUBLISH_PRODUCT_API = 'Art.Service.Product.Dto.Api.ProviderPublishProductRequest';
 
@@ -74,3 +74,6 @@ export const PUBLISH_USER_TYPE = 'Art.Service.Product.Dto.Api.QueryCategoryListR
   用户登录
 */
 export const GET_WECHAT_API = 'Art.Service.Customer.Dto.Api.GetWeChatUserRequest';
+
+//支付订单
+export const WebSite = 'Art.WebSite.Payment.Dto.api';
