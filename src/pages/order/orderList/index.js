@@ -18,11 +18,10 @@ const orderTabs = [
 ];
 
 class OrderList extends PureComponent {
-
     constructor(props) {
         super(props);
     }
-
+    
     getTabProduct = (order, index) => {
         const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = ''} = order;
 
