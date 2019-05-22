@@ -22,7 +22,8 @@ class OrderDetails extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getGetOrderDetail('124', 1, 50);
+        const {SONumber} = this.props.location.state;
+        this.props.getGetOrderDetail('2390648179516024','', SONumber, 11);
     }
 }
 
