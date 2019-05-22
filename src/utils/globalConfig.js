@@ -58,12 +58,14 @@
             this.navigatorAgent();  
         }
     };
+    
     try{
         let sessionConfig = JSON.parse(sessionStorage.globalConfig || '{}');
         sessionConfig.console != undefined &&
         (global.globalConfig.console = sessionConfig.console);
     }
     catch(error){
+
     }
     global.initConfig();
     window.$globalConfig = Object.assign(

@@ -56,7 +56,6 @@ class Main extends PureComponent{
 
     loadMoreItem(){
         const {DataList = [], TotalRecords} = this.props.userLikeProducts;
-
         if (DataList.length >= TotalRecords) {
             this.setState({hasMoreItems:false});
         }else{
@@ -122,7 +121,6 @@ class Main extends PureComponent{
                         <div className="art-main__recommend">
 
                             <Title title="为你推荐"/>
-
                             <div className="art-main__recommend-content">
                                 {this.showRecomandItem()}
                             </div>
@@ -139,7 +137,6 @@ class Main extends PureComponent{
     }
 
     componentDidMount() {
-
         this.refs.artScroll.addEventListener("scroll",()=>{
             // console.log('addEventListener');
             // console.log('this.refs.myscroll.scrollTop',);
@@ -177,9 +174,6 @@ class Main extends PureComponent{
                 })
             }
         });
-
-        
-
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);

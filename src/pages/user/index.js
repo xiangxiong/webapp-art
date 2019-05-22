@@ -185,6 +185,7 @@ class User extends PureComponent {
             }, 200);
         }
     }
+    
     handleTestClick(){
         history.push('/oauth');
     }
