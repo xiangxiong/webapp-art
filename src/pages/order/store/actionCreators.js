@@ -90,8 +90,42 @@ export const getWebSite = (params) => {
     return (dispatch) => {
         return post(WebSite, params)
             .then((response) => {
-                console.log("response", response);
-                //dispatch(pOrderInfo(response.Data.OrderInfo));
+                callBackPay(response.Data);
+                //console.log("response", response);
             });
     }
+};
+
+export const callBackPay = (data) => {
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+        }
+    } else {
+        jsApiCall(data);
+    }
+};
+
+const jsApiCall = (data) => {
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', {
+            appId: data.appid + '',     //公众号名称，由商户传入
+            timeStamp: data.timestamp + '',         //时间戳，自1970年以来的秒数
+            nonceStr: data.noncestr + '', //随机串
+            package: data.package + '',
+            signType: 'MD5',//签名方式
+            paySign: data.sign + '' //微信签名
+        }, function (res) {
+            if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                history.push('/orderList');
+            } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                Toast("用户取消支付");
+            } else {
+                Toast('支付失败');
+            }
+        }
+    );
 };
