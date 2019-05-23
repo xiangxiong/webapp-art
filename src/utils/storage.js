@@ -4,15 +4,19 @@ Storage.Base = (function(){
     var uniqInstance;
 
     function init(){
-        
+         /**
+         * @param key
+         * @param data
+         * @param time 失效时间（秒）,默认一周
+         * @returns {boolean}
+         */
         var set = function(key,value,time){
             try{
-                console.log('key');
                 if(!localStorage){
                     return false;
                 }
                 if(!time || isNaN(time)){
-                    time = 60 * 60 * 24 & 7;
+                    time = 60 * 60 * 24 * 7;
                 }
                 var cacheExpireDate = (new Date() -1) + time * 1000;
                 var cacheVal = {val:value, exp: cacheExpireDate};
@@ -65,7 +69,7 @@ Storage.Base = (function(){
             }
         }
     }
-
+    
     return {
         getInstance: function(){
             if(!uniqInstance){

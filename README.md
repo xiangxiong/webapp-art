@@ -5,7 +5,7 @@
  * 3、样式 sass.
  * 4、react ssr.
  * 5、rc-form.
-
+ 
 > 目录结构
 * pages  页面.
   * home 首页
@@ -19,7 +19,7 @@
   * user-login 用户登录.
   * community 社区.
   * product 产品详情.
-  
+
 * components   公用组件库.
 * data   公用数据.
 * utils  公用类库.

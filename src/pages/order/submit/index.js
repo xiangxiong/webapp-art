@@ -30,6 +30,7 @@ class SubmitOrder extends PureComponent {
         });
 
         const {AddressId = ''} = this.props.defaultAddress;
+        
         this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
     };
 

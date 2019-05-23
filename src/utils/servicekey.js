@@ -80,3 +80,9 @@ export const GET_MERCHANT_PRODUCT_LIST = 'Art.Service.Product.Dto.Api.MerchantPr
 
 // 微信登录.
 export const WX_PARENTER_LOGIN = 'Art.Service.Customer.Dto.Api.PartnerLoginRequest';
+
+// 绑定手机
+export const WX_BINDPHONE = 'Art.Service.Customer.Dto.Api.PartnerBindPhoneRequest';
+
+// 发送短信
+export const WX_SENDMESSAGE_API = 'Art.Service.Customer.Dto.Api.SendMessageRequest';

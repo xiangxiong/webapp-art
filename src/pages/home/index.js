@@ -58,17 +58,19 @@ class Home extends PureComponent{
             </div>
         );
   }
-  
+
   componentDidMount(){
      this.initLogin();
   }
 
   async initLogin(){
+    
     let storage = Storage.Base.getInstance();
+
     if(storage.get('userinfo')==null){
         const result = await this.props.getAuthInfo({code:getUrlParam('code')});
         var openId = result.Data.OpenId;
-        storage.set("oauthInfo",result);
+        storage.set("oauthInfo",{"OpenId":"olM0253p9gIJJPWP_9QrOsLqbFH4","NickName":"向雄","HeadImgUrl":"http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83er6ZibFyAW1UptxYJxyh5rQ11mCsqibNwt4ticJNnZPQHuLH0RIuTjmibH42p4MOzvcobubHHOGbAPaqA/132"});
         if(!_.isEmpty(openId)){
             const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
             storage.set("userInfo",userInfo);
@@ -85,7 +87,7 @@ class Home extends PureComponent{
 
   componentDidUpdate(){
     if(this.state.isSelected){
-      this.handleHasLogin()
+      // this.handleHasLogin()
     }
   }
 
