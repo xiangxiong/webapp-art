@@ -13,6 +13,8 @@ import Works from './pages/user/works';
 import OrderList from './pages/order/orderList';
 import OrderDetails from './pages/order/orderDetails';
 import Oauth from './pages/user-login/oauth';
+import WorkList from  './pages/user/worklist';
+import Bind from './pages/user-login/bind';
 
 export default [
     {
@@ -103,5 +105,17 @@ export default [
         path:"/oauth",
         component:Oauth,
         key:'oauth'
+    }
+    ,
+    {
+        path:"/worklist",
+        component:WorkList,
+        key:'worklist'
+    }
+    ,
+    {
+        path:"/bind",
+        component:Bind,
+        key:'bind'
     }
 ];

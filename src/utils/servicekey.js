@@ -77,3 +77,9 @@ export const GET_WECHAT_API = 'Art.Service.Customer.Dto.Api.GetWeChatUserRequest
 
 //支付订单
 export const WebSite = 'Art.WebSite.Payment.Dto.api';
+
+// 获取商家作品库
+export const GET_MERCHANT_PRODUCT_LIST = 'Art.Service.Product.Dto.Api.MerchantProductListRequest';
+
+// 微信登录.
+export const WX_PARENTER_LOGIN = 'Art.Service.Customer.Dto.Api.PartnerLoginRequest';

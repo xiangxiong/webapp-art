@@ -8,6 +8,7 @@ import {
     QueryIntertionalPartener,
     PUBLISH_PRODUCT_API,
     PUBLISH_USER_TYPE,
+    GET_MERCHANT_PRODUCT_LIST
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 
@@ -35,6 +36,22 @@ export const publishProductType = (response) => ({
     type:constants.USER_WORKS_PRODUCT_TYPE,
     value:response
 });
+
+// 作品库
+export const getUserWorkAction = (response) => ({
+    type:constants.USER_WORKS_LIST,
+    value:response
+});
+
+export const getUserWorkActionDispatch = (params) => {
+    return (dispatch) => {
+        return post(GET_MERCHANT_PRODUCT_LIST,params)
+        .then((response)=>{
+            dispatch(getUserWorkAction(response))
+        });
+    }
+}
+
 export const getCustomerDetail = (params) => {
     return (dispatch) => {
         return post(CustomerDetail, params)
@@ -43,6 +60,7 @@ export const getCustomerDetail = (params) => {
             });
     }
 };
+
 export const getCreateIntertionalPartener = (params) => {
     return (dispatch) => {
         return post(CreateIntertionalPartener, params)
@@ -53,6 +71,7 @@ export const getCreateIntertionalPartener = (params) => {
             });
     }
 };
+
 export const getDict = (params) => {
     return (dispatch) => {
         return post(Dict, params)
@@ -95,9 +114,9 @@ export const getProductType = (params) => {
     return (dispatch) => {
         return post(PUBLISH_USER_TYPE,params)
             .then((response)=>{
-                console.log('response',response);
                 dispatch(publishProductType(response))
             })
     }
-} 
+}
+
 

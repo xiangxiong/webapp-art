@@ -34,7 +34,7 @@ const navItems = [
     {
         title: '作品库',
         icon: 'art-icon art-icon-user-works',
-        routeUrl: ''
+        routeUrl: '/worklist'
     },
     {
         title: '订单管理',
@@ -101,11 +101,10 @@ const customerNavItems = [
     }
 ];
 
-class User extends PureComponent {
+class User extends PureComponent{
 
     constructor(props) {
         super(props);
-
         this.state = {
             user: '卖家',
             hasMoreItems: true
@@ -158,7 +157,7 @@ class User extends PureComponent {
             )
         })
     }
-
+    
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
@@ -189,7 +188,6 @@ class User extends PureComponent {
         history.push('/oauth');
     }
 
-    
     render() {
         const tabs = [
             {title: '我是买家'},
@@ -221,7 +219,6 @@ class User extends PureComponent {
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
                 />
-                <div onClick={this.handleTestClick}>测试</div>
                 <Tabs tabs={tabs} initialPage={1}>
                     <div style={styles.tab}>
                         <InfiniteScroll
@@ -229,7 +226,6 @@ class User extends PureComponent {
                             hasMore={this.state.hasMoreItems}
                             loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}
                             useWindow={false}>
-
                             <OrderItem
                                 AwaitPayCount={AwaitPayCount}
                                 AwaitShipCount={AwaitShipCount}

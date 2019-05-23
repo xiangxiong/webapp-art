@@ -13,7 +13,9 @@ const Oauth = () =>{
     const init = () => {
         if((!_.isEmpty(code))){
             console.log('getUrlParam',getUrlParam('code'));
-        }else{
+        }
+        else
+        {
             let wechat = 'wxd78e408c5668f65f',
                 redirectUrl ='http://art.laoliwuyou.com';
             const oauthUri = {

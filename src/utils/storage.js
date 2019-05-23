@@ -4,8 +4,7 @@ Storage.Base = (function(){
     var uniqInstance;
 
     function init(){
-
-        console.log('init');
+        
         var set = function(key,value,time){
             try{
                 console.log('key');

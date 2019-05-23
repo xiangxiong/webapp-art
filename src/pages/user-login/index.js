@@ -27,6 +27,6 @@ const mapDispatch = (dispatch) => ({
     login(account,password){
         dispatch(actionCreators.login(account.value,password.value))
     }
-})
+});
 
 export default connect(mapState,mapDispatch)(Login);
