@@ -19,7 +19,7 @@ class PayOrder extends PureComponent {
                 </div>
                 <Action text="付款" price="1234" HandleSubmitOrder={() => {
                     let Token = '2390648179516024';
-                    let OpenId = 'wxd78e408c5668f65f';
+                    let OpenId = 'olM0253p9gIJJPWP_9QrOsLqbFH4';
 
                     let Data = encodeURI(`${Token}|${OrderAmount}|${OpenId}|${SONumber}|${0}|${0}`);
                     this.props.getWebSite(Data);
@@ -36,7 +36,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     getWebSite: (Data) => {
-        dispatch(getWebSite({PayType: 1, Data}))
+        dispatch(getWebSite({PayType: 'PayOrder', PayMethod:'WeChatJs',Data}))
     },
 });
 

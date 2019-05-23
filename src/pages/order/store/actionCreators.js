@@ -6,10 +6,11 @@ import {
     QueryCustomerOrderList,
     GetOrderDetail,
     POrderInfo,
-    WebSite
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
+import axios from 'axios';
+import {API_PAY} from '../../../utils/api';
 
 export const defaultAddress = (addressObj) => ({
     type: constants.DEFAULT_ADDRESS,
@@ -88,11 +89,19 @@ export const getPOrderInfo = (params) => {
 
 export const getWebSite = (params) => {
     return (dispatch) => {
-        return post(WebSite, params)
-            .then((response) => {
-                callBackPay(response.Data);
-                //console.log("response", response);
-            });
+        return axios({
+            method: 'post',
+            url: API_PAY,
+            data: JSON.stringify(params),
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            timeout: 3000
+        }).then(response => {
+            callBackPay(response.Data);
+            console.log("response", response);
+        });
     }
 };
 
