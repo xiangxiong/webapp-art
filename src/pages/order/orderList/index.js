@@ -23,11 +23,11 @@ class OrderList extends PureComponent {
     }
 
     getTabProduct = (order, index) => {
-        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = '', SONumber} = order;
+        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = '', SONumber, OrderNumber} = order;
 
         return (
             <div className="art-list__bussinss" key={index.toString()}
-                 onClick={() => history.push('./orderDetails', {SONumber})}>
+                 onClick={() => history.push('./orderDetails', {SONumber, OrderNumber})}>
                 <Space/>
 
                 <div className="art-list__bussinss-title">

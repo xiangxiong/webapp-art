@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PublicHeader from './../../../components/header';
 import {getGetOrderDetail, getPOrderInfo} from '../store/actionCreators';
 import Space from '../../common/space';
+import  {pictureUrl} from '../../../utils/common';
 
 class OrderDetails extends PureComponent {
 
@@ -11,20 +12,20 @@ class OrderDetails extends PureComponent {
         super(props);
     }
 
-    showAddress = (address = {}) => {
-        let {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = '', IsDefault = ''} = address;
+    showAddress = () => {
+        let {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.orderDetail;
 
         return (
             <div className="art-details__address">
                 <div className="art-details__address___left">
                     <div >
-                        <span>{'柳士勇'}</span>
-                        <span>{'152****1363'}</span>
+                        <span>{ShippingContactWith}</span>
+                        <span>{ShippingPhone}</span>
                     </div>
 
                     <div>
                         <div/>
-                        <span>{'上海市浦东新区杨新路118号'}</span>
+                        <span>{ShippingAddress}</span>
                     </div>
                 </div>
             </div>
@@ -33,41 +34,51 @@ class OrderDetails extends PureComponent {
 
 
     showProduct = () => {
-        return (
-            <div className="art-details__product">
+        let {Details = [], ProviderName} = this.props.orderDetail;
 
-                <div className="art-details__product-title">
-                    <div className="art-details__product-title-name">{'卖家：硕嘉贸易'}</div>
-                    <div className="art-details__product-title-count">{'共212件'}</div>
-                </div>
+        return Details.map((detail, index) => {
+            let {ProductName, Quantity, ImageName, LastPrice} = detail;
 
-                <div className="art-details__product-order">
-                    <div className="art-details__product-order-img">
-                        <div style={{
-                            background: `url('')`,
-                            marginRight: "3px",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "contain"
-                        }}>
+            return (
+                <div className="art-details__product" key={index.toString()}>
+
+                    <div className="art-details__product-title">
+                        <div className="art-details__product-title-name">{ProviderName}</div>
+                        <div className="art-details__product-title-count">{`共${Quantity}件`}</div>
+                    </div>
+
+                    <div className="art-details__product-order">
+                        <div className="art-details__product-order-img">
+                            <div style={{
+                                background: `url('${pictureUrl(ImageName)}')`,
+                                marginRight: "3px",
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "contain"
+                            }}>
+                            </div>
+                        </div>
+                        <div className="art-details__product-order-product">
+                            <h3>
+                                {ProductName}
+                            </h3>
+                        </div>
+                        <div className="art-details__product-order-price">
+                        <span>
+                            {`￥${LastPrice}`}
+                        </span>
                         </div>
                     </div>
-                    <div className="art-details__product-order-product">
-                        <h3>
-                            {'新疆和田玉'}
-                        </h3>
-                    </div>
-                    <div className="art-details__product-order-price">
-                        <span>
-                            {'￥0.0'}
-                        </span>
-                    </div>
                 </div>
-            </div>
-        )
+            )
+        });
     };
 
     render() {
-        //const {} = this.props.orderDetail;
+        const {SOAmount, OrderNumber, SODate, StatusName, Details = []} = this.props.orderDetail;
+
+        let promotionList = Details.filter(detail => {
+            return detail.PromotionId == 0;
+        });
 
         return (
             <Fragment>
@@ -86,7 +97,7 @@ class OrderDetails extends PureComponent {
                         <div className="art-details__product-title">
                             <div className="art-details__product-title-name">实付款( 含运费):</div>
                             <div className="art-details__product-title-count"
-                                 style={{color: '#F35576', fontSize: '36px', border: 'none'}}>{`￥${1111}`}
+                                 style={{color: '#F35576', fontSize: '36px', border: 'none'}}>{`￥${SOAmount}`}
                             </div>
                         </div>
                     </div>
@@ -106,10 +117,10 @@ class OrderDetails extends PureComponent {
                     <Space/>
 
                     <div className="art-details__describe">
-                        <p>订单编号：2229619780632758</p>
-                        <p>下单时间：2017-02-02 20:59:40</p>
-                        <p>订单状态：运输中</p>
-                        <p>成交类型：普</p>
+                        <p>{`订单编号：${OrderNumber}`}</p>
+                        <p>{`下单时间：${SODate}`}</p>
+                        <p>{`订单状态：${StatusName}`}</p>
+                        <p>{`成交类型：${promotionList.length > 0 ? '团购订单' : '普通订单'}`}</p>
                     </div>
                 </div>
             </Fragment>
@@ -117,10 +128,8 @@ class OrderDetails extends PureComponent {
     }
 
     componentDidMount() {
-        //const {SONumber = ''} = this.props.location.state;
-
-        let SONumber = '';
-        this.props.getGetOrderDetail('2390648179516024', '', SONumber, 11);
+        const {OrderNumber = ''} = this.props.location.state;
+        this.props.getGetOrderDetail('2390648179516024', '0', OrderNumber, 11);
     }
 }
 
