@@ -8,7 +8,7 @@ export default class CarouselBanner extends PureComponent{
     render(){
         const {data,imgHeight} = this.props;
         const  aimgHeight = imgHeight === 'auto' ? '1.76rem': imgHeight;
-        
+
         return (
             <div className="art-main__header">
             <Carousel
@@ -16,6 +16,8 @@ export default class CarouselBanner extends PureComponent{
                 infinite
                 beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
                 afterChange={index => console.log('slide to', index)}
+                dotStyle={{width:'15px',height:'15px',backgroundColor:'#999999',marginBottom:'20px'}}
+                dotActiveStyle={{width:'15px',height:'15px',backgroundColor:'#ffffff',marginBottom:'20px'}}
                 >
                 {data.map((item, index) => (
                     <a
