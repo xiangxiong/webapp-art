@@ -41,10 +41,8 @@ class OrderList extends PureComponent {
                         <div className="art-list__bussinss-order" key={index.toString()}>
                             <div className="art-list__bussinss-order-img">
                                 <div style={{
-                                    background: `url(${pictureUrl(ImageName)})`,
+                                    background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`,
                                     marginRight: "3px",
-                                    backgroundRepeat: "no-repeat",
-                                    backgroundSize: "contain"
                                 }}>
                                 </div>
                             </div>

@@ -50,10 +50,8 @@ class OrderDetails extends PureComponent {
                     <div className="art-details__product-order">
                         <div className="art-details__product-order-img">
                             <div style={{
-                                background: `url('${pictureUrl(ImageName)}')`,
+                                background: `url('${pictureUrl(ImageName)}') 0% 0% / cover`,
                                 marginRight: "3px",
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "contain"
                             }}>
                             </div>
                         </div>

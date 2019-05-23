@@ -8,7 +8,7 @@ import {getCreateOrder, getDefaultAddress} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 
 class SubmitOrder extends PureComponent {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,13 +30,33 @@ class SubmitOrder extends PureComponent {
         });
 
         const {AddressId = ''} = this.props.defaultAddress;
-        
+
         this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
+    };
+
+    showAddress = () => {
+        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
+        return (
+            <div style={{display: 'flex', alignItems: 'center', background: '#FFFFFF'}}>
+                <div style={{flex: 1}}>
+                    <div className="art-order-detail__adress">
+                        <div>{ShippingContactWith}</div>
+                        <div>{ShippingPhone}</div>
+                    </div>
+
+                    <div className="art-order-detail__location">
+                        <div>
+                        </div>
+                        <div>{ShippingAddress}</div>
+                    </div>
+                </div>
+                <div className="art-icon art-icon-arrow art-order-detail__arrow"></div>
+            </div>
+        )
     };
 
     render() {
         let {productList = []} = this.props.location.state;
-        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
 
         let money = 0;
         productList.map((product) => {
@@ -48,17 +68,7 @@ class SubmitOrder extends PureComponent {
             <Fragment>
                 <PublicHeader title="确认订单" bgColor="#E87908"/>
 
-                <div className="art-order-detail__adress">
-                    <div>{ShippingContactWith}</div>
-                    <div>{ShippingPhone}</div>
-                </div>
-
-                <div className="art-order-detail__location">
-                    <div>
-                        <span className="art-order-detail__location-default">默认</span>
-                    </div>
-                    <div>{ShippingAddress}</div>
-                </div>
+                {this.showAddress()}
 
                 {productList.map((product, index) => {
                     const {ProviderName, Name, KillPrice, productNumber = 1, MainImgs = []} = product;
@@ -73,10 +83,8 @@ class SubmitOrder extends PureComponent {
                             <div className="art-order-detail__bussinss-order">
                                 <div className="art-order-detail__bussinss-order-img">
                                     <div style={{
-                                        background: `url(${MainImgs.length > 0 ? pictureUrl(MainImgs[0]) : ''})`,
+                                        background: `url(${MainImgs.length > 0 ? pictureUrl(MainImgs[0]) : ''}) 0% 0% / cover`,
                                         marginRight: "3px",
-                                        backgroundRepeat: "no-repeat",
-                                        backgroundSize: "contain"
                                     }}>
                                     </div>
                                 </div>
@@ -139,10 +147,10 @@ const mapStateToProps = ({order}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getDefaultAddress:(CustomerId) => {
+    getDefaultAddress: (CustomerId) => {
         dispatch(getDefaultAddress({CustomerId, PageIndex: 1, PageSize: 50}))
     },
-    getCreateOrder:(CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
+    getCreateOrder: (CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
         dispatch(getCreateOrder({CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId}))
     }
 });

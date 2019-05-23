@@ -61,10 +61,8 @@ class Detail extends PureComponent {
                         <div>
                             <div className="art-product__homepage-avatar"
                                  style={{
-                                     background: `url(${pictureUrl(ImageName)})`,
+                                     background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`,
                                      marginRight: "3px",
-                                     backgroundRepeat: "no-repeat",
-                                     backgroundSize: "contain"
                                  }}>
                             </div>
                         </div>
@@ -96,9 +94,7 @@ class Detail extends PureComponent {
                             <div className="art-product__homepage__picture"
                                  key={index.toString()}
                                  style={{
-                                     background: `url(${pictureUrl(imageName)})`,
-                                     backgroundRepeat: "no-repeat",
-                                     backgroundSize: "contain"
+                                     background: `url(${pictureUrl(imageName)}) 0% 0% / cover`,
                                  }}>
                             </div>
                         )
@@ -120,9 +116,7 @@ class Detail extends PureComponent {
                                     <div className="art-product__comment-avatar">
                                         <div className="art-product__comment-avatar-item"
                                              style={{
-                                                 background: `url(${pictureUrl(HeadImage)})`,
-                                                 backgroundRepeat: "no-repeat",
-                                                 backgroundSize: "contain"
+                                                 background: `url(${pictureUrl(HeadImage)}) 0% 0% / cover`,
                                              }}></div>
                                     </div>
                                     <div className="art-product__comment-username">
