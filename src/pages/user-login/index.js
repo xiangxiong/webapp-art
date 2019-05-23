@@ -8,25 +8,24 @@ class Login extends PureComponent{
     componentDidMount(){
 
     }
-
+    
     render(){
         console.log('this.props',this.props);
         return (
             <Fragment>
-              
             </Fragment>
         )
     }
 }
 
-const mapState = (state) => ({
+const mapStateToProps = (state) => ({
     loginStatus:state.getIn(['login','login'])
 })
 
-const mapDispatch = (dispatch) => ({
+const mapStateToDispatch = (dispatch) => ({
     login(account,password){
         dispatch(actionCreators.login(account.value,password.value))
     }
 });
 
-export default connect(mapState,mapDispatch)(Login);
+export default connect(mapStateToProps,mapStateToDispatch)(Login);

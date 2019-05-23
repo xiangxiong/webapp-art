@@ -13,6 +13,7 @@
          *  限制打开环境
          *  */
         navigatorAgent(){
+            return;
             if(!this.globalConfig.debug && !this.isValidNavigator()){
                 window.top.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=XXX&connect_redirect=1#wechat_redirect';
             }
@@ -57,8 +58,8 @@
             this.navigatorAgent();  
         }
     };
-
-    try{
+    
+    try {
         let sessionConfig = JSON.parse(sessionStorage.globalConfig || '{}');
         sessionConfig.console != undefined &&
         (global.globalConfig.console = sessionConfig.console);
@@ -71,5 +72,5 @@
         {},
         window.$globalConfig || {},
         global.globalConfig
-    )
+    );
 })(window);
