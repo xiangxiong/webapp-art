@@ -16,10 +16,16 @@ class AddressList extends PureComponent {
     };
 
     showAddressItem = (address, index) => {
+        const {callback} = this.props.location;
         let {ShippingContactWith, ShippingPhone, ShippingAddress, IsDefault, AddressId} = address;
 
         return (
-            <div className="art-list__item" key={index.toString()}>
+            <div className="art-list__item" key={index.toString()}
+                 onClick={() => {
+                     callback && callback(address);
+                     history.goBack();
+                 }}
+            >
                 <div className="art-list__item___left">
                     <div >
                         <span>{ShippingContactWith}</span>

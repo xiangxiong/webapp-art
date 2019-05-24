@@ -4,8 +4,9 @@ import PublicHeader from './../../../components/header';
 import {TextareaItem} from 'antd-mobile';
 import Action from './../action';
 import {connect} from 'react-redux';
-import {getCreateOrder, getDefaultAddress} from '../store/actionCreators';
+import {getCreateOrder, getDefaultAddress,defaultAddress} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
+import history from '../../../utils/history';
 
 class SubmitOrder extends PureComponent {
 
@@ -34,6 +35,12 @@ class SubmitOrder extends PureComponent {
         this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
     };
 
+    setAddress = (address) => {
+        if (address) {
+            this.props.setDefaultAddress(address);
+        }
+    };
+
     showAddress = () => {
         const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
         return (
@@ -50,7 +57,13 @@ class SubmitOrder extends PureComponent {
                         <div>{ShippingAddress}</div>
                     </div>
                 </div>
-                <div className="art-icon art-icon-arrow art-order-detail__arrow"></div>
+                <div className="art-icon art-icon-arrow art-order-detail__arrow"
+                     onClick={() => {
+                         history.push({
+                             pathname: './addressList', callback: this.setAddress
+                         });
+                     }}>
+                </div>
             </div>
         )
     };
@@ -152,6 +165,9 @@ const mapDispatchToProps = dispatch => ({
     },
     getCreateOrder: (CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId) => {
         dispatch(getCreateOrder({CustomerId, OrderItems, ShippingFee, UsrMemo, AddrerssId}))
+    },
+    setDefaultAddress: (addressObj) => {
+        dispatch(defaultAddress(addressObj))
     }
 });
 
