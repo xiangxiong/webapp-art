@@ -15,6 +15,7 @@ import OrderDetails from './pages/order/orderDetails';
 import Oauth from './pages/user-login/oauth';
 import WorkList from  './pages/user/worklist';
 import Bind from './pages/user-login/bind';
+import Success from './pages/user/pay/Success';
 
 export default [
     {
@@ -123,5 +124,11 @@ export default [
         path:"/bind",
         component:Bind,
         key:'bind'
+    }
+    ,
+    {
+        path:"/success",
+        component:Success,
+        key:'success'
     }
 ];

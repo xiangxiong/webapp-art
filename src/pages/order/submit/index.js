@@ -16,7 +16,7 @@ class SubmitOrder extends PureComponent {
             UsrMemo: ''
         };
     }
-
+    
     HandleSubmitOrder = () => {
         const {UsrMemo = ''} = this.state;
         let {productList = []} = this.props.location.state;

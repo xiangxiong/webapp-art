@@ -99,17 +99,17 @@ class Works extends PureComponent{
           console.log("addFileSuccess: " + uploadInfo.file.name)
         },
         onUploadstarted:function(uploadInfo){
-                 // 如果是 STSToken 上传方式, 需要调用 uploader.setUploadAuthAndAddress 方法
+            // 如果是 STSToken 上传方式, 需要调用 uploader.setUploadAuthAndAddress 方法
             // 用户需要自己获取 accessKeyId, accessKeySecret,secretToken
             // 下面的 URL 只是测试接口, 用于获取 测试的 accessKeyId, accessKeySecret,secretToken
             let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
-            axios.get(stsUrl).then(({data}) => {
+            axios.get(stsUrl).then(({data})=>{
               let info = data.SecurityTokenInfo
               let accessKeyId = info.AccessKeyId
               let accessKeySecret = info.AccessKeySecret
               let secretToken = info.SecurityToken
               uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
-            })
+            });
             statusText = '文件开始上传...'
             console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
         },

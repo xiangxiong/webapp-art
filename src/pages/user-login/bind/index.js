@@ -54,11 +54,11 @@ class Bind extends PureComponent{
             history.push('/');
         }
     }
-    
+
     async handleSendCode(){
         var time = 60;
         var that = this;
-
+        
         const data = {
             Type:'3',
             Phone:this.phoneRef.state.value
@@ -70,7 +70,7 @@ class Bind extends PureComponent{
         }else{
             Toast.fail('网络异常',1);
         }
-        
+
         setInterval(function(){
             if(time<=0){
                 that.setState({
@@ -80,7 +80,7 @@ class Bind extends PureComponent{
             else{
                 that.setState({
                     sendMessage:(time)+"重新发送"
-                })
+                });
                 time --;
             }
         },1000);

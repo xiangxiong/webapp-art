@@ -5,6 +5,7 @@ import './index.scss';
 import {connect} from 'react-redux';
 import {getPayParams} from '../store/actionCreators';
 import {Toast} from 'antd-mobile';
+import history from './../../../utils/history';
 
 class PayOrder extends PureComponent {
 
@@ -33,6 +34,7 @@ class PayOrder extends PureComponent {
     HandlePayCallBack(res){
          if(res.err_msg === "get_brand_wcpay_request:ok" ){
             Toast.success('支付成功');
+            history.push('/success');
          }
          else{
             Toast.success('网络异常');

@@ -1,0 +1,26 @@
+.art-pay{
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #FFFFFF;
+
+    &__success{
+        height: 300px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 300px;
+        font-size: 18px;
+        color: green;
+    }
+
+    &__return{
+        height: 40px;
+        width: 100%;
+        margin: 0 auto;
+        line-height: 40px;
+        text-align: center;
+    }
+}
