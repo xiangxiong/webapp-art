@@ -49,7 +49,7 @@ class Home extends PureComponent{
       //       history.push('/oauth');
       //  }
     }
-
+    
    renderContent(pageText){
         return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
@@ -63,12 +63,12 @@ class Home extends PureComponent{
   componentDidMount(){
      this.initLogin();
   }
-  
+
   async initLogin(){
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
     if(storage.get("code")==""){
-      // history.push('/oauth');
+        history.push('/oauth');
     }
     else{
       const result = await this.props.getAuthInfo({code:storage.get("code")});

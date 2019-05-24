@@ -17,7 +17,7 @@ class Main extends PureComponent{
 
     constructor(props) {
         super(props);
-        
+
         this.navDataList = [
             {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
             {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
@@ -73,12 +73,11 @@ class Main extends PureComponent{
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
         const {scrollCss,searchCss,address} = this.state;
-
+        // ref="artScroll"
+        // style={{overflow:"auto",height:document.documentElement.clientHeight}}
         return (
             <Fragment>
-                <div className="art-main"
-                ref="artScroll"
-                style={{overflow:"auto",height:document.documentElement.clientHeight}}>
+                <div className="art-main">
                     <div className={scrollCss}>
                         <div className={address}>上海</div>
                         <div>
@@ -135,43 +134,43 @@ class Main extends PureComponent{
     }
     
     componentDidMount() {
-        this.refs.artScroll.addEventListener("scroll",()=>{
-            // console.log('addEventListener');
-            // console.log('this.refs.myscroll.scrollTop',);
-            // console.log('this.refs.myscroll.clientHeight ',this.refs.artScroll.clientHeight );
-            if(this.refs.artScroll.scrollTop>176){
-                this.setState({
-                    scrollCss:classNames(
-                        'art-main__search',
-                        {
-                            'art-main__search-bg':true
-                        }
-                    ),
-                    searchCss:classNames('art-main__search-input',{
-                        'art-main__search-input-bg':true
-                    }),
-                    address:classNames('art-main__search-address',{
-                        'art-main__search-address-bg':true
-                    })
-                })
-            }
-            else{
-                this.setState({
-                    scrollCss:classNames(
-                        'art-main__search',
-                        {
-                            'art-main__search-bg':false
-                        }
-                    ),
-                    searchCss:classNames('art-main__search-input',{
-                        'art-main__search-input-bg':false
-                    }),
-                    address:classNames('art-main__search-address',{
-                        'art-main__search-address-bg':false
-                    })
-                })
-            }
-        });
+        // this.refs.artScroll.addEventListener("scroll",()=>{
+        //     // console.log('addEventListener');
+        //     // console.log('this.refs.myscroll.scrollTop',);
+        //     // console.log('this.refs.myscroll.clientHeight ',this.refs.artScroll.clientHeight );
+        //     if(this.refs.artScroll.scrollTop>176){
+        //         this.setState({
+        //             scrollCss:classNames(
+        //                 'art-main__search',
+        //                 {
+        //                     'art-main__search-bg':true
+        //                 }
+        //             ),
+        //             searchCss:classNames('art-main__search-input',{
+        //                 'art-main__search-input-bg':true
+        //             }),
+        //             address:classNames('art-main__search-address',{
+        //                 'art-main__search-address-bg':true
+        //             })
+        //         })
+        //     }
+        //     else{
+        //         this.setState({
+        //             scrollCss:classNames(
+        //                 'art-main__search',
+        //                 {
+        //                     'art-main__search-bg':false
+        //                 }
+        //             ),
+        //             searchCss:classNames('art-main__search-input',{
+        //                 'art-main__search-input-bg':false
+        //             }),
+        //             address:classNames('art-main__search-address',{
+        //                 'art-main__search-address-bg':false
+        //             })
+        //         })
+        //     }
+        // });
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
