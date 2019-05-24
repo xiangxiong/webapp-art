@@ -63,13 +63,14 @@ class Bind extends PureComponent{
             Type:'3',
             Phone:this.phoneRef.state.value
         };
+
         const result = await this.props.handleSendCode(data);
         if(result.Status === 200){
             Toast.success("发送成功");
         }else{
             Toast.fail('网络异常',1);
         }
-
+        
         setInterval(function(){
             if(time<=0){
                 that.setState({
@@ -83,8 +84,6 @@ class Bind extends PureComponent{
                 time --;
             }
         },1000);
-
-       
     }
 
     render(){
