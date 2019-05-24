@@ -12,6 +12,8 @@ import {getOauthInfo,wxLogin} from './store/actionCreators';
 import './../../utils/storage';
 import _ from 'lodash';
 import history from './../../utils/history';
+import eventProxy from 'react-eventproxy';
+
 
 class Home extends PureComponent{
    constructor(props){
@@ -25,7 +27,9 @@ class Home extends PureComponent{
    }
 
    renderFactory(pageText){
-      console.log(pageText);
+      // if(pageText==="USER"||pageText==="ARTSHOP"||pageText=="MAIN"){
+      //    eventProxy.trigger('trigger-search',pageText);
+      // }
        switch(pageText){
           case "MAIN":
             return (<Main/>);
@@ -61,14 +65,28 @@ class Home extends PureComponent{
   }
 
   componentDidMount(){
+ 
      this.initLogin();
   }
 
   async initLogin(){
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
+    storage.set("userInfo",{
+      "Token": 1242926313630629,
+      "Register": true,
+      "Type": 2,
+      "CustomerId": 11,
+      "UserName": "156****5212",
+      "NickName": "156****5212",
+      "Phone": 15618925212,
+      "BaiChuanUserId": "",
+      "BaiChuanUserPasssword": "",
+      "IMUserSigExpire": 0
+    });
+    
     if(storage.get("code")==""){
-        history.push('/oauth');
+        // history.push('/oauth');
     }
     else{
       const result = await this.props.getAuthInfo({code:storage.get("code")});
@@ -110,6 +128,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'blueTab',
               });
+              eventProxy.trigger('trigger-search','MAIN');
             }}
             data-seed="logId"
           >
@@ -126,6 +145,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'redTab'
               });
+              eventProxy.trigger('trigger-search','ARTSHOP');
             }}
             data-seed="logId1"
           >
@@ -174,6 +194,7 @@ class Home extends PureComponent{
                   selectedTab: 'yellowTab',
                   isSelected:true
                 });
+                eventProxy.trigger('trigger-search','USER');
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>

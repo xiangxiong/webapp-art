@@ -15,8 +15,6 @@ class PayOrder extends PureComponent {
         let storage = Storage.Base.getInstance(),
             openId = storage.get("oauthInfo").OpenId,
             token = storage.get("userInfo").Token;
-        // openId = 'olM0253p9gIJJPWP_9QrOsLqbFH4',
-        // token = '2390648179516024';
 
         let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${0}|${0}`);
         const result = await this.props.handleWechatPay(data);

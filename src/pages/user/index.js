@@ -12,6 +12,7 @@ import Product from '../common/product';
 import Title from '../common/title';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../../utils/storage';
+import { concat } from 'rxjs';
 
 const Item = List.Item;
 const styles = {};
@@ -107,7 +108,7 @@ class User extends PureComponent{
         super(props);
         this.state = {
             user: '卖家',
-            hasMoreItems: true
+            hasMoreItems: true,
         };
         this.currentPage = 1;//为你推荐 当前页
         // this.bindEvents();
@@ -205,9 +206,23 @@ class User extends PureComponent{
             AwaitPayCount = '',
             AwaitShipCount = '',
             AwaitReceiptCount = '',
-            AwaitCommentCount = ''
+            AwaitCommentCount = '',
+            ProviderInfo
         } = this.props.customerDetail;
 
+        console.log('obj',ProviderInfo);
+
+        // Object.keys(obj).forEach(function(key){
+        //     console.log(key,obj[key]);
+
+        ProviderInfo.forEach(function(val,index){
+            console.log(val, index);
+        });
+        // for(var a in ProviderInfo){
+        //         if(a==='ProviderStatus'){
+        //             console.log(a+"fdsafds");
+        //         }
+        // }
         return (
             <Fragment>
                 <Header
@@ -263,15 +278,18 @@ class User extends PureComponent{
             </Fragment>
         )
     }
-
     componentDidMount(){
+        let storage = Storage.Base.getInstance();
+        let customerId = storage.get('userInfo').CustomerId;
         this.props.clearUserLikeProducts();
-        this.props.getCustomerDetail('11');
-        this.props.getUserLikeProducts(11, this.currentPage);
+        this.props.getCustomerDetail(customerId);
+        this.props.getUserLikeProducts(customerId,this.currentPage);
     }
 }
 
 const mapStateToProps = ({user, home}) => {
+
+    console.log('user.customerDetail',user.customerDetail);
     return {
         customerDetail: user.customerDetail,
         userLikeProducts: home.userLikeProducts,

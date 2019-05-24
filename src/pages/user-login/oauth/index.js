@@ -17,7 +17,6 @@ const Oauth = () =>{
             const oauthUri = {
                 wechat: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wechat}&redirect_uri=${redirectUrl}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`
             };
-
             let storage = Storage.Base.getInstance();
             storage.set('oauthLogin',"oauthLogin")
             window.top.location.href = oauthUri.wechat;

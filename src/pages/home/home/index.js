@@ -12,19 +12,19 @@ import Letters from '../../common/letters/index';
 import Space from '../../common/space';
 import Product from './../../common/product';
 import Title from './../../common/title';
+import eventProxy from 'react-eventproxy';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 class Main extends PureComponent{
 
     constructor(props) {
         super(props);
-
         this.navDataList = [
             {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
             {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
             {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
             {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
         ];
-
         this.state = {
             imgHeight: 176,
             scrollCss:classNames(
@@ -39,10 +39,10 @@ class Main extends PureComponent{
             address:classNames('art-main__search-address',{
                 'art-main__search-address-bg':false
             }),
-            hasMoreItems: true
+            hasMoreItems: true,
+            current:'visible'
         };
-
-        this.currentPage=1;//为你推荐 当前页
+        this.currentPage=1;//为你推荐 当前页 hidden
     }
 
     showRecomandItem() {
@@ -69,16 +69,17 @@ class Main extends PureComponent{
             }, 200);
         }
     }
-
+    
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
-        const {scrollCss,searchCss,address} = this.state;
+        const {scrollCss,searchCss,address,current} = this.state;
         // ref="artScroll"
         // style={{overflow:"auto",height:document.documentElement.clientHeight}}
+
         return (
             <Fragment>
                 <div className="art-main">
-                    <div className={scrollCss}>
+                    <div className={scrollCss} style={{'visibility':current}}>
                         <div className={address}>上海</div>
                         <div>
                             <input className={searchCss} placeholder="大家都在搜紫砂壶"/>
@@ -86,11 +87,11 @@ class Main extends PureComponent{
                         <div className="art-icon art-icon-helper"></div>
                     </div>
 
-                    <InfiniteScroll
+                    {/* <InfiniteScroll
                         loadMore={this.loadMoreItem.bind(this)}
                         hasMore={this.state.hasMoreItems}
                         loader={<div className="art-main__loader" key={0}> 正在努力加载中... </div>}
-                        useWindow={false}>
+                        useWindow={false}> */}
 
                         <CarouselBanner data={carouselAdList}/>
 
@@ -123,8 +124,7 @@ class Main extends PureComponent{
                                 {this.showRecomandItem()}
                             </div>
                         </div>
-
-                    </InfiniteScroll>
+                    {/* </InfiniteScroll> */}
                 </div>
             </Fragment>
         )
@@ -132,8 +132,22 @@ class Main extends PureComponent{
 
     componentWillMount(){
     }
-    
+
     componentDidMount() {
+        eventProxy.on('trigger-search', (current) => {
+            console.log('current',current);
+            if(current==='USER' || current === 'ARTSHOP'){
+                this.setState({
+                    current:'hidden'
+                });
+            }
+            if(current === 'MAIN'){
+                this.setState({
+                    current:'visible'
+                });
+            }
+            // this.setState({current: current});
+        });
         // this.refs.artScroll.addEventListener("scroll",()=>{
         //     // console.log('addEventListener');
         //     // console.log('this.refs.myscroll.scrollTop',);
