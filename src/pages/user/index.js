@@ -110,7 +110,7 @@ class User extends PureComponent{
             hasMoreItems: true
         };
         this.currentPage = 1;//为你推荐 当前页
-        this.bindEvents();
+        // this.bindEvents();
     }
 
     bindEvents() {
@@ -185,7 +185,7 @@ class User extends PureComponent{
     }
 
     handleTestClick(){
-        history.push('/oauth');
+        // history.push('/oauth');
     }
 
     render() {

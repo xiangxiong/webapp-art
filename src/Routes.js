@@ -18,10 +18,16 @@ import Bind from './pages/user-login/bind';
 
 export default [
     {
-        path: "/",
+        path: "/home",
         component: Home,
         exact: true,
         key: 'home'
+    },
+    {
+        path: "/",
+        component: Home,
+        exact: true,
+        key: 'index'
     },
     {
         path: "/cart",

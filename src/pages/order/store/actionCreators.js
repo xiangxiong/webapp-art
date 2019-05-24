@@ -87,54 +87,25 @@ export const getPOrderInfo = (params) => {
     }
 };
 
-export const getWebSite = (params) => {
-    return (dispatch) => {
-        return axios({
-            method: 'post',
-            url: API_PAY,
-            data: JSON.stringify(params),
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            },
-            timeout: 3000
-        }).then(response => {
-            callBackPay(response.Data);
-            console.log("response", response);
-        });
+export const getPayParams = (params) => {
+    return async (dispatch) => {
+       const result = await getWechatParams(params);
+       return result;
     }
 };
 
-export const callBackPay = (data) => {
-    if (typeof WeixinJSBridge == "undefined") {
-        if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
-        } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
-            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
-        }
-    } else {
-        jsApiCall(data);
-    }
-};
-
-const jsApiCall = (data) => {
-    WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', {
-            appId: data.appid + '',     //公众号名称，由商户传入
-            timeStamp: data.timestamp + '',         //时间戳，自1970年以来的秒数
-            nonceStr: data.noncestr + '', //随机串
-            package: data.package + '',
-            signType: 'MD5',//签名方式
-            paySign: data.sign + '' //微信签名
-        }, function (res) {
-            if (res.err_msg == 'get_brand_wcpay_request:ok') {
-                history.push('/orderList');
-            } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
-                Toast("用户取消支付");
-            } else {
-                Toast('支付失败');
-            }
-        }
-    );
-};
+const getWechatParams =(params) =>{
+    return axios({
+                method: 'post',
+                url: API_PAY,
+                data: JSON.stringify(params),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+                timeout: 3000
+           })
+           .then(response => {
+                return response;
+           });
+}

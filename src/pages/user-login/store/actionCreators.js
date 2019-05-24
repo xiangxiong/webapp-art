@@ -21,16 +21,15 @@ export const wxLogin = (params) => {
 }
 
 export const sendMessageActionResult = (params) => {
-        return async (dispatch) => {
-            const result = await post(WX_SENDMESSAGE_API,params);
-            return result;
-        }
-   
+    return async (dispatch) => {
+        const result = await post(WX_SENDMESSAGE_API,params);
+        return result;
+    }
 }
 
 export const bindPhoneActionResult = (params) => {
-        return async (dispatch) => {
-            const result = await post(WX_BINDPHONE,params);
-            return result;
-        }
+    return async (dispatch) => {
+        const result = await post(WX_BINDPHONE,params);
+        return result;
+    }
 }

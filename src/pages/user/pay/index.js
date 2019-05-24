@@ -36,7 +36,7 @@ class Pay extends PureComponent{
         const {type} = this.props.location.state;
         const title = type === "art" ? "成为合作艺术家" : "成为艺术商城商户";
         let {userDictList} = this.props;
-
+        
         return (
             <Fragment>
                <PublicHeader title={title}/>

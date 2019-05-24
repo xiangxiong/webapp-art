@@ -5,8 +5,6 @@ import routes from './Routes';
 import {Provider} from 'react-redux';
 import store from './store';
 import history from './utils/history';
-import {PrivateRoute} from './router/auth'; 
-
 
 class App extends Component{
   render() {
@@ -23,5 +21,4 @@ class App extends Component{
     );
   }
 }
-
 export default App;

@@ -44,31 +44,30 @@ class Bind extends PureComponent{
         };
         const result = await this.props.handleBindPhone(data);
         if(result.Status !== 200){
-            let storage = Storage.Base.getInstance();
-            storage.set("userInfo",result.Data);
             Toast.fail(result.Data.ResponseMessage,1);
         }else{
-            history.push('/home');
+            let storage = Storage.Base.getInstance();
+            storage.set("userInfo",result.Data);
+            history.push('/');
         }
     }
-
+    
     async handleSendCode(){
-        // todo: 倒计时加载组件.
         const data = {
             Type:'3',
             Phone:this.phoneRef.state.value
         };
         const result = await this.props.handleSendCode(data);
         if(result.Status === 200){
+
         }else{
             Toast.fail('网络异常',1);
         }
     }
 
     render(){
-
+        
         const {time} = this.state;
-
         return (
             <Fragment>
                 <div className="art-user-login-wrapper">
@@ -100,7 +99,7 @@ class Bind extends PureComponent{
                                     {formateTimeStr(hour)}
                                 </span>
                             );
-                            }}
+                        }}
                     />
                     </Button>
                 </div>

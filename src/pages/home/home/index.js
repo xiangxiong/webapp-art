@@ -17,7 +17,6 @@ class Main extends PureComponent{
 
     constructor(props) {
         super(props);
-        
         this.navDataList = [
             {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
             {imageUrl: `${PICTUREURL}3.png`, name: '市集'},

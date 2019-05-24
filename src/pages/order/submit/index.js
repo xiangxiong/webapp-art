@@ -19,14 +19,12 @@ class SubmitOrder extends PureComponent {
 
     HandleSubmitOrder = () => {
         const {UsrMemo = ''} = this.state;
-
         let {productList = []} = this.props.location.state;
 
         let OrderItems = [];
         productList.map((product) => {
             const {ProdId, KillPrice, productNumber = 1} = product;
             let OrderItem = {ProdId, UnitPrice: KillPrice, PromotionId: '0', Quantity: productNumber, CartId: '0'};
-
             OrderItems.push(OrderItem);
         });
 
@@ -70,7 +68,11 @@ class SubmitOrder extends PureComponent {
 
     render() {
         let {productList = []} = this.props.location.state;
+<<<<<<< HEAD
 
+=======
+        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
+>>>>>>> fix wecahtpay
         let money = 0;
         productList.map((product) => {
             const {KillPrice, productNumber = 1} = product;
@@ -139,7 +141,6 @@ class SubmitOrder extends PureComponent {
                         }}
                     />
                 </div>
-
                 <Action text="提交订单" price={money} HandleSubmitOrder={() => {
                     this.HandleSubmitOrder()
                 }}/>
@@ -149,7 +150,6 @@ class SubmitOrder extends PureComponent {
 
     componentDidMount() {
         this.props.getDefaultAddress('11');
-
     }
 }
 

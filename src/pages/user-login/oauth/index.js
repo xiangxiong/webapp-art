@@ -4,12 +4,8 @@ import {getUrlParam} from './../../../utils/common';
 import './index.scss';
 
 const Oauth = () =>{
-    const [code,setCode] = useState('') 
 
-    const retry = () =>{
-        console.log('retry');
-    }
-
+    const [code] = useState('') 
     const init = () => {
         if((!_.isEmpty(code))){
             console.log('getUrlParam',getUrlParam('code'));
@@ -21,21 +17,23 @@ const Oauth = () =>{
             const oauthUri = {
                 wechat: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wechat}&redirect_uri=${redirectUrl}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`
             };
+
+            let storage = Storage.Base.getInstance();
+            storage.set('oauthLogin',"oauthLogin")
             window.top.location.href = oauthUri.wechat;
         }
-        console.log('init');
     }
 
     useEffect(()=>{
-        setCode(getUrlParam("code"))
         init();
     });
 
     return (
         <Fragment>
-             正在加载 ...
+
         </Fragment>
     )
+
 }
 
 export default Oauth;

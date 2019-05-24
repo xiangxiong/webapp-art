@@ -1,5 +1,5 @@
 import React,{PureComponent} from 'react';
-import {TabBar} from 'antd-mobile';
+import {TabBar, Toast} from 'antd-mobile';
 import './index.scss';
 import Main from './home/index';
 import Shop from './../shop/index';
@@ -17,7 +17,7 @@ class Home extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
-            selectedTab: 'redTab',
+            selectedTab: 'blueTab',
             hidden: false,
             fullScreen: true,
             isSelected:false
@@ -25,6 +25,7 @@ class Home extends PureComponent{
    }
 
    renderFactory(pageText){
+      console.log(pageText);
        switch(pageText){
           case "MAIN":
             return (<Main/>);
@@ -43,10 +44,10 @@ class Home extends PureComponent{
 
    handleHasLogin(){
       let storage = Storage.Base.getInstance();
-      console.log("localStorage userinfo",Storage.Base.getInstance().get('userinfo'));
-       if(storage.get('userinfo')==null){
-            history.push('/oauth');
-       }
+      console.log("localStorage userinfo",storage.get('userinfo'));
+      //  if(storage.get('userinfo')==null){
+      //       history.push('/oauth');
+      //  }
     }
 
    renderContent(pageText){
@@ -64,30 +65,28 @@ class Home extends PureComponent{
   }
 
   async initLogin(){
-    
     let storage = Storage.Base.getInstance();
-
-    if(storage.get('userinfo')==null){
-        const result = await this.props.getAuthInfo({code:getUrlParam('code')});
-        var openId = result.Data.OpenId;
-        storage.set("oauthInfo",{"OpenId":"olM0253p9gIJJPWP_9QrOsLqbFH4","NickName":"向雄","HeadImgUrl":"http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83er6ZibFyAW1UptxYJxyh5rQ11mCsqibNwt4ticJNnZPQHuLH0RIuTjmibH42p4MOzvcobubHHOGbAPaqA/132"});
-        if(!_.isEmpty(openId)){
-            const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
-            storage.set("userInfo",userInfo);
-            if(!userInfo.Data.Register){
-                history.push('/bind');
-                console.log('去绑定手机');
-            }else{
-                history.push('/home');
-                console.log('登录成功');
-            }
-        }
+    storage.set("code",getUrlParam('code'));
+    if(storage.get("code")==""){
+      history.push('/oauth');
     }
-  }
-
-  componentDidUpdate(){
-    if(this.state.isSelected){
-      // this.handleHasLogin()
+    else{
+      const result = await this.props.getAuthInfo({code:storage.get("code")});
+      storage.set("oauthInfo",result.Data);
+      console.log('storage.get("code")',storage.get("code"));
+      var openId = result.Data.OpenId;
+      
+      if(!_.isEmpty(openId)){
+          const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
+          storage.set("userInfo",userInfo.Data);
+          console.log('userInfo.Data',userInfo.Data);
+          if(!userInfo.Data.Register){
+              history.push('/bind');
+              console.log('去绑定手机');
+          }else{
+              console.log('登录成功');
+          }
+      }
     }
   }
 
@@ -171,10 +170,10 @@ class Home extends PureComponent{
             key="my"
             selected={this.state.selectedTab === 'yellowTab'}
             onPress={() => {
-              this.setState({
-                selectedTab: 'yellowTab',
-                isSelected:true
-              });
+                this.setState({
+                  selectedTab: 'yellowTab',
+                  isSelected:true
+                });
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>
