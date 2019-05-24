@@ -44,7 +44,10 @@ class Bind extends PureComponent{
         };
         const result = await this.props.handleBindPhone(data);
         if(result.Status !== 200){
-            Toast.fail(result.Data.ResponseMessage,1);
+            Toast.fail("手机号已绑定");
+            setTimeout(()=>{
+                history.push('/');
+            },2000);
         }else{
             let storage = Storage.Base.getInstance();
             storage.set("userInfo",result.Data);
@@ -53,21 +56,41 @@ class Bind extends PureComponent{
     }
     
     async handleSendCode(){
+        var time = 60;
+        var that = this;
+
         const data = {
             Type:'3',
             Phone:this.phoneRef.state.value
         };
         const result = await this.props.handleSendCode(data);
         if(result.Status === 200){
-
+            Toast.success("发送成功");
         }else{
             Toast.fail('网络异常',1);
         }
+
+        setInterval(function(){
+            if(time<=0){
+                that.setState({
+                    sendMessage:'发送验证码'
+                })
+            }
+            else{
+                that.setState({
+                    sendMessage:(time)+"重新发送"
+                })
+                time --;
+            }
+        },1000);
+
+       
     }
 
     render(){
-        
-        const {time} = this.state;
+
+        const {sendMessage} = this.state;
+
         return (
             <Fragment>
                 <div className="art-user-login-wrapper">
@@ -90,17 +113,7 @@ class Bind extends PureComponent{
                         </div>
                     </div>
                     <Button type="primary"  ref={el=> this.sendRef = el} onClick={this.handleSendCode} className="art-user-login-send">
-                            <TimeCountDown
-                            time={time}
-                            onTimeout={() => { this.onTimeout(); }}
-                            render={({ hour }) => {
-                            return (
-                                <span>
-                                    {formateTimeStr(hour)}
-                                </span>
-                            );
-                        }}
-                    />
+                         {sendMessage}
                     </Button>
                 </div>
             </Fragment>

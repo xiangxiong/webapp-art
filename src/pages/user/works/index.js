@@ -73,7 +73,6 @@ class Works extends PureComponent{
           statusText: '',
           uploader: null
       };
-
       this.init();
       this.bindEvent();
     }
@@ -81,6 +80,7 @@ class Works extends PureComponent{
     init(){
        this.props.getProductType({OneCategoryId:1});
     }
+
     createUploader () {
       var {timeout,partSize,parallel,retryCount,retryDuration,region,userId,file,stsProgress,uploadDisabled,resumeDisabled,pauseDisabled,statusText,uploader} = this.state;
       // eslint-disable-next-line no-undef
@@ -141,7 +141,7 @@ class Works extends PureComponent{
           // 上传文件过大时可能在上传过程中 sts token 就会失效, 所以需要在 token 过期的回调中调用 resumeUploadWithSTSToken 方法
           // 这里是测试接口, 所以我直接获取了 STSToken
           let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
-          axios.get(stsUrl).then(({data}) => {
+          axios.get(stsUrl).then(({data})=>{
             let info = data.SecurityTokenInfo
             let accessKeyId = info.AccessKeyId
             let accessKeySecret = info.AccessKeySecret
@@ -157,9 +157,7 @@ class Works extends PureComponent{
           statusText = '文件上传完毕'
         }
       });
-
       console.log('upload',upload);
-
       return upload
     }
 

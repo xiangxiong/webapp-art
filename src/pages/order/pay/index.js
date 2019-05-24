@@ -16,11 +16,12 @@ class PayOrder extends PureComponent {
             token = storage.get("userInfo").Token;
         // openId = 'olM0253p9gIJJPWP_9QrOsLqbFH4',
         // token = '2390648179516024';
-        
+
         let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${0}|${0}`);
         const result = await this.props.handleWechatPay(data);
         
         console.log('result.data.Data',result.data.Data);
+
         if(result.status === 200 && result.data.Data) {
             window.WeChatPay.Base.getInstance().WeChatPay(result.data.Data,this.HandlePayCallBack);
         }
