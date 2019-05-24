@@ -70,9 +70,9 @@ const navItems = [
 
 const customerNavItems = [
     {
-        title: '合作入住',
+        title: '合作入驻',
         icon: 'art-icon art-icon-user-cor',
-        routeUrl: '/application'
+        routeUrl: '/enter'
     },
     {
         title: '好货推荐',
