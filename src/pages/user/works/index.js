@@ -4,9 +4,11 @@ import './index.scss';
 import {ImagePicker,Flex,List,InputItem,TextareaItem,Button,WhiteSpace,Picker,Toast} from 'antd-mobile'
 import { createForm } from 'rc-form';
 import {connect} from 'react-redux';
-import {createProduct,getProductType} from './../store/actionCreators';
+import axios from 'axios';
 
+import {createProduct,getProductType} from './../store/actionCreators';
 const data = [];
+
 const orders =  [
     {
         label: '是',
@@ -40,6 +42,7 @@ const seasons = [
   ],
 ];
 
+
 class Works extends PureComponent{
 
     constructor(props){
@@ -54,14 +57,120 @@ class Works extends PureComponent{
             sValue:[{
               label: '是',
               value: '1'
-          }]
+          }],
+          timeout: '',
+          partSize: '',
+          parallel: '',
+          retryCount: '',
+          retryDuration: '',
+          region: 'cn-shanghai',
+          userId: '1303984639806000',        
+          file: null,
+          stsProgress: 0,
+          uploadDisabled: true,
+          resumeDisabled: true,
+          pauseDisabled: true,
+          statusText: '',
+          uploader: null
       };
 
       this.init();
+      this.bindEvent();
     }
 
     init(){
        this.props.getProductType({OneCategoryId:1});
+    }
+    createUploader () {
+      var {timeout,partSize,parallel,retryCount,retryDuration,region,userId,file,stsProgress,uploadDisabled,resumeDisabled,pauseDisabled,statusText,uploader} = this.state;
+      // eslint-disable-next-line no-undef
+      var upload = new AliyunUpload.Vod({
+        timeout: timeout || 60000,
+        partSize: partSize || 1048576,
+        parallel: parallel || 5,
+        retryCount: retryCount || 3,
+        retryDuration: retryDuration|| 2,
+        region: region,
+        userId: userId,
+        addFileSuccess:function(uploadInfo){
+          uploadDisabled = false
+          resumeDisabled = false
+          statusText = '添加文件成功, 等待上传...'
+          console.log("addFileSuccess: " + uploadInfo.file.name)
+        },
+        onUploadstarted:function(uploadInfo){
+                 // 如果是 STSToken 上传方式, 需要调用 uploader.setUploadAuthAndAddress 方法
+            // 用户需要自己获取 accessKeyId, accessKeySecret,secretToken
+            // 下面的 URL 只是测试接口, 用于获取 测试的 accessKeyId, accessKeySecret,secretToken
+            let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
+            axios.get(stsUrl).then(({data}) => {
+              let info = data.SecurityTokenInfo
+              let accessKeyId = info.AccessKeyId
+              let accessKeySecret = info.AccessKeySecret
+              let secretToken = info.SecurityToken
+              uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+            })
+            statusText = '文件开始上传...'
+            console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
+        },
+        // 文件上传成功
+        onUploadSucceed: function (uploadInfo) {
+          console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
+          statusText = '文件上传成功!'
+        },
+         // 文件上传失败
+        onUploadFailed: function (uploadInfo, code, message) {
+          console.log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message)
+          statusText = '文件上传失败!'
+        },
+        // 取消文件上传
+        onUploadCanceled: function (uploadInfo, code, message) {
+          console.log("Canceled file: " + uploadInfo.file.name + ", code: " + code + ", message:" + message)
+          statusText = '文件已暂停上传'
+        },
+        // 文件上传进度，单位：字节, 可以在这个函数中拿到上传进度并显示在页面上
+        onUploadProgress: function (uploadInfo, totalSize, progress) {
+          console.log("onUploadProgress:file:" + uploadInfo.file.name + ", fileSize:" + totalSize + ", percent:" + Math.ceil(progress * 100) + "%")
+          let progressPercent = Math.ceil(progress * 100)
+          stsProgress = progressPercent
+          statusText = '文件上传中...'
+        },
+         // 上传凭证超时
+         onUploadTokenExpired: function (uploadInfo) {
+          // 如果是上传方式二即根据 STSToken 实现时，从新获取STS临时账号用于恢复上传
+          // 上传文件过大时可能在上传过程中 sts token 就会失效, 所以需要在 token 过期的回调中调用 resumeUploadWithSTSToken 方法
+          // 这里是测试接口, 所以我直接获取了 STSToken
+          let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
+          axios.get(stsUrl).then(({data}) => {
+            let info = data.SecurityTokenInfo
+            let accessKeyId = info.AccessKeyId
+            let accessKeySecret = info.AccessKeySecret
+            let secretToken = info.SecurityToken
+            let expiration = info.Expiration
+            uploader.resumeUploadWithSTSToken(accessKeyId, accessKeySecret, secretToken, expiration)
+          })
+          statusText = '文件超时...'
+        },
+        // 全部文件上传结束
+        onUploadEnd: function (uploadInfo) {
+          console.log("onUploadEnd: uploaded all the files")
+          statusText = '文件上传完毕'
+        }
+      });
+
+      console.log('upload',upload);
+
+      return upload
+    }
+
+    bindEvent(){
+       this.handleUploadVideo = this.handleUploadVideo.bind(this);
+       this.fileChange = this.fileChange.bind(this);
+       this.stsUpload = this.stsUpload.bind(this);
+    }
+
+    handleUploadVideo(){
+      this.createUploader();
     }
 
     onChange = (files, type, index) => {
@@ -88,6 +197,40 @@ class Works extends PureComponent{
       this.setState({
         videoFiles
       })
+    }
+
+    fileChange (e) {
+
+    
+
+      this.file = e.target.files[0]
+      if (!this.file) {
+        alert("请先选择需要上传的文件!")
+        return
+      }
+      var Title = this.file.name
+      var userData = '{"Vod":{}}'
+      if (this.uploader) {
+        this.uploader.stopUpload()
+        this.authProgress = 0
+        this.statusText = ""
+      }
+      this.uploader = this.createUploader()
+      // 首先调用 uploader.addFile(event.target.files[i], null, null, null, userData)
+      console.log(userData)
+      this.uploader.addFile(this.file, null, null, null, userData)
+      this.uploadDisabled = false
+      this.pauseDisabled = true
+      this.resumeDisabled = false
+    }
+
+    stsUpload () {
+      // 然后调用 startUpload 方法, 开始上传
+      if (this.uploader !== null) {
+        this.uploader.startUpload()
+        this.uploadDisabled = true
+        this.pauseDisabled = false
+      }
     }
 
     onSubmit = () => {
@@ -201,8 +344,14 @@ class Works extends PureComponent{
                             <div className="art-user-work__upload-text"> 长: 375px <br/>  宽: 375px <br/> 大小: ＜500kb</div>
                     </Flex.Item>
                 </Flex>
-                 
-                 <div className="art-user-work__from">
+
+                <div className="art-user-work__uploadvideo">
+                     <input type="file" id="fileUpload" onChange={this.fileChange}/>
+                     <label>上传状态: <span></span></label>
+                     <div onClick={this.stsUpload}>上传文件</div>
+                </div>
+
+                <div className="art-user-work__from">
                   <List>
                       <Picker data={orders} cols={1} {...getFieldProps('orders')}>
                         <List.Item arrow="horizontal">是否定制*</List.Item>

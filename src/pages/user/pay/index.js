@@ -10,7 +10,6 @@ class Pay extends PureComponent{
         console.log('props',this.props.location.state);
     }
 
-
     addDesc = (userDict) => {
         return (
             <div className="art-add__desc">

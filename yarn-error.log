@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/shawn/.nvm/versions/node/v10.9.0/bin/node /Users/shawn/.nvm/versions/node/v10.9.0/bin/yarn add redux-logger --save
+  /Users/shawn/.nvm/versions/node/v10.9.0/bin/node /Users/shawn/.nvm/versions/node/v10.9.0/bin/yarn add jquery --save
 
 PATH: 
   /Users/shawn/.nvm/versions/node/v10.9.0/bin:/Users/shawn/soft/apache-maven-3.5.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/shawn/soft/apache-maven-3.5.2/bin:/Users/shawn/soft/tomcat/tomcat7/bin:/Users/shawn/soft/tomcat/tomcat7/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, copyfile '/Users/shawn/Library/Caches/Yarn/v4/npm-ms-2.1.1-30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a/node_modules/ms/index.js' -> '/Users/shawn/entrepreneurship/webapp-art/node_modules/@babel/plugin-proposal-object-rest-spread/node_modules/ms/index.js'
+  Error: ENOENT: no such file or directory, copyfile '/Users/shawn/Library/Caches/Yarn/v4/npm-ms-2.1.1-30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a/node_modules/ms/readme.md' -> '/Users/shawn/entrepreneurship/webapp-art/node_modules/@babel/core/node_modules/ms/readme.md'
 
 npm manifest: 
   {
@@ -26,6 +26,7 @@ npm manifest:
       "axios": "^0.18.0",
       "classnames": "^2.2.6",
       "history": "^4.9.0",
+      "immutable": "^4.0.0-rc.12",
       "lodash": "^4.17.11",
       "node-sass": "^4.12.0",
       "rc-form": "^2.4.5",
@@ -36,6 +37,7 @@ npm manifest:
       "react-router-dom": "^5.0.0",
       "react-scripts": "2.0.5",
       "redux": "^4.0.1",
+      "redux-logger": "^3.0.6",
       "redux-thunk": "^2.3.0"
     },
     "theme": {
