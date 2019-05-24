@@ -12,7 +12,8 @@ export default class CarouselBanner extends PureComponent{
         return (
             <div className="art-main__header">
             <Carousel
-                autoplay={false}
+                speed={200}
+                autoplay
                 infinite
                 beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
                 afterChange={index => console.log('slide to', index)}
