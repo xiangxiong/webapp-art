@@ -210,19 +210,16 @@ class User extends PureComponent{
             ProviderInfo
         } = this.props.customerDetail;
 
-        console.log('obj',ProviderInfo);
-
+        console.log('obj',this.props.customerDetail);
         // Object.keys(obj).forEach(function(key){
         //     console.log(key,obj[key]);
 
-        ProviderInfo.forEach(function(val,index){
-            console.log(val, index);
-        });
         // for(var a in ProviderInfo){
         //         if(a==='ProviderStatus'){
         //             console.log(a+"fdsafds");
         //         }
         // }
+
         return (
             <Fragment>
                 <Header
