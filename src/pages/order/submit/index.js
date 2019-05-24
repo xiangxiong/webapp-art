@@ -68,11 +68,6 @@ class SubmitOrder extends PureComponent {
 
     render() {
         let {productList = []} = this.props.location.state;
-<<<<<<< HEAD
-
-=======
-        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
->>>>>>> fix wecahtpay
         let money = 0;
         productList.map((product) => {
             const {KillPrice, productNumber = 1} = product;
