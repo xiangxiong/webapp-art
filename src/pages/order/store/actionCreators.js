@@ -73,7 +73,7 @@ export const getGetOrderDetail = (params) => {
     return (dispatch) => {
         return post(GetOrderDetail, params)
             .then((response) => {
-                dispatch(orderDetail(response.Data.data));
+                dispatch(orderDetail(response.Data));
             });
     }
 };

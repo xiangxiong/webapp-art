@@ -33,7 +33,7 @@ const OrderItem = (props) =>{
                                 </div>
                                 <div onClick={handleOrderClick.bind(null,3)}>
                                 <div className="art-icon art-icon-order-recevier"></div>
-                                <p>待收货</p>
+                                <p>已发货</p>
                                 <Badge text={AwaitReceiptCount > 0 ? AwaitReceiptCount : ''}></Badge>
                             </div>
                             <div onClick={handleOrderClick.bind(null,4)}>

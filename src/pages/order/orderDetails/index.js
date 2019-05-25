@@ -5,6 +5,7 @@ import PublicHeader from './../../../components/header';
 import {getGetOrderDetail, getPOrderInfo} from '../store/actionCreators';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/common';
+import {formatDate} from '../../../utils/common';
 
 class OrderDetails extends PureComponent {
 
@@ -72,10 +73,10 @@ class OrderDetails extends PureComponent {
     };
 
     render() {
-        const {SOAmount, OrderNumber, SODate, StatusName, Details = []} = this.props.orderDetail;
+        const {SOAmount = '', OrderNumber = '', UnixSODate = '', StatusName = '', Details = []} = this.props.orderDetail;
 
         let promotionList = Details.filter(detail => {
-            return detail.PromotionId == 0;
+            return detail.PromotionId != 0;
         });
 
         return (
@@ -102,7 +103,7 @@ class OrderDetails extends PureComponent {
 
                     <Space/>
 
-                    <div className="art-details__operation">
+                    {/*<div className="art-details__operation">
                         <div className="art-details__operation-service">
                             <span>联系客服</span>
                         </div>
@@ -112,11 +113,11 @@ class OrderDetails extends PureComponent {
                         </div>
                     </div>
 
-                    <Space/>
+                    <Space/>*/}
 
                     <div className="art-details__describe">
                         <p>{`订单编号：${OrderNumber}`}</p>
-                        <p>{`下单时间：${SODate}`}</p>
+                        <p>{`下单时间：${formatDate(UnixSODate)}`}</p>
                         <p>{`订单状态：${StatusName}`}</p>
                         <p>{`成交类型：${promotionList.length > 0 ? '团购订单' : '普通订单'}`}</p>
                     </div>
@@ -127,7 +128,11 @@ class OrderDetails extends PureComponent {
 
     componentDidMount() {
         const {OrderNumber = ''} = this.props.location.state;
-        this.props.getGetOrderDetail('2390648179516024', '0', OrderNumber, 11);
+        let storage = Storage.Base.getInstance();
+        let Token = storage.get('userInfo').Token;
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        this.props.getGetOrderDetail(Token, '0', OrderNumber, CustomerId);
     }
 }
 

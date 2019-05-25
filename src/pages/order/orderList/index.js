@@ -20,10 +20,11 @@ const orderTabs = [
 class OrderList extends PureComponent {
     constructor(props) {
         super(props);
+        this.CurrentPage = 1;
     }
 
     getTabProduct = (order, index) => {
-        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', StatusValue = '', SONumber, OrderNumber} = order;
+        const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', OrderStatus = '', SONumber, OrderNumber} = order;
 
         return (
             <div className="art-list__bussinss" key={index.toString()}
@@ -67,9 +68,7 @@ class OrderList extends PureComponent {
                     <span>{`共${ProductCount}件商品 合计:￥${SOAmount}(运费￥0)`}</span>
                 </div>
 
-                <div className="art-list__bussinss-operation">
-                    {this.getOrderOperation(StatusValue)}
-                </div>
+                {this.getOrderOperation(OrderStatus)}
             </div>
         )
     };
@@ -94,39 +93,44 @@ class OrderList extends PureComponent {
     returnGoods = () => {
     };
 
-    getOrderOperation = (StatusValue) => {
-        switch (StatusValue) {
-            case 0:
+    getOrderOperation = (OrderStatus) => {
+        switch (OrderStatus) {
+            case 5:
                 return (
-                    <div className="art-list__bussinss-operation-item" onClick={() => {
-                        this.onPayment();
-                    }}>
-                        立即付款
-                    </div>
-                );
-            case 1:
-                return '';
-            case 2:
-                return (
-                    <div className="art-list__bussinss-operation-item" onClick={() => {
-                        this.confirmGoods();
-                    }}>
-                        确认收货
-                    </div>
-                );
-            case 3:
-                return (
-                    <div style={{display: 'flex', dipflexDirection: 'row'}}>
-                        <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
-                             onClick={() => {
-                                 this.evaluation();
-                             }}>
-                            评价
-                        </div>
+                    <div className="art-list__bussinss-operation">
                         <div className="art-list__bussinss-operation-item" onClick={() => {
-                            this.returnGoods();
+                            this.onPayment();
                         }}>
-                            申请退货
+                            立即付款
+                        </div>
+                    </div>
+                );
+            case 100:
+                return (
+                    <div className="art-list__bussinss-operation">
+                        <div className="art-list__bussinss-operation-item" onClick={() => {
+                            this.confirmGoods();
+                        }}>
+                            确认收货
+                        </div>
+                    </div>
+                );
+            case 300:
+            case 200:
+                return (
+                    <div className="art-list__bussinss-operation">
+                        <div style={{display: 'flex', dipflexDirection: 'row'}}>
+                            <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
+                                 onClick={() => {
+                                     this.evaluation();
+                                 }}>
+                                评价
+                            </div>
+                            <div className="art-list__bussinss-operation-item" onClick={() => {
+                                this.returnGoods();
+                            }}>
+                                申请退货
+                            </div>
                         </div>
                     </div>
                 )
@@ -155,7 +159,9 @@ class OrderList extends PureComponent {
                     <Tabs tabs={orderTabs}
                           initialPage={index}
                           onChange={(tab, index) => {
-                              this.props.getQueryCustomerOrderList(11, index - 1, 1);
+                              let storage = Storage.Base.getInstance();
+                              let CustomerId = storage.get('userInfo').CustomerId;
+                              this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage);
                           }}>
 
                         <div>
@@ -184,7 +190,11 @@ class OrderList extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getQueryCustomerOrderList(11, -1, 1);
+        const {index = -1} = this.props.location.state;
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage);
     }
 }
 
