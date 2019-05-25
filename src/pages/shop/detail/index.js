@@ -35,7 +35,7 @@ class Detail extends PureComponent {
         return (
             <Fragment>
                 <div className="art-product">
-                    <PublicHeader title="商品详情" bgColor="#E87908" share="share"/>
+                    <PublicHeader title="商品详情" bgColor="#E87908"/>
                     <CarouselBanner imgHeight="2.96rem" data={carouselData}/>
 
                     <div className="art-product__detail">
@@ -153,7 +153,7 @@ class Detail extends PureComponent {
                         }}>
                         立即购买
                     </div>
-                    <div>购物车</div>
+                    {/*<div>购物车</div>*/}
                 </div>
             </Fragment>
         )
