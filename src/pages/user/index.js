@@ -50,16 +50,16 @@ const customerNavItems = [
         icon: 'art-icon art-icon-user-cor',
         routeUrl: '/enter'
     },
-    {
-        title: '好货推荐',
-        icon: 'art-icon art-icon-user-recomand',
-        routeUrl: ''
-    },
-    {
-        title: '提现',
-        icon: 'art-icon art-icon-user-cash',
-        routeUrl: ''
-    },
+    // {
+    //     title: '好货推荐',
+    //     icon: 'art-icon art-icon-user-recomand',
+    //     routeUrl: ''
+    // },
+    // {
+    //     title: '提现',
+    //     icon: 'art-icon art-icon-user-cash',
+    //     routeUrl: ''
+    // },
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
@@ -78,16 +78,16 @@ const customerNavItems = [
 ];
 
 const normalNavItems = [
-    {
-        title: '好货推荐',
-        icon: 'art-icon art-icon-user-recomand',
-        routeUrl: ''
-    },
-    {
-        title: '提现',
-        icon: 'art-icon art-icon-user-cash',
-        routeUrl: ''
-    },
+    // {
+    //     title: '好货推荐',
+    //     icon: 'art-icon art-icon-user-recomand',
+    //     routeUrl: ''
+    // },
+    // {
+    //     title: '提现',
+    //     icon: 'art-icon art-icon-user-cash',
+    //     routeUrl: ''
+    // },
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',

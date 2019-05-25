@@ -144,6 +144,7 @@ class OrderList extends PureComponent {
     };
 
     render() {
+        const {index = 0} = this.props.location.state;
         const {orderList = []} = this.props;
 
         return (
@@ -152,7 +153,7 @@ class OrderList extends PureComponent {
 
                 <div className="art-list">
                     <Tabs tabs={orderTabs}
-                          initialPage={1}
+                          initialPage={index}
                           onChange={(tab, index) => {
                               this.props.getQueryCustomerOrderList(11, index - 1, 1);
                           }}>
