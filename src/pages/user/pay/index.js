@@ -1,18 +1,23 @@
 import React,{useState,Fragment,PureComponent} from 'react';
 import PublicHeader from './../../../components/header';
+import {Checkbox} from 'antd-mobile';
 import './index.scss';
 import connect from "react-redux/es/connect/connect";
 import {getDict} from "../store/actionCreators";
+const AgreeItem = Checkbox.AgreeItem;
 
 class Pay extends PureComponent{
     constructor(props){
         super(props);
         console.log('props',this.props.location.state);
+        this.state = {
+            selectedNumber: 0,
+        }
     }
 
-    addDesc = (userDict) => {
+    addDesc = (userDict,index) => {
         return (
-            <div className="art-add__desc">
+            <div className="art-add__desc" key={index.toString()}>
                 <div>
                     {`￥${userDict.Value}`}
                 </div>
@@ -20,12 +25,14 @@ class Pay extends PureComponent{
                     {userDict.Detail}
                 </div>
                 <div>
-                    <div className="art-add__option-cnt">
-                        <div className="art-add__icon-cnt">
-                            <div className="art-add__option--selected">
-                            </div>
-                        </div>
-                    </div>
+                    <AgreeItem
+                        checked={userDict.TransactionNumber == this.state.selectedNumber}
+                        data-seed="logId"
+                        className="my-radio"
+                        onChange={e => {
+                            this.setState({selectedNumber: userDict.TransactionNumber})
+                        }}>
+                    </AgreeItem>
                 </div>
             </div>
         )
@@ -45,7 +52,7 @@ class Pay extends PureComponent{
                </p>
 
                 {userDictList.map((userDict, index) => {
-                   return this.addDesc(userDict)
+                   return this.addDesc(userDict,index)
                 })}
 
                <div className="art-add__paysure">

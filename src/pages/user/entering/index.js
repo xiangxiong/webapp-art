@@ -13,12 +13,11 @@ class Entering extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.handleCreateShop = this.handleCreateShop.bind(this);
     }
 
     handleCreateShop(type) {
         let {userIntertionalPartener} = this.props;
-        let {Status} = userIntertionalPartener;
+        let {Status} = userIntertionalPartener || {};
 
         if (_.isEmpty(userIntertionalPartener)) {
             //跳转到入驻
@@ -48,7 +47,7 @@ class Entering extends PureComponent {
     getItem() {
         let {customerDetail, userIntertionalPartener} = this.props;
         let {CustomerType} = customerDetail;
-        let {Status, Remark} = userIntertionalPartener;
+        let {Status, Remark} = userIntertionalPartener || {};
 
         let extra = '';
         if (Status == 0) {
@@ -63,16 +62,16 @@ class Entering extends PureComponent {
             //普通用户
             return (
                 <List>
-                    {/* <Item arrow="horizontal" onClick={this.handleCreateArt}>入住成为合作艺术家</Item>*/}
+                    {/* <Item arrow="horizontal" onClick={this.handleCreateShop.bind(this,'art')}>入住成为合作艺术家</Item>*/}
                     <Item arrow="horizontal" className="art-entering__arts"
-                          onClick={this.handleCreateShop}>入驻成为艺术商户商城</Item>
+                          onClick={this.handleCreateShop.bind(this,'shop')}>入驻成为艺术商户商城</Item>
                 </List>
             )
         } else if (CustomerType == 1) {
             //艺术家
             return (
                 <List>
-                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop}>入驻成为合作艺术家</Item>
+                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop.bind(this,'art')}>入驻成为合作艺术家</Item>
                     {Status == 6 ? <Item>{`审核不通过：${Remark}`}</Item> : null}
                 </List>
             )
@@ -80,7 +79,7 @@ class Entering extends PureComponent {
             //商户
             return (
                 <List>
-                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop}>入驻成为艺术商户商城</Item>
+                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop.bind(this,'shop')}>入驻成为艺术商户商城</Item>
                     {Status == 6 ? <Item>{`审核不通过：${Remark}`}</Item> : null}
                 </List>
             )

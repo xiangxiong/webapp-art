@@ -8,6 +8,7 @@ import history from './../../../utils/history';
 import {getCreateIntertionalPartener, getQueryCategoryList} from "../store/actionCreators";
 import connect from "react-redux/es/connect/connect";
 import _ from 'lodash';
+import Space from '../../common/space';
 
 const AgreeItem = Checkbox.AgreeItem;
 const data = [];
@@ -59,6 +60,7 @@ class Application extends PureComponent {
 
     handleCategory = () => {
         let {userCategoryList} = this.props;
+        const {buttonIndex} = this.state;
 
         let BUTTONS = userCategoryList.map(userCategory => {
             return userCategory.CategoryName
@@ -66,15 +68,21 @@ class Application extends PureComponent {
 
         ActionSheet.showActionSheetWithOptions({
                 options: BUTTONS,
-                cancelButtonIndex: BUTTONS.length - 1,
-                destructiveButtonIndex: BUTTONS.length - 2,
+                cancelButtonIndex: BUTTONS.length,
+                destructiveButtonIndex: buttonIndex,
                 message: '从事品类',
                 maskClosable: true,
                 'data-seed': 'logId',
             },
             (buttonIndex) => {
                 let userCategory = userCategoryList[buttonIndex];
-                this.setState({CategoryId: userCategory.CategoryId, CategoryName: userCategory.CategoryName});
+                if (!_.isEmpty(userCategory)) {
+                    this.setState({
+                        CategoryId: userCategory.CategoryId,
+                        CategoryName: userCategory.CategoryName,
+                        buttonIndex
+                    });
+                }
             });
     };
 
@@ -85,7 +93,7 @@ class Application extends PureComponent {
     }
 
     handleSubmit() {
-        const {type, Provider, Phone, isAgreement, CategoryId, CategoryName,files, AddDetail} = this.state;
+        const {type, Provider, Phone, isAgreement, CategoryId, CategoryName, files, AddDetail} = this.state;
 
         if (!isAgreement) {
             Toast.info('请同意协议', 1);
@@ -234,12 +242,22 @@ class Application extends PureComponent {
     }
 
     render() {
-        const {type, files} = this.state;
+        const {type, Provider, Phone, isAgreement, CategoryName, files, AddDetail} = this.state;
         const title = type === "art" ? "入住成为合作艺术家" : "入住成为艺术商城商户",
             pickers = type === "art" ? artsTitle : shopsTitle;
         let uploadPanel = classNames('art-application__upload', {
             'art-application__art-panel': type === "art"
         });
+
+        let disabled = true;
+        if (!_.isEmpty(Provider) &&
+            !_.isEmpty(Phone) &&
+            !_.isEmpty(CategoryName) &&
+            !_.isEmpty(AddDetail) &&
+            isAgreement
+        ) {
+            disabled = false;
+        }
 
         return (
             <div className="art-application">
@@ -257,6 +275,7 @@ class Application extends PureComponent {
                         //this.UploadImage(files, pickers, type)
                     }
                 </div>
+                <Space/>
                 <div className="art-application__form">
                     {
                         type === "art" ? this.RenderArtForm() : this.RenderShopForm()
@@ -268,11 +287,17 @@ class Application extends PureComponent {
                             onChange={e => {
                                 this.setState({isAgreement: e.target.checked})
                             }}>
-                            我已同意并同意遵守合作条款
+                            我已同意并遵守合作条款
                         </AgreeItem>
                     </div>
                     <div className="art-application__action">
-                        <Button onClick={this.handleSubmit}>提交</Button>
+                        <Button onClick={this.handleSubmit}
+                                style={{
+                                    backgroundColor: disabled ? '#CCCCCC' : '#E87908',
+                                    color: '#FFFFFF',
+                                    marginTop: '10px'
+                                }}
+                                disabled={disabled}>提交</Button>
                     </div>
                     <div className="art-application__form-rule">
                         <h3>温馨提示:</h3>

@@ -35,15 +35,22 @@
         @include flex(row);
         background: $color-bg-color;
         padding: 13px;
+        min-height: 100px;
         @include border-thin-bottom($width:1PX);
         &>div:nth-child(1){
             width:25%;
             color: #E87908;
-            font-size: $font-size-xs;
+            font-size:19px;
+            font-family:MicrosoftYaHei;
+            font-weight:800;
         }
         &>div:nth-child(2){
+            font-size:17px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
+            color:rgba(102,102,102,1);
             width:55%;
-            color: $color-grey-7;
+            word-wrap:break-word
         }
         &>div:nth-child(3){
             width:20%;
@@ -79,4 +86,9 @@
     border: 1px solid #ccc;
     border-radius: 50%;
     margin-right: 5px;
+}
+
+.am-checkbox.am-checkbox-checked .am-checkbox-inner {
+    border-color: #E87908;
+    background: #E87908;
 }
