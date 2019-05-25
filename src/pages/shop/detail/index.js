@@ -73,7 +73,7 @@ class Detail extends PureComponent {
                                 </span>
                         </div>
                         <div>
-                            <div className="art-product__homepage-jump">去逛逛</div>
+                           {/* <div className="art-product__homepage-jump">去逛逛</div>*/}
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@ class Detail extends PureComponent {
                 </div>
 
                 <div className="art-product__tooBar">
-                    <div>
+                    {/*<div>
                         <div className="art-icon art-icon-kefu"></div>
                         <p>客服</p>
                     </div>
@@ -146,7 +146,7 @@ class Detail extends PureComponent {
                     <div>
                         <div className="art-icon art-icon-collect"></div>
                         <p>收藏</p>
-                    </div>
+                    </div>*/}
                     <div
                         onClick={() => {
                             this.handleBuy()

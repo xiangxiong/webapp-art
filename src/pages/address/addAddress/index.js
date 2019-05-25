@@ -3,9 +3,10 @@ import './index.scss';
 import {connect} from 'react-redux';
 import {getAddressAdd} from '../store/actionCreators';
 import PublicHeader from './../../../components/header';
-import {List, InputItem, Picker, TextareaItem, Checkbox} from 'antd-mobile';
+import {List, InputItem, Picker, TextareaItem, Checkbox, Toast} from 'antd-mobile';
 import {addressData} from '../../../data/addressData';
 import {createForm} from 'rc-form';
+import _ from 'lodash';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -13,6 +14,14 @@ class AddAddress extends PureComponent {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            Provider: '',
+            Phone: '',
+            addressID: [],
+            ShippingAddress: '',
+            isDefault: false,
+        }
     }
 
     onSubmit = () => {
@@ -38,12 +47,32 @@ class AddAddress extends PureComponent {
         //地址标签
         Dto.AddressLabel = '0';
 
+        if (_.isEmpty(Provider)) {
+            Toast.info('请填写姓名', 1);
+            return;
+        }
+
+        if (_.isEmpty(Phone)) {
+            Toast.info('请填写电话号码', 1);
+            return;
+        }
+
+        if (_.isEmpty(addressID)) {
+            Toast.info('请填写省市区', 1);
+            return;
+        }
+
+        if (_.isEmpty(ShippingAddress)) {
+            Toast.info('请填写详细地址', 1);
+            return;
+        }
+
         this.props.getAddressAdd(Token, Dto);
     };
 
     render() {
         const {} = this.props.form;
-        const { getFieldProps } = this.props.form;
+        const {getFieldProps} = this.props.form;
 
         return (
             <Fragment>

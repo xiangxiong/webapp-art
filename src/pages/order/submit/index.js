@@ -1,12 +1,14 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
-import {TextareaItem} from 'antd-mobile';
+import {TextareaItem, Toast} from 'antd-mobile';
 import Action from './../action';
 import {connect} from 'react-redux';
-import {getCreateOrder, getDefaultAddress,defaultAddress} from '../store/actionCreators';
+import {getCreateOrder, getDefaultAddress, defaultAddress} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 import history from '../../../utils/history';
+import _ from 'lodash';
+import Space from '../../common/space';
 
 class SubmitOrder extends PureComponent {
 
@@ -16,7 +18,7 @@ class SubmitOrder extends PureComponent {
             UsrMemo: ''
         };
     }
-    
+
     HandleSubmitOrder = () => {
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo').CustomerId;
@@ -33,6 +35,11 @@ class SubmitOrder extends PureComponent {
 
         const {AddressId = ''} = this.props.defaultAddress;
 
+        if (_.isEmpty(this.props.defaultAddress)) {
+            Toast.info('请选择收获地址', 1);
+            return;
+        }
+
         this.props.getCreateOrder(customerId, OrderItems, 0, UsrMemo, AddressId);
     };
 
@@ -43,29 +50,43 @@ class SubmitOrder extends PureComponent {
     };
 
     showAddress = () => {
-        const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
-        return (
-            <div style={{display: 'flex', alignItems: 'center', background: '#FFFFFF'}}  onClick={() => {
-                history.push({
-                    pathname: './addressList', callback: this.setAddress
-                });
-            }}>
-                <div style={{flex: 1}}>
-                    <div className="art-order-detail__adress">
-                        <div>{ShippingContactWith}</div>
-                        <div>{ShippingPhone}</div>
-                    </div>
-
-                    <div className="art-order-detail__location">
-                        <div>
+        if (!_.isEmpty(this.props.defaultAddress)) {
+            const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
+            return (
+                <div style={{display: 'flex', alignItems: 'center', background: '#FFFFFF'}} onClick={() => {
+                    history.push({
+                        pathname: './addressList', callback: this.setAddress
+                    });
+                }}>
+                    <div style={{flex: 1}}>
+                        <div className="art-order-detail__adress">
+                            <div>{ShippingContactWith}</div>
+                            <div>{ShippingPhone}</div>
                         </div>
-                        <div>{ShippingAddress}</div>
+
+                        <div className="art-order-detail__location">
+                            <div>
+                            </div>
+                            <div>{ShippingAddress}</div>
+                        </div>
+                    </div>
+                    <div className="art-icon art-icon-arrow art-order-detail__arrow">
                     </div>
                 </div>
-                <div className="art-icon art-icon-arrow art-order-detail__arrow">
+            )
+        } else {
+            return (
+                <div className="art-order-detail__noAdress" onClick={() => {
+                    history.push({
+                        pathname: './addressList', callback: this.setAddress
+                    });
+                }}>
+                    <span>请选择收获地址</span>
+                    <div className="art-icon art-icon-arrow-noAdress art-order-detail__arrow">
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     };
 
     render() {
@@ -82,6 +103,7 @@ class SubmitOrder extends PureComponent {
 
                 {this.showAddress()}
 
+                <Space/>
                 {productList.map((product, index) => {
                     const {ProviderName, Name, KillPrice, productNumber = 1, MainImgs = []} = product;
                     return (
@@ -124,7 +146,7 @@ class SubmitOrder extends PureComponent {
                     <div className="art-order-detail__bussinss-title">
                         <div className="art-order-detail__bussinss-title-name">实付款( 含运费):</div>
                         <div className="art-order-detail__bussinss-title-count"
-                             style={{color: '#F35576', fontSize: '36px', border: 'none'}}>{`￥${money}`}
+                             style={{color: '#F35576', border: 'none'}}>{`￥${money}`}
                         </div>
                     </div>
                 </div>

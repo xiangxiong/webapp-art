@@ -9,12 +9,20 @@
             height: 30px;
             padding-left: 15px;
             padding-top: 15px;
+            font-size:15px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
+            color:rgba(39,39,39,1);
         }
 
         &>div:nth-child(2){
             width: 80%;
             height: 30px;
             padding-top: 15px;
+            font-size:15px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
+            color:rgba(39,39,39,1);
         }
     }
 
@@ -43,6 +51,9 @@
             width: 80%;
             height: 30px;
             color: #444444;
+            font-size:15px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
         }
     }
 
@@ -71,7 +82,7 @@
                 text-align: left;
                 line-height: 40px;
                 padding-left: 15px;
-                font-size:13px;
+                font-size:15px;
                 font-family:MicrosoftYaHei;
                 font-weight:400;
                 color:rgba(39,39,39,1);
@@ -82,7 +93,7 @@
                 text-align: right;
                 line-height: 40px;
                 padding-right: 15px;
-                font-size:13px;
+                font-size:15px;
                 font-family:MicrosoftYaHei;
                 font-weight:400;
                 color:rgba(122,122,122,1);
@@ -114,7 +125,7 @@
 
                 &>p{
                     margin-top: 5px;
-                    font-size:13px;
+                    font-size:15px;
                     font-family:MicrosoftYaHei;
                     font-weight:400;
                     color: #999999;
@@ -165,7 +176,30 @@
             text-align: center;
             line-height: 52px;
             color: #FFFFFF;
-            font-size: 14px;
+            font-size: 15px;
         }
+    }
+
+    &__noAdress{
+        height: 60px;
+        display: flex;
+        background: #FFFFFF;
+        justify-content: center;
+        align-items: center;
+
+        & > span {
+            font-size: 14px;
+            font-family: MicrosoftYaHei;
+            font-weight: 400;
+            color: rgba(39,39,39,1);
+        }
+    }
+}
+
+.am-textarea-control {
+    & > textarea {
+        font-size: 14px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
     }
 }

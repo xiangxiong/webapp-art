@@ -7,7 +7,7 @@
         margin-top: 1.2rem;
 
         &>h4{
-            font-size:15px;
+            font-size:20px;
             font-family:MicrosoftYaHei-Bold;
             font-weight:bold;
             padding-top: 16px;
@@ -206,7 +206,7 @@
     &__tooBar{
         height: 55px;
         width: 100%;
-        background: #FFFFFF;
+        background: #FF0000;
         border-top: 1px solid #ddd;
         position:fixed;
         bottom: 0;
@@ -254,16 +254,16 @@
             }
         }
 
-        &>div:nth-child(4){
-            width: 54%;
+        &>div:nth-child(1){
+            width: 100%;
             text-align: center;
             border-right: 1px solid #ddd;
-            background: #FFFFFF;
+            background: #E87908;
             line-height: 60px;
             font-size:18px;
             font-family:MicrosoftYaHei;
             font-weight:400;
-            color:rgba(51,51,51,1);
+            color:#FFFFFF;
         }
 
         &>div:nth-child(5){
