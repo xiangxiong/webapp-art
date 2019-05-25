@@ -40,11 +40,16 @@
 
             &>h3{
                 color: $color-text-base;
-                @include subtitle;
+                font-size:14px;
+                font-family:MicrosoftYaHei;
+                font-weight:400;
+                margin-bottom: 10px;
             }
 
             &>p{
-                @include subtitle;
+                font-size:13px;
+                font-family:MicrosoftYaHei;
+                font-weight:400;
                 color: $color-grey-6;
             }
         }

@@ -3,17 +3,8 @@ import PublicHeader from './../../../components/header';
 import history from './../../../utils/history';
 import './index.scss';
 
-const LoadData = () => {
-    setTimeout(()=>{
-        history.push('/pay',{
-            type:'art'
-        });
-    },1000);
-}
 
 const Pending = (props) => {
-    LoadData();
-
     return (
         <Fragment>
             <PublicHeader title="申请加盟店"/>
@@ -25,5 +16,5 @@ const Pending = (props) => {
             <div className="art-pending__contact">联系客服 400-234-3534</div>
         </Fragment>
     )
-}
+};
 export default Pending;

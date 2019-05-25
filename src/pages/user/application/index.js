@@ -1,5 +1,5 @@
 import React, {PureComponent, Fragment, useState} from 'react';
-import {List, Flex,InputItem, Checkbox, Button, ActionSheet} from 'antd-mobile';
+import {List, InputItem, Checkbox, Button, ActionSheet, Toast} from 'antd-mobile';
 import './index.scss';
 import PublicHeader from './../../../components/header'
 import {ImagePicker} from 'antd-mobile';
@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import history from './../../../utils/history';
 import {getCreateIntertionalPartener, getQueryCategoryList} from "../store/actionCreators";
 import connect from "react-redux/es/connect/connect";
+import _ from 'lodash';
 
 const AgreeItem = Checkbox.AgreeItem;
 const data = [];
@@ -84,18 +85,34 @@ class Application extends PureComponent {
     }
 
     handleSubmit() {
-        history.push('/pend');
-        const {type, Provider, Phone, isAgreement, CategoryId, files} = this.state;
-        const {ShippingAddress = "huhu", ShippingContactWith = "sdf"} = this.props;
+        const {type, Provider, Phone, isAgreement, CategoryId, CategoryName,files, AddDetail} = this.state;
 
         if (!isAgreement) {
+            Toast.info('请同意协议', 1);
             return
+        }
+        if (_.isEmpty(Provider)) {
+            Toast.info('请输入真实姓名', 1);
+            return;
+        }
+        if (_.isEmpty(CategoryName)) {
+            Toast.info('请选择从事品类', 1);
+            return;
+        }
+        if (_.isEmpty(Phone)) {
+            Toast.info('请输入联系电话', 1);
+            return;
+        }
+        if (_.isEmpty(AddDetail)) {
+            Toast.info('请输入联系地址', 1);
+            return;
         }
 
         let params = {};
 
-        params.Token = '1180036515879212';
-        params.CustomerId = '124';
+        let storage = Storage.Base.getInstance();
+        params.Token = storage.get('userInfo').Token;
+        params.CustomerId = storage.get('userInfo').CustomerId;
 
         if (type === "art") {
             params.CooperationWay = '1';
@@ -106,8 +123,8 @@ class Application extends PureComponent {
         params.CategoryId = CategoryId;
         params.Phone = Phone;
         params.Provider = Provider;
-        params.AddDetail = ShippingAddress;
-        params.Linkman = ShippingContactWith;
+        params.AddDetail = AddDetail;
+        params.Linkman = Provider;
         params.BussinesImageData = files[0].url;
         params.IdentityImage1Data = files[0].url;
         params.IdentityImage2Data = files[0].url;
@@ -152,7 +169,7 @@ class Application extends PureComponent {
                 >商户名称</InputItem>
                 <InputItem
                     clear
-                    placeholder="请输入从事品类"
+                    placeholder="请选择从事品类"
                     value={CategoryName}
                     editable={false}
                     onClick={() => this.handleCategory()}
@@ -169,9 +186,9 @@ class Application extends PureComponent {
                 <InputItem
                     clear
                     placeholder="请选择联系地址"
-                    editable={false}
-                    extra=">"
-                    onClick={() => history.push('/addressList')}
+                    onChange={(v) => {
+                        this.setState({AddDetail: v})
+                    }}
                 >联系地址</InputItem>
             </List>
         )
@@ -191,7 +208,7 @@ class Application extends PureComponent {
                 >姓名</InputItem>
                 <InputItem
                     clear
-                    placeholder="请输入从事品类"
+                    placeholder="请选择从事品类"
                     value={CategoryName}
                     editable={false}
                     onClick={() => this.handleCategory()}
@@ -207,10 +224,10 @@ class Application extends PureComponent {
 
                 <InputItem
                     clear
-                    placeholder="请选择联系地址"
-                    extra=">"
-                    editable={false}
-                    onClick={() => history.push('/addressList')}
+                    placeholder="请输入联系地址"
+                    onChange={(v) => {
+                        this.setState({AddDetail: v})
+                    }}
                 >联系地址</InputItem>
             </List>
         )

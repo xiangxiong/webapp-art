@@ -25,7 +25,7 @@
         font-size:15px;
         font-family:MicrosoftYaHei;
         font-weight:400;
-        color:rgba(33,111,199,1);
+        color:#E87908;
         text-align: center;
         margin: 0 auto;
         padding-top: 11px;
@@ -38,7 +38,7 @@
         @include border-thin-bottom($width:1PX);
         &>div:nth-child(1){
             width:25%;
-            color: $color-warn;
+            color: #E87908;
             font-size: $font-size-xs;
         }
         &>div:nth-child(2){
@@ -64,7 +64,7 @@
     }
 
     &__paysure{
-        background:$color-warn;
+        background:#E87908;
         border-radius:2px;
         margin: 30px 29px 40px 29px;
         height: 45px;
