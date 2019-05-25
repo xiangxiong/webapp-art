@@ -41,31 +41,6 @@ const navItems = [
         title: '订单管理',
         icon: 'art-icon art-icon-user-order',
         routeUrl: ''
-    },
-    {
-        title: '提现',
-        icon: 'art-icon art-icon-user-cash',
-        routeUrl: ''
-    },
-    {
-        title: '协议规则',
-        icon: 'art-icon art-icon-user-rule',
-        routeUrl: ''
-    },
-    {
-        title: '收货地址',
-        icon: 'art-icon art-icon-user-recepter',
-        routeUrl: '/addressList'
-    },
-    {
-        title: '我的银行卡',
-        icon: 'art-icon art-icon-user-bankcard',
-        routeUrl: ''
-    },
-    {
-        title: '联系客服(9:00-21:30)',
-        icon: 'art-icon art-icon-user-service',
-        routeUrl: ''
     }
 ];
 
@@ -102,6 +77,34 @@ const customerNavItems = [
     }
 ];
 
+const normalNavItems = [
+    {
+        title: '好货推荐',
+        icon: 'art-icon art-icon-user-recomand',
+        routeUrl: ''
+    },
+    {
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: ''
+    },
+    {
+        title: '协议规则',
+        icon: 'art-icon art-icon-user-rule',
+        routeUrl: ''
+    },
+    {
+        title: '收货地址',
+        icon: 'art-icon art-icon-user-recepter',
+        routeUrl: '/addressList'
+    },
+    {
+        title: '联系客服(9:00-21:30)',
+        icon: 'art-icon art-icon-user-service',
+        routeUrl: ''
+    }
+];
+
 class User extends PureComponent{
 
     constructor(props) {
@@ -109,6 +112,7 @@ class User extends PureComponent{
         this.state = {
             user: '卖家',
             hasMoreItems: true,
+            ProviderStatus:1
         };
         this.currentPage = 1;//为你推荐 当前页
         // this.bindEvents();
@@ -125,7 +129,7 @@ class User extends PureComponent{
 
     bindSellList() {
         return navItems.map((navItem, index) => {
-            const activeSpace = navItem.title === "订单管理" ? <div className="art-user__space"></div> : "";
+
             return (
                 <List key={index.toString()}>
                     <Item
@@ -135,15 +139,16 @@ class User extends PureComponent{
                         }}>
                         <div><span className={navItem.icon}></span> {navItem.title}</div>
                     </Item>
-                    {activeSpace}
                 </List>
             )
         })
     }
 
     bindBuyList() {
-        return customerNavItems.map((navItem, index) => {
-            const activeSpace = navItem.title === "提现" ? <div className="art-user__space"></div> : "";
+        const {ProviderStatus} = this.state;
+        const navItems  = ProviderStatus === 1 ? normalNavItems: customerNavItems;
+
+        return navItems.map((navItem, index) => {
             return (
                 <List key={index.toString()}>
                     <Item
@@ -153,12 +158,10 @@ class User extends PureComponent{
                         }}>
                         <div><span className={navItem.icon}></span> {navItem.title}</div>
                     </Item>
-                    {activeSpace}
                 </List>
             )
         })
     }
-    
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
@@ -203,22 +206,20 @@ class User extends PureComponent{
             FollowCount = '',
             VisitCount = '',
             GroupCount = '',
-            AwaitPayCount = '',
-            AwaitShipCount = '',
+            AwaitPayCount,
+            AwaitShipCount,
             AwaitReceiptCount = '',
-            AwaitCommentCount = '',
-            ProviderInfo
+            AwaitCommentCount = ''
         } = this.props.customerDetail;
 
-        console.log('obj',this.props.customerDetail);
-        // Object.keys(obj).forEach(function(key){
-        //     console.log(key,obj[key]);
-
-        // for(var a in ProviderInfo){
-        //         if(a==='ProviderStatus'){
-        //             console.log(a+"fdsafds");
-        //         }
-        // }
+        var ObjectItem = this.props.customerDetail.ProviderInfo;
+        for(var item in ObjectItem){
+            if(item==='ProviderStatus'){
+                this.setState({
+                    ProviderStatus:ObjectItem[item]
+                })
+            }
+        }
 
         return (
             <Fragment>
@@ -260,13 +261,6 @@ class User extends PureComponent{
                         </InfiniteScroll>
                     </div>
                     <div style={styles.tab}>
-                        <OrderItem
-                            AwaitPayCount={AwaitPayCount}
-                            AwaitShipCount={AwaitShipCount}
-                            AwaitReceiptCount={AwaitReceiptCount}
-                            AwaitCommentCount={AwaitCommentCount}
-                        />
-                        <div className="art-user__space"></div>
                         <div className="art-user__nav">
                             {this.bindSellList()}
                         </div>
@@ -285,7 +279,6 @@ class User extends PureComponent{
 }
 
 const mapStateToProps = ({user, home}) => {
-
     console.log('user.customerDetail',user.customerDetail);
     return {
         customerDetail: user.customerDetail,
