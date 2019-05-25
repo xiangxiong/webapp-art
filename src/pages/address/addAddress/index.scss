@@ -25,8 +25,15 @@
 
     & > span:nth-child(2) {
       height: 15px;
-      @include fontsize(MicrosoftYaHei, 30px, #C52125);
+      @include fontsize(MicrosoftYaHei, '30px', #C52125);
       line-height: 15px;
     }
   }
+}
+
+.am-list-item.am-input-item {
+  height: 0.44rem;
+  border-radius: 0.03rem;
+  padding-left: 0rem;
+  margin: 0.1rem;
 }

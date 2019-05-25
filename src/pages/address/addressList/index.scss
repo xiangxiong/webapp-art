@@ -24,13 +24,20 @@
         display: flex;
         height: 15px;
         line-height: 15px;
-        @include fontsize(MicrosoftYaHei, 30px, #000000);
 
         & > span:nth-child(1) {
           width: 75px;
+          font-family: MicrosoftYaHei;
+          font-size: 15px;
+          color: #000000;
+          font-weight: 400;
         }
         & > span:nth-child(2) {
           flex: 1;
+          font-family: MicrosoftYaHei;
+          font-size: 15px;
+          color: #000000;
+          font-weight: 400;
         }
       }
 
@@ -50,7 +57,7 @@
             line-height: 16px;
             border-radius: 2px;
             background: rgba(255, 255, 255, 1);
-            font-size: 12px;
+            font-size: 13px;
             font-family: MicrosoftYaHei;
             font-weight: 400;
             border-width: 1px;
@@ -62,7 +69,10 @@
         & > span {
           height: 13px;
           flex: 1;
-          @include fontsize(MicrosoftYaHei, 26px, #444444);
+          font-family: MicrosoftYaHei;
+          font-size: 13px;
+          color: #444444;
+          font-weight: 400;
           line-height: 13px;
         }
       }
@@ -88,7 +98,10 @@
 
     & > span:nth-child(2) {
       height: 15px;
-      @include fontsize(MicrosoftYaHei, 30px, #C52125);
+      font-family: MicrosoftYaHei;
+      font-size: 15px;
+      color: #C52125;
+      font-weight: 400;
       line-height: 15px;
     }
   }

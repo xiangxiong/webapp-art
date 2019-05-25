@@ -40,6 +40,7 @@ class PayOrder extends PureComponent {
     }
 
     render() {
+        const {OrderAmount = 0.00} = this.props.location.state;
         return (
             <Fragment>
                 <PublicHeader title="收银台" bgColor="#E87908"/>
@@ -47,7 +48,7 @@ class PayOrder extends PureComponent {
                     <div className="art-icon art-icon-wechat"></div>
                     <div>微信支付</div>
                 </div>
-                <Action text="付款" price="1234" HandleSubmitOrder={() => {
+                <Action text="付款" price={OrderAmount} HandleSubmitOrder={() => {
                     this.handlePayOrder()
                 }}/>
             </Fragment>

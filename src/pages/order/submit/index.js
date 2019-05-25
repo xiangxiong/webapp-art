@@ -18,6 +18,9 @@ class SubmitOrder extends PureComponent {
     }
     
     HandleSubmitOrder = () => {
+        let storage = Storage.Base.getInstance();
+        let customerId = storage.get('userInfo').CustomerId;
+
         const {UsrMemo = ''} = this.state;
         let {productList = []} = this.props.location.state;
 
@@ -30,7 +33,7 @@ class SubmitOrder extends PureComponent {
 
         const {AddressId = ''} = this.props.defaultAddress;
 
-        this.props.getCreateOrder('11', OrderItems, 0, UsrMemo, AddressId);
+        this.props.getCreateOrder(customerId, OrderItems, 0, UsrMemo, AddressId);
     };
 
     setAddress = (address) => {
@@ -42,7 +45,11 @@ class SubmitOrder extends PureComponent {
     showAddress = () => {
         const {ShippingContactWith = '', ShippingPhone = '', ShippingAddress = ''} = this.props.defaultAddress;
         return (
-            <div style={{display: 'flex', alignItems: 'center', background: '#FFFFFF'}}>
+            <div style={{display: 'flex', alignItems: 'center', background: '#FFFFFF'}}  onClick={() => {
+                history.push({
+                    pathname: './addressList', callback: this.setAddress
+                });
+            }}>
                 <div style={{flex: 1}}>
                     <div className="art-order-detail__adress">
                         <div>{ShippingContactWith}</div>
@@ -55,12 +62,7 @@ class SubmitOrder extends PureComponent {
                         <div>{ShippingAddress}</div>
                     </div>
                 </div>
-                <div className="art-icon art-icon-arrow art-order-detail__arrow"
-                     onClick={() => {
-                         history.push({
-                             pathname: './addressList', callback: this.setAddress
-                         });
-                     }}>
+                <div className="art-icon art-icon-arrow art-order-detail__arrow">
                 </div>
             </div>
         )
@@ -144,7 +146,10 @@ class SubmitOrder extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getDefaultAddress('11');
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        this.props.getDefaultAddress(CustomerId);
     }
 }
 

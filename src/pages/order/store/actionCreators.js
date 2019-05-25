@@ -89,23 +89,23 @@ export const getPOrderInfo = (params) => {
 
 export const getPayParams = (params) => {
     return async (dispatch) => {
-       const result = await getWechatParams(params);
-       return result;
+        const result = await getWechatParams(params);
+        return result;
     }
 };
 
-const getWechatParams =(params) =>{
+const getWechatParams = (params) => {
     return axios({
-                method: 'post',
-                url: API_PAY,
-                data: JSON.stringify(params),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                },
-                timeout: 3000
-           })
-           .then(response => {
-                return response;
-           });
-}
+        method: 'post',
+        url: API_PAY,
+        data: JSON.stringify(params),
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        },
+        timeout: 3000
+    })
+        .then(response => {
+            return response;
+        });
+};

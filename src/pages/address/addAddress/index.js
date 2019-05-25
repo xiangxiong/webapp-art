@@ -16,6 +16,9 @@ class AddAddress extends PureComponent {
     }
 
     onSubmit = () => {
+        let storage = Storage.Base.getInstance();
+        let Token = storage.get('userInfo').Token;
+
         let {Provider, Phone, addressID = [], ShippingAddress, isDefault = false} = this.state;
 
         let Dto = {};
@@ -35,11 +38,12 @@ class AddAddress extends PureComponent {
         //地址标签
         Dto.AddressLabel = '0';
 
-        this.props.getAddressAdd('1180036515879212', Dto);
+        this.props.getAddressAdd(Token, Dto);
     };
 
     render() {
         const {} = this.props.form;
+        const { getFieldProps } = this.props.form;
 
         return (
             <Fragment>
@@ -68,7 +72,7 @@ class AddAddress extends PureComponent {
                             extra="请选择"
                             data={addressData}
                             title="选择地区"
-                            {...('addressData')}
+                            {...getFieldProps('addressData')}
                             onOk={e => {
                                 this.setState({addressID: e})
                             }}>
@@ -119,4 +123,6 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(createForm()(AddAddress));
+const FormWrappedAddAddress = createForm()(AddAddress);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWrappedAddAddress);

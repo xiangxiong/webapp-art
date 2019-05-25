@@ -41,7 +41,10 @@ class AddressList extends PureComponent {
                             }}
                             onClick={() => {
                                 if (IsDefault != 1) {
-                                    this.props.getAddressSetDefault('1180036515879212', AddressId);
+                                    let storage = Storage.Base.getInstance();
+                                    let Token = storage.get('userInfo').Token;
+
+                                    this.props.getAddressSetDefault(Token, AddressId);
                                 }
                             }}
                         >
@@ -55,7 +58,10 @@ class AddressList extends PureComponent {
                 <div className="art-list__item___right">
                     <div className="art-icon art-icon-add"
                          onClick={() => {
-                             this.props.getAddressDelete('1180036515879212', [AddressId]);
+                             let storage = Storage.Base.getInstance();
+                             let Token = storage.get('userInfo').Token;
+
+                             this.props.getAddressDelete(Token, [AddressId]);
                          }}>
                     </div>
                 </div>
@@ -87,7 +93,10 @@ class AddressList extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getAddressList('124', 1, 50);
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        this.props.getAddressList(CustomerId);
     }
 }
 
@@ -98,8 +107,8 @@ const mapStateToProps = ({address}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getAddressList: (CustomerId, PageIndex, PageSize) => {
-        dispatch(getAddressList({CustomerId, PageIndex, PageSize}))
+    getAddressList: (CustomerId) => {
+        dispatch(getAddressList({CustomerId, PageIndex: 1, PageSize: 50}))
     },
 
     getAddressSetDefault: (token, AddressId) => {

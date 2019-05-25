@@ -73,7 +73,7 @@ class Home extends PureComponent{
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
     storage.set("userInfo",{
-      "Token": 1242926313630629,
+      "Token": 2390648179516024,
       "Register": true,
       "Type": 2,
       "CustomerId": 11,

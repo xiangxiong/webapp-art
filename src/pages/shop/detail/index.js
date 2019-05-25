@@ -161,8 +161,11 @@ class Detail extends PureComponent {
 
     componentDidMount() {
         const {ProductId} = this.props.location.state;
+        let storage = Storage.Base.getInstance();
+        let customerId = storage.get('userInfo').CustomerId;
+
         this.props.getWorthGoodsDetail(ProductId);
-        this.props.getProductComment([ProductId], '11');
+        this.props.getProductComment([ProductId], customerId);
     }
 }
 
