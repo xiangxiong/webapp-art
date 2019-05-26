@@ -3,7 +3,7 @@ import PublicHeader from './../../../components/header';
 import {Checkbox} from 'antd-mobile';
 import './index.scss';
 import connect from "react-redux/es/connect/connect";
-import {getDict} from "../store/actionCreators";
+import {getDict, getUpdatePartenerDeposit} from "../store/actionCreators";
 import history from './../../../utils/history';
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -44,6 +44,9 @@ class Pay extends PureComponent {
         const {type} = this.props.location.state;
         const title = type === "art" ? "成为合作艺术家" : "成为艺术商城商户";
         let {userDictList} = this.props;
+        const {selectedNumber, selectedAmount} = this.state;
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
 
         return (
             <Fragment>
@@ -58,10 +61,17 @@ class Pay extends PureComponent {
                 })}
 
                 <div className="art-add__paysure" onClick={() => {
-                    //支付
-                    history.push({
-                        pathname: '/payorder',
-                        state: {OrderAmount: this.state.selectedAmount}
+                    this.props.getUpdatePartenerDeposit({
+                        TransactionNumber: selectedNumber,
+                        CustomerId,
+                        Deposit: selectedAmount
+                    }).then(() => {
+                        const {ProviderId} = this.props.userIntertionalPartener;
+                        //支付
+                        history.push({
+                            pathname: '/payorder',
+                            state: {OrderAmount: this.state.selectedAmount, ProviderId}
+                        });
                     });
                 }}>
                     确认并支付保障金
@@ -79,13 +89,15 @@ class Pay extends PureComponent {
 const mapStateToProps = ({user}) => {
     return {
         userDictList: user.userDictList,
+        userIntertionalPartener: user.userIntertionalPartener,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     getDict: (params) => {
         dispatch(getDict(params))
-    }
+    },
+    getUpdatePartenerDeposit: (params) => dispatch(getUpdatePartenerDeposit(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pay);

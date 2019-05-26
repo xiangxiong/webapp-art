@@ -101,3 +101,6 @@ export const GET_WECHAT_OAUTH_API = 'Art.Service.Customer.Dto.Api.GetWeChatOAuth
 
 // 绑定用户信息
 export const BIND_WECHAT_USERNAME = 'Art.Service.Customer.Dto.Api.PartnerSetPwRequest';
+
+// 更新意向商家保证金信息
+export const UPDATE_PARTENER_DEPOSIT = 'Art.Service.Product.Dto.Api.UpdatePartenerDepositRequest';

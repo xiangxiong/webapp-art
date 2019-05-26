@@ -13,7 +13,8 @@ import {
     VIDEO_UPLOADER_API,
     SHOP_STORE_OFFLINE_API,
     GET_WECHAT_OAUTH_API,
-    BIND_WECHAT_USERNAME
+    BIND_WECHAT_USERNAME,
+    UPDATE_PARTENER_DEPOSIT
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -134,6 +135,22 @@ export const getQueryIntertionalPartener = (params) => {
         return post(QueryIntertionalPartener, params)
             .then((response) => {
                 dispatch(queryIntertionalPartener(response.Data.Entity));
+            });
+    }
+};
+
+export const getUpdatePartenerDeposit = (params) => {
+    return (dispatch) => {
+        return post(UPDATE_PARTENER_DEPOSIT, params)
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    let storage = Storage.Base.getInstance();
+                    let Token = storage.get('userInfo').Token;
+                    let CustomerId = storage.get('userInfo').CustomerId;
+                    dispatch(getQueryIntertionalPartener({Token, CustomerId}));
+                } else {
+                    Toast.info('网络异常');
+                }
             });
     }
 };
