@@ -11,7 +11,8 @@ import {
     GET_MERCHANT_PRODUCT_LIST,
     DIC_ITEM_API,
     VIDEO_UPLOADER_API,
-    SHOP_STORE_OFFLINE_API
+    SHOP_STORE_OFFLINE_API,
+    GET_WECHAT_OAUTH_API
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -158,4 +159,9 @@ export const offLineProduct = (params) => {
     }
 }
 
-
+export const getWeChatOauth = (params) => {
+    return async (dispatch)=>{
+        const result = await post(GET_WECHAT_OAUTH_API,params);
+        return  result.Data.DataList;
+    }
+}

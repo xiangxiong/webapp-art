@@ -14,10 +14,6 @@ import Product from './../common/product';
 import Title from './../common/title';
 
 class Shop extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
 
@@ -78,15 +74,12 @@ const mapDispatchToProps = dispatch => ({
     getShopAdvertList: (type) => {
         dispatch(getAdvertList(type))
     },
-
     getShopNewsPagerList: () => {
         dispatch(getNewsPagerList({CategoryId: 4, CurrentPage: 1, PageSize: 3}))
     },
-
     getProductCommend: () => {
         dispatch(getProductCommend({CommendType: 1, CurrentPage: 1, PageSize: 4}))
     },
-
     getUserLikeProducts: (CustomerId) => {
         dispatch(getUserLikeProducts({CustomerId, Position: 2, CurrentPage: 1, PageSize: 4}))
     }

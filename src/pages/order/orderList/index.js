@@ -154,10 +154,10 @@ class OrderList extends PureComponent {
     render() {
         const {index = 0} = this.props.location.state;
         const {orderList = []} = this.props;
-
+        
         return (
             <Fragment>
-                <PublicHeader title="我的订单"/>
+                <PublicHeader jump="User" title="我的订单"/>
 
                 <div className="art-list">
                     <Tabs tabs={orderTabs}

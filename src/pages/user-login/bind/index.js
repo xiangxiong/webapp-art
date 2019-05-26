@@ -65,12 +65,13 @@ class Bind extends PureComponent{
         };
 
         const result = await this.props.handleSendCode(data);
+
         if(result.Status === 200){
             Toast.success("发送成功");
         }else{
             Toast.fail('网络异常',1);
         }
-
+        
         setInterval(function(){
             if(time<=0){
                 that.setState({

@@ -76,7 +76,7 @@ class AddressList extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader title="地址管理"/>
+                <PublicHeader jump="User" title="地址管理"/>
                 <div className="art-list">
                     {addressList.map((address, index) => {
                         return this.showAddressItem(address, index);

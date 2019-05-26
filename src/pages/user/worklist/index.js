@@ -98,7 +98,7 @@ class WorkList extends PureComponent{
     render(){
         return (
             <Fragment>
-                <PublicHeader title="作品库" bgColor="#E87908"/>
+                <PublicHeader title="作品库" jump="User" bgColor="#E87908"/>
                 {this.getWorkItem(this.props.workList)}
             </Fragment>
         )
