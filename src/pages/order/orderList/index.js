@@ -68,15 +68,16 @@ class OrderList extends PureComponent {
                     <span>{`共${ProductCount}件商品 合计:￥${SOAmount}(运费￥0)`}</span>
                 </div>
 
-                {this.getOrderOperation(OrderStatus)}
+                {this.getOrderOperation(order)}
             </div>
         )
     };
 
 
     //付款
-    onPayment = () => {
-
+    onPayment = (order) => {
+        let {OrderAmount, SONumber} = order;
+        history.push('./payorder', {OrderAmount, SONumber});
     };
 
     //确认收货
@@ -93,13 +94,15 @@ class OrderList extends PureComponent {
     returnGoods = () => {
     };
 
-    getOrderOperation = (OrderStatus) => {
+    getOrderOperation = (order) => {
+        const {OrderStatus} = order;
+
         switch (OrderStatus) {
             case 5:
                 return (
                     <div className="art-list__bussinss-operation">
                         <div className="art-list__bussinss-operation-item" onClick={() => {
-                            this.onPayment();
+                            this.onPayment(order);
                         }}>
                             立即付款
                         </div>
