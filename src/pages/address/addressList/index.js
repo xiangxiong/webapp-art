@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getAddressList, getAddressSetDefault, getAddressDelete} from '../store/actionCreators';
 import PublicHeader from './../../../components/header'
 import history from './../../../utils/history';
+import {PICTUREURL} from '../../../utils/api';
 
 class AddressList extends PureComponent {
 
@@ -77,6 +78,12 @@ class AddressList extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="地址管理"/>
+                <div
+                     style={{
+                         height: '10px',
+                         width: '100%',
+                         background:`url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
+                     }}/>
                 <div className="art-list">
                     {addressList.map((address, index) => {
                         return this.showAddressItem(address, index);

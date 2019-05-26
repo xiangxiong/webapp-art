@@ -6,6 +6,7 @@ import {getGetOrderDetail, getPOrderInfo} from '../store/actionCreators';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/common';
 import {formatDate} from '../../../utils/common';
+import {PICTUREURL} from '../../../utils/api';
 
 class OrderDetails extends PureComponent {
 
@@ -82,6 +83,12 @@ class OrderDetails extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader title="订单详情"/>
+                <div
+                    style={{
+                        height: '10px',
+                        width: '100%',
+                        background:`url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
+                    }}/>
                 <div className="art-details">
                     {this.showAddress({})}
                     <Space/>
