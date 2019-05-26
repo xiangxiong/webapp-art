@@ -12,7 +12,8 @@ import {
     DIC_ITEM_API,
     VIDEO_UPLOADER_API,
     SHOP_STORE_OFFLINE_API,
-    GET_WECHAT_OAUTH_API
+    GET_WECHAT_OAUTH_API,
+    BIND_WECHAT_USERNAME
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -163,5 +164,13 @@ export const getWeChatOauth = (params) => {
     return async (dispatch)=>{
         const result = await post(GET_WECHAT_OAUTH_API,params);
         return  result.Data.DataList;
+    }
+}
+
+// 绑定微信用户信息
+export const bindWeChatOauth = (params) =>{
+    return async (dispatch) =>{
+        const result = await post(BIND_WECHAT_USERNAME,params);
+        return result.Data.DataList;
     }
 }

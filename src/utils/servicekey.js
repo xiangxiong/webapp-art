@@ -98,3 +98,6 @@ export const SHOP_STORE_OFFLINE_API = 'Art.Service.Product.Dto.Api.UpdateProduct
 
 // 获取微信相关的配置参数
 export const GET_WECHAT_OAUTH_API = 'Art.Service.Customer.Dto.Api.GetWeChatOAuthRequest';
+
+// 绑定用户信息
+export const BIND_WECHAT_USERNAME = 'Art.Service.Customer.Dto.Api.PartnerSetPwRequest';

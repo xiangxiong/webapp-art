@@ -166,6 +166,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     }
 }
+
 // const mapDispatchToProps = dispatch => ({
 //     getAdvertList: (type) => {
 //         dispatch(getAdvertList(type))

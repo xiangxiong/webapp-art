@@ -21,7 +21,6 @@ const orders =  [
 ];
 
 class Works extends PureComponent{
-
     constructor(props){
       super(props);
         this.state = {
@@ -300,7 +299,6 @@ class Works extends PureComponent{
         if(mainFiles.length > 0){
             base64String = encodeURIComponent(mainFiles[0].url.split(',')[1]);
         }
-
         var product = {
           CustomerId:CustomerId,
           ProviderId:ProviderId,
@@ -324,14 +322,14 @@ class Works extends PureComponent{
           }]
         };
 
-        let params = {
-          ParamList: [
-              {
-                  servicekey:'Art.Service.Product.Dto.Api.ProviderPublishProductRequest',
-                  jsonobjparam: JSON.stringify(product)
-              }
-          ]
-        };
+          let params = {
+            ParamList: [
+                {
+                    servicekey:'Art.Service.Product.Dto.Api.ProviderPublishProductRequest',
+                    jsonobjparam: JSON.stringify(product)
+                }
+            ]
+          };
 
           Toast.info("商品发布成功");
           history.push('/worklist');
@@ -347,7 +345,7 @@ class Works extends PureComponent{
             timeout: 5000
          }).then((response)=>{
             if(response.data.DataObject.Data.Status === 200){
-
+               
             }else{
                Toast.info("商品发布失败");
             }

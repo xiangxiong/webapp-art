@@ -46,21 +46,6 @@ const navItems = [
 
 const customerNavItems = [
     {
-        title: '合作入驻',
-        icon: 'art-icon art-icon-user-cor',
-        routeUrl: '/enter'
-    },
-    // {
-    //     title: '好货推荐',
-    //     icon: 'art-icon art-icon-user-recomand',
-    //     routeUrl: ''
-    // },
-    // {
-    //     title: '提现',
-    //     icon: 'art-icon art-icon-user-cash',
-    //     routeUrl: ''
-    // },
-    {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
         routeUrl: ''
@@ -78,6 +63,11 @@ const customerNavItems = [
 ];
 
 const normalNavItems = [
+    {
+        title: '合作入驻',
+        icon: 'art-icon art-icon-user-cor',
+        routeUrl: '/enter'
+    },
     // {
     //     title: '好货推荐',
     //     icon: 'art-icon art-icon-user-recomand',
@@ -128,8 +118,9 @@ class User extends PureComponent{
     }
 
     bindSellList() {
-        return navItems.map((navItem, index) => {
 
+
+        return navItems.map((navItem, index) => {
             return (
                 <List key={index.toString()}>
                     <Item
@@ -196,11 +187,14 @@ class User extends PureComponent{
     }
 
     render() {
-        const tabs = [
+        const {ProviderStatus} = this.state;
+         
+        const tabs  = ProviderStatus === 1 ?  [
             {title: '我是买家'},
             {title: '我是卖家'}
+        ] : [
+            {title: '我是买家'}
         ];
-
         const {
             UserName = '',
             ImageThumb,
@@ -216,6 +210,7 @@ class User extends PureComponent{
             CustomerType
         } = this.props.customerDetail;
 
+<<<<<<< HEAD
         if (CustomerType == 10) {
             this.setState({
                 ProviderStatus: 2
@@ -235,6 +230,26 @@ class User extends PureComponent{
                 if(item === 'ProviderId'){
                     storage.set('ProviderId',ObjectItem[item]);
                 }
+=======
+        var ObjectItem = this.props.customerDetail.ProviderInfo;
+
+        for(var item in ObjectItem){
+            let storage = Storage.Base.getInstance();
+            if(item==='ProviderStatus'){
+                console.log('ProviderStatus',ObjectItem[item]);
+                storage.set('ProviderStatus',ObjectItem[item]);
+                this.setState({
+                    ProviderStatus:ObjectItem[item]
+                })
+            }
+            if(item === 'CategoryId'){
+                console.log('CategoryId',ObjectItem[item]);
+                storage.set('CategoryId',ObjectItem[item]);
+            }
+            if(item === 'ProviderId'){
+                console.log('ProviderId',ObjectItem[item]);
+                storage.set('ProviderId',ObjectItem[item]);
+>>>>>>> fix wechat login
             }
         }
 
@@ -249,7 +264,7 @@ class User extends PureComponent{
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
                 />
-                <Tabs tabs={tabs} initialPage={1}>
+                <Tabs tabs={tabs} initialPage={0}>
                     <div style={styles.tab}>
                         <InfiniteScroll
                             loadMore={this.loadMoreItem.bind(this)}
@@ -286,7 +301,7 @@ class User extends PureComponent{
 
     async getWeChatOauth(){
         const data = {
-            Url:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=http://art.laoliwuyou.com&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect'
+            Url:encodeURIComponent('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=http://art.laoliwuyou.com&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect')
         };
         const result = await this.props.getWeChatOauth(data);
         console.log('result',result);

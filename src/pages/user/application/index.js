@@ -30,8 +30,7 @@ const artsTitle = [
     {title: '上传头像照'},
     {title: '上传身份证正面照'},
     {title: '上传身份证反面照'}
-]
-
+];
 
 class Application extends PureComponent {
     constructor(props) {
