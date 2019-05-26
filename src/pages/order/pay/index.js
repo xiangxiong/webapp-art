@@ -25,17 +25,17 @@ class PayOrder extends PureComponent {
         console.log('OrderNumber',OrderNumber);
         console.log('ProviderId',ProviderId);
 
-        var payType = "1";
-
+        var payType = 1;
+        
         if(SONumber > 0 ||  OrderNumber>0){
             payType = 1;
         }
-        
+
         if(ProviderId>0){
             payType = 2;
         }
-        console.log("data",data);
-        const result = await this.props.handleWechatPay(data);
+
+        const result = await this.props.handleWechatPay(data,payType);
         
         console.log('result.data.Data',result.data.Data);
 
