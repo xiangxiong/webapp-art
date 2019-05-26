@@ -138,13 +138,9 @@ class Home extends PureComponent{
   componentDidMount(){
      this.initLikeList();
      this.initLogin();
-  }
-
-  componentDidUpdate(){
-    // console.log('history.location.state.tab',history.location.state.tab);
-    // this.setState({
-    //   selectedTab:history.location.state.tab
-    // });
+     this.setState({
+      selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
+    });
   }
 
   async initLogin(){
@@ -182,20 +178,11 @@ class Home extends PureComponent{
               console.log('登录成功');
           }
       }
+
     }
   }
 
   render(){
-    //  var that = this;
-    //  eventProxy.on("targetHome",(object)=>{
-    //   console.log("object",object);
-    //   that.setState({
-    //     selectedTab:'blueTab'
-    //   });
-    //  });
-      //console.log('user',history.location.state.tab);
-      console.log('selectedTab',this.state.selectedTab);
-
      return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
         <TabBar
@@ -227,6 +214,7 @@ class Home extends PureComponent{
             key="shop"
             selected={ this.state.selectedTab === 'redTab'}
             onPress={() => {
+              console.log('this.state.selectedTab');
               this.setState({
                 selectedTab: 'redTab'
               });

@@ -36,12 +36,14 @@ class PublicHeader extends PureComponent{
                     mode="light"
                     icon={<Icon type={icon}/>}
                     onLeftClick={() => {
+                        console.log('User');
                         if(jump === "User"){
-                            history.push('./',{tab:jump});
-                        }else{
-                            // history.push('./home',{tab:'blue'});
-                            history.go(-1)
+                            history.push('/home?tab='+jump);
                         }
+                        else{
+                            history.push('/home?tab=1');
+                        }
+                        // history.go(-1)
                     }}
                     rightContent={
                         share && <div className="art-icon art-icon-share"></div>

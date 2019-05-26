@@ -22,7 +22,9 @@ WeChatPay.Base = (function(){
                      function(res){
                         callback(res);
                });
-         }catch(e){
+         }
+         catch(e)
+         {
             Toast.info("请在微信客户端进行支付!");
          }
       }
