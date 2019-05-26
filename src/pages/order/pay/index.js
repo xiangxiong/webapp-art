@@ -11,7 +11,6 @@ class PayOrder extends PureComponent {
 
     async handlePayOrder(){
         const {OrderAmount = 0, SONumber = 0, OrderNumber = 0,ProviderId = 0} = this.props.location.state;
-
         let storage = Storage.Base.getInstance(),
             token = storage.get("userInfo").Token,
             openId = storage.get("oauthInfo").OpenId;
@@ -26,7 +25,7 @@ class PayOrder extends PureComponent {
         console.log('ProviderId',ProviderId);
 
         var payType = 1;
-        
+
         if(SONumber > 0 ||  OrderNumber>0){
             payType = 1;
         }
