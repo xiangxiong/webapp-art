@@ -146,6 +146,9 @@ class Home extends PureComponent{
   async initLogin(){
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
+    // storage.set("oauthInfo",{
+    //   "OpenId":'232432'
+    // });
     // storage.set("userInfo",{
     //   "Token": 2390648179516024,
     //   "Register": true,
