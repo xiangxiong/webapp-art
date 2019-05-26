@@ -143,7 +143,7 @@ export const getUpdatePartenerDeposit = (params) => {
     return (dispatch) => {
         return post(UPDATE_PARTENER_DEPOSIT, params)
             .then((response) => {
-                if (response.Data && response.Data.Status == 200) {
+                if (response && response.Status == 200) {
                     let storage = Storage.Base.getInstance();
                     let Token = storage.get('userInfo').Token;
                     let CustomerId = storage.get('userInfo').CustomerId;
