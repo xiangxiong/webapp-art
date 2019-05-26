@@ -76,7 +76,7 @@ class Home extends PureComponent{
   }
 
   renderContent(pageText){
-        console.log('this.props',this.props.getUserLikeList);
+      
 
         if(pageText==="USER"){
           return (
@@ -90,7 +90,7 @@ class Home extends PureComponent{
 
         if(pageText==="MAIN"){
           return (
-            <div className="container">
+            <div className="container" >
               <Scroll
               click={true}
               pullUpLoad
@@ -106,7 +106,7 @@ class Home extends PureComponent{
 
         if(pageText==="ARTSHOP"){
            return (
-              <div className="container">
+            <div className="container">
                 <Scroll
                   click={true}
                   pullUpLoad
@@ -141,6 +141,8 @@ class Home extends PureComponent{
      this.setState({
       selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
     });
+    console.log('height',document.body.clientHeight);
+    console.log('height',document.getElementById("root").getBoundingClientRect());
   }
 
   async initLogin(){

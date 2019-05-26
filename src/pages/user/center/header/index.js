@@ -7,7 +7,7 @@ const Header = (props) =>{
         <Fragment>
                 <div className="art-user__info">
                      <div>
-                         <img src={src}/>
+                           <img src={src == null ? "" : src}/>
                      </div>
                      <div>
                          <div>{UserName}</div>

@@ -8,7 +8,7 @@ class Success extends React.Component{
     HandleRouterHome(){
         history.push('/home?tab=User');
     }
-
+    
     render(){
         return (
                 <Fragment>
@@ -26,4 +26,5 @@ class Success extends React.Component{
         )
     }
 }
+
 export default Success;

@@ -44,7 +44,7 @@ class PayOrder extends PureComponent {
             window.WeChatPay.Base.getInstance().WeChatPay(result.data.Data,this.HandlePayCallBack);
         }
         else {
-            Toast.info("网络异常");
+            Toast.info("发起支付异常!");
         }
     }
 
@@ -54,7 +54,7 @@ class PayOrder extends PureComponent {
             history.push('/success');
          }
          else{
-            Toast.success('网络异常');
+            Toast.success('支付已取消!');
          }
     }
 
