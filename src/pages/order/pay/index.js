@@ -10,15 +10,30 @@ import history from './../../../utils/history';
 class PayOrder extends PureComponent {
 
     async handlePayOrder(){
-        const {OrderAmount = 0, SONumber = 0, OrderNumber = 0} = this.props.location.state;
+        const {OrderAmount = 0, SONumber = 0, OrderNumber = 0,ProviderId = 0} = this.props.location.state;
 
         let storage = Storage.Base.getInstance(),
             token = storage.get("userInfo").Token,
-            openId = storage.get("oauthInfo").OpenId,
-            ProviderId = storage.get("ProviderId");
+            openId = storage.get("oauthInfo").OpenId;
 
         let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${OrderNumber}|${ProviderId}`);
 
+        console.log('token',token);
+        console.log('OrderAmount',OrderAmount);
+        console.log('openId',openId);
+        console.log('SONumber',SONumber);
+        console.log('OrderNumber',OrderNumber);
+        console.log('ProviderId',ProviderId);
+
+        var payType = "1";
+
+        if(SONumber > 0 ||  OrderNumber>0){
+            payType = 1;
+        }
+        
+        if(ProviderId>0){
+            payType = 2;
+        }
         console.log("data",data);
         const result = await this.props.handleWechatPay(data);
         
@@ -61,7 +76,7 @@ class PayOrder extends PureComponent {
 
 const mapDispatchToProps = dispatch => {
     return {
-        handleWechatPay: (data) =>  dispatch(getPayParams({PayType: 'PayOrder', PayMethod:'WeChatJs',data}))
+        handleWechatPay: (data,payType) =>  dispatch(getPayParams({PayType: payType, PayMethod:'WeChatJs',data}))
     }
 };
 
