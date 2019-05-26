@@ -48,7 +48,7 @@ class Home extends PureComponent{
   async loadMoreData(props) {
     let storage = Storage.Base.getInstance().get("userInfo");
     let data = {
-        CustomerId: storage.CustomerId,
+        CustomerId: storage.CustomerId ==null? 0: storage.CustomerId,
         Position: 1,
         CurrentPage: countCurrentPage,
         PageSize:2
@@ -125,7 +125,7 @@ class Home extends PureComponent{
   async initLikeList(){
     let storage = Storage.Base.getInstance().get("userInfo");
     let data = {
-      CustomerId: storage.CustomerId,
+      CustomerId: storage.CustomerId == null ? 0 : storage.CustomerId ,
       Position: 1,
       CurrentPage:1,
       PageSize:10
@@ -136,8 +136,8 @@ class Home extends PureComponent{
   }
 
   componentDidMount(){
-     this.initLikeList();
      this.initLogin();
+     this.initLikeList();
      this.setState({
       selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
     });
@@ -159,7 +159,7 @@ class Home extends PureComponent{
     //   "IMUserSigExpire": 0
     // });
     if(storage.get("code") === ""){
-        // history.push('/oauth');
+        history.push('/oauth');
     }
     else{
       const result = await this.props.getAuthInfo({code:storage.get("code")});

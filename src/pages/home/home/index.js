@@ -78,7 +78,7 @@ class Main extends PureComponent{
                 this.setState({hasMoreItems: false}, () => {
                     this.currentPage = ++this.currentPage;
                     let storage = Storage.Base.getInstance();
-                    let CustomerId = storage.get('userInfo').CustomerId;
+                    let CustomerId = storage.get('userInfo') === null ? 0 :storage.get('userInfo').CustomerId ;
                     this.props.getUserLikeProducts(CustomerId, this.currentPage).then(() => {
                         this.setState({hasMoreItems: true});
                     });
@@ -145,7 +145,7 @@ class Main extends PureComponent{
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
         let storage = Storage.Base.getInstance();
-        let CustomerId = storage.get('userInfo').CustomerId;
+        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
         this.props.getUserLikeProducts(CustomerId, this.currentPage);
     }
 }

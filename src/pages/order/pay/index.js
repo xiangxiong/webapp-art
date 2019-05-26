@@ -10,13 +10,16 @@ import history from './../../../utils/history';
 class PayOrder extends PureComponent {
 
     async handlePayOrder(){
-        const {OrderAmount = 0, SONumber = 0} = this.props.location.state;
+        const {OrderAmount = 0, SONumber = 0, OrderNumber = 0} = this.props.location.state;
 
         let storage = Storage.Base.getInstance(),
+            token = storage.get("userInfo").Token,
             openId = storage.get("oauthInfo").OpenId,
-            token = storage.get("userInfo").Token;
+            ProviderId = storage.get("ProviderId");
 
-        let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${0}|${0}`);
+        let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${OrderNumber}|${ProviderId}`);
+
+        console.log("data",data);
         const result = await this.props.handleWechatPay(data);
         
         console.log('result.data.Data',result.data.Data);

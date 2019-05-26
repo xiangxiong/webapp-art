@@ -76,8 +76,8 @@ class OrderList extends PureComponent {
 
     //付款
     onPayment = (order) => {
-        let {OrderAmount, SONumber} = order;
-        history.push('./payorder', {OrderAmount, SONumber});
+        let {OrderAmount, SONumber, OrderNumber} = order;
+        history.push('./payorder', {OrderAmount, SONumber,OrderNumber});
     };
 
     //确认收货

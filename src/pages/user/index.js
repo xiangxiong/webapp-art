@@ -137,7 +137,7 @@ class User extends PureComponent{
 
     bindBuyList() {
         const {ProviderStatus} = this.state;
-        const navItems  = ProviderStatus === 1 ? normalNavItems: customerNavItems;
+        const navItems  = ProviderStatus === 1 ?  customerNavItems : normalNavItems;
 
         return navItems.map((navItem, index) => {
             return (
@@ -209,47 +209,21 @@ class User extends PureComponent{
             AwaitCommentCount = '',
             CustomerType
         } = this.props.customerDetail;
-
-<<<<<<< HEAD
-        if (CustomerType == 10) {
-            this.setState({
-                ProviderStatus: 2
-            })
-        }else{
-            var ObjectItem = this.props.customerDetail.ProviderInfo;
-            for(var item in ObjectItem){
-                let storage = Storage.Base.getInstance();
-                if(item==='ProviderStatus'){
-                    this.setState({
-                        ProviderStatus:ObjectItem[item]
-                    })
-                }
-                if(item === 'CategoryId'){
-                    storage.set('CategoryId',ObjectItem[item]);
-                }
-                if(item === 'ProviderId'){
-                    storage.set('ProviderId',ObjectItem[item]);
-                }
-=======
+     
         var ObjectItem = this.props.customerDetail.ProviderInfo;
-
         for(var item in ObjectItem){
             let storage = Storage.Base.getInstance();
+            storage.set('ProviderStatus',ObjectItem[item]);
             if(item==='ProviderStatus'){
-                console.log('ProviderStatus',ObjectItem[item]);
-                storage.set('ProviderStatus',ObjectItem[item]);
                 this.setState({
                     ProviderStatus:ObjectItem[item]
                 })
             }
             if(item === 'CategoryId'){
-                console.log('CategoryId',ObjectItem[item]);
                 storage.set('CategoryId',ObjectItem[item]);
             }
             if(item === 'ProviderId'){
-                console.log('ProviderId',ObjectItem[item]);
                 storage.set('ProviderId',ObjectItem[item]);
->>>>>>> fix wechat login
             }
         }
 
