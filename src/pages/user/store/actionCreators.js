@@ -8,7 +8,10 @@ import {
     QueryIntertionalPartener,
     PUBLISH_PRODUCT_API,
     PUBLISH_USER_TYPE,
-    GET_MERCHANT_PRODUCT_LIST
+    GET_MERCHANT_PRODUCT_LIST,
+    DIC_ITEM_API,
+    VIDEO_UPLOADER_API,
+    SHOP_STORE_OFFLINE_API
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 
@@ -47,8 +50,24 @@ export const getUserWorkActionDispatch = (params) => {
     return (dispatch) => {
         return post(GET_MERCHANT_PRODUCT_LIST,params)
         .then((response)=>{
-            dispatch(getUserWorkAction(response))
+            dispatch(getUserWorkAction(response.Data.DataList))
         });
+    }
+}
+
+// 商品下架
+
+const getDicItemAction = (response) => ({
+    type:constants.USER_DIC_ITEM,
+    value:response
+});
+
+export const getDicItem = (params) => {
+    return (dispatch)=>{
+        return post(DIC_ITEM_API,params)
+        .then((response)=>{
+            dispatch(getDicItemAction(response.Data.DataList));
+        })
     }
 }
 
@@ -60,6 +79,21 @@ export const getCustomerDetail = (params) => {
             });
     }
 };
+
+//  上传视频
+const getVideoActionFile = (response) => ({
+    type:constants.USER_UPLOAD_VIDEO,
+    value:response
+});
+
+export const getUploadVideoFile = (params) =>{
+    return (dispatch) => {
+        return post(VIDEO_UPLOADER_API,params)
+        .then((response)=>{
+            dispatch(getVideoActionFile(response.Data))
+        })
+    }
+}
 
 export const getCreateIntertionalPartener = (params) => {
     return (dispatch) => {
@@ -100,22 +134,24 @@ export const getQueryIntertionalPartener = (params) => {
 };
 
 export const createProduct = (params) => {
-    console.log('params',params);
-    return (dispatch) => {
-            return post(PUBLISH_PRODUCT_API,params)
-            .then((response)=>{
-                console.log('response',response);
-                dispatch(publishProduct(response))
-            })
+    return async (dispatch) => {
+            const result = await post(PUBLISH_PRODUCT_API,params);
+            return result.Data;
     }
 }
 
 export const getProductType = (params) => {
-    return (dispatch) => {
-        return post(PUBLISH_USER_TYPE,params)
-            .then((response)=>{
-                dispatch(publishProductType(response))
-            })
+    return async (dispatch) => {
+        const result = await post(PUBLISH_USER_TYPE,params);
+        return result.Data.DataList;
+    }
+}
+
+// 商品库下架
+export const offLineProduct = (params) => {
+    return async (dispatch)=>{
+        const result = await post(SHOP_STORE_OFFLINE_API,params);
+        return result.Data.DataList;
     }
 }
 

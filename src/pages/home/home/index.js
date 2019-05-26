@@ -3,7 +3,6 @@ import './index.scss';
 import {PICTUREURL} from '../../../utils/api';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import InfiniteScroll from 'react-infinite-scroller';
 import {getAdvertList, getNewsPagerList, getUserLikeProducts} from '../store/actionCreators';
 import CarouselBanner from '../../common/carousel';
 import Column from '../../common/column';
@@ -13,7 +12,14 @@ import Space from '../../common/space';
 import Product from './../../common/product';
 import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
+const Data = [];
+let NEWDATAINDEX = 1;
+for(let i=0;i<10;i++){
+    Data.push(i)
+};
+
+var pushList=[];
 
 class Main extends PureComponent{
 
@@ -40,18 +46,27 @@ class Main extends PureComponent{
                 'art-main__search-address-bg':false
             }),
             hasMoreItems: true,
-            current:'visible'
+            current:'visible',
+            listData: Data
         };
         this.currentPage=1;//为你推荐 当前页 hidden
     }
 
     showRecomandItem() {
-        const {DataList = []} = this.props.userLikeProducts;
         var items = [];
-        for (var i = 0; i < DataList.length; i++) {
-            items.push(<Product {...DataList[i]} index={i} key={i.toString()}/>);
+        if(pushList.length<=0){
+            return;
         }
+        pushList.map((item,key)=>{
+            for (var i = 0; i < item.DataList.length; i++) {
+                items.push(<Product {...item.DataList[i]} key={Math.random()}/>);
+            }
+        });
         return items;
+    }
+
+    componentWillMount(){
+        NEWDATAINDEX = 1;
     }
 
     loadMoreItem(){
@@ -66,35 +81,28 @@ class Main extends PureComponent{
                         this.setState({hasMoreItems: true});
                     });
                 });
-            }, 200);
+            },200);
         }
     }
-    
+
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
-        const {scrollCss,searchCss,address,current} = this.state;
-        // ref="artScroll"
-        // style={{overflow:"auto",height:document.documentElement.clientHeight}}
 
         return (
             <Fragment>
                 <div className="art-main">
-                    <div className={scrollCss} style={{'visibility':current}}>
-                        <div className={address}>上海</div>
-                        <div>
-                            <input className={searchCss} placeholder="大家都在搜紫砂壶"/>
-                        </div>
-                        <div className="art-icon art-icon-helper"></div>
-                    </div>
-
-                    {/* <InfiniteScroll
-                        loadMore={this.loadMoreItem.bind(this)}
-                        hasMore={this.state.hasMoreItems}
-                        loader={<div className="art-main__loader" key={0}> 正在努力加载中... </div>}
-                        useWindow={false}> */}
-
+                      {
+                        /*
+                            <div className={scrollCss} style={{'visibility':current}}>
+                                <div className={address}>上海</div>
+                                <div>
+                                    <input className={searchCss} placeholder="大家都在搜紫砂壶"/>
+                                </div>
+                                <div className="art-icon art-icon-helper"></div>
+                            </div>
+                        */
+                      }
                         <CarouselBanner data={carouselAdList}/>
-
                         <div className="art-main__navitem">
                                 {
                                     this.navDataList.map((navData, index) => {
@@ -109,82 +117,28 @@ class Main extends PureComponent{
                                     })
                                 }
                         </div>
-
                         <Letters data={newsPagerList}/>
-
                         <Advert commonAdList={commonAdList}/>
-
                         <Space/>
-
                         <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
-
                         <div className="art-main__recommend">
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">
                                 {this.showRecomandItem()}
                             </div>
                         </div>
-                    {/* </InfiniteScroll> */}
                 </div>
             </Fragment>
         )
     }
 
-    componentWillMount(){
-    }
-
     componentDidMount() {
-        eventProxy.on('trigger-search', (current) => {
-            console.log('current',current);
-            if(current==='USER' || current === 'ARTSHOP'){
-                this.setState({
-                    current:'hidden'
-                });
-            }
-            if(current === 'MAIN'){
-                this.setState({
-                    current:'visible'
-                });
-            }
-            // this.setState({current: current});
+        eventProxy.on('recomandItem',(object)=>{
+            console.log('recomandItem',object);
+            pushList.push(object);
+            this.forceUpdate();
         });
-        // this.refs.artScroll.addEventListener("scroll",()=>{
-        //     // console.log('addEventListener');
-        //     // console.log('this.refs.myscroll.scrollTop',);
-        //     // console.log('this.refs.myscroll.clientHeight ',this.refs.artScroll.clientHeight );
-        //     if(this.refs.artScroll.scrollTop>176){
-        //         this.setState({
-        //             scrollCss:classNames(
-        //                 'art-main__search',
-        //                 {
-        //                     'art-main__search-bg':true
-        //                 }
-        //             ),
-        //             searchCss:classNames('art-main__search-input',{
-        //                 'art-main__search-input-bg':true
-        //             }),
-        //             address:classNames('art-main__search-address',{
-        //                 'art-main__search-address-bg':true
-        //             })
-        //         })
-        //     }
-        //     else{
-        //         this.setState({
-        //             scrollCss:classNames(
-        //                 'art-main__search',
-        //                 {
-        //                     'art-main__search-bg':false
-        //                 }
-        //             ),
-        //             searchCss:classNames('art-main__search-input',{
-        //                 'art-main__search-input-bg':false
-        //             }),
-        //             address:classNames('art-main__search-address',{
-        //                 'art-main__search-address-bg':false
-        //             })
-        //         })
-        //     }
-        // });
+
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
@@ -201,16 +155,21 @@ const mapStateToProps = ({home}) => {
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    getAdvertList: (type) => {
-        dispatch(getAdvertList(type))
-    },
-    getNewsPagerList: () => {
-        dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
-    },
-
-    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
-        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAdvertList: data => dispatch(getAdvertList(data)),
+        getNewsPagerList: data => dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3})),
+        getUserLikeProducts: data => dispatch(getUserLikeProducts({CustomerId:11, Position: 1, CurrentPage:1, PageSize:2}))
+    }
+}
+// const mapDispatchToProps = dispatch => ({
+//     getAdvertList: (type) => {
+//         dispatch(getAdvertList(type))
+//     },
+//     getNewsPagerList: () => {
+//         dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
+//     },
+//     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
+// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

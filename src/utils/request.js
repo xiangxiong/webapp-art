@@ -55,7 +55,7 @@ const request = function (servicekey, jsonobjparam, method){
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             },
-            timeout: 3000
+            timeout: 20000
         }).then(response =>{
             if (response.status === 200) {
                 if (response.data && response.data.code === 200) {

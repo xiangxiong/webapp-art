@@ -5,7 +5,9 @@ import {
     USER_QUERY_INTERTIONAL_PARTENER,
     USER_WORKS_ADD,
     USER_WORKS_PRODUCT_TYPE,
-    USER_WORKS_LIST
+    USER_WORKS_LIST,
+    USER_DIC_ITEM,
+    USER_UPLOAD_VIDEO
 } from './constants';
 
 const defaultState = {
@@ -15,7 +17,9 @@ const defaultState = {
     userIntertionalPartener: {},
     publishReponse:{},
     userProductTypes:[],
-    workList:[]
+    workList:[],
+    userDicItem:[],
+    fileItem:[]
 };
 
 export default (state = defaultState, action) => {
@@ -29,6 +33,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 userDictList: action.value
+            };
+        case USER_DIC_ITEM:
+            return {
+                ...state,
+                userDicItem:action.value
             };
         case USER_QUERY_CATEGORY_LIST:
             return {
@@ -51,9 +60,15 @@ export default (state = defaultState, action) => {
                 userProductTypes:action.value
             }
         case USER_WORKS_LIST:
+            console.log('action.value',action.value);
             return {
                 ...state,
                 workList:action.value
+            }
+        case USER_UPLOAD_VIDEO:
+            return {
+                ...state,
+                fileItem:action.value
             }
         default:
             return state;

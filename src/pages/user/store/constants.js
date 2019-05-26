@@ -6,4 +6,6 @@ export const USER_WORKS_ADD = 'user/userWorksAdd';
 export const USER_WORKS_PRODUCT_TYPE = 'user/userWorkProductType';
 export const USER_WORKS_LIST = 'user/user_work_list';
 export const USER_WORKS_DEL = 'user/user_work_del';
-
+export const USER_DIC_ITEM = 'user/user_dic_item';
+export const USER_UPLOAD_VIDEO = 'user/upload_video_file';
+export const USER_WORKS_CATEGORY = 'user/user_works_category';

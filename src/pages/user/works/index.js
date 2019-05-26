@@ -1,47 +1,24 @@
 import React,{PureComponent,Fragment} from 'react';
 import PublicHeader from './../../../components/header';
 import './index.scss';
-import {ImagePicker,Flex,List,InputItem,TextareaItem,Button,WhiteSpace,Picker,Toast} from 'antd-mobile'
+import {ImagePicker,Flex,List,InputItem,TextareaItem,Button,Picker,Toast} from 'antd-mobile'
 import { createForm } from 'rc-form';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import history from './../../../utils/history';
 
-import {createProduct,getProductType} from './../store/actionCreators';
+import {createProduct,getProductType,getDicItem,getUploadVideoFile,getQueryCategoryList} from './../store/actionCreators';
 const data = [];
 
 const orders =  [
     {
-        label: '是',
-        value: '1',
+        label: '现货',
+        value: '10',
     },{
-      label: '否',
-      value: '0',
+      label: '定制',
+      value: '20',
     }
 ];
-
-const seasons = [
-  [
-    {
-      label: '2013',
-      value: '2013',
-    },
-    {
-      label: '2014',
-      value: '2014',
-    },
-  ],
-  [
-    {
-      label: '春',
-      value: '春',
-    },
-    {
-      label: '夏',
-      value: '夏',
-    },
-  ],
-];
-
 
 class Works extends PureComponent{
 
@@ -53,11 +30,12 @@ class Works extends PureComponent{
             detailFiles:data,
             videoFiles:data,
             multiple: true,
-            sSenson: ['2013', '春'],
             sValue:[{
               label: '是',
               value: '1'
           }],
+          categoryId:0,
+          isOrder:0,
           timeout: '',
           partSize: '',
           parallel: '',
@@ -71,17 +49,31 @@ class Works extends PureComponent{
           resumeDisabled: true,
           pauseDisabled: true,
           statusText: '',
-          uploader: null
+          videoId:0,
+          uploader: null,
+          categoryList:[]
       };
-      this.init();
       this.bindEvent();
     }
 
-    init(){
-       this.props.getProductType({OneCategoryId:1});
+    async init(){
+       const list = await this.props.getProductType({OneCategoryId:Storage.Base.getInstance().get('CategoryId')});
+       let listItem = [];
+
+       list[0].Childs.map((item,index)=>{
+          listItem.push({
+            label: item.CategoryName,
+            value: item.CategoryId
+          })
+       });
+
+       this.setState({
+        categoryList:listItem
+       })
     }
 
     createUploader () {
+      var that = this;
       var {timeout,partSize,parallel,retryCount,retryDuration,region,userId,file,stsProgress,uploadDisabled,resumeDisabled,pauseDisabled,statusText,uploader} = this.state;
       // eslint-disable-next-line no-undef
       var upload = new AliyunUpload.Vod({
@@ -99,17 +91,65 @@ class Works extends PureComponent{
           console.log("addFileSuccess: " + uploadInfo.file.name)
         },
         onUploadstarted:function(uploadInfo){
+            let params = {
+              ParamList: [
+                  {
+                      servicekey:'Art.Service.Product.Dto.Request.Vod.VodUploadRequest',
+                      jsonobjparam: JSON.stringify({
+                        Title:uploadInfo.file.name,
+                        FileName:uploadInfo.file.name,
+                        FileSize:uploadInfo.file.size,
+                        IpAddress:'192.168.2.12'
+                      })
+                  }
+              ]
+           };
+
+          axios({
+              method: 'post',
+              url: 'http://artapi.laoliwuyou.com/gateway?format=json',
+              data: JSON.stringify(params),
+              headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json'
+              },
+              timeout: 3000
+           }).then((response)=>{
+              let data = response.data.DataObject.Data;
+              console.log('response',data);
+              // console.log(upload);
+
+              that.setState({
+                videoId:data.VideoId
+              });
+
+              upload.setUploadAuthAndAddress(uploadInfo, data.UploadAuth, data.UploadAddress,data.VideoId);
+           });
+            //  axios.get(stsUrl).then(({data})=>{
+            //   let info = data.SecurityTokenInfo
+            //   let accessKeyId = info.AccessKeyId
+            //   let accessKeySecret = info.AccessKeySecret
+            //   let secretToken = info.SecurityToken
+            //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+            // });
+            // that.props.getVideoActionFile({
+            //   Title:uploadInfo.file.name,
+            //   FileName:uploadInfo.file.name,
+            //   FileSize:uploadInfo.file.size,
+            //   IpAddress:'192.168.2.12'
+            // })
+            // uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
             // 如果是 STSToken 上传方式, 需要调用 uploader.setUploadAuthAndAddress 方法
             // 用户需要自己获取 accessKeyId, accessKeySecret,secretToken
             // 下面的 URL 只是测试接口, 用于获取 测试的 accessKeyId, accessKeySecret,secretToken
-            let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
-            axios.get(stsUrl).then(({data})=>{
-              let info = data.SecurityTokenInfo
-              let accessKeyId = info.AccessKeyId
-              let accessKeySecret = info.AccessKeySecret
-              let secretToken = info.SecurityToken
-              uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
-            });
+            // let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
+            // axios.get(stsUrl).then(({data})=>{
+            //   let info = data.SecurityTokenInfo
+            //   let accessKeyId = info.AccessKeyId
+            //   let accessKeySecret = info.AccessKeySecret
+            //   let secretToken = info.SecurityToken
+            //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+            // });
             statusText = '文件开始上传...'
             console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
         },
@@ -136,28 +176,27 @@ class Works extends PureComponent{
           statusText = '文件上传中...'
         },
          // 上传凭证超时
-         onUploadTokenExpired: function (uploadInfo) {
+         onUploadTokenExpired:function(uploadInfo){
           // 如果是上传方式二即根据 STSToken 实现时，从新获取STS临时账号用于恢复上传
           // 上传文件过大时可能在上传过程中 sts token 就会失效, 所以需要在 token 过期的回调中调用 resumeUploadWithSTSToken 方法
           // 这里是测试接口, 所以我直接获取了 STSToken
-          let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
-          axios.get(stsUrl).then(({data})=>{
-            let info = data.SecurityTokenInfo
-            let accessKeyId = info.AccessKeyId
-            let accessKeySecret = info.AccessKeySecret
-            let secretToken = info.SecurityToken
-            let expiration = info.Expiration
-            uploader.resumeUploadWithSTSToken(accessKeyId, accessKeySecret, secretToken, expiration)
-          })
+          // let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
+          // axios.get(stsUrl).then(({data})=>{
+          //   let info = data.SecurityTokenInfo
+          //   let accessKeyId = info.AccessKeyId
+          //   let accessKeySecret = info.AccessKeySecret
+          //   let secretToken = info.SecurityToken
+          //   let expiration = info.Expiration
+          //   uploader.resumeUploadWithSTSToken(accessKeyId, accessKeySecret, secretToken, expiration)
+          // })
           statusText = '文件超时...'
         },
         // 全部文件上传结束
         onUploadEnd: function (uploadInfo) {
-          console.log("onUploadEnd: uploaded all the files")
+          console.log("onUploadEnd: uploaded all the files");
           statusText = '文件上传完毕'
         }
       });
-      console.log('upload',upload);
       return upload
     }
 
@@ -198,33 +237,31 @@ class Works extends PureComponent{
     }
 
     fileChange (e) {
-
-    
-
-      this.file = e.target.files[0]
+      this.file = e.target.files[0];
+      console.log('this.file.name',this.file.name);
       if (!this.file) {
         alert("请先选择需要上传的文件!")
         return
-      }
-      var Title = this.file.name
+      };
       var userData = '{"Vod":{}}'
       if (this.uploader) {
         this.uploader.stopUpload()
         this.authProgress = 0
         this.statusText = ""
-      }
-      this.uploader = this.createUploader()
+      };
+      this.uploader = this.createUploader();
       // 首先调用 uploader.addFile(event.target.files[i], null, null, null, userData)
-      console.log(userData)
+      // console.log(userData)
       this.uploader.addFile(this.file, null, null, null, userData)
-      this.uploadDisabled = false
-      this.pauseDisabled = true
-      this.resumeDisabled = false
+      this.uploadDisabled = false;
+      this.pauseDisabled = true;
+      this.resumeDisabled = false;
+      this.stsUpload();
     }
 
     stsUpload () {
       // 然后调用 startUpload 方法, 开始上传
-      if (this.uploader !== null) {
+      if (this.uploader !== null){
         this.uploader.startUpload()
         this.uploadDisabled = true
         this.pauseDisabled = false
@@ -232,84 +269,99 @@ class Works extends PureComponent{
     }
 
     onSubmit = () => {
-      const {mainFiles,detailFiles,videoFiles} = this.state;
-      console.log('mainFiles',mainFiles);
-      
+      const {mainFiles} = this.state;
+
       if(mainFiles.length === 0){
         Toast.fail('请上传主图', 1);
         return;
       }
 
-      if(detailFiles.length === 0){
-        Toast.fail('请上传细节图', 1);
-        return;
-      }
-
+      var that = this;
+      let ProviderId = Storage.Base.getInstance().get('ProviderId');
+      let CustomerId = Storage.Base.getInstance().get('userInfo').CustomerId;
+    
       this.props.form.validateFields({ force: true }, (error) => {
-        // this.props.createProduct(this.props.form.getFieldsValue());
-        console.log('createProduct',this.props.form.getFieldsValue());
+        if (error) {
+          return;
+        } 
         const data = this.props.form.getFieldsValue();
-
-        let Base64 = {
-          encode(str) {
-              // first we use encodeURIComponent to get percent-encoded UTF-8,
-              // then we convert the percent encodings into raw bytes which
-              // can be fed into btoa.
-              return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
-                  function toSolidBytes(match, p1) {
-                      return String.fromCharCode('0x' + p1);
-                  }));
-          },
-          decode(str) {
-              // Going backwards: from bytestream, to percent-encoding, to original string.
-              return decodeURIComponent(atob(str).split('').map(function (c) {
-                  return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-              }).join(''));
-          }
-      };
+        const {categoryId,isOrder,videoId} = this.state;
+        let base64String = "";
+        if(mainFiles.length > 0){
+            base64String = encodeURIComponent(mainFiles[0].url.split(',')[1]);
+        }
 
         var product = {
-          CustomerId:11,
-          ProviderId:11,
+          CustomerId:CustomerId,
+          ProviderId:ProviderId,
           ProdName:data.workName,
-          CategoryId:1,
+          CategoryId:categoryId[0],
           MarketPrice:data.workMarketPrice,
           LimitPrice:data.workMarketPrice,
-          SaleType:1,
-          Length:1,
-          Width:data.workSize,
-          Height:1,
+          SaleType:isOrder[0],
+          Length:data.workLong,
+          Width:data.workWidth,
+          Height:data.workHeight,
           Brief:data.workDesc,
-          IsHaveVideo:0,
-          AuthorId:11,
-          VideoId:0,
+          IsHaveVideo: videoId === 0  || "" ? 0 : 1,
+          VideoId:videoId,
+          StockCount:data.workStock,
           ImgModels:[{
-            ImageNameData: '',
+            ImageNameData:base64String,
             ImageName:'pic/public/upload/paimai/2019-05-02/art_1ebd26c7-b6bb-4304-b71e-d13492a110c0.jpg',
             ImageType:'1',
             SortOrder:0
           }]
         };
 
-        this.props.createProduct(product);
+        let params = {
+          ParamList: [
+              {
+                  servicekey:'Art.Service.Product.Dto.Api.ProviderPublishProductRequest',
+                  jsonobjparam: JSON.stringify(product)
+              }
+          ]
+        };
 
-        return;
-        if (!error) {
-          console.log(this.props.form.getFieldsValue());
-          // todo: 提交表单.
-        } else {
-          Toast.fail('请填写必填项', 1);
-        }
+          Toast.info("商品发布成功");
+          history.push('/worklist');
+
+          axios({
+            method: 'post',
+            url: 'http://artapi.laoliwuyou.com/gateway?format=json',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            timeout: 5000
+         }).then((response)=>{
+            if(response.data.DataObject.Data.Status === 200){
+
+            }else{
+               Toast.info("商品发布失败");
+            }
+         })
+      });
+    }
+    componentWillMount(){
+      this.props.getDicItem({
+        key:'AliyunVod'
       });
     }
 
+    componentDidMount(){
+      this.init();
+    }
+
     render(){
-        const { mainFiles,detailFiles,videoFiles } = this.state;
+        const { mainFiles,detailFiles,videoFiles,categoryList } = this.state;
         const { getFieldProps,getFieldError } = this.props.form;
+
 
         return (
           <form>
-                 <PublicHeader title="发布艺术家作品" bgColor="#E87908"/>
+                 <PublicHeader title="发布艺术家作品" jump="User" bgColor="#E87908"/>
                  <Flex>
                         <Flex.Item>
                               <ImagePicker
@@ -319,41 +371,33 @@ class Works extends PureComponent{
                                       selectable={mainFiles.length < 7}
                                       multiple={this.state.multiple}
                               />
-                              <div className="art-user-work__upload-text">长: 375px <br/> 宽: 375px  <br/>大小: ＜500kb</div>
+                              <div className="art-user-work__upload-text">上传图片</div>
                         </Flex.Item>
-                        <Flex.Item>
-                            <ImagePicker
-                                    files={detailFiles}
-                                    onChange={this.handleDetailPicker}
-                                    onImageClick={(index, fs) => console.log(index, fs)}
-                                    selectable={detailFiles.length < 7}
-                                    multiple={this.state.multiple}
-                            />
-                              <div className="art-user-work__upload-text"> 大小: ＜2M</div>
-                        </Flex.Item>
-                    <Flex.Item>
-                          <ImagePicker
-                                    files={videoFiles}
-                                    onChange={this.handleVideoPicker}
-                                    onImageClick={(index, fs) => console.log(index, fs)}
-                                    selectable={videoFiles.length < 7}
-                                    multiple={this.state.multiple}
-                          />
-                            <div className="art-user-work__upload-text"> 长: 375px <br/>  宽: 375px <br/> 大小: ＜500kb</div>
-                    </Flex.Item>
                 </Flex>
 
                 <div className="art-user-work__uploadvideo">
-                     <input type="file" id="fileUpload" onChange={this.fileChange}/>
-                     <label>上传状态: <span></span></label>
-                     <div onClick={this.stsUpload}>上传文件</div>
+                      <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
+                      <p className="art-user-work__uploadlabel">上传视频</p>
+                      {/* <div className="art-user-work__uploadsuccess">上传成功</div> */}
                 </div>
 
                 <div className="art-user-work__from">
                   <List>
-                      <Picker data={orders} cols={1} {...getFieldProps('orders')}>
+                      <Picker data={orders} cols={1} 
+                       value={this.state.isOrder}
+                       onChange={v => this.setState({ isOrder: v })}
+                       onOk={v => this.setState({ isOrder: v })}
+                      {...getFieldProps('orders')}>
                         <List.Item arrow="horizontal">是否定制*</List.Item>
                       </Picker>
+                      <Picker data={categoryList} cols={1} 
+                             value={this.state.categoryId}
+                             onChange={v => this.setState({ categoryId: v })}
+                             onOk={v => this.setState({ categoryId: v })}
+                      {...getFieldProps('category')}>
+                        <List.Item arrow="horizontal">所属品类*</List.Item>
+                      </Picker>
+
                       <InputItem
                         clear
                         placeholder="输入作品名称"
@@ -364,19 +408,91 @@ class Works extends PureComponent{
                               { validator: this.validateAccount },
                             ]
                         })}
-                      >作品名称*</InputItem>
+                      >商品名称*</InputItem>
+
                       <InputItem
-                       {...getFieldProps('workAuthor',{
-                            rules: [
+                        clear
+                        error={!!getFieldError('workMarketPrice')}
+                        {...getFieldProps('workMarketPrice',{
+                            rules:[
                               { required: true, message: 'Please input account' },
                               { validator: this.validateAccount },
                             ]
-                       })}
-                        error={!!getFieldError('workAuthor')}
+                        })}
+                        placeholder="输入市场价(元）"
+                        ref={el => this.autoFocusInst = el}
+                      >市场价*</InputItem>
+
+                      <InputItem
                         clear
-                        placeholder="默认为入驻艺术家名，不可修改"
+                        error={!!getFieldError('workMarketDiscount')}
+                        {...getFieldProps('workMarketDiscount',{
+                            rules:[
+                              { required: true, message: 'Please input account' },
+                              { validator: this.validateAccount },
+                            ]
+                        })}
+                        placeholder="输入销售价(元）"
                         ref={el => this.inputRef = el}
-                      >作者*</InputItem>
+                      >销售价*</InputItem>
+
+
+                      <InputItem
+                        clear
+                        error={!!getFieldError('workLong')}
+                        {...getFieldProps('workLong',{
+                            rules:[
+                              { required: true, message: 'Please input account' },
+                              { validator: this.validateAccount },
+                            ]
+                        })}
+                        placeholder="尺寸-长"
+                        ref={el => this.inputRef = el}
+                      >长*</InputItem>
+
+
+                    <InputItem
+                        clear
+                        error={!!getFieldError('workWidth')}
+                        {...getFieldProps('workWidth',{
+                            rules:[
+                              { required: true, message: 'Please input account' },
+                              { validator: this.validateAccount },
+                            ]
+                        })}
+                        placeholder="尺寸-宽"
+                        ref={el => this.inputRef = el}
+                      >宽*</InputItem>
+
+                    <InputItem
+                        clear
+                        error={!!getFieldError('workHeight')}
+                        {...getFieldProps('workHeight',{
+                            rules:[
+                              { required: true, message: 'Please input account' },
+                              { validator: this.validateAccount },
+                            ]
+                        })}
+                        placeholder="尺寸-高"
+                        ref={el => this.inputRef = el}
+                      >高*</InputItem>
+
+                      <TextareaItem
+                        title="作品描述*"
+                        error={!!getFieldError('workDesc')}
+                        {...getFieldProps('workDesc',{
+                            rules:[
+                              { required: true, message: 'Please input account' },
+                              { validator: this.validateAccount },
+                            ]
+                        })}
+                        placeholder="输入作品的描述（200字内）"
+                        data-seed="logId"
+                        autoHeight
+                        ref={el => this.customFocusInst = el}
+                      />
+
+
                       <InputItem
                         {...getFieldProps('workSize',{
                           rules: [
@@ -400,77 +516,9 @@ class Works extends PureComponent{
                         placeholder="输入作品的材质"
                         ref={el => this.inputRef = el}
                       >
-                      作品材质*
+                        作品材质*
                       </InputItem>
-                      <TextareaItem
-                        title="作品描述*"
-                        error={!!getFieldError('workDesc')}
-                        {...getFieldProps('workDesc',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        placeholder="输入作品的描述（200字内）"
-                        data-seed="logId"
-                        autoHeight
-                        ref={el => this.customFocusInst = el}
-                      />
-                  </List>
-                 </div>
 
-                 <WhiteSpace/>
-
-                 <div className="art-user-work__from">
-                  <List>
-                      <InputItem
-                        clear
-                        error={!!getFieldError('workMarketPrice')}
-                        {...getFieldProps('workMarketPrice',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        placeholder="输入市场价(元）"
-                        ref={el => this.autoFocusInst = el}
-                      >市场价*</InputItem>
-
-                      <InputItem
-                        clear
-                        error={!!getFieldError('workMarketDiscount')}
-                        {...getFieldProps('workMarketDiscount',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        placeholder="输入折扣价(元）"
-                        ref={el => this.inputRef = el}
-                      >折扣价*</InputItem>
-
-                      <InputItem
-                        clear
-                        error={!!getFieldError('workFree')}
-                        {...getFieldProps('workFree',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        placeholder="输入运费(元）"
-                      >运费*</InputItem>
-                         <InputItem
-                        clear
-                        error={!!getFieldError('workDeliver')}
-                        {...getFieldProps('workDeliver',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        placeholder="输入发货地(省、市）"
-                      >发货地*</InputItem>
                       <InputItem
                         clear
                         error={!!getFieldError('workStock')}
@@ -482,38 +530,10 @@ class Works extends PureComponent{
                         })}
                         placeholder="输入库存数"
                       >库存*</InputItem>
-                      {/* <TextareaItem
-                        clear
-                        error={!!getFieldError('workCategory')}
-                        {...getFieldProps('workCategory',{
-                            rules:[
-                              { required: true, message: 'Please input account' },
-                              { validator: this.validateAccount },
-                            ]
-                        })}
-                        title="所属品类*"
-                        placeholder="请选择所属品类"
-                        data-seed="logId"
-                        autoHeight
-                        ref={el => this.customFocusInst = el}
-                      /> */}
-
-                    <Picker
-                      data={seasons}
-                      title="所属品类*"
-                      cascade={false}
-                      extra="请选择(可选)"
-                      value={this.state.sSenson}
-                      onChange={v => this.setState({ sSenson: v })}
-                      onOk={v => this.setState({ sSenson: v })}
-                    >
-                      <List.Item arrow="horizontal">Multiple</List.Item>
-                    </Picker>
-
                   </List>
                  </div>
                  <div className="art-user-work__footer">
-                    <Button onClick={this.onSubmit}>确认并提交</Button>
+                    <Button type="primary" onClick={this.onSubmit}>确认并提交</Button>
                  </div>
             </form>
         )
@@ -521,20 +541,30 @@ class Works extends PureComponent{
 }
 
 const mapStateToProps = (state) =>{
-  console.log('state',state.user);
   return {
-    publish:state.user.publishReponse
+    publish:state.user.publishReponse,
+    dicItem:state.user.userDicItem,
+    fileItem:state.user.fileItem,
+    userCategoryList:state.user.userCategoryList
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  createProduct:(params) => {
-      dispatch(createProduct(params))
-  },
-  getProductType:(params) => {
-      dispatch(getProductType(params))
+const mapDispatchToProps = dispatch => {
+  return {
+      createProduct:(params) => dispatch(createProduct(params)),
+      getProductType:(data) => dispatch(getProductType(data))
+      ,
+      getDicItem:(params) =>{
+          dispatch(getDicItem(params))
+      },
+      getVideoActionFile:(params) => {
+          dispatch(getUploadVideoFile(params))
+      },
+      getQueryCategoryList:(params) => {
+          dispatch(getQueryCategoryList(params))
+      }
   }
-});
+};
 
 const FormWrappedComponent = createForm()(Works);
 
