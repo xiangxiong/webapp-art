@@ -3,6 +3,7 @@ import {NavBar, Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
+import eventProxy from 'react-eventproxy';
 
 class PublicHeader extends PureComponent{
 
@@ -13,7 +14,7 @@ class PublicHeader extends PureComponent{
             title:title
         }
     }
-
+    
     componentWillReceiveProps(nextProps){
         const {title} = nextProps;
         if(title !== this.state.title){
@@ -24,16 +25,24 @@ class PublicHeader extends PureComponent{
     }
 
     render(){
-        const {bgColor,icon,share} = this.props;
+        const {bgColor,icon,share,jump} = this.props;
+        console.log('jump',jump);
         const {title} = this.state;
-        
+
         return (
            <Fragment>
                 <NavBar
                     style={{background:bgColor,color:'#FFFFFF'}}
                     mode="light"
                     icon={<Icon type={icon}/>}
-                    onLeftClick={() => history.go(-1)}
+                    onLeftClick={() => {
+                        if(jump === "User"){
+                            history.push('./',{tab:jump});
+                        }else{
+                            // history.push('./home',{tab:'blue'});
+                            history.go(-1)
+                        }
+                    }}
                     rightContent={
                         share && <div className="art-icon art-icon-share"></div>
                     }

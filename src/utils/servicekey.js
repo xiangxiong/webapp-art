@@ -86,3 +86,12 @@ export const WX_BINDPHONE = 'Art.Service.Customer.Dto.Api.PartnerBindPhoneReques
 
 // 发送短信
 export const WX_SENDMESSAGE_API = 'Art.Service.Customer.Dto.Api.SendMessageRequest';
+
+// 查询字典数据接口
+export const DIC_ITEM_API = 'Art.Service.Basis.Dto.DictRequest';
+
+// 上传视频接口
+export const VIDEO_UPLOADER_API = 'Art.Service.Product.Dto.Request.Vod.VodUploadRequest';
+
+// 商品库下架
+export const SHOP_STORE_OFFLINE_API = 'Art.Service.Product.Dto.Api.UpdateProductStatusRequest'

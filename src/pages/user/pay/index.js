@@ -85,8 +85,7 @@ const mapStateToProps = ({user}) => {
 const mapDispatchToProps = dispatch => ({
     getDict: (params) => {
         dispatch(getDict(params))
-    },
-
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pay);

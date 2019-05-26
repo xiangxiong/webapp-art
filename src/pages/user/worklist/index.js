@@ -1,51 +1,105 @@
-import React,{useState,useEffect,Fragment,PureComponent} from 'react';
+import React,{Fragment,PureComponent} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getUserWorkActionDispatch} from '../store/actionCreators';
+import {getUserWorkActionDispatch,offLineProduct} from '../store/actionCreators';
 import {pictureUrl} from '../../../utils/common';
+import { Modal,Toast } from 'antd-mobile';
+
+const alert = Modal.alert;
 
 class WorkList extends PureComponent{
 
+    constructor(props){
+        super(props);
+        this.init();
+        this.bindEvent();
+    }
+
+    init(){
+
+    }
+
+    bindEvent(){
+        this.handleEditProduct = this.handleEditProduct.bind(this);
+        this.handleEditProduct = this.handleEditProduct.bind(this);
+    }
+
     componentDidMount(){
+        let ProviderId = Storage.Base.getInstance().get('ProviderId');
         this.props.getWorkList({
-            ProviderId:1,
+            ProviderId:ProviderId,
             Type:1,
             OrderBy:1,
             PageIndex:1,
             PageSize:20
         });
+
     }
 
-    getWorkItem = (workData = {}) => {
-        const {ImageName = '', ProdName = '', LimitPrice = '', MarketPrice = ''} = workData;
+    handleEditProduct= () =>{
 
-        return (
-            <div className="art-worklist__item">
-                <div className="art-worklist__item-img">
-                    <div style={{
-                        background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`
-                    }}>
+    }
+
+    async handleDelProduct(ProdId){
+        alert('下架', '确定下架吗?', [
+            { text: '取消', onPress: () => {
+              } 
+            },
+            { text: '确认', onPress: () => {
+                this.offLine(ProdId);
+            } },
+          ]);
+    }
+
+    async offLine(ProdId){ 
+        let ProviderId = Storage.Base.getInstance().get('ProviderId');
+        const data = {
+            ProductId:ProdId,
+            ProviderId:ProviderId,
+            ProductStatus:2
+        };
+        const result = await this.props.offLineProduct(data);
+        console.log("result",result);
+        if(result && result.Status === 200 ){
+            Toast.info('该商品已下架');
+            this.forceUpdate();
+        }
+        else{
+            Toast.info("下架失败");
+            this.forceUpdate();
+        }
+    }
+
+    getWorkItem = (item) => {
+        return item.map((item,index)=>{
+            return (
+                <div className="art-worklist__item" key={index}>
+                    <div className="art-worklist__item-img">
+                        <div style={{
+                            background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`
+                        }}>
+                        </div>
+                    </div>
+                    <div className="art-worklist__item-content">
+                       <h3>{item.ProdName}</h3>
+                        <div>{`销售价：${item.LimitPrice}元`}</div>
+                        <div>{`市场价：${item.MarketPrice}元`}</div>
+                        <div>
+                            <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>
+                            <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
+                        </div>
                     </div>
                 </div>
-                <div className="art-worklist__item-content">
-                    <h3>{ProdName}</h3>
-                    <div>{`市场价：${LimitPrice}元`}</div>
-                    <div>{`库 存：${MarketPrice}件`}</div>
-                    <div>
-                        <span className="art-worklist__item-action">编辑</span>
-                        <span className="art-worklist__item-action">删除</span>
-                    </div>
-                </div>
-            </div>
-        );
+            )
+        })
     };
-    
+
     render(){
         return (
             <Fragment>
                 <PublicHeader title="作品库" bgColor="#E87908"/>
-                {this.getWorkItem()}
+                {this.getWorkItem(this.props.workList)}
             </Fragment>
         )
     }
@@ -53,16 +107,15 @@ class WorkList extends PureComponent{
 
 const mapStateToProps = (state) => {
     return {
-        workList:state.workList
+        workList:state.user.workList
     }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) =>{
     return {
-        getWorkList:(params)=>{
-            dispatch(getUserWorkActionDispatch(params))
-        }
+        getWorkList: (data) => dispatch(getUserWorkActionDispatch(data)),
+        offLineProduct: (data) => dispatch(offLineProduct(data))
     }
-};
+}
 
 export default connect(mapStateToProps,mapDispatchToProps)(WorkList);

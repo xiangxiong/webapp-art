@@ -8,31 +8,60 @@ import Cart from './../cart/index';
 import User from './../user/index';
 import {getUrlParam} from './../../utils/common';
 import {connect} from 'react-redux';
-import {getOauthInfo,wxLogin} from './store/actionCreators';
+import {getOauthInfo,wxLogin,getUserLikeProducts,getUserLikeList} from './store/actionCreators';
 import './../../utils/storage';
 import _ from 'lodash';
 import history from './../../utils/history';
+import Scroll from 'react-bscroll'
+import 'react-bscroll/lib/react-scroll.css'
 import eventProxy from 'react-eventproxy';
-
+const Data = [];
+let NEWDATAINDEX = 1
+for (let i = 0; i < 10; i++) {
+  Data.push(i)
+}
+var countCurrentPage = 2;
 
 class Home extends PureComponent{
-   constructor(props){
+
+  constructor(props){
         super(props);
         this.state = {
             selectedTab: 'blueTab',
             hidden: false,
             fullScreen: true,
-            isSelected:false
+            isSelected:false,
+            listData: Data,
+            childData: 666,
+            currentPage:1
         };
-   }
 
-   renderFactory(pageText){
-      // if(pageText==="USER"||pageText==="ARTSHOP"||pageText=="MAIN"){
-      //    eventProxy.trigger('trigger-search',pageText);
-      // }
+        eventProxy.on("targetHome",(object)=>{
+          console.log('objecteeee',object);
+           this.setState({
+              selectedTab:"yellowTab"
+           });
+          //  this.forceUpdate();
+        });
+  }
+
+  async loadMoreData(props) {
+    let storage = Storage.Base.getInstance().get("userInfo");
+    let data = {
+        CustomerId: storage.CustomerId,
+        Position: 1,
+        CurrentPage: countCurrentPage,
+        PageSize:2
+    };
+    let userLikes = await this.props.getUserLikeList(data);
+    eventProxy.trigger('recomandItem',userLikes.Data);
+    countCurrentPage ++;
+  }
+
+  renderFactory(pageText){
        switch(pageText){
           case "MAIN":
-            return (<Main/>);
+            return (<Main likeProducts={this.props.userLikeProducts}/>);
           case "ARTSHOP":
             return (<Shop/>);
           case "MASTER":
@@ -44,29 +73,78 @@ class Home extends PureComponent{
          default:
             return (<Main/>);
        }
-   }
+  }
 
-   handleHasLogin(){
-      let storage = Storage.Base.getInstance();
-      console.log("localStorage userinfo",storage.get('userinfo'));
-      //  if(storage.get('userinfo')==null){
-      //       history.push('/oauth');
-      //  }
-    }
-    
-   renderContent(pageText){
-        return (
+  renderContent(pageText){
+        console.log('this.props',this.props.getUserLikeList);
+
+        if(pageText==="USER"){
+          return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-                {
-                    this.renderFactory(pageText)
-                }
+                  {
+                         this.renderFactory(pageText)
+                  }
             </div>
-        );
+          );
+        }
+
+        if(pageText==="MAIN"){
+          return (
+            <div className="container">
+              <Scroll
+              click={true}
+              pullUpLoad
+              pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+              isPullUpTipHide={ false }>
+              {
+                      this.renderFactory(pageText)
+              }
+              </Scroll>
+            </div>
+          );
+        }
+
+        if(pageText==="ARTSHOP"){
+           return (
+              <div className="container">
+                <Scroll
+                  click={true}
+                  pullUpLoad
+                  pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                  isPullUpTipHide={ false }
+                >
+                        {
+                              this.renderFactory(pageText)
+                        }
+                </Scroll>
+              </div>
+           )
+        }
+  }
+
+  async initLikeList(){
+    let storage = Storage.Base.getInstance().get("userInfo");
+    let data = {
+      CustomerId: storage.CustomerId,
+      Position: 1,
+      CurrentPage:1,
+      PageSize:2
+    };
+    let userLikes = await this.props.getUserLikeList(data);
+    eventProxy.trigger('recomandItem',userLikes.Data);
+    console.log('userLikes',userLikes.Data.DataList);
   }
 
   componentDidMount(){
- 
+     this.initLikeList();
      this.initLogin();
+  }
+
+  componentDidUpdate(){
+    // console.log('history.location.state.tab',history.location.state.tab);
+    // this.setState({
+    //   selectedTab:history.location.state.tab
+    // });
   }
 
   async initLogin(){
@@ -92,7 +170,7 @@ class Home extends PureComponent{
       storage.set("oauthInfo",result.Data);
       console.log('storage.get("code")',storage.get("code"));
       var openId = result.Data.OpenId;
-      
+
       if(!_.isEmpty(openId)){
           const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
           storage.set("userInfo",userInfo.Data);
@@ -108,15 +186,24 @@ class Home extends PureComponent{
   }
 
   render(){
-       return (
-        <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
+    //  var that = this;
+    //  eventProxy.on("targetHome",(object)=>{
+    //   console.log("object",object);
+    //   that.setState({
+    //     selectedTab:'blueTab'
+    //   });
+    //  });
+      console.log('user',history.location.state.tab);
+      console.log('selectedTab',this.state.selectedTab);
+
+     return (
+      <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
         <TabBar
           unselectedTintColor="#888888"
           tintColor="#E87908"
           barTintColor="white"
           hidden={this.state.hidden}
-          tabBarPosition="bottom"
-        >
+          tabBarPosition="bottom">
           <TabBar.Item
             title="首页"
             key="Home"
@@ -127,7 +214,6 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'blueTab',
               });
-              eventProxy.trigger('trigger-search','MAIN');
             }}
             data-seed="logId"
           >
@@ -139,18 +225,16 @@ class Home extends PureComponent{
             selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/28.svg' }}
             title="艺商城"
             key="shop"
-            selected={this.state.selectedTab === 'redTab'}
+            selected={ this.state.selectedTab === 'redTab'}
             onPress={() => {
               this.setState({
                 selectedTab: 'redTab'
               });
-              eventProxy.trigger('trigger-search','ARTSHOP');
             }}
             data-seed="logId1"
           >
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
-
           {/* <TabBar.Item
             icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
             selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
@@ -193,7 +277,6 @@ class Home extends PureComponent{
                   selectedTab: 'yellowTab',
                   isSelected:true
                 });
-                eventProxy.trigger('trigger-search','USER');
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>
@@ -203,20 +286,29 @@ class Home extends PureComponent{
    }
 }
 
-
 const mapStateToProps = (state) => {
+  console.log('state',state);
   return {
-     authInfo:state.home.authInfo
+     authInfo:state.home.authInfo,
+     userLikeProducts: state.home.userLikeProducts,
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-   getAuthInfo:(params)=>{
-     return dispatch(getOauthInfo(params))
-   },
-   handleWxLogin:(params)=>{
-     return dispatch(wxLogin(params))
-   }
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    getAuthInfo:(params)=>{
+      return dispatch(getOauthInfo(params))
+    },
+    handleWxLogin:(params)=>{
+      return dispatch(wxLogin(params))
+    },
+    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => {
+      return  dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
+    },
+    getUserLikeList: (data) => {
+      return  dispatch(getUserLikeList(data))
+    }
+ }
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home);

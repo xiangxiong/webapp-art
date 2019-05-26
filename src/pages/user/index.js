@@ -12,7 +12,6 @@ import Product from '../common/product';
 import Title from '../common/title';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../../utils/storage';
-import { concat } from 'rxjs';
 
 const Item = List.Item;
 const styles = {};
@@ -118,6 +117,11 @@ class User extends PureComponent{
         // this.bindEvents();
     }
 
+    componentWillMount(){
+      
+    }
+
+
     bindEvents() {
         this.handleNavUrl = this.handleNavUrl.bind(this);
         this.handleTestClick = this.handleTestClick.bind(this);
@@ -162,6 +166,7 @@ class User extends PureComponent{
             )
         })
     }
+
     showRecomandItem() {
         const {DataList = []} = this.props.userLikeProducts;
         var items = [];
@@ -214,10 +219,17 @@ class User extends PureComponent{
 
         var ObjectItem = this.props.customerDetail.ProviderInfo;
         for(var item in ObjectItem){
+            let storage = Storage.Base.getInstance();
             if(item==='ProviderStatus'){
                 this.setState({
                     ProviderStatus:ObjectItem[item]
                 })
+            }
+            if(item === 'CategoryId'){
+                storage.set('CategoryId',ObjectItem[item]);
+            }
+            if(item === 'ProviderId'){
+                storage.set('ProviderId',ObjectItem[item]);
             }
         }
 
@@ -250,13 +262,10 @@ class User extends PureComponent{
                                 {this.bindBuyList()}
                             </div>
                             <div className="art-user__recommend">
-
                                 <Title title="为你推荐"/>
-
                                 <div className="art-user__recommend-content">
                                     {this.showRecomandItem()}
                                 </div>
-
                             </div>
                         </InfiniteScroll>
                     </div>
@@ -272,14 +281,14 @@ class User extends PureComponent{
     componentDidMount(){
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo').CustomerId;
-        this.props.clearUserLikeProducts();
         this.props.getCustomerDetail(customerId);
+        this.props.clearUserLikeProducts();
         this.props.getUserLikeProducts(customerId,this.currentPage);
+        console.log('user.customerDetail',this.props.customerDetail);
     }
 }
 
 const mapStateToProps = ({user, home}) => {
-    console.log('user.customerDetail',user.customerDetail);
     return {
         customerDetail: user.customerDetail,
         userLikeProducts: home.userLikeProducts,

@@ -1,5 +1,4 @@
 .art-letters__main {
-  display: flex;
   flex-direction: row;
   align-items: center;
   padding-left: 14px;
@@ -10,6 +9,7 @@
     width: 35px;
     height: 20px;
     margin-right: 8px;
+    float: left;
   }
 }
 

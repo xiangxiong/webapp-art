@@ -61,8 +61,7 @@
     
     try {
         let sessionConfig = JSON.parse(sessionStorage.globalConfig || '{}');
-        sessionConfig.console != undefined &&
-        (global.globalConfig.console = sessionConfig.console);
+        sessionConfig.console != undefined && (global.globalConfig.console = sessionConfig.console);
     }
     catch(error){
 
