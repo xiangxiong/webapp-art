@@ -216,22 +216,29 @@ class User extends PureComponent{
             AwaitPayCount,
             AwaitShipCount,
             AwaitReceiptCount = '',
-            AwaitCommentCount = ''
+            AwaitCommentCount = '',
+            CustomerType
         } = this.props.customerDetail;
 
-        var ObjectItem = this.props.customerDetail.ProviderInfo;
-        for(var item in ObjectItem){
-            let storage = Storage.Base.getInstance();
-            if(item==='ProviderStatus'){
-                this.setState({
-                    ProviderStatus:ObjectItem[item]
-                })
-            }
-            if(item === 'CategoryId'){
-                storage.set('CategoryId',ObjectItem[item]);
-            }
-            if(item === 'ProviderId'){
-                storage.set('ProviderId',ObjectItem[item]);
+        if (CustomerType == 10) {
+            this.setState({
+                ProviderStatus: 2
+            })
+        }else{
+            var ObjectItem = this.props.customerDetail.ProviderInfo;
+            for(var item in ObjectItem){
+                let storage = Storage.Base.getInstance();
+                if(item==='ProviderStatus'){
+                    this.setState({
+                        ProviderStatus:ObjectItem[item]
+                    })
+                }
+                if(item === 'CategoryId'){
+                    storage.set('CategoryId',ObjectItem[item]);
+                }
+                if(item === 'ProviderId'){
+                    storage.set('ProviderId',ObjectItem[item]);
+                }
             }
         }
 

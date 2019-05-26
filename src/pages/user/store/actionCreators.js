@@ -14,6 +14,7 @@ import {
     SHOP_STORE_OFFLINE_API
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
+import {Toast} from 'antd-mobile';
 
 export const userCustomerDetail = (DataList) => ({
     type: constants.USER_CUSTOMER_DETAIL,
@@ -99,8 +100,10 @@ export const getCreateIntertionalPartener = (params) => {
     return (dispatch) => {
         return post(CreateIntertionalPartener, params)
             .then((response) => {
-                if (response) {
-                    history.push('/pend');
+                if (response && response.Data && response.Data.Data) {
+                    history.push('./pend');
+                } else {
+                    Toast.info('网络异常');
                 }
             });
     }

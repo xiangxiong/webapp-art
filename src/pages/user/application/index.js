@@ -22,9 +22,9 @@ const handleUpload = (files, type, index) => {
 
 const shopsTitle = [
     {title: '上传商户logo'},
-    {title: '上传营业执照'},
     {title: '上传身份证正面照'},
-    {title: '上传身份证反面照'}
+    {title: '上传身份证反面照'},
+    {title: '上传营业执照'}
 ];
 
 const artsTitle = [
@@ -93,7 +93,7 @@ class Application extends PureComponent {
     }
 
     handleSubmit() {
-        const {type, Provider, Phone, isAgreement, CategoryId, CategoryName, files, AddDetail} = this.state;
+        const {type, Provider, Phone, isAgreement, CategoryId, CategoryName, files=[], AddDetail} = this.state;
 
         if (!isAgreement) {
             Toast.info('请同意协议', 1);
@@ -116,6 +116,18 @@ class Application extends PureComponent {
             return;
         }
 
+        if (type === "art") {
+            if (files.length < 3) {
+                Toast.info('请上传图片', 1);
+                return;
+            }
+        } else {
+            if (files.length < 4) {
+                Toast.info('请上传图片', 1);
+                return;
+            }
+        }
+
         let params = {};
 
         let storage = Storage.Base.getInstance();
@@ -133,10 +145,14 @@ class Application extends PureComponent {
         params.Provider = Provider;
         params.AddDetail = AddDetail;
         params.Linkman = Provider;
-        params.BussinesImageData = files[0].url;
-        params.IdentityImage1Data = files[0].url;
-        params.IdentityImage2Data = files[0].url;
-        params.LogoImageData = files[0].url;
+        if (type === "art") {
+            params.BussinesImageData = 0;
+        } else {
+            params.BussinesImageData = encodeURIComponent(files[3][0].url);
+        }
+        params.IdentityImage1Data = encodeURIComponent(files[1][0].url);
+        params.IdentityImage2Data = encodeURIComponent(files[2][0].url);
+        params.LogoImageData = encodeURIComponent(files[0][0].url);
 
         this.props.getCreateIntertionalPartener(params);
     }
@@ -248,7 +264,7 @@ class Application extends PureComponent {
     }
 
     render() {
-        const {type, Provider, Phone, isAgreement, CategoryName, files, AddDetail} = this.state;
+        const {type, Provider, Phone, isAgreement, CategoryName, files = [], AddDetail} = this.state;
         const title = type === "art" ? "入住成为合作艺术家" : "入住成为艺术商城商户",
             pickers = type === "art" ? artsTitle : shopsTitle;
         let uploadPanel = classNames('art-application__upload', {
@@ -256,11 +272,22 @@ class Application extends PureComponent {
         });
 
         let disabled = true;
+
+        let pictureComplete = false;
+        if (type === "art" && files.length >= 3) {
+            pictureComplete = true;
+        } else {
+            if (files.length >= 4) {
+                pictureComplete = true;
+            }
+        }
+
         if (!_.isEmpty(Provider) &&
             !_.isEmpty(Phone) &&
             !_.isEmpty(CategoryName) &&
             !_.isEmpty(AddDetail) &&
-            isAgreement
+            isAgreement &&
+            pictureComplete
         ) {
             disabled = false;
         }
@@ -269,18 +296,33 @@ class Application extends PureComponent {
             <div className="art-application">
                 <PublicHeader title={title}/>
 
-                <ImagePicker
-                    files={files}
-                    onChange={this.handleChange}
-                    onImageClick={(index, fs) => console.log(index, fs)}
-                    selectable={files.length < 7}
-                    multiple={false}/>
+                <div style={{flexDirection: 'row', display: 'flex', marginBottom: '40px'}}>
+                    {pickers.map((picker, index) => {
+                        return (
+                            <div key={index.toString()}
+                                 style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <ImagePicker
+                                    length={1}
+                                    files={files[index]}
+                                    onChange={(filesValue) => {
+                                        let originalFiles = _.clone(files);
+                                        originalFiles[index] = filesValue;
+                                        this.setState({files: originalFiles});
+                                    }}
+                                    onImageClick={(index, fs) => console.log(index, fs)}
+                                    selectable={files[index] && files[index].length < 1}
+                                    multiple={false}/>
+                                <h4 style={{}}>{picker.title}</h4>
+                            </div>
+                        )
+                    })}
+                </div>
 
-                <div className={uploadPanel}>
+               {/* <div className={uploadPanel}>
                     {
                         //this.UploadImage(files, pickers, type)
                     }
-                </div>
+                </div>*/}
                 <Space/>
                 <div className="art-application__form">
                     {

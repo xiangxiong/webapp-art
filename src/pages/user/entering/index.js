@@ -32,13 +32,13 @@ class Entering extends PureComponent {
                     pathname: './pay',
                     state: {type}
                 });
-            } else if (false&&Status == 4) {
+            } else if (Status == 4) {
                 //支付
                 history.push({
                     pathname: './payorder',
                     state: {SONumber: Deposit}
                 });
-            } else if (true||Status == 6) {
+            } else if (Status == 6) {
                 //入驻 传入数据
                 history.push({
                     pathname: './application',
@@ -51,7 +51,7 @@ class Entering extends PureComponent {
     getItem() {
         let {customerDetail, userIntertionalPartener} = this.props;
         let {CustomerType} = customerDetail;
-        let {Status, Remark} = userIntertionalPartener || {};
+        let {Status, Remark,CooperationWay} = userIntertionalPartener || {};
 
         let extra = '';
         if (Status == 0) {
@@ -62,7 +62,7 @@ class Entering extends PureComponent {
             extra = '审核不通过';
         }
 
-        if (CustomerType == 10) {
+        if (_.isEmpty(userIntertionalPartener)) {
             //普通用户
             return (
                 <List>
@@ -71,7 +71,7 @@ class Entering extends PureComponent {
                           onClick={this.handleCreateShop.bind(this,'shop')}>入驻成为艺术商户商城</Item>
                 </List>
             )
-        } else if (CustomerType == 1) {
+        } else if (CooperationWay == 1) {
             //艺术家
             return (
                 <List>
@@ -79,7 +79,7 @@ class Entering extends PureComponent {
                     {Status == 6 ? <Item>{`审核不通过：${Remark}`}</Item> : null}
                 </List>
             )
-        } else if (CustomerType == 2) {
+        } else if (CooperationWay == 2) {
             //商户
             return (
                 <List>
