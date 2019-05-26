@@ -61,7 +61,7 @@ class Pay extends PureComponent {
                     //支付
                     history.push({
                         pathname: '/payorder',
-                        state: {SONumber: this.state.selectedAmount}
+                        state: {OrderAmount: this.state.selectedAmount}
                     });
                 }}>
                     确认并支付保障金

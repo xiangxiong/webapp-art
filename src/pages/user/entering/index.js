@@ -36,7 +36,7 @@ class Entering extends PureComponent {
                 //支付
                 history.push({
                     pathname: './payorder',
-                    state: {SONumber: Deposit}
+                    state: {OrderAmount: Deposit}
                 });
             } else if (Status == 6) {
                 //入驻 传入数据

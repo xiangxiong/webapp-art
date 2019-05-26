@@ -24,7 +24,6 @@ const shopsTitle = [
     {title: '上传商户logo'},
     {title: '上传身份证正面照'},
     {title: '上传身份证反面照'},
-    {title: '上传营业执照'}
 ];
 
 const artsTitle = [
@@ -148,11 +147,11 @@ class Application extends PureComponent {
         if (type === "art") {
             params.BussinesImageData = 0;
         } else {
-            params.BussinesImageData = encodeURIComponent(files[3][0].url);
+            params.BussinesImageData = encodeURIComponent(files[3][0].url.split(',')[1]);
         }
-        params.IdentityImage1Data = encodeURIComponent(files[1][0].url);
-        params.IdentityImage2Data = encodeURIComponent(files[2][0].url);
-        params.LogoImageData = encodeURIComponent(files[0][0].url);
+        params.IdentityImage1Data = encodeURIComponent(files[1][0].url.split(',')[1]);
+        params.IdentityImage2Data = encodeURIComponent(files[2][0].url.split(',')[1]);
+        params.LogoImageData = encodeURIComponent(files[0][0].url.split(',')[1]);
 
         this.props.getCreateIntertionalPartener(params);
     }
@@ -312,11 +311,30 @@ class Application extends PureComponent {
                                     onImageClick={(index, fs) => console.log(index, fs)}
                                     selectable={files[index] && files[index].length < 1}
                                     multiple={false}/>
-                                <h4 style={{}}>{picker.title}</h4>
+                                <h4>{picker.title}</h4>
                             </div>
                         )
                     })}
                 </div>
+                {type !== "art"?(
+                    <div style={{flexDirection: 'row', display: 'flex', marginBottom: '40px'}}>
+                        <div
+                            style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            <ImagePicker
+                                length={1}
+                                files={files[3]}
+                                onChange={(filesValue) => {
+                                    let originalFiles = _.clone(files);
+                                    originalFiles[3] = filesValue;
+                                    this.setState({files: originalFiles});
+                                }}
+                                onImageClick={(index, fs) => console.log(index, fs)}
+                                selectable={files[3] && files[3].length < 1}
+                                multiple={false}/>
+                            <h4>上传营业执照</h4>
+                        </div>
+                    </div>
+                ):null}
 
                {/* <div className={uploadPanel}>
                     {
