@@ -4,15 +4,13 @@ import {connect} from 'react-redux';
 import {actionCreators} from './store';
 
 class Login extends PureComponent{
-
     componentDidMount(){
-
     }
-    
+
     render(){
-        // console.log('this.props',this.props);
         return (
             <Fragment>
+
             </Fragment>
         )
     }
@@ -20,7 +18,7 @@ class Login extends PureComponent{
 
 const mapStateToProps = (state) => ({
     loginStatus:state.getIn(['login','login'])
-})
+});
 
 const mapStateToDispatch = (dispatch) => ({
     login(account,password){

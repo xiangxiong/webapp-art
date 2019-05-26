@@ -21,7 +21,6 @@ const orders =  [
 ];
 
 class Works extends PureComponent{
-
     constructor(props){
       super(props);
         this.state = {
@@ -48,10 +47,11 @@ class Works extends PureComponent{
           uploadDisabled: true,
           resumeDisabled: true,
           pauseDisabled: true,
-          statusText: '',
+          statusText: '选择视频',
           videoId:0,
           uploader: null,
-          categoryList:[]
+          categoryList:[],
+          selectVideo:'选择文件'
       };
       this.bindEvent();
     }
@@ -86,8 +86,11 @@ class Works extends PureComponent{
         userId: userId,
         addFileSuccess:function(uploadInfo){
           uploadDisabled = false
-          resumeDisabled = false
-          statusText = '添加文件成功, 等待上传...'
+          resumeDisabled = false;
+          that.setState({
+            statusText:'添加文件成功, 等待上传...'
+          })
+          // statusText = '添加文件成功, 等待上传...'
           console.log("addFileSuccess: " + uploadInfo.file.name)
         },
         onUploadstarted:function(uploadInfo){
@@ -150,18 +153,27 @@ class Works extends PureComponent{
             //   let secretToken = info.SecurityToken
             //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
             // });
-            statusText = '文件开始上传...'
+            that.setState({
+              statusText:'文件开始上传...'
+            })
+            // statusText = '文件开始上传...'
             console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
         },
         // 文件上传成功
         onUploadSucceed: function (uploadInfo) {
           console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
-          statusText = '文件上传成功!'
+          that.setState({
+            statusText:'文件上传成功...'
+          })
+          // statusText = '文件上传成功!'
         },
          // 文件上传失败
         onUploadFailed: function (uploadInfo, code, message) {
           console.log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message)
-          statusText = '文件上传失败!'
+          that.setState({
+            statusText:'文件上传失败...'
+          })
+          // statusText = '文件上传失败!'
         },
         // 取消文件上传
         onUploadCanceled: function (uploadInfo, code, message) {
@@ -173,28 +185,25 @@ class Works extends PureComponent{
           console.log("onUploadProgress:file:" + uploadInfo.file.name + ", fileSize:" + totalSize + ", percent:" + Math.ceil(progress * 100) + "%")
           let progressPercent = Math.ceil(progress * 100)
           stsProgress = progressPercent
-          statusText = '文件上传中...'
+          // statusText = '文件上传中...'
+          that.setState({
+            statusText:'上传中'+ Math.ceil(progress * 100)+ "%"
+          })
         },
          // 上传凭证超时
          onUploadTokenExpired:function(uploadInfo){
-          // 如果是上传方式二即根据 STSToken 实现时，从新获取STS临时账号用于恢复上传
-          // 上传文件过大时可能在上传过程中 sts token 就会失效, 所以需要在 token 过期的回调中调用 resumeUploadWithSTSToken 方法
-          // 这里是测试接口, 所以我直接获取了 STSToken
-          // let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
-          // axios.get(stsUrl).then(({data})=>{
-          //   let info = data.SecurityTokenInfo
-          //   let accessKeyId = info.AccessKeyId
-          //   let accessKeySecret = info.AccessKeySecret
-          //   let secretToken = info.SecurityToken
-          //   let expiration = info.Expiration
-          //   uploader.resumeUploadWithSTSToken(accessKeyId, accessKeySecret, secretToken, expiration)
-          // })
-          statusText = '文件超时...'
+          that.setState({
+            statusText:'文件超时...'
+          })
+          // statusText = '文件超时...'
         },
         // 全部文件上传结束
         onUploadEnd: function (uploadInfo) {
+          that.setState({
+            statusText:'上传成功'
+          })
           console.log("onUploadEnd: uploaded all the files");
-          statusText = '文件上传完毕'
+          // statusText = '文件上传完毕'
         }
       });
       return upload
@@ -290,7 +299,6 @@ class Works extends PureComponent{
         if(mainFiles.length > 0){
             base64String = encodeURIComponent(mainFiles[0].url.split(',')[1]);
         }
-
         var product = {
           CustomerId:CustomerId,
           ProviderId:ProviderId,
@@ -314,14 +322,14 @@ class Works extends PureComponent{
           }]
         };
 
-        let params = {
-          ParamList: [
-              {
-                  servicekey:'Art.Service.Product.Dto.Api.ProviderPublishProductRequest',
-                  jsonobjparam: JSON.stringify(product)
-              }
-          ]
-        };
+          let params = {
+            ParamList: [
+                {
+                    servicekey:'Art.Service.Product.Dto.Api.ProviderPublishProductRequest',
+                    jsonobjparam: JSON.stringify(product)
+                }
+            ]
+          };
 
           Toast.info("商品发布成功");
           history.push('/worklist');
@@ -337,7 +345,7 @@ class Works extends PureComponent{
             timeout: 5000
          }).then((response)=>{
             if(response.data.DataObject.Data.Status === 200){
-
+               
             }else{
                Toast.info("商品发布失败");
             }
@@ -355,7 +363,7 @@ class Works extends PureComponent{
     }
 
     render(){
-        const { mainFiles,detailFiles,videoFiles,categoryList } = this.state;
+        const { mainFiles,detailFiles,videoFiles,categoryList,statusText } = this.state;
         const { getFieldProps,getFieldError } = this.props.form;
 
 
@@ -371,15 +379,18 @@ class Works extends PureComponent{
                                       selectable={mainFiles.length < 7}
                                       multiple={this.state.multiple}
                               />
-                              <div className="art-user-work__upload-text">上传图片</div>
                         </Flex.Item>
                 </Flex>
+                <div className="art-user-work__upload-text">上传图片</div>
 
                 <div className="art-user-work__uploadvideo">
+                      <div className="art-user-work__wrapper">
+                           {statusText}
+                      </div>
                       <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
-                      <p className="art-user-work__uploadlabel">上传视频</p>
                       {/* <div className="art-user-work__uploadsuccess">上传成功</div> */}
                 </div>
+                <div className="art-user-work__upload-text">上传视频</div>
 
                 <div className="art-user-work__from">
                   <List>

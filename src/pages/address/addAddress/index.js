@@ -76,7 +76,7 @@ class AddAddress extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader title="新建地址"/>
+                <PublicHeader jump="User" title="新建地址"/>
                 <div className="art-add">
                     <List>
                         <InputItem

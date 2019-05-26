@@ -128,7 +128,7 @@ class Home extends PureComponent{
       CustomerId: storage.CustomerId,
       Position: 1,
       CurrentPage:1,
-      PageSize:2
+      PageSize:10
     };
     let userLikes = await this.props.getUserLikeList(data);
     eventProxy.trigger('recomandItem',userLikes.Data);
@@ -138,36 +138,34 @@ class Home extends PureComponent{
   componentDidMount(){
      this.initLikeList();
      this.initLogin();
-  }
-
-  componentDidUpdate(){
-    // console.log('history.location.state.tab',history.location.state.tab);
-    // this.setState({
-    //   selectedTab:history.location.state.tab
-    // });
+     this.setState({
+      selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
+    });
   }
 
   async initLogin(){
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
-    storage.set("userInfo",{
-      "Token": 2390648179516024,
-      "Register": true,
-      "Type": 2,
-      "CustomerId": 11,
-      "UserName": "156****5212",
-      "NickName": "156****5212",
-      "Phone": 15618925212,
-      "BaiChuanUserId": "",
-      "BaiChuanUserPasssword": "",
-      "IMUserSigExpire": 0
-    });
-    if(storage.get("code")==""){
+    // storage.set("userInfo",{
+    //   "Token": 2390648179516024,
+    //   "Register": true,
+    //   "Type": 2,
+    //   "CustomerId": 11,
+    //   "UserName": "156****5212",
+    //   "NickName": "156****5212",
+    //   "Phone": 15618925212,
+    //   "BaiChuanUserId": "",
+    //   "BaiChuanUserPasssword": "",
+    //   "IMUserSigExpire": 0
+    // });
+    if(storage.get("code") === ""){
         // history.push('/oauth');
     }
     else{
       const result = await this.props.getAuthInfo({code:storage.get("code")});
+      console.log('oauthInfo',result);
       storage.set("oauthInfo",result.Data);
+      console.log('oauthInfo',result.Data);
       console.log('storage.get("code")',storage.get("code"));
       var openId = result.Data.OpenId;
 
@@ -186,16 +184,6 @@ class Home extends PureComponent{
   }
 
   render(){
-    //  var that = this;
-    //  eventProxy.on("targetHome",(object)=>{
-    //   console.log("object",object);
-    //   that.setState({
-    //     selectedTab:'blueTab'
-    //   });
-    //  });
-      //console.log('user',history.location.state.tab);
-      console.log('selectedTab',this.state.selectedTab);
-
      return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
         <TabBar
@@ -207,8 +195,8 @@ class Home extends PureComponent{
           <TabBar.Item
             title="首页"
             key="Home"
-            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/Page 1.svg' }}
-            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/Page 1.svg' }}
+            icon={{ uri: 'http://art.laoliwuyou.com/icon/home.svg' }}
+            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/home_active.svg' }}
             selected={this.state.selectedTab === 'blueTab'}
             onPress={() => {
               this.setState({
@@ -222,11 +210,12 @@ class Home extends PureComponent{
 
           <TabBar.Item
             icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/13.svg' }}
-            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/28.svg' }}
+            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/28.svg' }}
             title="艺商城"
             key="shop"
             selected={ this.state.selectedTab === 'redTab'}
             onPress={() => {
+              console.log('this.state.selectedTab');
               this.setState({
                 selectedTab: 'redTab'
               });
@@ -235,6 +224,7 @@ class Home extends PureComponent{
           >
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
+          
           {/* <TabBar.Item
             icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
             selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
@@ -268,7 +258,7 @@ class Home extends PureComponent{
 
           <TabBar.Item
             icon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
-            selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
+            selectedIcon={{ uri:'http://art.laoliwuyou.com/icon/29.svg' }}
             title="我的"
             key="my"
             selected={this.state.selectedTab === 'yellowTab'}

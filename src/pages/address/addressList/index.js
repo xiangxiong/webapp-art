@@ -77,13 +77,13 @@ class AddressList extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader title="地址管理"/>
+                <PublicHeader jump="User" title="地址管理"/>
                 <div
-                     style={{
-                         height: '10px',
-                         width: '100%',
-                         background:`url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
-                     }}/>
+                    style={{
+                        height: '10px',
+                        width: '100%',
+                        background: `url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
+                    }}/>
                 <div className="art-list">
                     {addressList.map((address, index) => {
                         return this.showAddressItem(address, index);

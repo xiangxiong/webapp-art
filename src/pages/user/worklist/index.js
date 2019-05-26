@@ -17,7 +17,6 @@ class WorkList extends PureComponent{
     }
 
     init(){
-
     }
 
     bindEvent(){
@@ -34,7 +33,6 @@ class WorkList extends PureComponent{
             PageIndex:1,
             PageSize:20
         });
-
     }
 
     handleEditProduct= () =>{
@@ -42,13 +40,16 @@ class WorkList extends PureComponent{
     }
 
     async handleDelProduct(ProdId){
-        alert('下架', '确定下架吗?', [
-            { text: '取消', onPress: () => {
-              } 
+        alert('下架', '确定下架吗?',[
+            { 
+                text: '取消', onPress: () => {
+                } 
             },
-            { text: '确认', onPress: () => {
-                this.offLine(ProdId);
-            } },
+                {
+                  text: '确认', onPress: () => {
+                    this.offLine(ProdId);
+                }
+            },
           ]);
     }
 
@@ -76,13 +77,11 @@ class WorkList extends PureComponent{
             return (
                 <div className="art-worklist__item" key={index}>
                     <div className="art-worklist__item-img">
-                        <div style={{
-                            background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`
-                        }}>
+                        <div style={{background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`}}>
                         </div>
                     </div>
                     <div className="art-worklist__item-content">
-                       <h3>{item.ProdName}</h3>
+                        <h3>{item.ProdName}</h3>
                         <div>{`销售价：${item.LimitPrice}元`}</div>
                         <div>{`市场价：${item.MarketPrice}元`}</div>
                         <div>
@@ -98,7 +97,7 @@ class WorkList extends PureComponent{
     render(){
         return (
             <Fragment>
-                <PublicHeader title="作品库" bgColor="#E87908"/>
+                <PublicHeader title="作品库" jump="User" bgColor="#E87908"/>
                 {this.getWorkItem(this.props.workList)}
             </Fragment>
         )

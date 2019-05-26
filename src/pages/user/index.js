@@ -8,6 +8,7 @@ import Header from './center/header';
 import {Tabs, List} from 'antd-mobile';
 import OrderItem from './center/order';
 import {getUserLikeProducts, clearUserLikeProducts} from '../home/store/actionCreators';
+import {getWeChatOauth} from './store/actionCreators';
 import Product from '../common/product';
 import Title from '../common/title';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -45,21 +46,6 @@ const navItems = [
 
 const customerNavItems = [
     {
-        title: '合作入驻',
-        icon: 'art-icon art-icon-user-cor',
-        routeUrl: '/enter'
-    },
-    // {
-    //     title: '好货推荐',
-    //     icon: 'art-icon art-icon-user-recomand',
-    //     routeUrl: ''
-    // },
-    // {
-    //     title: '提现',
-    //     icon: 'art-icon art-icon-user-cash',
-    //     routeUrl: ''
-    // },
-    {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
         routeUrl: ''
@@ -77,6 +63,11 @@ const customerNavItems = [
 ];
 
 const normalNavItems = [
+    {
+        title: '合作入驻',
+        icon: 'art-icon art-icon-user-cor',
+        routeUrl: '/enter'
+    },
     // {
     //     title: '好货推荐',
     //     icon: 'art-icon art-icon-user-recomand',
@@ -117,11 +108,6 @@ class User extends PureComponent{
         // this.bindEvents();
     }
 
-    componentWillMount(){
-      
-    }
-
-
     bindEvents() {
         this.handleNavUrl = this.handleNavUrl.bind(this);
         this.handleTestClick = this.handleTestClick.bind(this);
@@ -132,8 +118,9 @@ class User extends PureComponent{
     }
 
     bindSellList() {
-        return navItems.map((navItem, index) => {
 
+
+        return navItems.map((navItem, index) => {
             return (
                 <List key={index.toString()}>
                     <Item
@@ -200,11 +187,14 @@ class User extends PureComponent{
     }
 
     render() {
-        const tabs = [
+        const {ProviderStatus} = this.state;
+         
+        const tabs  = ProviderStatus === 1 ?  [
             {title: '我是买家'},
             {title: '我是卖家'}
+        ] : [
+            {title: '我是买家'}
         ];
-
         const {
             UserName = '',
             ImageThumb,
@@ -220,6 +210,7 @@ class User extends PureComponent{
             CustomerType
         } = this.props.customerDetail;
 
+<<<<<<< HEAD
         if (CustomerType == 10) {
             this.setState({
                 ProviderStatus: 2
@@ -239,6 +230,26 @@ class User extends PureComponent{
                 if(item === 'ProviderId'){
                     storage.set('ProviderId',ObjectItem[item]);
                 }
+=======
+        var ObjectItem = this.props.customerDetail.ProviderInfo;
+
+        for(var item in ObjectItem){
+            let storage = Storage.Base.getInstance();
+            if(item==='ProviderStatus'){
+                console.log('ProviderStatus',ObjectItem[item]);
+                storage.set('ProviderStatus',ObjectItem[item]);
+                this.setState({
+                    ProviderStatus:ObjectItem[item]
+                })
+            }
+            if(item === 'CategoryId'){
+                console.log('CategoryId',ObjectItem[item]);
+                storage.set('CategoryId',ObjectItem[item]);
+            }
+            if(item === 'ProviderId'){
+                console.log('ProviderId',ObjectItem[item]);
+                storage.set('ProviderId',ObjectItem[item]);
+>>>>>>> fix wechat login
             }
         }
 
@@ -253,7 +264,7 @@ class User extends PureComponent{
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
                 />
-                <Tabs tabs={tabs} initialPage={1}>
+                <Tabs tabs={tabs} initialPage={0}>
                     <div style={styles.tab}>
                         <InfiniteScroll
                             loadMore={this.loadMoreItem.bind(this)}
@@ -287,13 +298,22 @@ class User extends PureComponent{
             </Fragment>
         )
     }
+
+    async getWeChatOauth(){
+        const data = {
+            Url:encodeURIComponent('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=http://art.laoliwuyou.com&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect')
+        };
+        const result = await this.props.getWeChatOauth(data);
+        console.log('result',result);
+    }
+
     componentDidMount(){
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo').CustomerId;
         this.props.getCustomerDetail(customerId);
         this.props.clearUserLikeProducts();
         this.props.getUserLikeProducts(customerId,this.currentPage);
-        console.log('user.customerDetail',this.props.customerDetail);
+        this.getWeChatOauth();
     }
 }
 
@@ -304,15 +324,14 @@ const mapStateToProps = ({user, home}) => {
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    clearUserLikeProducts: () => {
-        dispatch(clearUserLikeProducts())
-    },
-    getCustomerDetail: (CustomerId) => {
-        dispatch(getCustomerDetail({CustomerId}))
-    },
-    getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
-        dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+            getWeChatOauth:(params)=>dispatch(getWeChatOauth(params)),
+            clearUserLikeProducts: () =>  dispatch(clearUserLikeProducts()),
+            getCustomerDetail: (CustomerId) => dispatch(getCustomerDetail({CustomerId})),
+            getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) =>
+                dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
+    };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

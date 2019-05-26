@@ -10,7 +10,7 @@ WeChatPay.Base = (function(){
          try{
                var payParams = {
                   "appId":payArgs.appid,     
-                  "timeStamp":payArgs.timestamp.toString() ,        
+                  "timeStamp":payArgs.timestamp.toString(),        
                   "nonceStr":payArgs.noncestr,  
                   "package":"prepay_id="+payArgs.prepayid,     
                   "signType":"MD5",           
@@ -22,7 +22,9 @@ WeChatPay.Base = (function(){
                      function(res){
                         callback(res);
                });
-         }catch(e){
+         }
+         catch(e)
+         {
             Toast.info("请在微信客户端进行支付!");
          }
       }
@@ -41,5 +43,4 @@ WeChatPay.Base = (function(){
         return uniqInstance;
       }
    }
-
 })();

@@ -95,3 +95,9 @@ export const VIDEO_UPLOADER_API = 'Art.Service.Product.Dto.Request.Vod.VodUpload
 
 // 商品库下架
 export const SHOP_STORE_OFFLINE_API = 'Art.Service.Product.Dto.Api.UpdateProductStatusRequest'
+
+// 获取微信相关的配置参数
+export const GET_WECHAT_OAUTH_API = 'Art.Service.Customer.Dto.Api.GetWeChatOAuthRequest';
+
+// 绑定用户信息
+export const BIND_WECHAT_USERNAME = 'Art.Service.Customer.Dto.Api.PartnerSetPwRequest';
