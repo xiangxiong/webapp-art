@@ -146,18 +146,18 @@ class Home extends PureComponent{
   async initLogin(){
     let storage = Storage.Base.getInstance();
     storage.set("code",getUrlParam('code'));
-    storage.set("userInfo",{
-      "Token": 2390648179516024,
-      "Register": true,
-      "Type": 2,
-      "CustomerId": 11,
-      "UserName": "156****5212",
-      "NickName": "156****5212",
-      "Phone": 15618925212,
-      "BaiChuanUserId": "",
-      "BaiChuanUserPasssword": "",
-      "IMUserSigExpire": 0
-    });
+    // storage.set("userInfo",{
+    //   "Token": 2390648179516024,
+    //   "Register": true,
+    //   "Type": 2,
+    //   "CustomerId": 11,
+    //   "UserName": "156****5212",
+    //   "NickName": "156****5212",
+    //   "Phone": 15618925212,
+    //   "BaiChuanUserId": "",
+    //   "BaiChuanUserPasssword": "",
+    //   "IMUserSigExpire": 0
+    // });
     if(storage.get("code") === ""){
         // history.push('/oauth');
     }
