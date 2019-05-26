@@ -77,7 +77,9 @@ class Main extends PureComponent{
             setTimeout(() => {
                 this.setState({hasMoreItems: false}, () => {
                     this.currentPage = ++this.currentPage;
-                    this.props.getUserLikeProducts(11, this.currentPage).then(() => {
+                    let storage = Storage.Base.getInstance();
+                    let CustomerId = storage.get('userInfo').CustomerId;
+                    this.props.getUserLikeProducts(CustomerId, this.currentPage).then(() => {
                         this.setState({hasMoreItems: true});
                     });
                 });
@@ -142,7 +144,9 @@ class Main extends PureComponent{
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
-        this.props.getUserLikeProducts(11, this.currentPage);
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        this.props.getUserLikeProducts(CustomerId, this.currentPage);
     }
 }
 
@@ -157,9 +161,9 @@ const mapStateToProps = ({home}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAdvertList: data => dispatch(getAdvertList(data)),
+        getAdvertList: type => dispatch(getAdvertList(type)),
         getNewsPagerList: data => dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3})),
-        getUserLikeProducts: data => dispatch(getUserLikeProducts({CustomerId:11, Position: 1, CurrentPage:1, PageSize:2}))
+        getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     }
 }
 // const mapDispatchToProps = dispatch => ({

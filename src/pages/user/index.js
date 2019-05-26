@@ -185,7 +185,9 @@ class User extends PureComponent{
             setTimeout(() => {
                 this.setState({hasMoreItems: false}, () => {
                     this.currentPage = ++this.currentPage;
-                    this.props.getUserLikeProducts(11, this.currentPage).then(() => {
+                    let storage = Storage.Base.getInstance();
+                    let customerId = storage.get('userInfo').CustomerId;
+                    this.props.getUserLikeProducts(customerId, this.currentPage).then(() => {
                         this.setState({hasMoreItems: true});
                     });
                 });

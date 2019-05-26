@@ -58,7 +58,9 @@ class Shop extends PureComponent {
         this.props.getShopNewsPagerList();
         this.props.getShopAdvertList(21);
         this.props.getProductCommend();
-        this.props.getUserLikeProducts(11);
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        this.props.getUserLikeProducts(CustomerId);
     }
 }
 
