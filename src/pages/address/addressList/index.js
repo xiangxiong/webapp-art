@@ -39,7 +39,8 @@ class AddressList extends PureComponent {
                                 color: IsDefault == 1 ? '#C52125' : '#C6C6C6',
                                 borderColor: IsDefault == 1 ? 'rgba(197,33,37,1)' : 'rgba(198,198,198,1)'
                             }}
-                            onClick={() => {
+                            onClick={(e) => {
+                                e.stopPropagation();
                                 if (IsDefault != 1) {
                                     let storage = Storage.Base.getInstance();
                                     let Token = storage.get('userInfo').Token;
@@ -57,7 +58,8 @@ class AddressList extends PureComponent {
 
                 <div className="art-list__item___right">
                     <div className="art-icon art-icon-add"
-                         onClick={() => {
+                         onClick={(e) => {
+                             e.stopPropagation();
                              let storage = Storage.Base.getInstance();
                              let Token = storage.get('userInfo').Token;
 

@@ -101,7 +101,8 @@ class OrderList extends PureComponent {
             case 5:
                 return (
                     <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={() => {
+                        <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                            e.stopPropagation();
                             this.onPayment(order);
                         }}>
                             立即付款

@@ -193,7 +193,7 @@ class Home extends PureComponent{
     //     selectedTab:'blueTab'
     //   });
     //  });
-      console.log('user',history.location.state.tab);
+      //console.log('user',history.location.state.tab);
       console.log('selectedTab',this.state.selectedTab);
 
      return (
