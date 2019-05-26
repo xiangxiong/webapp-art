@@ -76,8 +76,8 @@ class OrderList extends PureComponent {
 
     //付款
     onPayment = (order) => {
-        let {OrderAmount, SONumber, OrderNumber} = order;
-        history.push('./payorder', {OrderAmount, SONumber,OrderNumber});
+        let {SOAmount, SONumber, OrderNumber} = order;
+        history.push('./payorder', {OrderAmount: SOAmount, SONumber, OrderNumber});
     };
 
     //确认收货
@@ -154,7 +154,7 @@ class OrderList extends PureComponent {
     render() {
         const {index = 0} = this.props.location.state;
         const {orderList = []} = this.props;
-        
+
         return (
             <Fragment>
                 <PublicHeader jump="User" title="我的订单"/>
