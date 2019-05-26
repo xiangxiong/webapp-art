@@ -11,11 +11,12 @@ class PayOrder extends PureComponent {
 
     async handlePayOrder(){
         const {OrderAmount = 0, SONumber = 0, OrderNumber = 0,ProviderId = 0} = this.props.location.state;
+
         let storage = Storage.Base.getInstance(),
             token = storage.get("userInfo").Token,
             openId = storage.get("oauthInfo").OpenId;
 
-        let data = encodeURI(`${token}|${OrderAmount}|${openId}|${SONumber}|${OrderNumber}|${ProviderId}`);
+        let data = encodeURIComponent(`${token}|${OrderAmount}|${openId}|${SONumber}|${OrderNumber}|${ProviderId}`);
 
         console.log('token',token);
         console.log('OrderAmount',OrderAmount);
@@ -23,6 +24,7 @@ class PayOrder extends PureComponent {
         console.log('SONumber',SONumber);
         console.log('OrderNumber',OrderNumber);
         console.log('ProviderId',ProviderId);
+        console.log('data',data);
 
         var payType = 1;
 

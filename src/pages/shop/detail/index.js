@@ -10,7 +10,7 @@ import history from './../../../utils/history';
 class Detail extends PureComponent {
 
     handleBuy = () => {
-        history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
+        history.push('./submitorder',{productList: [this.props.shopWorthGoodsDetail]});
     };
 
     render() {

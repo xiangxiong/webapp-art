@@ -305,7 +305,7 @@ class Works extends PureComponent{
           ProdName:data.workName,
           CategoryId:categoryId[0],
           MarketPrice:data.workMarketPrice,
-          LimitPrice:data.workMarketPrice,
+          LimitPrice:data.LimitPrice,
           SaleType:isOrder[0],
           Length:data.workLong,
           Width:data.workWidth,
@@ -436,8 +436,8 @@ class Works extends PureComponent{
 
                       <InputItem
                         clear
-                        error={!!getFieldError('workMarketDiscount')}
-                        {...getFieldProps('workMarketDiscount',{
+                        error={!!getFieldError('LimitPrice')}
+                        {...getFieldProps('LimitPrice',{
                             rules:[
                               { required: true, message: 'Please input account' },
                               { validator: this.validateAccount },
@@ -446,7 +446,6 @@ class Works extends PureComponent{
                         placeholder="输入销售价(元）"
                         ref={el => this.inputRef = el}
                       >销售价*</InputItem>
-
 
                       <InputItem
                         clear

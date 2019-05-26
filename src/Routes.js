@@ -75,7 +75,7 @@ export default [
         key: 'addAddress'
     },
     {
-        path: "/detail/:id",
+        path: "/detail",
         component: Detail,
         exact: true,
         key: 'detail'

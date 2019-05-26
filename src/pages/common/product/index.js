@@ -4,7 +4,7 @@ import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 
 function  handleJumpUrl(ProductId){
-    history.push('./detail/'+ProductId, {ProductId})
+    history.push('./detail', {ProductId})
 }
 
 const Product = (props) => {
