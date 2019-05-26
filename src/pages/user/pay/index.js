@@ -1,21 +1,23 @@
-import React,{useState,Fragment,PureComponent} from 'react';
+import React, {useState, Fragment, PureComponent} from 'react';
 import PublicHeader from './../../../components/header';
 import {Checkbox} from 'antd-mobile';
 import './index.scss';
 import connect from "react-redux/es/connect/connect";
 import {getDict} from "../store/actionCreators";
+import history from './../../../utils/history';
 const AgreeItem = Checkbox.AgreeItem;
 
-class Pay extends PureComponent{
-    constructor(props){
+class Pay extends PureComponent {
+    constructor(props) {
         super(props);
-        console.log('props',this.props.location.state);
+        console.log('props', this.props.location.state);
         this.state = {
             selectedNumber: 0,
+            selectedAmount: 0,
         }
     }
 
-    addDesc = (userDict,index) => {
+    addDesc = (userDict, index) => {
         return (
             <div className="art-add__desc" key={index.toString()}>
                 <div>
@@ -30,7 +32,7 @@ class Pay extends PureComponent{
                         data-seed="logId"
                         className="my-radio"
                         onChange={e => {
-                            this.setState({selectedNumber: userDict.TransactionNumber})
+                            this.setState({selectedNumber: userDict.TransactionNumber, selectedAmount: userDict.Value})
                         }}>
                     </AgreeItem>
                 </div>
@@ -38,26 +40,32 @@ class Pay extends PureComponent{
         )
     };
 
-    render(){
+    render() {
         const {type} = this.props.location.state;
         const title = type === "art" ? "成为合作艺术家" : "成为艺术商城商户";
         let {userDictList} = this.props;
-        
+
         return (
             <Fragment>
-               <PublicHeader title={title}/>
-               <p className="art-add__pay">
+                <PublicHeader title={title}/>
+                <p className="art-add__pay">
                     你已通过入驻艺术家信息审核
                     请选择入驻
-               </p>
+                </p>
 
                 {userDictList.map((userDict, index) => {
-                   return this.addDesc(userDict,index)
+                    return this.addDesc(userDict, index)
                 })}
 
-               <div className="art-add__paysure">
-                确认并支付保障金
-               </div>
+                <div className="art-add__paysure" onClick={() => {
+                    //支付
+                    history.push({
+                        pathname: '/payorder',
+                        state: {SONumber: this.state.selectedAmount}
+                    });
+                }}>
+                    确认并支付保障金
+                </div>
 
             </Fragment>
         )

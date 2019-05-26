@@ -164,7 +164,7 @@ class Application extends PureComponent {
     };
 
     RenderShopForm = (props) => {
-        let {CategoryName} = this.state;
+        let {Provider = '', Phone = '', AddDetail = '', CategoryName = ''} = this.state;
 
         return (
             <List>
@@ -174,6 +174,7 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({Provider: v})
                     }}
+                    value={Provider}
                 >商户名称</InputItem>
                 <InputItem
                     clear
@@ -189,6 +190,7 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({Phone: v})
                     }}
+                    value={Phone}
                 >联系电话</InputItem>
 
                 <InputItem
@@ -197,13 +199,14 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({AddDetail: v})
                     }}
+                    value={AddDetail}
                 >联系地址</InputItem>
             </List>
         )
     }
 
     RenderArtForm = (props) => {
-        let {CategoryName} = this.state;
+        let {Provider = '', Phone = '', AddDetail = '', CategoryName = ''} = this.state;
 
         return (
             <List>
@@ -213,6 +216,7 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({Provider: v})
                     }}
+                    value={Provider}
                 >姓名</InputItem>
                 <InputItem
                     clear
@@ -228,6 +232,7 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({Phone: v})
                     }}
+                    value={Phone}
                 >联系电话</InputItem>
 
                 <InputItem
@@ -236,6 +241,7 @@ class Application extends PureComponent {
                     onChange={(v) => {
                         this.setState({AddDetail: v})
                     }}
+                    value={AddDetail}
                 >联系地址</InputItem>
             </List>
         )
@@ -314,6 +320,21 @@ class Application extends PureComponent {
 
 
     componentDidMount() {
+        let {data} = this.props.location.state;
+        if (_.isEmpty(data)) {
+            data = {}
+        }
+        const {Provider = '', Phone = '', AddDetail = '', CategoryName = '', CategoryId = ''} = data;
+
+        this.setState({
+            Provider,
+            Phone,
+            AddDetail,
+            CategoryName,
+            CategoryId,
+            buttonIndex: _.isEmpty(CategoryId) ? CategoryId - 1 : CategoryId,
+        });
+
         this.props.getQueryCategoryList({IsOnlyOneCategory: 1});
     }
 }

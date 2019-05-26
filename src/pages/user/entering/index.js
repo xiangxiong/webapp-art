@@ -17,7 +17,7 @@ class Entering extends PureComponent {
 
     handleCreateShop(type) {
         let {userIntertionalPartener} = this.props;
-        let {Status} = userIntertionalPartener || {};
+        let {Status,Deposit} = userIntertionalPartener || {};
 
         if (_.isEmpty(userIntertionalPartener)) {
             //跳转到入驻
@@ -32,10 +32,14 @@ class Entering extends PureComponent {
                     pathname: './pay',
                     state: {type}
                 });
-            } else if (Status == 4) {
-                //跳支付
-            } else if (Status == 6) {
-                //跳转到入驻 传入数据
+            } else if (false&&Status == 4) {
+                //支付
+                history.push({
+                    pathname: './payorder',
+                    state: {SONumber: Deposit}
+                });
+            } else if (true||Status == 6) {
+                //入驻 传入数据
                 history.push({
                     pathname: './application',
                     state: {type, data: userIntertionalPartener}
