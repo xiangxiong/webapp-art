@@ -25,7 +25,7 @@ WeChatPay.Base = (function(){
          }
          catch(e)
          {
-            Toast.info("请在微信客户端进行支付!");
+            Toast.info("支付失败");
          }
       }
       return {

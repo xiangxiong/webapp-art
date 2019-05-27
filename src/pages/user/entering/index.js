@@ -11,10 +11,6 @@ const Item = List.Item;
 
 class Entering extends PureComponent {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleCreateShop(type) {
         let {userIntertionalPartener} = this.props;
         let {Status,Deposit,ProviderId} = userIntertionalPartener || {};

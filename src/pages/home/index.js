@@ -51,7 +51,7 @@ class Home extends PureComponent{
         CustomerId: storage.CustomerId ==null? 0: storage.CustomerId,
         Position: 1,
         CurrentPage: countCurrentPage,
-        PageSize:2
+        PageSize:10
     };
     let userLikes = await this.props.getUserLikeList(data);
     eventProxy.trigger('recomandItem',userLikes.Data);
@@ -301,6 +301,7 @@ const mapDispatchToProps = dispatch => {
       return  dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     },
     getUserLikeList: (data) => {
+      console.log('getUserLikeList data',data);
       return  dispatch(getUserLikeList(data))
     }
  }
