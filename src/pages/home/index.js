@@ -13,10 +13,10 @@ import './../../utils/storage';
 import _ from 'lodash';
 import history from './../../utils/history';
 import Scroll from 'react-bscroll'
+import BScroll from 'better-scroll';
 import 'react-bscroll/lib/react-scroll.css'
 import eventProxy from 'react-eventproxy';
 const Data = [];
-let NEWDATAINDEX = 1
 for (let i = 0; i < 10; i++) {
   Data.push(i)
 }
@@ -33,7 +33,9 @@ class Home extends PureComponent{
             isSelected:false,
             listData: Data,
             childData: 666,
-            currentPage:1
+            currentPage:1,
+            calcHeight:760,
+            totalRecords:0
         };
 
         eventProxy.on("targetHome",(object)=>{
@@ -41,24 +43,28 @@ class Home extends PureComponent{
            this.setState({
               selectedTab:"yellowTab"
            });
-          //  this.forceUpdate();
+           // this.forceUpdate();
         });
   }
 
-  async loadMoreData(props) {
-    let storage = Storage.Base.getInstance().get("userInfo");
-    let data = {
-        CustomerId: storage.CustomerId ==null? 0: storage.CustomerId,
-        Position: 1,
-        CurrentPage: countCurrentPage,
-        PageSize:10
-    };
-    let userLikes = await this.props.getUserLikeList(data);
-    eventProxy.trigger('recomandItem',userLikes.Data);
-    countCurrentPage ++;
+  async loadMoreData(props){
+      let storage = Storage.Base.getInstance().get("userInfo");
+      let data = {
+          CustomerId: storage ==null? 0: storage.CustomerId,
+          Position: 1,
+          CurrentPage: countCurrentPage,
+          PageSize:10
+      };
+      let userLikes = await this.props.getUserLikeList(data);
+      this.setState({
+        totalRecords:userLikes.Data.TotalRecords
+      });
+      eventProxy.trigger('recomandItem',userLikes.Data);
+      countCurrentPage ++;
   }
 
   renderFactory(pageText){
+       console.log('pageText',pageText);
        switch(pageText){
           case "MAIN":
             return (<Main likeProducts={this.props.userLikeProducts}/>);
@@ -76,8 +82,6 @@ class Home extends PureComponent{
   }
 
   renderContent(pageText){
-      
-
         if(pageText==="USER"){
           return (
             <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
@@ -87,10 +91,10 @@ class Home extends PureComponent{
             </div>
           );
         }
-
+        
         if(pageText==="MAIN"){
           return (
-            <div className="container" >
+            <div className="container">
               <Scroll
               click={true}
               pullUpLoad
@@ -107,16 +111,15 @@ class Home extends PureComponent{
         if(pageText==="ARTSHOP"){
            return (
             <div className="container">
-                <Scroll
-                  click={true}
-                  pullUpLoad
-                  pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
-                  isPullUpTipHide={ false }
-                >
-                        {
-                              this.renderFactory(pageText)
-                        }
-                </Scroll>
+                  <Scroll
+                    click={true}
+                    pullUpLoad
+                    pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                    isPullUpTipHide={ false }>
+                    {
+                          this.renderFactory(pageText)
+                    }
+                  </Scroll>
               </div>
            )
         }
@@ -125,7 +128,7 @@ class Home extends PureComponent{
   async initLikeList(){
     let storage = Storage.Base.getInstance().get("userInfo");
     let data = {
-      CustomerId: storage.CustomerId == null ? 0 : storage.CustomerId ,
+      CustomerId: storage == null ? 0 : storage.CustomerId ,
       Position: 1,
       CurrentPage:1,
       PageSize:10
@@ -136,56 +139,10 @@ class Home extends PureComponent{
   }
 
   componentDidMount(){
-     this.initLogin();
      this.initLikeList();
      this.setState({
       selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
     });
-    console.log('height',document.body.clientHeight);
-    console.log('height',document.getElementById("root").getBoundingClientRect());
-  }
-
-  async initLogin(){
-    let storage = Storage.Base.getInstance();
-    storage.set("code",getUrlParam('code'));
-    // storage.set("oauthInfo",{
-    //   "OpenId":'232432'
-    // });
-    // storage.set("userInfo",{
-    //   "Token": 2390648179516024,
-    //   "Register": true,
-    //   "Type": 2,
-    //   "CustomerId": 11,
-    //   "UserName": "156****5212",
-    //   "NickName": "156****5212",
-    //   "Phone": 15618925212,
-    //   "BaiChuanUserId": "",
-    //   "BaiChuanUserPasssword": "",
-    //   "IMUserSigExpire": 0
-    // });
-    if(storage.get("code") === ""){
-        history.push('/oauth');
-    }
-    else{
-      const result = await this.props.getAuthInfo({code:storage.get("code")});
-      console.log('oauthInfo',result);
-      storage.set("oauthInfo",result.Data);
-      console.log('oauthInfo',result.Data);
-      console.log('storage.get("code")',storage.get("code"));
-      var openId = result.Data.OpenId;
-
-      if(!_.isEmpty(openId)){
-          const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:openId});
-          storage.set("userInfo",userInfo.Data);
-          console.log('userInfo.Data',userInfo.Data);
-          if(!userInfo.Data.Register){
-              history.push('/bind');
-              console.log('去绑定手机');
-          }else{
-              console.log('登录成功');
-          }
-      }
-    }
   }
 
   render(){

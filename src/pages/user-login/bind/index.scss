@@ -12,6 +12,14 @@
         margin: 0 auto;
     }
 
+    &__cancel{
+        height: 30px;
+        line-height: 30px;
+        color: gray;
+        font-size: 15px;
+        text-align: center;
+    }
+
     &>h3{
         margin: 0 auto;
         padding-top: 10px;

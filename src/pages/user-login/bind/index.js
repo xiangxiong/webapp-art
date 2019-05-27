@@ -1,7 +1,7 @@
 import React,{Fragment,PureComponent} from 'react';
 import './index.scss';
 import {InputItem,Button,Toast} from 'antd-mobile';
-import {bindPhoneActionResult,sendMessageActionResult,bindWeChatOauth} from './../store/actionCreators'; 
+import {bindPhoneActionResult,sendMessageActionResult,bindWeChatOauth,wxLogin} from './../store/actionCreators'; 
 import {connect} from 'react-redux';
 import history from './../../../utils/history';
 var count = 0;
@@ -35,7 +35,11 @@ class Bind extends PureComponent{
     }
 
     async handleBindPhone(){
-        let authInfo = Storage.Base.getInstance().get('oauthInfo');
+        var authInfo = Storage.Base.getInstance().get('oauthInfo');
+        if(authInfo === null){
+            history.push('./oauth');
+            return;
+        }
         const data = {
             Type:'2',
             OpenId:authInfo.OpenId,
@@ -47,16 +51,17 @@ class Bind extends PureComponent{
             }
         };
         const result = await this.props.handleBindPhone(data);
-        if(result.Status !== 200){
-            this.bindWeChatOauth();
-            Toast.fail("手机号已绑定");
+        if(result.Status === 200 && result.Data.Register == false){
+            const result = await this.bindWeChatOauth(this.phoneRef.state.value);
+            console.log('bindWeChatOauth',result);
+            const userInfo  = await this.props.handleWxLogin({Type:'2',OpenId:authInfo.OpenId});
+            console.log('更新userInfo',userInfo.Data);
+            Storage.Base.getInstance().set("userInfo",userInfo.Data);
             setTimeout(()=>{
                 history.push('/');
-            },2000);
+            },1000);
         }else{
-            let storage = Storage.Base.getInstance();
-            storage.set("userInfo",result.Data);
-            history.push('/');
+            Toast.info("绑定失败,请刷新重试.");
         }
     }
 
@@ -92,17 +97,24 @@ class Bind extends PureComponent{
         },1000);
     }
 
-    async bindWeChatOauth(){
+    async bindWeChatOauth(phone){
         let storage = Storage.Base.getInstance().get('oauthInfo');
         console.log('bindWeChatOauth storage',storage);
         const data = {
             Type:2,
             OpenId:storage.OpenId,
             ThirdPhoto:storage.HeadImgUrl,
-            ThirdName:storage.NickName
+            ThirdName:storage.NickName,
+            Phone:phone
         };
         const result = await this.props.bindWeChatOauth(data);
         console.log('result',result);
+
+        return result;
+    }
+
+    HandleCancelBind(){
+        history.push('./home');
     }
 
     render(){
@@ -129,6 +141,9 @@ class Bind extends PureComponent{
                             </InputItem>
                             <Button type="primary" onClick={this.handleBindPhone}>绑定手机号</Button>
                         </div>
+                        <div className="art-user-login__cancel"> 
+                            <p onClick={this.HandleCancelBind.bind(this)}>暂不绑手机</p>
+                        </div>
                     </div>
                     <Button type="primary"  ref={el=> this.sendRef = el} onClick={this.handleSendCode} className="art-user-login-send">
                          {sendMessage}
@@ -149,8 +164,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         bindWeChatOauth:(params)=>dispatch(bindWeChatOauth(params)),
         handleBindPhone: data => dispatch(bindPhoneActionResult(data)),
-        handleSendCode: data => dispatch(sendMessageActionResult(data))
+        handleSendCode: data => dispatch(sendMessageActionResult(data)),
+        handleWxLogin:(params)=> dispatch(wxLogin(params))
     }
 }
-
 export default connect(mapStateToProps,mapDispatchToProps)(Bind);

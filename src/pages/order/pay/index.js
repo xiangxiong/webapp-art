@@ -47,7 +47,7 @@ class PayOrder extends PureComponent {
             Toast.info("发起支付异常!");
         }
     }
-
+    
     HandlePayCallBack(res){
          if(res.err_msg === "get_brand_wcpay_request:ok" ){
             Toast.success('支付成功');

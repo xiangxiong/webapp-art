@@ -17,6 +17,19 @@ class SubmitOrder extends PureComponent {
         this.state = {
             UsrMemo: ''
         };
+        this.init();
+    }
+
+    init(){
+        let storage = Storage.Base.getInstance();
+        let userInfo = storage.get('userInfo');
+
+        if(userInfo == null ){
+             history.push('./oauth');
+        }
+        else if(userInfo.Register === false){
+            history.push('./bind');
+        }
     }
 
     HandleSubmitOrder = () => {
@@ -169,9 +182,17 @@ class SubmitOrder extends PureComponent {
 
     componentDidMount() {
         let storage = Storage.Base.getInstance();
-        let CustomerId = storage.get('userInfo').CustomerId;
+        let userInfo = storage.get('userInfo');
 
-        this.props.getDefaultAddress(CustomerId);
+        if(userInfo == null ){
+             history.push('./oauth');
+        }
+        else if(userInfo.Register === false){
+            history.push('./bind');
+        }
+        else{
+            this.props.getDefaultAddress(userInfo.CustomerId);
+        }
     }
 }
 

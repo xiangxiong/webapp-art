@@ -12,8 +12,6 @@ const OrderItem = (props) =>{
 
     const {AwaitPayCount, AwaitShipCount, AwaitReceiptCount, AwaitCommentCount} = props;
 
-
-
     return (
         <Fragment>
               <div className="art-user__order">
@@ -32,8 +30,8 @@ const OrderItem = (props) =>{
                                     <Badge text={AwaitShipCount > 0 ? AwaitShipCount : ''}></Badge>
                                 </div>
                                 <div onClick={handleOrderClick.bind(null,3)}>
-                                <div className="art-icon art-icon-order-recevier"></div>
-                                <p>已发货</p>
+                                <div className="art-icon art-icon-order-recevier order-recevier"></div>
+                                <p className="order-recevier-label">已发货</p>
                                 <Badge text={AwaitReceiptCount > 0 ? AwaitReceiptCount : ''}></Badge>
                             </div>
                             <div onClick={handleOrderClick.bind(null,4)}>

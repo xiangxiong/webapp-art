@@ -6,6 +6,7 @@ import { createForm } from 'rc-form';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import history from './../../../utils/history';
+import {APIURL}   from './../../../utils/api';
 
 import {createProduct,getProductType,getDicItem,getUploadVideoFile,getQueryCategoryList} from './../store/actionCreators';
 const data = [];
@@ -110,7 +111,7 @@ class Works extends PureComponent{
 
           axios({
               method: 'post',
-              url: 'http://artapi.laoliwuyou.com/gateway?format=json',
+              url: APIURL,
               data: JSON.stringify(params),
               headers: {
                   'Content-Type': 'application/json',
@@ -336,7 +337,7 @@ class Works extends PureComponent{
 
           axios({
             method: 'post',
-            url: 'http://artapi.laoliwuyou.com/gateway?format=json',
+            url: APIURL,
             data: params,
             headers: {
                 'Content-Type': 'application/json',

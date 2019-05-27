@@ -13,6 +13,8 @@ import Product from '../common/product';
 import Title from '../common/title';
 import InfiniteScroll from 'react-infinite-scroller';
 import '../../utils/storage';
+import {PRODUCTURL} from './../../utils/api';
+import _ from 'lodash';
 
 const Item = List.Item;
 const styles = {};
@@ -105,10 +107,23 @@ class User extends PureComponent{
             ProviderStatus:1
         };
         this.currentPage = 1;//为你推荐 当前页
-        // this.bindEvents();
+        this.init();
     }
 
-    bindEvents() {
+    init(){
+        let storage = Storage.Base.getInstance();
+        let userInfo = storage.get('userInfo');
+        if(userInfo == null ){
+             history.push('./oauth');
+             return;
+        }
+        else if(userInfo.Register === false){
+            history.push('./bind');
+            return;
+        }
+    }
+
+    bindEvents(){
         this.handleNavUrl = this.handleNavUrl.bind(this);
         this.handleTestClick = this.handleTestClick.bind(this);
     }
@@ -180,9 +195,6 @@ class User extends PureComponent{
         }
     }
 
-    handleTestClick(){
-        // history.push('/oauth');
-    }
 
     render() {
         const {ProviderStatus} = this.state;
@@ -193,6 +205,8 @@ class User extends PureComponent{
         ] : [
             {title: '我是买家'}
         ];
+
+
         const {
             UserName = '',
             ImageThumb,
@@ -206,8 +220,8 @@ class User extends PureComponent{
             AwaitReceiptCount = '',
             AwaitCommentCount = '',
             CustomerType
-        } = this.props.customerDetail;
-     
+        } = this.props.customerDetail || { };
+
         var ObjectItem = this.props.customerDetail.ProviderInfo;
         for(var item in ObjectItem){
             let storage = Storage.Base.getInstance();
@@ -273,7 +287,7 @@ class User extends PureComponent{
 
     async getWeChatOauth(){
         const data = {
-            Url:encodeURIComponent('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=http://art.laoliwuyou.com&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect')
+            Url:encodeURIComponent(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=${PRODUCTURL}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`)
         };
         const result = await this.props.getWeChatOauth(data);
         console.log('result',result);
@@ -281,11 +295,22 @@ class User extends PureComponent{
 
     componentDidMount(){
         let storage = Storage.Base.getInstance();
-        let customerId = storage.get('userInfo').CustomerId;
-        this.props.getCustomerDetail(customerId);
-        this.props.clearUserLikeProducts();
-        this.props.getUserLikeProducts(customerId,this.currentPage);
-        this.getWeChatOauth();
+        let userInfo = storage.get('userInfo');
+        if(userInfo == null ){
+             history.push('./oauth');
+             return;
+        }
+        else if (userInfo.Register === false){
+            history.push('./bind');
+            return;
+        }
+        else {
+            let customerId = userInfo.CustomerId;
+            this.props.getCustomerDetail(customerId);
+            this.props.clearUserLikeProducts();
+            this.props.getUserLikeProducts(customerId,this.currentPage);
+            this.getWeChatOauth();
+        }
     }
 }
 

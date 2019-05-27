@@ -34,21 +34,21 @@ Storage.Base = (function(){
                 }
                 var cacheVal = localStorage.getItem(key);
                 var result = JSON.parse(cacheVal);
-                var now = new Date() - 1;
-                // 缓存不存在
-                if(!result){
-                    return null;
-                }
-                // 缓存过期
-                if(now > result.exp){
-                    remove(key);
-                    return "";
-                }
+                // var now = new Date() - 1;
+                // // 缓存不存在
+                // if(!result){
+                //     return null;
+                // }
+                // // 缓存过期
+                // if(now > result.exp){
+                //     remove(key);
+                //     return "";
+                // }
                 return result.val;
             }
             catch(e)
             {
-                remove(key);
+                // remove(key);
                 return null;
             }
         }
