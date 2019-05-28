@@ -16,11 +16,31 @@ import Scroll from 'react-bscroll'
 import BScroll from 'better-scroll';
 import 'react-bscroll/lib/react-scroll.css'
 import eventProxy from 'react-eventproxy';
+
 const Data = [];
 for (let i = 0; i < 10; i++) {
   Data.push(i)
 }
 var countCurrentPage = 2;
+
+function getRect(el) {
+  if (el instanceof window.SVGElement) {
+    let rect = el.getBoundingClientRect()
+    return {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height
+    }
+  } else {
+    return {
+      top: el.offsetTop,
+      left: el.offsetLeft,
+      width: el.offsetWidth,
+      height: el.offsetHeight
+    }
+  }
+}
 
 class Home extends PureComponent{
 
@@ -37,13 +57,12 @@ class Home extends PureComponent{
             calcHeight:760,
             totalRecords:0
         };
-
+        
         eventProxy.on("targetHome",(object)=>{
           console.log('objecteeee',object);
            this.setState({
               selectedTab:"yellowTab"
            });
-           // this.forceUpdate();
         });
   }
 
@@ -93,8 +112,9 @@ class Home extends PureComponent{
         }
         
         if(pageText==="MAIN"){
+
           return (
-            <div className="container">
+            <div ref="wrapperScroll" className="container">
               <Scroll
               click={true}
               pullUpLoad
@@ -143,6 +163,19 @@ class Home extends PureComponent{
      this.setState({
       selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
     });
+
+    // setTimeout(()=>{
+    //       this.refs.listWrapper.style.minHeight = `${getRect(this.refs.wrapperScroll).height + 1}px`
+    // },1000)
+    // let timer = null;
+    // if(timer){
+    //   clearTimeout(timer)
+    // }
+    // timer = setTimeout(()=>{
+    //   const content = document.querySelector('#container');
+    //   let scroll = new BScroll(content,{});
+    //   console.log(content);
+    // },0);
   }
 
   render(){

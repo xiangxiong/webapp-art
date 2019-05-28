@@ -1,9 +1,33 @@
+.b-pulldown-wrapper, .b-pullup-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.15rem;
+}
+.before-trigger{
+    font-size: 0.17rem !important;
+}
+.before-trigger>span{
+    font-size: 0.17rem !important;
+}
+.after-trigger{
+    font-size: 0.17rem !important;
+}
+.after-trigger>span{
+    font-size: 0.17rem !important;
+}
 .container {
     position: relative;
-    height: 900px;
+    height: 100%;
     overflow:hidden；
 }
-
+.wrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
 .content {
     position: relative;
     margin: 0;
