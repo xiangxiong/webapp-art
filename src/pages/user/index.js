@@ -33,17 +33,17 @@ const navItems = [
         title: '作品库',
         icon: 'art-icon art-icon-user-works',
         routeUrl: '/worklist'
+    },
+    {
+        title: '发布大师印象',
+        icon: 'art-icon art-icon-user-release-master',
+        routeUrl: ''
+    },
+    {
+        title: '订单管理',
+        icon: 'art-icon art-icon-user-order',
+        routeUrl: ''
     }
-    // {
-    //     title: '发布大师印象',
-    //     icon: 'art-icon art-icon-user-release-master',
-    //     routeUrl: ''
-    // },
-    // {
-    //     title: '订单管理',
-    //     icon: 'art-icon art-icon-user-order',
-    //     routeUrl: ''
-    // }
 ];
 
 const customerNavItems = [
@@ -70,16 +70,16 @@ const normalNavItems = [
         icon: 'art-icon art-icon-user-cor',
         routeUrl: '/enter'
     },
-    // {
-    //     title: '好货推荐',
-    //     icon: 'art-icon art-icon-user-recomand',
-    //     routeUrl: ''
-    // },
-    // {
-    //     title: '提现',
-    //     icon: 'art-icon art-icon-user-cash',
-    //     routeUrl: ''
-    // },
+    {
+        title: '好货推荐',
+        icon: 'art-icon art-icon-user-recomand',
+        routeUrl: ''
+    },
+    {
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: ''
+    },
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',

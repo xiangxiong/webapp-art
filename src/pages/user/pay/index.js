@@ -52,8 +52,7 @@ class Pay extends PureComponent {
             <Fragment>
                 <PublicHeader title={title}/>
                 <p className="art-add__pay">
-                    你已通过入驻艺术家信息审核
-                    请选择入驻
+                    {`你已通过入驻${type === "art" ? "艺术家" : "艺术商城商户"}信息审核  请选择入驻`}
                 </p>
 
                 {userDictList.map((userDict, index) => {
