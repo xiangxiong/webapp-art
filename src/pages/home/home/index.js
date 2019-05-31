@@ -12,6 +12,7 @@ import Space from '../../common/space';
 import Product from './../../common/product';
 import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
+import history from './../../../utils/history';
 
 const Data = [];
 let NEWDATAINDEX = 1;
@@ -26,10 +27,10 @@ class Main extends PureComponent{
     constructor(props) {
         super(props);
         this.navDataList = [
-            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
-            {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
-            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
-            {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
+            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集',url:'/community'},
+            {imageUrl: `${PICTUREURL}3.png`, name: '市集',url:'/community'},
+            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城',url:'/community'},
+            {imageUrl: `${PICTUREURL}5.png`, name: '艺社区',url:'/community'},
         ];
         this.state = {
             imgHeight: 176,
@@ -50,6 +51,11 @@ class Main extends PureComponent{
             listData: Data
         };
         this.currentPage=1;//为你推荐 当前页 hidden
+
+    }
+
+    HandleJumpUrl(url){
+        history.push(url);
     }
 
     showRecomandItem() {
@@ -110,7 +116,7 @@ class Main extends PureComponent{
                                     this.navDataList.map((navData, index) => {
                                         return (
                                             <div key={index.toString()}>
-                                                <div className="art-main__navitem-img-wrapper">
+                                                <div className="art-main__navitem-img-wrapper" onClick={this.HandleJumpUrl.bind(this,navData.url)}>
                                                     <img className="art-main__navitem-img" src={navData.imageUrl}/>
                                                 </div>
                                                 <span className="art-main__navitem-title" >{navData.name}</span>
@@ -140,7 +146,6 @@ class Main extends PureComponent{
             pushList.push(object);
             this.forceUpdate();
         });
-
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);

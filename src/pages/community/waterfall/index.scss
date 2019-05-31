@@ -1,0 +1,23 @@
+.waterfall {
+    display: flex;
+    margin: 0 10px;
+    &-col {
+      flex: 1;
+      align-self: flex-start;
+    }
+    &-ceil {
+      border-radius: 4px;
+      margin: 0 5px 10px 5px;
+    }
+}
+
+.b-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: #fff;
+}
+  

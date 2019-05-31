@@ -14,15 +14,14 @@ const reducer = combineReducers({
     order: orderReducer,
     address: addressReducer,
 });
+
 const composeEnhancers = 
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 // middlewares.push(logger);
 middlewares.push(thunk);
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares))
-
 const store = createStore(reducer,
     enhancer
 );
-
 export default store;

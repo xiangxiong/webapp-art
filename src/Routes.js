@@ -16,6 +16,9 @@ import Oauth from './pages/user-login/oauth';
 import WorkList from  './pages/user/worklist';
 import Bind from './pages/user-login/bind';
 import Success from './pages/user/pay/Success';
+import Community from './pages/community';
+import CommunityDetail from './pages/community/detail';
+import Category from './pages/category';
 
 export default [
     {
@@ -130,5 +133,22 @@ export default [
         path:"/success",
         component:Success,
         key:'success'
+    },
+    {
+        path:"/community",
+        component:Community,
+        key:'community'
+    },
+    {
+        path:"/communitydetail",
+        component:CommunityDetail,
+        key:'communitydetail'
+    },
+    {
+        path:"/category",
+        component:Category,
+        key:'category'
     }
 ];
+
+
