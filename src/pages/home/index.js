@@ -143,6 +143,21 @@ class Home extends PureComponent{
               </div>
            )
         }
+      if(pageText==="MASTER"){
+          return (
+              <div className="container">
+                  <Scroll
+                      click={true}
+                      pullUpLoad
+                      pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                      isPullUpTipHide={ false }>
+                      {
+                          this.renderFactory(pageText)
+                      }
+                  </Scroll>
+              </div>
+          )
+      }
   }
 
   async initLikeList(){
@@ -219,8 +234,8 @@ class Home extends PureComponent{
           >
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
-          
-          <TabBar.Item
+
+           <TabBar.Item
             icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
             selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
             title="艺术大家"

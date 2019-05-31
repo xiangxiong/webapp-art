@@ -5,6 +5,7 @@ import {reducer as homeReducer} from '../pages/home/store';
 import {reducer as shopReducer} from '../pages/shop/store';
 import {reducer as orderReducer} from '../pages/order/store';
 import {reducer as addressReducer} from '../pages/address/store';
+import {reducer as mastersReducer} from '../pages/master/store';
 import logger from 'redux-logger';
 const middlewares = [];
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     shop: shopReducer,
     order: orderReducer,
     address: addressReducer,
+    masters:mastersReducer,
 });
 
 const composeEnhancers = 

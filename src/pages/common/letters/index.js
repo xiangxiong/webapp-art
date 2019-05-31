@@ -7,42 +7,40 @@ import {PICTUREURL} from '../../../utils/api';
 import {Carousel} from 'antd-mobile';
 import PropTypes from 'prop-types';
 
-const Letters = (props) =>{
-        const {data} = props;
+const Letters = (props) => {
+    const {data = []} = props;
 
-        return (
-            <div className="art-letters__main">
+    return (
+        <div className="art-letters__main">
 
-                <img src={`${PICTUREURL}6.png`}/>
+            <img src={`${PICTUREURL}6.png`}/>
 
-                {data && data.length > 0 ? (
-                    <Carousel className="my-carousel"
-                              dots={false}
-                              dragging={false}
-                              swiping={false}
-                              autoplay
-                              infinite>
-                        {data.map((item, index) => {
-                            return (
-                                <div className="v-item" key={index.toString()}>
-                                    <a href={item.LinkUrl}>
-                                        {item.Title}
-                                    </a>
-                                </div>
-                            )
-                        })}
-                    </Carousel>
-                ) : null}
-            </div>
-   )
-}
+            <Carousel className="my-carousel"
+                      dots={false}
+                      dragging={false}
+                      swiping={false}
+                      autoplay
+                      infinite>
+                {data.map((item, index) => {
+                    return (
+                        <div className="v-item" key={index.toString()}>
+                            <a href={item.LinkUrl}>
+                                {item.Title}
+                            </a>
+                        </div>
+                    )
+                })}
+            </Carousel>
+        </div>
+    )
+};
 
-Letters.defaultProps ={
-    data:[]
-}
+Letters.defaultProps = {
+    data: []
+};
 
 Letters.propTypes = {
-    data:PropTypes.array
-}
+    data: PropTypes.array
+};
 
 export default Letters;

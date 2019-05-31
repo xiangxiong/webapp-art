@@ -104,3 +104,6 @@ export const BIND_WECHAT_USERNAME = 'Art.Service.Customer.Dto.Api.PartnerSetPwRe
 
 // 更新意向商家保证金信息
 export const UPDATE_PARTENER_DEPOSIT = 'Art.Service.Product.Dto.Api.UpdatePartenerDepositRequest';
+
+// 获取推荐的艺术家
+export const GET_RECOMMEND_AUTHOR_LIST = 'Art.Service.Product.Dto.Request.GetRecommendAuthorListRequest';
