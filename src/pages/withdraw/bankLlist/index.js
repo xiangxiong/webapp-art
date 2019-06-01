@@ -3,6 +3,10 @@ import './index.scss';
 import history from './../../../utils/history';
 import PublicHeader from './../../../components/header';
 import {Checkbox} from 'antd-mobile';
+import {connect} from 'react-redux';
+import {getDesposits} from '../store/actionCreators';
+import {getAccountList} from '../../bankCard/store/actionCreators';
+
 const AgreeItem = Checkbox.AgreeItem;
 
 class BankLlist extends PureComponent {
@@ -35,18 +39,25 @@ class BankLlist extends PureComponent {
     };
 
     nextStep = () => {
-        history.push('./');
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let Token = storage.get('userInfo').Token;
+
+        let BankId = '';
+        let Money = '';
+
+        this.props.getDesposits(CustomerId, Token, BankId, Money);
     };
 
     render() {
-        const {bankList = ['1']} = this.props;
+        const {bankCardList = ['1']} = this.props;
 
         return (
             <Fragment>
                 <PublicHeader jump="User" title="选择银行卡方式"/>
 
                 <div className="art-bankList">
-                    {bankList.map((bank, index) => {
+                    {bankCardList.map((bank, index) => {
                         return this.showBankItem(bank, index);
                     })}
                 </div>
@@ -62,7 +73,28 @@ class BankLlist extends PureComponent {
     }
 
     componentDidMount() {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let Token = storage.get('userInfo').Token;
+
+        this.props.getAccountList(CustomerId, Token);
     }
 }
 
-export default BankLlist;
+const mapStateToProps = ({bank}) => {
+    return {
+        bankCardList: bank.bankCardList,
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    getDesposits: (Token, CustomerId, BankId, Money) => {
+        dispatch(getDesposits({Token, CustomerId, BankId, Money}))
+    },
+
+    getAccountList: (CustomerId, Token) => {
+        dispatch(getAccountList({CustomerId, Token}))
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankLlist);

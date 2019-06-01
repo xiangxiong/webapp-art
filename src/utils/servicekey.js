@@ -113,3 +113,9 @@ export const ACCOUNT_LIST = 'Art.Service.Customer.Dto.Api.AccountListRequest';
 
 // 创建用户银行卡
 export const CARD_ADD = 'Art.Service.Customer.Dto.Api.CardAddRequest';
+
+// 余额提现
+export const DESPOSITS = 'Art.Service.Customer.Dto.Api.DespositsRequest';
+
+// 余额提现日志记录
+export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api. DespositsRecordRequest';
