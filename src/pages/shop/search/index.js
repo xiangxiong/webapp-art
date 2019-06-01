@@ -1,5 +1,11 @@
 import React from 'react';
 import './index.scss';
+import history from './../../../utils/history';
+
+
+function jumpUrl(){
+    history.push('./category');
+}
 
 const SearchCategory = (props) =>{
     
@@ -9,7 +15,7 @@ const SearchCategory = (props) =>{
                 <input type="text" placeholder="大家多在搜紫砂壶" className="art-shop__input"/>
             </div>
             <div className="art-icon art-icon-category">
-                    <div className="art-shop__input-text">分  类</div>
+                    <div onClick={jumpUrl}  className="art-shop__input-text">分  类</div>
             </div>
         </div>
     )

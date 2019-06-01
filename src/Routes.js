@@ -25,7 +25,7 @@ import WithdrawDetails from './pages/withdraw/withdrawDetails/index';
 import  WithdrawList from './pages/withdraw/withdrawList/index';
 import  BankCardList from './pages/bankCard/bankCardList/index';
 import  AddBankCard from './pages/bankCard/addBankCard/index';
-
+import ShopHomePage from './pages/shop/home';
 
 export default [
     {
@@ -157,6 +157,11 @@ export default [
         key: 'category'
     },
     {
+        path:"/shopHomepage",
+        component:ShopHomePage,
+        key:'shopHomepage'
+    },
+    {
         path: "/bankLlist",
         component: BankLlist,
         key: 'bankLlist'
@@ -187,5 +192,6 @@ export default [
         key: 'addBankCard'
     },
 ];
+
 
 

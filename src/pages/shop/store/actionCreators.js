@@ -53,11 +53,12 @@ export const getWorthGoodsDetail = (params) => {
             });
     }
 };
+
 export const getProductComment = (params) => {
     return (dispatch) => {
         return post(ProductComment, params)
             .then((response) => {
                 dispatch(productComment(response.Data));
-            });
+        });
     }
 };

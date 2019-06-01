@@ -10,7 +10,6 @@ const carouselData = [
     }
 ]
 
-
 const CommunityDetail = () =>{
     return (
         <Fragment>
@@ -23,7 +22,7 @@ const CommunityDetail = () =>{
                  </div>
 
                  <CarouselBanner imgHeight="3rem" data={carouselData}/>
-                 
+
                  <div className="art-community-detail__shop">
                      <img src="http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg"/>
                      <span className="art-community-detail__shop-container">

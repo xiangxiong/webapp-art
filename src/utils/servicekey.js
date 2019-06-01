@@ -119,3 +119,6 @@ export const DESPOSITS = 'Art.Service.Customer.Dto.Api.DespositsRequest';
 
 // 余额提现日志记录
 export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api. DespositsRecordRequest';
+
+// 艺术大家分类
+export const ART_CATEGORY_API = 'Art.Service.Product.Dto.Request.GetAllCategoryAuthorListRequest';
