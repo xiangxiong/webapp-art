@@ -1,0 +1,48 @@
+@import '../../../style/index';
+
+.art-withdrawDetails {
+  background: $color-bg-color;
+
+  &__money {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0 31px 0;
+
+    & > h4 {
+      font-size: 15px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(122, 122, 122, 1);
+    }
+
+    & > h2 {
+      font-size: 22px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      margin-top: 8px;
+    }
+  }
+}
+
+.am-list-item .am-list-line .am-list-extra {
+  font-size: 15px;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.am-list-item .am-list-line .am-list-content {
+  flex: 1 1;
+  color: rgba(153, 153, 153, 1);
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: left;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 0.07rem;
+  padding-bottom: 0.07rem;
+}

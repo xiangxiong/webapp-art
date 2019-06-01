@@ -19,6 +19,10 @@ import Success from './pages/user/pay/Success';
 import Community from './pages/community';
 import CommunityDetail from './pages/community/detail';
 import Category from './pages/category';
+import BankLlist from './pages/withdraw/bankLlist/index';
+import Withdraw from './pages/withdraw/index';
+import WithdrawDetails from './pages/withdraw/withdrawDetails/index';
+import  WithdrawList from './pages/withdraw/withdrawList/index';
 
 export default [
     {
@@ -84,71 +88,91 @@ export default [
         key: 'detail'
     },
     {
-        path:"/submitorder",
-        component:SubmitOrder,
-        key:'submitorder'
+        path: "/submitorder",
+        component: SubmitOrder,
+        key: 'submitorder'
     },
     {
-        path:"/payorder",
-        component:PayOrder,
+        path: "/payorder",
+        component: PayOrder,
         exact: true,
-        key:'payorder'
+        key: 'payorder'
     },
     {
-        path:"/work",
-        component:Works,
-        key:'work'
+        path: "/work",
+        component: Works,
+        key: 'work'
     },
     {
-        path:"/orderList",
-        component:OrderList,
+        path: "/orderList",
+        component: OrderList,
         exact: true,
-        key:'orderList'
+        key: 'orderList'
     },
     {
-        path:"/orderDetails",
-        component:OrderDetails,
+        path: "/orderDetails",
+        component: OrderDetails,
         exact: true,
-        key:'orderDetails'
+        key: 'orderDetails'
     },
     {
-        path:"/oauth",
-        component:Oauth,
-        key:'oauth'
+        path: "/oauth",
+        component: Oauth,
+        key: 'oauth'
     }
     ,
     {
-        path:"/worklist",
-        component:WorkList,
-        key:'worklist'
+        path: "/worklist",
+        component: WorkList,
+        key: 'worklist'
     }
     ,
     {
-        path:"/bind",
-        component:Bind,
-        key:'bind'
+        path: "/bind",
+        component: Bind,
+        key: 'bind'
     }
     ,
     {
-        path:"/success",
-        component:Success,
-        key:'success'
+        path: "/success",
+        component: Success,
+        key: 'success'
     },
     {
-        path:"/community",
-        component:Community,
-        key:'community'
+        path: "/community",
+        component: Community,
+        key: 'community'
     },
     {
-        path:"/communitydetail",
-        component:CommunityDetail,
-        key:'communitydetail'
+        path: "/communitydetail",
+        component: CommunityDetail,
+        key: 'communitydetail'
     },
     {
-        path:"/category",
-        component:Category,
-        key:'category'
-    }
+        path: "/category",
+        component: Category,
+        key: 'category'
+    },
+    {
+        path: "/bankLlist",
+        component: BankLlist,
+        key: 'bankLlist'
+    },
+    {
+        path: "/withdraw",
+        component: Withdraw,
+        key: 'withdraw'
+    },
+    {
+        path: "/withdrawDetails",
+        component: WithdrawDetails,
+        key: 'withdrawDetails'
+    },
+    {
+        path: "/withdrawList",
+        component: WithdrawList,
+        key: 'withdrawList'
+    },
 ];
 
 

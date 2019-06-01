@@ -1,0 +1,63 @@
+@import '../../../style/index';
+
+.art-withdrawList {
+  background: $color-bg-color;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    @include border-thin-bottom($width: 1PX);
+
+    & > h2 {
+      padding-left: 15px;
+      height: 28px;
+      font-size: 15px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(122, 122, 122, 1);
+      line-height: 28px;
+      background-color: $color-bg-home-color;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 64px;
+      padding: 0 15px 0 15px;
+
+      & > div:nth-child(1) {
+        width: 38px;
+        height: 38px;
+        background: red;
+        border-radius: 19px;
+      }
+
+      & > div:nth-child(2) {
+        flex: 1;
+        margin-left: 9px;
+
+        & > div:nth-child(1) {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          font-size: 18px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(51, 51, 51, 1);
+        }
+
+        & > div:nth-child(2) {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          font-size: 15px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(153, 153, 153, 1);
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+}
