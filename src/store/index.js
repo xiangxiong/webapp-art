@@ -6,6 +6,7 @@ import {reducer as shopReducer} from '../pages/shop/store';
 import {reducer as orderReducer} from '../pages/order/store';
 import {reducer as addressReducer} from '../pages/address/store';
 import {reducer as mastersReducer} from '../pages/master/store';
+import {reducer as bankCardReducer} from '../pages/bankCard/store';
 import logger from 'redux-logger';
 const middlewares = [];
 const reducer = combineReducers({
@@ -15,6 +16,7 @@ const reducer = combineReducers({
     order: orderReducer,
     address: addressReducer,
     masters:mastersReducer,
+    bank:bankCardReducer,
 });
 
 const composeEnhancers = 

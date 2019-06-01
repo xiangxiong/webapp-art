@@ -107,3 +107,9 @@ export const UPDATE_PARTENER_DEPOSIT = 'Art.Service.Product.Dto.Api.UpdateParten
 
 // 获取推荐的艺术家
 export const GET_RECOMMEND_AUTHOR_LIST = 'Art.Service.Product.Dto.Request.GetRecommendAuthorListRequest';
+
+// 查询用户卡包
+export const ACCOUNT_LIST = 'Art.Service.Customer.Dto.Api.AccountListRequest';
+
+// 创建用户银行卡
+export const CARD_ADD = 'Art.Service.Customer.Dto.Api.CardAddRequest';

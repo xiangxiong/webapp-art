@@ -2,6 +2,8 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header'
 import history from './../../../utils/history';
+import {connect} from 'react-redux';
+import {getAccountList} from '../store/actionCreators';
 
 class BankCardList extends PureComponent {
 
@@ -10,7 +12,7 @@ class BankCardList extends PureComponent {
     }
 
     goAddBankCard = () => {
-        history.push('');
+        history.push('./addBankCard');
     };
 
     showBankCardItem = (bankCard, index) => {
@@ -58,8 +60,23 @@ class BankCardList extends PureComponent {
     }
 
     componentDidMount() {
-
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let Token = storage.get('userInfo').Token;
+        this.props.getAccountList(CustomerId, Token);
     }
 }
 
-export default BankCardList;
+const mapStateToProps = ({bank}) => {
+    return {
+        bankCardList: bank.bankCardList,
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    getAccountList: (CustomerId, Token) => {
+        dispatch(getAccountList({CustomerId, Token}))
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankCardList);
