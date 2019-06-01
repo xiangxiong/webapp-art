@@ -8,37 +8,38 @@ import Advert from './../common/advert';
 import Letters from '../common/letters/index';
 import Space from '../common/space';
 import Column from '../common/column';
-import Product from './../common/product';
+import Artist from '../common/artist/index';
 import Title from './../common/title';
 import {getRecommendAuthorList} from './store/actionCreators';
 
 class Master extends PureComponent {
     render() {
-        const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList = [], masterUserLikeProductsList = []} = this.props;
+        const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList = ['1'], masterUserLikeProductsList = ['2']} = this.props;
 
         return (
             <Fragment>
-                <div className="art-shop">
+                <div className="art-master">
                     <SearchCategory/>
                     <CarouselBanner data={masterCarouselAdList}/>
                     <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
-                    <div className="art-shop__hot">
+                    <div className="art-master__hot">
                         <Title title="大师推荐" more="更多"/>
-                        <div className="art-shop__hot-content">
+                        <div className="art-master__hot-content">
                             {masterProductCommendList.map((masterProductCommend, index) => {
-                                return <Product key={index.toString()} {...masterProductCommend}/>
+                                return <Artist key={index.toString()} {...masterProductCommend}/>
                             })}
                         </div>
                     </div>
+                    <div style={{borderBottom: '1px solid #E7E7E7'}}/>
                     <Letters data={masterNewsPagerList}/>
                     <Advert commonAdList={masterCommonAdList}/>
                     <Space/>
-                    <div className="art-shop__border"></div>
-                    <div className="art-shop__hot">
+                    <div className="art-master__border"></div>
+                    <div className="art-master__hot">
                         <Title title="为你推荐" more="更多"/>
-                        <div className="art-shop__hot-content">
+                        <div className="art-master__hot-content">
                             {masterUserLikeProductsList.map((masterUserLikeProducts, index) => {
-                                return <Product key={index.toString()} {...masterUserLikeProducts}/>
+                                return <Artist key={index.toString()} {...masterUserLikeProducts}/>
                             })}
                         </div>
                     </div>
