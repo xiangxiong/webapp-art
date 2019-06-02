@@ -1,0 +1,188 @@
+@import './../../style/index.scss';
+
+.art-cart {
+  background: $color-bg-color;
+
+  &__top {
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 15px 0 15px;
+
+    & > span:nth-child(1) {
+      flex: 1;
+      font-size: 15px;
+      font-family: PingFang-SC-Medium;
+      font-weight: 500;
+      color: rgba(68, 68, 68, 1);
+      text-align: center;
+    }
+
+    & > span:nth-child(2) {
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      line-height: 44px;
+      font-size: 15px;
+      font-family: PingFang-SC-Medium;
+      font-weight: 500;
+      color: rgba(68, 68, 68, 1);
+    }
+  }
+
+  &__title {
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+    background-color: #F3F3F3;
+
+    & > span {
+      margin: 0 10px 0 10px;
+    }
+  }
+
+  &__merchant {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    padding-right: 15px;
+
+    &-title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 39px;
+      border-bottom: 1px solid #F3F3F3;
+
+      & > span {
+        width: 39px;
+        height: 39px;
+        line-height: 39px;
+        text-align: right;
+        font-size: 16px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: #333333;
+      }
+
+    }
+
+    & > h4 {
+      height: 39px;
+      line-height: 39px;
+      text-align: right;
+      font-size: 15px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+    }
+  }
+
+  &__goods {
+    display: flex;
+    flex-direction: row;
+    height: 94px;
+    align-items: center;
+    border-bottom: 1px solid #F3F3F3;
+
+    & > div:nth-child(2) {
+      width: 68px;
+      height: 68px;
+      background-color: red;
+    }
+
+    & > div:nth-child(3) {
+      display: flex;
+      flex-direction: column;
+      height: 68px;
+      margin-left: 9px;
+      flex: 1;
+
+      & > h4:nth-child(1) {
+        font-size: 16px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 1);
+      }
+
+      & > h4:nth-child(2) {
+        flex: 1;
+        margin-top: 5px;
+        font-size: 14px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(153, 153, 153, 1);
+      }
+
+      & > h4:nth-child(3) {
+        font-size: 15px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: #E87908;
+      }
+    }
+
+    & > div:nth-child(4) {
+      height: 68px;
+      width: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      & > span {
+        font-size: 15px;
+        font-family: PingFang-SC-Regular;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 1);
+      }
+
+      & > div {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+      }
+    }
+  }
+
+  &__bottom {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    height: 52px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid rgba(225, 225, 225, 1);
+
+    & > span:nth-child(2) {
+      flex: 1;
+      line-height: 52px;
+      text-align: right;
+      font-size: 16px;
+      font-family: MicrosoftYaHei;
+      padding-right: 13px;
+      font-weight: 400;
+      color: #E87908;
+    }
+
+    & > span:nth-child(3) {
+      height: 52px;
+      width: 110px;
+      line-height: 52px;
+      background-color: #E87908;
+      text-align: center;
+      font-size: 15px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+}
