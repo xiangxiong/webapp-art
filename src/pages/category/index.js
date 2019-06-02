@@ -44,7 +44,7 @@ const Category = React.memo(
                         let item = result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ProviderName;
                         let imgUrl = IMGURL + result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ImageName
                         response[i].children[authItem].children.push(
-                          { title: item, path: '/master', image: imgUrl}
+                          { title: item, path: '/masterDetail', image: imgUrl}
                         )
                       }
                   }

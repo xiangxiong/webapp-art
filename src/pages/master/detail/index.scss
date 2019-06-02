@@ -1,0 +1,49 @@
+.art-master{
+    &_title{
+        padding-left: 11px;
+        padding-top: 10px;
+        font-family: PingFangSC-Semibold;
+        font-size: 16px;
+        color: #333333;
+        letter-spacing: -0.11px;
+    }
+
+    &_goodat{
+        margin: 7px 11px 15px 11px;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #666666;
+        letter-spacing: -0.08px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #F3F3F3;
+        line-height: 18px;
+    }
+
+    &_award{
+        margin: 6px 11px 10px 10px;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #666666;
+        letter-spacing: -0.08px;
+    }
+
+    &_resume{
+        line-height: 18px;
+        margin: 6px 11px 10px 10px;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #666666;
+        letter-spacing: -0.08px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #F3F3F3;
+    }
+
+    &_desc{
+        margin: 6px 11px 10px 10px;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #666666;
+        letter-spacing: -0.08px;
+        line-height: 18px;
+    }
+}
