@@ -27,11 +27,32 @@ import  BankCardList from './pages/bankCard/bankCardList/index';
 import  AddBankCard from './pages/bankCard/addBankCard/index';
 import ShopHomePage from './pages/shop/home';
 import MasterDetail from './pages/master/detail';
+import Loadable from "react-loadable"; 
+import Loading from './components/loading';
+import {useEffect} from 'react';
+
+const LoadCategory = Loadable({
+    loader: () => import("./pages/category"),
+    loading: Loading,
+    timeout: 1000
+})
+
+const LoadMasterDetail = Loadable({
+    loader: () => import("./pages/master/detail"),
+    loading: Loading,
+    timeout: 1000
+})
+
+const LoadHome = Loadable({
+    loader: () => import("./pages/home"),
+    loading: Loading,
+    timeout: 1000
+});
 
 export default [
     {
         path: "/home",
-        component: Home,
+        component: LoadHome,
         exact: true,
         key: 'home'
     },
@@ -153,11 +174,6 @@ export default [
         key: 'communitydetail'
     },
     {
-        path: "/category",
-        component: Category,
-        key: 'category'
-    },
-    {
         path:"/shopHomepage",
         component:ShopHomePage,
         key:'shopHomepage'
@@ -194,8 +210,13 @@ export default [
     },
     {
         path:"/masterDetail/:id",
-        component:MasterDetail,
+        component:LoadMasterDetail,
         key:'masterDetail'
+    },
+    {
+        path: "/category",
+        component: LoadCategory,
+        key: 'category'
     }
 ];
 
