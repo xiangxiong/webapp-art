@@ -159,6 +159,15 @@ class Home extends PureComponent{
               </div>
           )
       }
+      if(pageText==="CART"){
+          return (
+              <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+                  {
+                      this.renderFactory(pageText)
+                  }
+              </div>
+          );
+      }
   }
 
   async initLikeList(){
