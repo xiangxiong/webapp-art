@@ -25,7 +25,8 @@
     "react-scripts": "2.0.5",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-loadable": "^5.5.0"
   },
   "theme": {
     "hd": "2px",
