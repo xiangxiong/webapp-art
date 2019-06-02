@@ -125,3 +125,12 @@ export const ART_CATEGORY_API = 'Art.Service.Product.Dto.Request.GetAllCategoryA
 
 // 大师详情
 export const ART_MASTER_DETAIL_API = 'Art.Service.Product.Dto.Request.GetAuthorDetailRequest';
+
+// 查询购物车列表
+export const QUERY_CAR_LIST = 'Art.Service.Order.Dto.Request.api.QueryCarListRequest';
+
+// 添加或修改购物车数量
+export const MODIFY_CART = 'Art.Service.Order.Dto.Request.api.ModifyCartRequest';
+
+// 批量删除或清空购物车
+export const BATCH_DEL_CART = 'Art.Service.Order.Dto.Request.api.BatchDelCartRequest';

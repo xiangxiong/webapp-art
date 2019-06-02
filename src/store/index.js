@@ -8,6 +8,7 @@ import {reducer as addressReducer} from '../pages/address/store';
 import {reducer as mastersReducer} from '../pages/master/store';
 import {reducer as bankCardReducer} from '../pages/bankCard/store';
 import {reducer as withdrawCardReducer} from '../pages/withdraw/store';
+import {reducer as cartCardReducer} from '../pages/cart/store';
 import logger from 'redux-logger';
 const middlewares = [];
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
     masters: mastersReducer,
     bank: bankCardReducer,
     withdraw: withdrawCardReducer,
+    cart: cartCardReducer
 });
 
 const composeEnhancers = 

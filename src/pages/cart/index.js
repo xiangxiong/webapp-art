@@ -1,10 +1,12 @@
 import React, {PureComponent, Fragment} from 'react';
 import {Checkbox} from 'antd-mobile';
 import './index.scss';
+import {getQueryCarList, getModifyCart, getBatchDelCart} from './store/actionCreators';
+import {connect} from 'react-redux';
 
 const AgreeItem = Checkbox.AgreeItem;
 
-export default class Cart extends PureComponent {
+class Cart extends PureComponent {
 
     showGoods = (goods, index) => {
         return (
@@ -95,4 +97,25 @@ export default class Cart extends PureComponent {
             </div>
         )
     }
+
+    componentDidMount() {
+        this.props.getQueryCarList();
+    }
 }
+
+
+const mapStateToProps = ({cart}) => {
+    return {
+        carList: cart.carList,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getQueryCarList: (params) => dispatch(getQueryCarList(params)),
+        getModifyCart: (params) => dispatch(getModifyCart(params)),
+        getBatchDelCart: (params) => dispatch(getBatchDelCart({params})),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
