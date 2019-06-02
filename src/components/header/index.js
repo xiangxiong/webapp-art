@@ -41,7 +41,8 @@ class PublicHeader extends PureComponent{
                             history.push('/home?tab='+jump);
                         }
                         else{
-                            history.push('/home?tab=1');
+                            history.go(-1)
+                            // history.push('/home?tab=1');
                         }
                         // history.go(-1)
                     }}

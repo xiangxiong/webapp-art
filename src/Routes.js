@@ -26,6 +26,7 @@ import  WithdrawList from './pages/withdraw/withdrawList/index';
 import  BankCardList from './pages/bankCard/bankCardList/index';
 import  AddBankCard from './pages/bankCard/addBankCard/index';
 import ShopHomePage from './pages/shop/home';
+import Master from './pages/master';
 
 export default [
     {
@@ -191,7 +192,14 @@ export default [
         component: AddBankCard,
         key: 'addBankCard'
     },
+    {
+        path:"/master",
+        component:Master,
+        key:'master'
+    }
 ];
+
+
 
 
 

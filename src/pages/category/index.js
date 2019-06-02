@@ -4,6 +4,7 @@ import CategoryJD from 'react-category-jd';
 import PublicHeader from './../../components/header';
 import {connect} from 'react-redux';
 import {dispatchCategoryList} from './store/actionCreators';
+import {IMGURL} from './../../utils/api';
 
 const Category = React.memo(
   props => {
@@ -11,10 +12,10 @@ const Category = React.memo(
     const [data,setData] = useState([]);
 
     useEffect(()=>{
-      
+
       async function fetchCategoryList(){
+
           const result = await props.dispatchCategoryList({});
-          console.log('result',result);
           let response = [];
 
           for(let i = 0; i < result.length; i++){
@@ -41,9 +42,9 @@ const Category = React.memo(
                   if(result[i].AuthorClassifyList[authItem].ProviderList && result[i].AuthorClassifyList[authItem].ProviderList.length>0){
                       for(let providerItem = 0;providerItem< result[i].AuthorClassifyList[authItem].ProviderList.length; providerItem ++){
                         let item = result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ProviderName;
-                        let imgUrl = `http://res.laoliwuyou.com`+result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ImageName
+                        let imgUrl = IMGURL + result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ImageName
                         response[i].children[authItem].children.push(
-                          { title: item, path: '/abc', image: imgUrl}
+                          { title: item, path: '/master', image: imgUrl}
                         )
                       }
                   }
@@ -55,6 +56,7 @@ const Category = React.memo(
       };
 
       fetchCategoryList();
+
     },[]);
 
     return (

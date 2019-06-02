@@ -9,6 +9,7 @@ export const DevEnv = true;
 export const HOST = DevEnv ? DEVHOST : MOOCHOST;
 export const API_USER_INFO = `${HOST}/api/v1/user/update`;
 export const API_PAY = 'http://artpay.laoliwuyou.com/json/reply/PayApiRequest';
+export const IMGURL = 'http://res.laoliwuyou.com';
 
 // // yapi
 // export const DEVHOST = 'http://artapi.cfyishudj.com/gateway?format=json';
