@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {GET_RECOMMEND_AUTHOR_LIST} from "../../../utils/servicekey";
+import {GET_RECOMMEND_AUTHOR_LIST,ART_MASTER_DETAIL_API} from "../../../utils/servicekey";
 
 export const masterCarouselAdList = (DataList) => ({
     type: constants.MASTER_CAROUSEL_AD_LIST,
@@ -42,3 +42,10 @@ export const getRecommendAuthorList = (params) => {
             });
     }
 };
+
+export const dispatchMasterDetail = (params) => {
+    return async (dispatch) => {
+        const result = await post(ART_MASTER_DETAIL_API,params);
+        return result.Data;
+    }
+}

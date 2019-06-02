@@ -4,7 +4,7 @@ import CategoryJD from 'react-category-jd';
 import PublicHeader from './../../components/header';
 import {connect} from 'react-redux';
 import {dispatchCategoryList} from './store/actionCreators';
-import {IMGURL} from './../../utils/api';
+import {PRODIMGURL} from './../../utils/api';
 
 const Category = React.memo(
   props => {
@@ -14,7 +14,6 @@ const Category = React.memo(
     useEffect(()=>{
 
       async function fetchCategoryList(){
-
           const result = await props.dispatchCategoryList({});
           let response = [];
 
@@ -42,9 +41,10 @@ const Category = React.memo(
                   if(result[i].AuthorClassifyList[authItem].ProviderList && result[i].AuthorClassifyList[authItem].ProviderList.length>0){
                       for(let providerItem = 0;providerItem< result[i].AuthorClassifyList[authItem].ProviderList.length; providerItem ++){
                         let item = result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ProviderName;
-                        let imgUrl = IMGURL + result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ImageName
+                        let imgUrl = PRODIMGURL + result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ImageName;
+                        let providerId = result[i].AuthorClassifyList[authItem].ProviderList[providerItem].ProviderId;
                         response[i].children[authItem].children.push(
-                          { title: item, path: '/masterDetail', image: imgUrl}
+                          { title: item, path: '/masterDetail/'+providerId, image: imgUrl}
                         )
                       }
                   }

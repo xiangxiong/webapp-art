@@ -122,3 +122,6 @@ export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api. DespositsRecordRe
 
 // 艺术大家分类
 export const ART_CATEGORY_API = 'Art.Service.Product.Dto.Request.GetAllCategoryAuthorListRequest';
+
+// 大师详情
+export const ART_MASTER_DETAIL_API = 'Art.Service.Product.Dto.Request.GetAuthorDetailRequest';

@@ -1,22 +1,37 @@
-import React,{Fragment,useState} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
 import CarouselBanner from './../../common/carousel';
 import {Tabs} from 'antd-mobile';
+import {connect} from 'react-redux';
+import {dispatchMasterDetail} from '../store/actionCreators';
 
 const tabs = [
     { title: '成品专区' },
     { title: '定制专区' }
 ];
 
-const MasterDetail = React.memo(
-    props => {
-
+const MasterDetail = ({match,dispatchMasterDetail}) =>
+     {
         const [data,setData] = useState([
            { ImgUrl:'http://res.laoliwuyou.com/pic/public/upload/news/2019-05-26/art_9c2cd816-d455-46d9-8f0b-3d29ca78a676.jpg'}
         ]);
 
-        console.log('data',data);
+        const [master,setMaster] = useState({});
+
+        async function getMasterApi(){
+            var params = {
+                CustomerId: Storage.Base.getInstance().get('userInfo').CustomerId,
+                AuthorId: match.params.id
+            };
+            const response = await dispatchMasterDetail(params);
+            console.log('response',response);
+            setMaster(response);
+        }
+        
+        useEffect(() => {
+            getMasterApi();
+        },[])
 
         return (
             <Fragment>
@@ -46,7 +61,15 @@ const MasterDetail = React.memo(
                 </Tabs>
             </Fragment>
         )
-    }
-)
+}
 
-export default MasterDetail;
+const mapStateToProps = (state) =>{
+    return {
+    }
+}
+
+const mapDispatchToProps ={
+        dispatchMasterDetail:(data) => dispatchMasterDetail(data)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(React.memo(MasterDetail)) ;

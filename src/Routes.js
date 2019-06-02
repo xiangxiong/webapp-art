@@ -193,7 +193,7 @@ export default [
         key: 'addBankCard'
     },
     {
-        path:"/masterDetail",
+        path:"/masterDetail/:id",
         component:MasterDetail,
         key:'masterDetail'
     }

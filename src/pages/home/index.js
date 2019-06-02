@@ -16,6 +16,7 @@ import Scroll from 'react-bscroll'
 import BScroll from 'better-scroll';
 import 'react-bscroll/lib/react-scroll.css'
 import eventProxy from 'react-eventproxy';
+import { IMGURL } from '../../utils/api';
 
 const Data = [];
 for (let i = 0; i < 10; i++) {
@@ -173,7 +174,12 @@ class Home extends PureComponent{
     console.log('userLikes',userLikes.Data.DataList);
   }
 
+  init(){
+    Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+  }
+
   componentDidMount(){
+     this.init();
      this.initLikeList();
      this.setState({
       selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
@@ -205,8 +211,8 @@ class Home extends PureComponent{
           <TabBar.Item
             title="首页"
             key="Home"
-            icon={{ uri: 'http://art.laoliwuyou.com/icon/home.svg' }}
-            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/home_active.svg' }}
+            icon={{ uri: `${IMGURL}/icon/home.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/home_active.svg` }}
             selected={this.state.selectedTab === 'blueTab'}
             onPress={() => {
               this.setState({
@@ -219,8 +225,8 @@ class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/13.svg' }}
-            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/28.svg' }}
+            icon={{ uri: `${IMGURL}/icon/13.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/28.svg` }}
             title="艺商城"
             key="shop"
             selected={ this.state.selectedTab === 'redTab'}
@@ -236,8 +242,8 @@ class Home extends PureComponent{
           </TabBar.Item>
 
            <TabBar.Item
-            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
-            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
+            icon={{ uri: `${IMGURL}/icon/14.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/29.svg` }}
             title="艺术大家"
             key="art"
             selected={this.state.selectedTab === 'artTab'}
@@ -252,8 +258,8 @@ class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
-            selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
+            icon={{ uri:`${IMGURL}/icon/15.svg` }}
+            selectedIcon={{ uri:`${IMGURL}/icon/30.svg` }}
             title="购物车"
             key="cart"
             selected={this.state.selectedTab === 'greenTab'}
@@ -265,10 +271,10 @@ class Home extends PureComponent{
           >
             {this.renderContent('CART')}
           </TabBar.Item>
-
+          
           <TabBar.Item
-            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
-            selectedIcon={{ uri:'http://art.laoliwuyou.com/icon/29.svg' }}
+            icon={{ uri:`${IMGURL}/icon/16.svg` }}
+            selectedIcon={{ uri:`${IMGURL}/icon/29.svg` }}
             title="我的"
             key="my"
             selected={this.state.selectedTab === 'yellowTab'}
