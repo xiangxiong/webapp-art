@@ -29,7 +29,7 @@ const Product = () =>{
                     </div>
                 </div>
             </div>
-    </Fragment>
+        </Fragment>
     )
 }
 

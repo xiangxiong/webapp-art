@@ -29,7 +29,6 @@ import ShopHomePage from './pages/shop/home';
 import MasterDetail from './pages/master/detail';
 import Loadable from "react-loadable"; 
 import Loading from './components/loading';
-import {useEffect} from 'react';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -105,6 +104,12 @@ export default [
         component: addAddress,
         exact: true,
         key: 'addAddress'
+    },
+    {
+        path: "/masterDetail/detail",
+        component: Detail,
+        exact: true,
+        key: 'masterDetail/detail'
     },
     {
         path: "/detail",

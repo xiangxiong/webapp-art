@@ -21,7 +21,6 @@ const Category = React.memo(
             response.push({
               title:result[i].CategoryName,
               path:'/detail',
-              image:'//img13.360buyimg.com/mcoss/jfs/t13768/304/553456768/42679/21bc3c35/5a28f1c1N226249b0.jpg',
               children: []
             });
           };
