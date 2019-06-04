@@ -2,8 +2,20 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
+import history from './../../../utils/history';
 
 class Detail extends PureComponent {
+
+    handleBuy = () => {
+        history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
+    };
+
+    addBuy = (ProductId) => {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
+    };
+
 
     render() {
        
@@ -105,10 +117,6 @@ class Detail extends PureComponent {
 
                 <div className="art-product__tooBar">
                     <div>
-                        <div className="art-icon art-icon-kefu"></div>
-                        <p>客服</p>
-                    </div>
-                    <div>
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
                     </div>
@@ -116,7 +124,16 @@ class Detail extends PureComponent {
                         <div className="art-icon art-icon-collect"></div>
                         <p>收藏</p>
                     </div>
-                    <div>购物车</div>
+                    <div
+                        onClick={() => {
+                        }}>
+                        立即购买
+                    </div>
+                    <div
+                        onClick={() => {
+                        }}
+                    >加入购物车
+                    </div>
                 </div>
             </Fragment>
         )

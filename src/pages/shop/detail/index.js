@@ -42,13 +42,13 @@ class Detail extends PureComponent {
 
         return (
             <Fragment>
-                <div className="art-product">
+                <div className="art-product-shop">
                     <PublicHeader title="商品详情" bgColor="#E87908"/>
                     <CarouselBanner imgHeight="2.96rem" data={carouselData}/>
 
-                    <div className="art-product__detail">
+                    <div className="art-product-shop__detail">
                         <h4>{Name}</h4>
-                        <p className="art-product__detail-font">
+                        <p className="art-product-shop__detail-font">
                             <span>现价:</span>
                             <i>￥</i>
                             <i>{KillPrice}</i>
@@ -58,16 +58,16 @@ class Detail extends PureComponent {
                         </p>
                     </div>
 
-                    <div className="art-product__free">
+                    <div className="art-product-shop__free">
                         <div>运费</div>
                         <div>包邮</div>
                     </div>
 
-                    <div className="art-product__space"></div>
+                    <div className="art-product-shop__space"></div>
 
-                    <div className="art-product__homepage">
+                    <div className="art-product-shop__homepage">
                         <div>
-                            <div className="art-product__homepage-avatar"
+                            <div className="art-product-shop__homepage-avatar"
                                  style={{
                                      background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`,
                                      marginRight: "3px",
@@ -75,8 +75,8 @@ class Detail extends PureComponent {
                             </div>
                         </div>
                         <div>
-                            <h4 className="art-product__homepage-master">{ProviderName}</h4>
-                            <span className="art-product__homepage-auth">
+                            <h4 className="art-product-shop__homepage-master">{ProviderName}</h4>
+                            <span className="art-product-shop__homepage-auth">
                                 {`作品：${ProductCount}件 月销：${MonthSalesCount}件 粉丝：${FansCount}个`}
                                 </span>
                         </div>
@@ -85,21 +85,21 @@ class Detail extends PureComponent {
                         </div>
                     </div>
 
-                    <div className="art-product__space"></div>
+                    <div className="art-product-shop__space"></div>
 
-                    <div className="art-product__homepage">
-                        <div className="art-product__homepage__detail">
+                    <div className="art-product-shop__homepage">
+                        <div className="art-product-shop__homepage__detail">
                             详情
                         </div>
                     </div>
 
-                    <div className="art-product__homepage__content">
+                    <div className="art-product-shop__homepage__content">
                         <p>{Brief}</p>
                     </div>
 
                     {ImageNames.map((imageName, index) => {
                         return (
-                            <div className="art-product__homepage__picture"
+                            <div className="art-product-shop__homepage__picture"
                                  key={index.toString()}
                                  style={{
                                      background: `url(${pictureUrl(imageName)}) 0% 0% / cover`,
@@ -108,10 +108,10 @@ class Detail extends PureComponent {
                         )
                     })}
 
-                    <div className="art-product__space"></div>
+                    <div className="art-product-shop__space"></div>
 
-                    <div className="art-product__homepage">
-                        <div className="art-product__homepage__detail">
+                    <div className="art-product-shop__homepage">
+                        <div className="art-product-shop__homepage__detail">
                             {`评价(${TotalRecords})`}
                         </div>
                     </div>
@@ -120,18 +120,18 @@ class Detail extends PureComponent {
                         const {HeadImage, CustomerName, Content} = data;
                         return (
                             <div key={index.toString()} style={{'borderBottom': '1px solid #E7E7E7'}}>
-                                <div className="art-product__comment">
-                                    <div className="art-product__comment-avatar">
-                                        <div className="art-product__comment-avatar-item"
+                                <div className="art-product-shop__comment">
+                                    <div className="art-product-shop__comment-avatar">
+                                        <div className="art-product-shop__comment-avatar-item"
                                              style={{
                                                  background: `url(${pictureUrl(HeadImage)}) 0% 0% / cover`,
                                              }}></div>
                                     </div>
-                                    <div className="art-product__comment-username">
+                                    <div className="art-product-shop__comment-username">
                                         {CustomerName}
                                     </div>
                                 </div>
-                                <div className="art-product__comment-content">
+                                <div className="art-product-shop__comment-content">
                                     {Content}
                                 </div>
                             </div>
@@ -139,10 +139,10 @@ class Detail extends PureComponent {
                     })}
                 </div>
 
-                <div className="art-product__comment-whiteSpace">
+                <div className="art-product-shop__comment-whiteSpace">
                 </div>
 
-                <div className="art-product__tooBar">
+                <div className="art-product-shop__tooBar">
                     <div>
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
