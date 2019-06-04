@@ -46,7 +46,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
                         // todo:ProductId 传递不过去.
                         <div onClick={()=>{ history.push('/detail',{ProductId:1})}} className="art-master__productlist-item" key={index}>
                             <img src="http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-02/art_1ebd26c7-b6bb-4304-b71e-d13492a110c0.jpg"/>
-                            <h3>景德镇紫砂壶</h3>
+                            <h3>{item.ProductName}</h3>
                             <p>
                                 {item.SalePrice} <i>￥  {item.MarketPrice}</i>
                             </p>
@@ -62,7 +62,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
                 return orderProductList.map((item,index)=>{
                     return (<div onClick={(item)=>{ history.push('/detail',{ProductId:item.ProductId})}} className="art-master__productlist-item" key={index}>
                         <img src="http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-02/art_1ebd26c7-b6bb-4304-b71e-d13492a110c0.jpg"/>
-                        <h3>景德镇紫砂壶</h3>
+                        <h3>{item.ProductName}</h3>
                         <p>
                             {item.SalePrice} <i>￥  {item.MarketPrice}</i>
                         </p>
