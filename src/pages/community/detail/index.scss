@@ -81,8 +81,9 @@
         }
 
         &-like{
+            float: right;
             display: inline-block;
-            margin: 14px 15px 0 0;
+            margin: 30px 15px 0 0;
             height: 28px;
             width: 67px;
             color: #E87908;
@@ -90,9 +91,7 @@
             border-radius: 100px;
             line-height: 28px;
             text-align: center;
-            position: relative;
-            top: -30px;
-            left: 50px;
+          
         }
     }
 
