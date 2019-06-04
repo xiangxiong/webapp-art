@@ -52,7 +52,7 @@ class Detail extends PureComponent {
             <Fragment>
                 <div className="art-product-shop">
                     <PublicHeader title="商品详情" bgColor="#E87908"/>
-                    <CarouselBanner imgHeight="2.96rem" data={carouselData}/>
+                    <CarouselBanner imgHeight="3.14rem" data={carouselData}/>
 
                     <div className="art-product-shop__detail">
                         <h4>{Name}</h4>

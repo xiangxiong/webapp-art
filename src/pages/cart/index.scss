@@ -146,15 +146,12 @@
   }
 
   &__bottom {
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    height: 52px;
+    bottom: 50px;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    border-top: 1px solid rgba(225, 225, 225, 1);
+    border-top: 0.01rem solid #e1e1e1;
+    position: fixed;
+  
 
     & > span:nth-child(2) {
       flex: 1;
