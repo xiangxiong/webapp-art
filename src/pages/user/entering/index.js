@@ -64,7 +64,7 @@ class Entering extends PureComponent {
                 <List>
                     <Item arrow="horizontal" onClick={this.handleCreateShop.bind(this, 'art')}>入住成为合作艺术家</Item>
                     <Item arrow="horizontal" className="art-entering__arts"
-                          onClick={this.handleCreateShop.bind(this, 'shop')}>入驻成为艺术商户商城</Item>
+                          onClick={this.handleCreateShop.bind(this, 'shop')}>入驻成为合作商户</Item>
                 </List>
             )
         } else if (CooperationWay == 1) {
@@ -79,7 +79,7 @@ class Entering extends PureComponent {
             //商户
             return (
                 <List>
-                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop.bind(this,'shop')}>入驻成为艺术商户商城</Item>
+                    <Item arrow="horizontal" extra={extra} onClick={this.handleCreateShop.bind(this,'shop')}>入驻成为合作商户</Item>
                     {Status == 6 ? <Item>{`审核不通过：${Remark}`}</Item> : null}
                 </List>
             )

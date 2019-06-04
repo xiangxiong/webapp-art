@@ -78,7 +78,7 @@ const normalNavItems = [
     {
         title: '提现',
         icon: 'art-icon art-icon-user-cash',
-        routeUrl: ''
+        routeUrl: '/withdraw'
     },
     {
         title: '协议规则',
@@ -129,7 +129,7 @@ class User extends PureComponent{
     }
 
     handleNavUrl(url) {
-        history.push(url);
+        history.push(url, {customerDetail: this.props.customerDetail});
     }
 
     bindSellList() {

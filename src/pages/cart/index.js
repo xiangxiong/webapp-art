@@ -31,7 +31,7 @@ class Cart extends PureComponent {
 
                 <div>
                     <span>{`×${TransactionNumber}`}</span>
-                    <div style={{}}/>
+                   {/* <div style={{}}/>*/}
                 </div>
             </div>
         );
