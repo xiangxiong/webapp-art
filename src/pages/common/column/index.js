@@ -10,7 +10,7 @@ import history from './../../../utils/history';
 const Column = (props) => {
         const {leftImgUrl, rightImgUrl,cloumnData} = props;
         console.log('cloumnData',cloumnData);
-
+        
         return (
             <>
                     <div className="art-main__column">

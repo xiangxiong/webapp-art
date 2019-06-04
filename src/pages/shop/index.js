@@ -13,6 +13,11 @@ import Column from '../common/column';
 import Product from './../common/product';
 import Title from './../common/title';
 
+const cloumnData = [
+    {title:'「 实拍实测 」', name: '上千件好物等你来拍',url:'./community'},
+    {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
+];
+
 class Shop extends PureComponent {
     render() {
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
@@ -26,7 +31,7 @@ class Shop extends PureComponent {
                     <Letters data={shopNewsPagerList}/>
                     <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
-                    <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                    <Column cloumnData={cloumnData} leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">

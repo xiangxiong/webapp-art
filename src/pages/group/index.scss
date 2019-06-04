@@ -1,8 +1,12 @@
 .art-group{
 
+    &__super{
+        height: 135px;
+        margin: 0 auto;
+    }
+
     &__banner{
         height: 135px;
-        background: red;
         margin: 0 auto;
     }
 

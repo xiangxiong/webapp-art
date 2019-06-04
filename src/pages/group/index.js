@@ -7,9 +7,9 @@ const Group = () =>{
     return (
         <Fragment>
             <PublicHeader title="超值团购"/>
-            <div className="art-group__banner">
-                banner
+            <div className="art-group__super" style={{background: 'url("http://res.laoliwuyou.com/icon/44.png") 0% 0% / cover'}}>
             </div>
+
             <div className="art-group__product">
                 <div className="art-group__product-item" onClick={()=>{ history.push('./groupdetail') }}>
                     <div style={{background: 'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover'}}>

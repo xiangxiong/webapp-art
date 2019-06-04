@@ -12,7 +12,6 @@ const Category = React.memo(
     const [data,setData] = useState([]);
 
     useEffect(()=>{
-
       async function fetchCategoryList(){
           const result = await props.dispatchCategoryList({});
           let response = [];
@@ -53,13 +52,12 @@ const Category = React.memo(
 
           setData(response);
       };
-
       fetchCategoryList();
     },[]);
-    
+
     return (
         <Fragment>
-            <PublicHeader title="大师分类"/>
+            <PublicHeader title="大师云集"/>
             <CategoryJD dataSource={data}/>
         </Fragment>
     )
@@ -68,6 +66,7 @@ const Category = React.memo(
 
 const mapStateToProps = (state) =>{
   return {
+    
   }
 }
 

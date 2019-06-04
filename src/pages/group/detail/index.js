@@ -12,7 +12,7 @@ class Detail extends PureComponent {
                 <div className="art-product">
                     <PublicHeader title="团购详情" bgColor="#E87908"/>
                     <CarouselBanner imgHeight="2.96rem" />
-
+                    
                     <div className="art-product__detail">
                         <h4>eeee</h4>
                         <p className="art-product__detail-font">

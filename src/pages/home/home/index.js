@@ -24,7 +24,7 @@ for(let i=0;i<10;i++){
 var pushList=[];
 
 const cloumnData = [
-    {title:'「 大师云集 」', name: '上千件好物等你来选',url:''},
+    {title:'「 大师云集 」', name: '上千件好物等你来选',url:'./category'},
     {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
 ];
 
@@ -62,6 +62,7 @@ class Main extends PureComponent{
     }
 
     HandleJumpUrl(url){
+        console.log('HandleJumpUrl',url);
         if(url==="/shiji"){
             Toast.success("正在开发中");
             return;
@@ -71,6 +72,10 @@ class Main extends PureComponent{
             eventProxy.trigger('selectedTab','redTab')
             return;
         }else{
+            if(url === "/category"){
+                console.log('category navitem');
+                eventProxy.trigger('navitem','大师云集');
+            }
             history.push(url);
         }
     }
@@ -202,3 +207,5 @@ const mapDispatchToProps = (dispatch) => {
 // });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+

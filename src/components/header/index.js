@@ -4,15 +4,25 @@ import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
 import eventProxy from 'react-eventproxy';
+var jumpUrlItem = "";
 
 class PublicHeader extends PureComponent{
-    
+
     constructor(props){
         super(props);
+
         const {title} = props;
         this.state = {
             title:title
         }
+
+        eventProxy.on("navitem",(object)=>{
+            console.log('objecteeee',object);
+            jumpUrlItem = object;
+             this.setState({
+                title:object
+             });
+        });
     }
 
     componentWillReceiveProps(nextProps){
@@ -24,9 +34,13 @@ class PublicHeader extends PureComponent{
         }
     }
 
+    componentDidMount(){
+        console.log('title',this.state.title);
+        console.log('componentDidMount');
+    }
+
     render(){
         const {bgColor,icon,share,jump} = this.props;
-        console.log('jump',jump);
         const {title} = this.state;
 
         return (
@@ -48,7 +62,7 @@ class PublicHeader extends PureComponent{
                     }
                     >
                     {
-                        title
+                        title 
                     }
                 </NavBar>
             </Fragment>
