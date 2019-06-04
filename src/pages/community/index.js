@@ -27,8 +27,8 @@ const Community = ({dispatchCommunityList,list}) => {
     console.log('list',list);
     for (let i = 1; i < count; i++) {
         slide.push(
-          <div key={i} style={{height: i%2 ===0 ? 390+30*Math.random():450+30*Math.random() }} onClick={jumpUrl}>
-                <div style={{background:'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover',height:i%2 ===0 ? 260+30*Math.random():320+30*Math.random(),borderRadius:'5px'}}></div>
+          <div key={i} style={{height:500}} onClick={jumpUrl}>
+                <div style={{background:'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover',height:300,borderRadius:'5px'}}></div>
                 <div className="art-community-discover__left-font"> 
                         <h3>今天刚出一把好壶，景德镇紫砂壶</h3>
                         <div className="art-community-discover-visit">

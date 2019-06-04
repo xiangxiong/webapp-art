@@ -28,14 +28,17 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
             const response = await dispatchMasterDetail(params);
             setMaster(response);
             let pdtImages = [];
-
-            response.PdtImgList.map((item,key)=>{
-                pdtImages.push({
-                    ImgUrl: `${PRODIMGURL}`+item
-                })
-            });
             
-            setData(pdtImages);
+            console.log('response',response);
+
+            if(response.PdtImgList){
+                response.PdtImgList.map((item,key)=>{
+                    pdtImages.push({
+                        ImgUrl: `${PRODIMGURL}`+item
+                    })
+                });
+             setData(pdtImages);
+            }
         }
 
        function loadProduct(){
@@ -94,7 +97,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
         return (
             <Fragment>
                 <PublicHeader title="大师详情" bgColor="#E87908"/>
-                <CarouselBanner  data={data}/>
+                <CarouselBanner  imgHeight="2.96rem" data={data}/>
                 <h3 className="art-master_title">{master.ProviderName}</h3>
                 <p className="art-master_goodat">
                 擅 长: {master.Speciality} | 级 别: {master.AuthorTypeName} | 座右铭: {master.Motto}

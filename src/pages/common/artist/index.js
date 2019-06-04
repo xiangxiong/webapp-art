@@ -3,16 +3,16 @@ import './index.scss';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 
-function handleJumpUrl(AuthorId) {
-    history.push('./detail', {AuthorId})
+function handleJumpUrl(ProviderId) {
+    history.push('./masterDetail/'+ProviderId)
 }
 
 const Artist = (props) => {
-    let {ImageName = '', ProviderName = '', AuthorTypeName = '', index = 0, AuthorId} = props;
+    let {ImageName = '', ProviderName = '', AuthorTypeName = '', index = 0,ProviderId} = props;
 
     return (
         <div className="art-main__recommend-item" key={index.toString()} onClick={() => {
-            handleJumpUrl(AuthorId)
+            handleJumpUrl(ProviderId)
         }}>
             <div className="art-main__recommend-img img-mrg-right"
                  style={{
