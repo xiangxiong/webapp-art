@@ -4,11 +4,11 @@ import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 
 function handleJumpUrl(ProviderId) {
-    history.push('./masterDetail/'+ProviderId)
+    history.push('./masterDetail/' + ProviderId)
 }
 
 const Artist = (props) => {
-    let {ImageName = '', ProviderName = '', AuthorTypeName = '', index = 0,ProviderId} = props;
+    let {ImageName = '', ProviderName = '', AuthorTypeName = '', index = 0, ProviderId, AuthorType} = props;
 
     return (
         <div className="art-main__recommend-item" key={index.toString()} onClick={() => {
@@ -21,7 +21,7 @@ const Artist = (props) => {
             </div>
             <p>
                 <i>{ProviderName}</i>
-                <i>{AuthorTypeName}</i>
+                {AuthorType != 1 ? <i>{AuthorTypeName}</i> : ''}
             </p>
         </div>
     )
