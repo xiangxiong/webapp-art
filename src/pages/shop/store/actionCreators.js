@@ -1,6 +1,7 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {ProductCommend, WorthGoodsDetail, ProductComment} from "../../../utils/servicekey";
+import {ProductCommend, WorthGoodsDetail, ProductComment, COLLECTIN} from "../../../utils/servicekey";
+import {Toast} from 'antd-mobile';
 
 export const shopCarouselAdList = (DataList) => ({
     type: constants.SHOP_CAROUSEL_AD_LIST,
@@ -59,6 +60,19 @@ export const getProductComment = (params) => {
         return post(ProductComment, params)
             .then((response) => {
                 dispatch(productComment(response.Data));
-        });
+            });
+    }
+};
+
+export const getCollectin = (params) => {
+    return (dispatch) => {
+        return post(COLLECTIN, params)
+            .then((response) => {
+                if (response && response.Data && response.Data.Status == 200) {
+                    Toast.info('操作成功');
+                } else {
+                    Toast.info('网络异常');
+                }
+            });
     }
 };

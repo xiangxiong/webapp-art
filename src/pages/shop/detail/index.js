@@ -3,7 +3,7 @@ import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getWorthGoodsDetail, getProductComment} from '../store/actionCreators';
+import {getWorthGoodsDetail, getProductComment, getCollectin} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 import {getModifyCart} from '../../cart/store/actionCreators';
@@ -18,6 +18,14 @@ class Detail extends PureComponent {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
+    };
+
+    handleCollection = (ProductId) => {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let Token = storage.get('userInfo').Token;
+
+        this.props.getCollectin({CustomerId, Token, CollectType: 1, ObjId: ProductId});
     };
 
     render() {
@@ -81,7 +89,7 @@ class Detail extends PureComponent {
                                 </span>
                         </div>
                         <div>
-                           {/* <div className="art-product__homepage-jump">去逛逛</div>*/}
+                            {/* <div className="art-product__homepage-jump">去逛逛</div>*/}
                         </div>
                     </div>
 
@@ -147,7 +155,10 @@ class Detail extends PureComponent {
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
                     </div>
-                    <div>
+                    <div
+                        onClick={() => {
+                            this.handleCollection(ProdId)
+                        }}>
                         <div className="art-icon art-icon-collect"></div>
                         <p>收藏</p>
                     </div>
@@ -159,8 +170,8 @@ class Detail extends PureComponent {
                     </div>
                     <div
                         onClick={() => {
-                        this.addBuy(ProdId)
-                    }}
+                            this.addBuy(ProdId)
+                        }}
                     >加入购物车
                     </div>
                 </div>
@@ -171,7 +182,7 @@ class Detail extends PureComponent {
     componentDidMount() {
         const {ProductId} = this.props.location.state;
         let storage = Storage.Base.getInstance();
-        let customerId = storage.get('userInfo') == null ? 0:storage.get('userInfo').CustomerId;
+        let customerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
         this.props.getWorthGoodsDetail(ProductId);
         this.props.getProductComment([ProductId], customerId);
     }
@@ -194,6 +205,8 @@ const mapDispatchToProps = dispatch => ({
     },
 
     getModifyCart: (params) => dispatch(getModifyCart(params)),
+
+    getCollectin: (params) => dispatch(getCollectin(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

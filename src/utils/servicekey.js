@@ -155,3 +155,6 @@ export const ART_COMMUNITY_PUBLISH_TOPIC_API = 'Art.Service.Info.Dto.Request.Api
 
 // 关注接口.
 export const ART_COMMUNITY_COLLECTIN_API = 'Art.Service.Customer.Dto.Api.CollectInRequest';
+
+// 用户/关注/喜欢/收藏相关
+export const COLLECTIN = 'Art.Service.Customer.Dto.Api.CollectInRequest';
