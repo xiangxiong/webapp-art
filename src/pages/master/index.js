@@ -14,7 +14,7 @@ import {getRecommendAuthorList} from './store/actionCreators';
 
 class Master extends PureComponent {
     render() {
-        const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList = ['1'], masterUserLikeProductsList = ['2']} = this.props;
+        const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList=[], masterUserLikeProductsList = []} = this.props;
 
         return (
             <Fragment>
