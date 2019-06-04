@@ -19,7 +19,6 @@ export default (state = defaultState, action) => {
             return {...state, masterProductCommendList: action.value};
         case constants.MASTER_LIKE_PRODUCTS_LIST:
             return {...state, masterUserLikeProductsList: action.value};
-
         default:
             return state;
     }

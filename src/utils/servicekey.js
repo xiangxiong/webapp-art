@@ -134,3 +134,9 @@ export const MODIFY_CART = 'Art.Service.Order.Dto.Request.api.ModifyCartRequest'
 
 // 批量删除或清空购物车
 export const BATCH_DEL_CART = 'Art.Service.Order.Dto.Request.api.BatchDelCartRequest';
+
+// 大师商品列表
+export const ART_MASTER_GET_PRODUCT_API = 'Art.Service.Product.Dto.Request.GetProductsListByProviderRequest';
+
+// 社区详情
+export const ART_COMMUNITY_LIST_API = 'Art.Service.Info.Dto.Request.Api.CommunityTopicListRequest';
