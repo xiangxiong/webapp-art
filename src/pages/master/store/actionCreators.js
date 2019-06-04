@@ -31,7 +31,7 @@ export const getRecommendAuthorList = (params) => {
     return (dispatch) => {
         return post(GET_RECOMMEND_AUTHOR_LIST, params)
             .then((response) => {
-                if (!params || !params.IsHot) {
+                if (!params) {
                     return
                 }
                 if (params.IsHot === 1) {
