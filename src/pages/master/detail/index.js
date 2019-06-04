@@ -28,7 +28,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
             const response = await dispatchMasterDetail(params);
             setMaster(response);
             let pdtImages = [];
-            
+
             console.log('response',response);
 
             if(response.PdtImgList){
