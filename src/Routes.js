@@ -26,6 +26,7 @@ import  WithdrawList from './pages/withdraw/withdrawList/index';
 import  BankCardList from './pages/bankCard/bankCardList/index';
 import  AddBankCard from './pages/bankCard/addBankCard/index';
 import ShopHomePage from './pages/shop/home';
+import Search from './pages/search/index';
 import MasterDetail from './pages/master/detail';
 import Loadable from "react-loadable"; 
 import Loading from './components/loading';
@@ -217,7 +218,12 @@ export default [
         path: "/category",
         component: LoadCategory,
         key: 'category'
-    }
+    },
+    {
+        path: "/search",
+        component: Search,
+        key: 'search'
+    },
 ];
 
 
