@@ -206,7 +206,7 @@
     &__tooBar{
         height: 55px;
         width: 100%;
-        background: #FF0000;
+        background: #FFFFFF;
         border-top: 1px solid #ddd;
         position:fixed;
         bottom: 0;
@@ -241,36 +241,22 @@
         }
 
         &>div:nth-child(3){
-            width: 15%;
+            width: 35%;
             text-align: center;
             border-right: 1px solid #ddd;
-
-            &>div{
-                position: relative;
-                top: 5px;
-                left: 13px;
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        &>div:nth-child(1){
-            width: 100%;
-            text-align: center;
-            border-right: 1px solid #ddd;
-            background: #E87908;
             line-height: 60px;
             font-size:18px;
             font-family:MicrosoftYaHei;
             font-weight:400;
-            color:#FFFFFF;
+            color:#333333;
+            background: #FFFFFF;
         }
 
-        &>div:nth-child(5){
-            width: 27%;
+        &>div:nth-child(4){
+            width: 35%;
             text-align: center;
             border-right: 1px solid #ddd;
-            background:#C52125;
+            background: #E87908;
             font-size:18px;
             font-family:MicrosoftYaHei;
             font-weight:400;

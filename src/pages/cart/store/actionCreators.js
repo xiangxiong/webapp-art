@@ -17,7 +17,7 @@ export const getQueryCarList = (params) => {
     return (dispatch) => {
         return post(QUERY_CAR_LIST, params)
             .then((response) => {
-                dispatch(queryCarList(response.Data))
+                dispatch(queryCarList(response.Data.DataList))
             })
     }
 };
@@ -26,7 +26,7 @@ export const getModifyCart = (params) => {
     return (dispatch) => {
         return post(MODIFY_CART, params)
             .then((response) => {
-                if (response && response.Data && response.Data.Data) {
+                if (response && response.Data && response.Data.Status==200) {
                     Toast.info('操作成功');
                 } else {
                     Toast.info('网络异常');

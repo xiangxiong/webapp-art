@@ -6,11 +6,18 @@ import {connect} from 'react-redux';
 import {getWorthGoodsDetail, getProductComment} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
+import {getModifyCart} from '../../cart/store/actionCreators';
 
 class Detail extends PureComponent {
 
     handleBuy = () => {
-        history.push('./submitorder',{productList: [this.props.shopWorthGoodsDetail]});
+        history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
+    };
+
+    addBuy = (ProductId) => {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
     };
 
     render() {
@@ -22,6 +29,7 @@ class Detail extends PureComponent {
             KillPrice,
             MarketPrice,
             Provider = {},
+            ProdId,
         } = this.props.shopWorthGoodsDetail;
 
         const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount} = Provider;
@@ -135,10 +143,6 @@ class Detail extends PureComponent {
                 </div>
 
                 <div className="art-product__tooBar">
-                    {/*<div>
-                        <div className="art-icon art-icon-kefu"></div>
-                        <p>客服</p>
-                    </div>
                     <div>
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
@@ -146,14 +150,19 @@ class Detail extends PureComponent {
                     <div>
                         <div className="art-icon art-icon-collect"></div>
                         <p>收藏</p>
-                    </div>*/}
+                    </div>
                     <div
                         onClick={() => {
                             this.handleBuy()
                         }}>
                         立即购买
                     </div>
-                    {/*<div>购物车</div>*/}
+                    <div
+                        onClick={() => {
+                        this.addBuy(ProdId)
+                    }}
+                    >加入购物车
+                    </div>
                 </div>
             </Fragment>
         )
@@ -183,6 +192,8 @@ const mapDispatchToProps = dispatch => ({
     getProductComment: (ProdIds, CustomerId) => {
         dispatch(getProductComment({ProdIds, CustomerId, CommentType: 9, CurrentPage: 1, PageSize: 50}))
     },
+
+    getModifyCart: (params) => dispatch(getModifyCart(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

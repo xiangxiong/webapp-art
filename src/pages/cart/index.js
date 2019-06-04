@@ -3,12 +3,15 @@ import {Checkbox} from 'antd-mobile';
 import './index.scss';
 import {getQueryCarList, getModifyCart, getBatchDelCart} from './store/actionCreators';
 import {connect} from 'react-redux';
+import  {pictureUrl} from '../../utils/common';
 
 const AgreeItem = Checkbox.AgreeItem;
 
 class Cart extends PureComponent {
 
     showGoods = (goods, index) => {
+        const {ProductName, ProductImg, SalesPrice, TransactionNumber} = goods;
+
         return (
             <div key={index.toString()} className="art-cart__goods">
                 <AgreeItem
@@ -16,16 +19,17 @@ class Cart extends PureComponent {
                     onChange={e => {
                     }}/>
 
-                <div style={{}}/>
+                <div style={{
+                    background: `url(${pictureUrl(ProductImg)}) 0% 0% / cover`,
+                }}/>
 
                 <div>
-                    <h4>新疆和田玉</h4>
-                    <h4>20克 白色</h4>
-                    <h4>￥35.00</h4>
+                    <h4>{ProductName}</h4>
+                    <h4>{`￥${SalesPrice}`}</h4>
                 </div>
 
                 <div>
-                    <span>×1</span>
+                    <span>{`×${TransactionNumber}`}</span>
                     <div style={{}}/>
                 </div>
             </div>
@@ -33,7 +37,15 @@ class Cart extends PureComponent {
     };
 
     showMerchant = (merchant, index) => {
-        const {goodsList = ['11', '22']} = this.props;
+        const {ProviderName, Products = []} = merchant;
+
+        let count = 0, price = 0.00;
+
+        Products.map((product, index) => {
+            const {SalesPrice, TransactionNumber} = product;
+            count += TransactionNumber;
+            price += SalesPrice * TransactionNumber;
+        });
 
         return (
             <div
@@ -46,26 +58,26 @@ class Cart extends PureComponent {
                         data-seed="logId"
                         onChange={e => {
                         }}>
-                        卖家：玉溪和田玉
+                        {`卖家：${ProviderName}`}
                     </AgreeItem>
                     <span>
                         编辑
                     </span>
                 </div>
 
-                {goodsList.map((goods, index) => {
-                    return this.showGoods(goods, index);
+                {Products.map((product, index) => {
+                    return this.showGoods(product, index);
                 })}
 
                 <h4>
-                    共2件商品 合计:￥98.00 (运费￥12.00)
+                    {`共${count}件商品 合计:￥${price} (运费￥0.00)`}
                 </h4>
             </div>
         )
     };
 
     render() {
-        const {merchantList = ['1', '2']} = this.props;
+        const {carList = []} = this.props;
 
         return (
             <div className="art-cart">
@@ -80,7 +92,7 @@ class Cart extends PureComponent {
                     <span>全场免邮费</span>
                 </h4>
 
-                {merchantList.map((merchant, index) => {
+                {carList.map((merchant, index) => {
                     return this.showMerchant(merchant, index);
                 })}
 
@@ -99,7 +111,10 @@ class Cart extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getQueryCarList();
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+
+        this.props.getQueryCarList({CustomerId, CurrentPage: 1, PageSize: 100});
     }
 }
 
