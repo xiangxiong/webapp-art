@@ -30,6 +30,8 @@ import Search from './pages/search/index';
 import MasterDetail from './pages/master/detail';
 import Loadable from "react-loadable"; 
 import Loading from './components/loading';
+import Group from './pages/group';
+import GroupDetail from './pages/group/detail';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -180,6 +182,12 @@ export default [
         key: 'communitydetail'
     },
     {
+        path: "/communitydetail/:id",
+        component: CommunityDetail,
+        exact: true,
+        key: 'CommunityDetailparams'
+    },
+    {
         path:"/shopHomepage",
         component:ShopHomePage,
         key:'shopHomepage'
@@ -229,7 +237,19 @@ export default [
         component: Search,
         key: 'search'
     },
+    {
+        path: "/group",
+        component: Group,
+        key: 'group'
+    },
+    {
+        path: "/groupdetail",
+        component: GroupDetail,
+        key: 'groupdetail'
+    }
 ];
+
+
 
 
 

@@ -55,9 +55,8 @@ const Category = React.memo(
       };
 
       fetchCategoryList();
-
     },[]);
-
+    
     return (
         <Fragment>
             <PublicHeader title="大师分类"/>

@@ -24,24 +24,6 @@ for (let i = 0; i < 10; i++) {
 }
 var countCurrentPage = 2;
 
-function getRect(el) {
-  if (el instanceof window.SVGElement) {
-    let rect = el.getBoundingClientRect()
-    return {
-      top: rect.top,
-      left: rect.left,
-      width: rect.width,
-      height: rect.height
-    }
-  } else {
-    return {
-      top: el.offsetTop,
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      height: el.offsetHeight
-    }
-  }
-}
 
 class Home extends PureComponent{
 
@@ -84,7 +66,6 @@ class Home extends PureComponent{
   }
 
   renderFactory(pageText){
-       console.log('pageText',pageText);
        switch(pageText){
           case "MAIN":
             return (<Main likeProducts={this.props.userLikeProducts}/>);
@@ -190,22 +171,28 @@ class Home extends PureComponent{
   componentDidMount(){
      this.init();
      this.initLikeList();
-     this.setState({
-      selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
-    });
 
-    // setTimeout(()=>{
-    //       this.refs.listWrapper.style.minHeight = `${getRect(this.refs.wrapperScroll).height + 1}px`
-    // },1000)
-    // let timer = null;
-    // if(timer){
-    //   clearTimeout(timer)
-    // }
-    // timer = setTimeout(()=>{
-    //   const content = document.querySelector('#container');
-    //   let scroll = new BScroll(content,{});
-    //   console.log(content);
-    // },0);
+     let selectedTab = "blueTab";
+
+     if(getUrlParam('tab') === "User"){
+        selectedTab = 'yellowTab';
+     }
+     else if(getUrlParam('tab') === "Shop"){
+        selectedTab = 'redTab'
+     }
+     else{
+        selectedTab = 'blueTab'
+     }
+    
+     this.setState({
+        selectedTab:selectedTab
+     });
+
+     eventProxy.on('selectedTab',(item)=>{
+        this.setState({
+          selectedTab:item
+       });
+     });
   }
 
   render(){

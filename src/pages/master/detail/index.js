@@ -107,7 +107,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
                     个人简介：{master.Brief}
                 </p>
                 <p className="art-master_desc">
-                    说      明：{master.Description}
+                    说    明：{master.Description}
                 </p>
                 <Tabs tabs={tabs} initialPage={0}>
                     <div style={{ display: 'flex', height: '1000px',backgroundColor: '#fff' }}>

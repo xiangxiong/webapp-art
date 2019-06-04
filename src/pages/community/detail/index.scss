@@ -1,9 +1,15 @@
 .art-community-detail{
+
+    &-name{
+        position: relative;
+        top: -12px;
+    }
+
     &__visit{
         height: 57px;
         line-height: 57px;
 
-        &>span:nth-child(1){
+        &>img{
             display: inline-block;
             width: 35px;
             height: 35px;
@@ -12,14 +18,6 @@
             margin: 12px 15px 0 15px;
             text-align: center;
             line-height: 35px;
-        }
-        
-        &>span:nth-child(2){
-            font-family: PingFangSC-Regular;
-            font-size: 14px;
-            color: #333333;
-            letter-spacing: -0.12px;
-            display: inline-block;
         }
         
         &>span:nth-child(3){
@@ -113,8 +111,8 @@
         margin: 13px;
 
         &>p{
-            height: 30px;
-            line-height: 30px;
+            height: 23px;
+            line-height: 23px;
             padding-left: 10px;
         }
 
@@ -140,4 +138,12 @@
         height: 10px;
         width: 100%;
     }
+}
+
+.am-button-primary {
+    color: #fff;
+    background-color: #E87908;
+    border: 1PX solid #E87908;
+    border-radius: 0.05rem;
+    margin: 0.28rem;
 }

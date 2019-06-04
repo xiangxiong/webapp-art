@@ -7,6 +7,7 @@ const defaultState = {
     userLikeProducts: {},
     authInfo:{}
 };
+
 export default (state = defaultState, action) => {
     switch (action.type) {
         case constants.CAROUSEL_AD_LIST:

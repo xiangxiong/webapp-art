@@ -138,5 +138,20 @@ export const BATCH_DEL_CART = 'Art.Service.Order.Dto.Request.api.BatchDelCartReq
 // 大师商品列表
 export const ART_MASTER_GET_PRODUCT_API = 'Art.Service.Product.Dto.Request.GetProductsListByProviderRequest';
 
-// 社区详情
+// 社区列表
 export const ART_COMMUNITY_LIST_API = 'Art.Service.Info.Dto.Request.Api.CommunityTopicListRequest';
+
+// 社区详情
+export const ART_COMMUNITY_DETAIL_API = 'Art.Service.Info.Dto.Request.Api.CommunityTopicDetailRequest';
+
+// 发布话题
+export const ART_COMMUNITY_PUBLISH_API = 'Art.Service.Info.Dto.Request.Api.PublishTopicCommentRequest';
+
+// 获取话题评论列表
+export const ART_COMMUNITY_COMMENT_LIST_API = 'Art.Service.Info.Dto.Request.Api.TopicCommentListRequest';
+
+// 发布社区话题
+export const ART_COMMUNITY_PUBLISH_TOPIC_API = 'Art.Service.Info.Dto.Request.Api.PublishTopicInfoRequest';
+
+// 关注接口.
+export const ART_COMMUNITY_COLLECTIN_API = 'Art.Service.Customer.Dto.Api.CollectInRequest';

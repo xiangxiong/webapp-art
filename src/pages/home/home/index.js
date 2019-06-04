@@ -13,6 +13,7 @@ import Product from './../../common/product';
 import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
 import history from './../../../utils/history';
+import { Toast } from 'antd-mobile';
 
 const Data = [];
 let NEWDATAINDEX = 1;
@@ -22,16 +23,23 @@ for(let i=0;i<10;i++){
 
 var pushList=[];
 
+const cloumnData = [
+    {title:'「 大师云集 」', name: '上千件好物等你来选',url:''},
+    {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
+];
+
 class Main extends PureComponent{
 
     constructor(props) {
         super(props);
+
         this.navDataList = [
-            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集',url:'/community'},
-            {imageUrl: `${PICTUREURL}3.png`, name: '市集',url:'/community'},
-            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城',url:'/community'},
+            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集',url:'/category'},
+            {imageUrl: `${PICTUREURL}3.png`, name: '市集',url:'/shiji'},
+            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城',url:'/shop'},
             {imageUrl: `${PICTUREURL}5.png`, name: '艺社区',url:'/community'},
         ];
+
         this.state = {
             imgHeight: 176,
             scrollCss:classNames(
@@ -51,11 +59,20 @@ class Main extends PureComponent{
             listData: Data
         };
         this.currentPage=1;//为你推荐 当前页 hidden
-
     }
 
     HandleJumpUrl(url){
-        history.push(url);
+        if(url==="/shiji"){
+            Toast.success("正在开发中");
+            return;
+        }
+        else if(url === "/shop"){
+            history.push('/home?tab=Shop');
+            eventProxy.trigger('selectedTab','redTab')
+            return;
+        }else{
+            history.push(url);
+        }
     }
 
     showRecomandItem() {
@@ -96,6 +113,8 @@ class Main extends PureComponent{
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
 
+        const {} = this.state;
+
         return (
             <Fragment>
                 <div className="art-main">
@@ -128,7 +147,7 @@ class Main extends PureComponent{
                         <Letters data={newsPagerList}/>
                         <Advert commonAdList={commonAdList}/>
                         <Space/>
-                        <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                        <Column cloumnData={cloumnData}  leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
                         <div className="art-main__recommend">
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">

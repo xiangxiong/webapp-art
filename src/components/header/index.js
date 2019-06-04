@@ -6,7 +6,7 @@ import history from './../../utils/history'
 import eventProxy from 'react-eventproxy';
 
 class PublicHeader extends PureComponent{
-
+    
     constructor(props){
         super(props);
         const {title} = props;
@@ -14,7 +14,7 @@ class PublicHeader extends PureComponent{
             title:title
         }
     }
-    
+
     componentWillReceiveProps(nextProps){
         const {title} = nextProps;
         if(title !== this.state.title){
@@ -36,15 +36,12 @@ class PublicHeader extends PureComponent{
                     mode="light"
                     icon={<Icon type={icon}/>}
                     onLeftClick={() => {
-                        console.log('User');
                         if(jump === "User"){
                             history.push('/home?tab='+jump);
                         }
                         else{
                             history.go(-1)
-                            // history.push('/home?tab=1');
                         }
-                        // history.go(-1)
                     }}
                     rightContent={
                         share && <div className="art-icon art-icon-share"></div>

@@ -5,7 +5,6 @@ import {Route,Redirect} from 'react-router-dom';
 export const PrivateRoute = ({component: ComposedComponent,...rest}) =>{
    
     class Authentication extends PureComponent{
-
         render(){
             let isLogin = this.props.isLogin
                 ? this.props.isLogin
@@ -30,7 +29,7 @@ export const PrivateRoute = ({component: ComposedComponent,...rest}) =>{
             )
         }
     }
-
+    
     const AuthenticationContainer = connect(state=>({
         isLogin:state.loginInfo.isLogin
     }))(Authentication);
