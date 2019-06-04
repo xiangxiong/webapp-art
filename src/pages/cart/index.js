@@ -4,6 +4,7 @@ import './index.scss';
 import {getQueryCarList, getModifyCart, getBatchDelCart} from './store/actionCreators';
 import {connect} from 'react-redux';
 import  {pictureUrl} from '../../utils/common';
+import history from '../../utils/history';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -76,6 +77,11 @@ class Cart extends PureComponent {
         )
     };
 
+    settlement = () => {
+        let productList = [];
+        history.push('./submitorder', {productList});
+    };
+
     render() {
         const {carList = []} = this.props;
 
@@ -104,7 +110,12 @@ class Cart extends PureComponent {
                         已选22
                     </AgreeItem>
                     <span>￥98.00</span>
-                    <span>下单</span>
+                    <span
+                        onClick={() => {
+                            this.settlement();
+                        }}>
+                        结算
+                    </span>
                 </div>
             </div>
         )
