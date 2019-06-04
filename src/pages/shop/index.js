@@ -14,8 +14,8 @@ import Product from './../common/product';
 import Title from './../common/title';
 
 const cloumnData = [
-    {title:'「 实拍实测 」', name: '上千件好物等你来拍',url:'./community'},
-    {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
+    {title:'「 实拍实测 」', name:'上千件好物等你来拍', url:'./community'},
+    {title:'「 超值团购 」', name:'邀请好友一起拼团', url:'./group'}
 ];
 
 class Shop extends PureComponent {

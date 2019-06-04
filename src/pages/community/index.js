@@ -61,12 +61,12 @@ const Community = ({dispatchCommunityList,list}) => {
 
     useEffect(()=>{
         getCommunityApi();
-    },[])
-    
+    },[]);
+
     return (
         <Fragment>
             <PublicHeader title="社区"/>
-               
+
             <Tabs tabs={tabs} initalPage={'t2'}>
                     <div style={{ display: 'flex', justifyContent: 'center', height: '3000px',backgroundColor: '#fff' }}>
 
@@ -75,7 +75,7 @@ const Community = ({dispatchCommunityList,list}) => {
                                         count && count.map((item,index)=>{
                                             return (
                                                 <div  onClick={jumpUrl} className="art-master__productlist-item" key={index}>
-                                                    <img src={PRODIMGURL+item.ImageName}/>
+                                                    <img src={PRODIMGURL+item.TopicMainImg}/>
                                                     <h3>{item.TopicContent}</h3>
                                                     <p>
                                                         {item.LoginName}
@@ -85,25 +85,24 @@ const Community = ({dispatchCommunityList,list}) => {
                                         })
                                 }
                             </div>
-
-                                  {/* {
-                                     count && count.map((item,index)=>{
-                                         console.log('item',item);
-                                          return (
-                                            <div key={index} style={{height:430}} onClick={jumpUrl}>
-                                                    <div style={{background:'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover',height:300,borderRadius:'5px'}}></div>
-                                                    <div className="art-community-discover__left-font"> 
-                                                            <h3>{item.TopicContent}</h3>
-                                                            <div className="art-community-discover-visit">
-                                                                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559229753129&di=856001c43d802d7bbdfdecb185a3a558&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fa12f24e688c1cda3ff4cc453f3486a88adaf08cc2cdb-tQvJqX_fw658"/>
-                                                                <p>{item.LoginName}</p>
-                                                            </div>
-                                                    </div>
-                                            </div>
-                                          )
-                                      })
-                                  } */}
-                                {/* <Waterfall margin={10} colCount={2}></Waterfall> */}
+                             {/* {
+                                    count && count.map((item,index)=>{
+                                        console.log('item',item);
+                                        return (
+                                        <div key={index} style={{height:430}} onClick={jumpUrl}>
+                                                <div style={{background:'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover',height:300,borderRadius:'5px'}}></div>
+                                                <div className="art-community-discover__left-font"> 
+                                                        <h3>{item.TopicContent}</h3>
+                                                        <div className="art-community-discover-visit">
+                                                            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559229753129&di=856001c43d802d7bbdfdecb185a3a558&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fa12f24e688c1cda3ff4cc453f3486a88adaf08cc2cdb-tQvJqX_fw658"/>
+                                                            <p>{item.LoginName}</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        )
+                                    })
+                            } */}
+                            {/* <Waterfall margin={10} colCount={2}></Waterfall> */}
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center', height: '3000px',backgroundColor: '#fff' }}>
                                 <Waterfall margin={10} colCount={2}>

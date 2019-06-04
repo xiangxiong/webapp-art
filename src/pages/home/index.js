@@ -94,7 +94,7 @@ class Home extends PureComponent{
         }
         
         if(pageText==="MAIN"){
-
+   
           return (
             <div ref="wrapperScroll" className="container">
               <Scroll
@@ -111,6 +111,7 @@ class Home extends PureComponent{
         }
 
         if(pageText==="ARTSHOP"){
+    
            return (
             <div className="container">
                   <Scroll
@@ -126,6 +127,7 @@ class Home extends PureComponent{
            )
         }
       if(pageText==="MASTER"){
+      
           return (
               <div className="container">
                   <Scroll
@@ -141,6 +143,7 @@ class Home extends PureComponent{
           )
       }
       if(pageText==="CART"){
+      
           return (
               <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
                   {
@@ -165,7 +168,7 @@ class Home extends PureComponent{
   }
 
   init(){
-    Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+    // Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
   }
 
   componentDidMount(){
@@ -214,6 +217,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'blueTab',
               });
+              eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId"
           >
@@ -231,6 +235,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'redTab'
               });
+              eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId1"
           >
@@ -247,6 +252,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'artTab',
               });
+              eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId1"
           >
@@ -263,6 +269,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'greenTab',
               });
+              eventProxy.trigger("showcart",'visible');
             }}
           >
             {this.renderContent('CART')}
@@ -279,6 +286,7 @@ class Home extends PureComponent{
                   selectedTab: 'yellowTab',
                   isSelected:true
                 });
+                eventProxy.trigger("showcart",'hidden');
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>

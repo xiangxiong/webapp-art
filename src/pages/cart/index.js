@@ -5,6 +5,7 @@ import {getQueryCarList, getModifyCart, getBatchDelCart} from './store/actionCre
 import {connect} from 'react-redux';
 import  {pictureUrl} from '../../utils/common';
 import history from '../../utils/history';
+import eventProxy from 'react-eventproxy';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -12,23 +13,19 @@ class Cart extends PureComponent {
 
     showGoods = (goods, index) => {
         const {ProductName, ProductImg, SalesPrice, TransactionNumber} = goods;
-
         return (
             <div key={index.toString()} className="art-cart__goods">
                 <AgreeItem
                     data-seed="logId"
                     onChange={e => {
                     }}/>
-
                 <div style={{
                     background: `url(${pictureUrl(ProductImg)}) 0% 0% / cover`,
                 }}/>
-
                 <div>
                     <h4>{ProductName}</h4>
                     <h4>{`￥${SalesPrice}`}</h4>
                 </div>
-
                 <div>
                     <span>{`×${TransactionNumber}`}</span>
                    {/* <div style={{}}/>*/}
@@ -82,6 +79,12 @@ class Cart extends PureComponent {
         history.push('./submitorder', {productList});
     };
 
+    state = {
+        isShow:'hidden'
+    }
+
+
+
     render() {
         const {carList = []} = this.props;
 
@@ -97,26 +100,26 @@ class Cart extends PureComponent {
                     <span>48小时快速退款</span>
                     <span>全场免邮费</span>
                 </h4>
-
                 {carList.map((merchant, index) => {
                     return this.showMerchant(merchant, index);
                 })}
 
-                <div className="art-cart__bottom">
-                    <AgreeItem
-                        data-seed="logId"
-                        onChange={e => {
-                        }}>
-                        已选22
-                    </AgreeItem>
-                    <span>￥98.00</span>
-                    <span
-                        onClick={() => {
-                            this.settlement();
-                        }}>
-                        结算
-                    </span>
+                <div className="art-cart__bottom" style={{visibility:this.state.isShow}}>
+                        <AgreeItem
+                            data-seed="logId"
+                            onChange={e => {
+                            }}>
+                            已选22
+                        </AgreeItem>
+                        <span>￥98.00</span>
+                        <span
+                            onClick={() => {
+                                this.settlement();
+                            }}>
+                            结算
+                        </span>
                 </div>
+
             </div>
         )
     }
@@ -124,7 +127,11 @@ class Cart extends PureComponent {
     componentDidMount() {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-
+        eventProxy.on("showcart",(object)=>{
+            this.setState({
+                isShow:object
+            });
+        });
         this.props.getQueryCarList({CustomerId, CurrentPage: 1, PageSize: 100});
     }
 }
