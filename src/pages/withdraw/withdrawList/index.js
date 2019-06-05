@@ -4,6 +4,7 @@ import history from './../../../utils/history';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
 import {getDespositsRecord} from '../store/actionCreators';
+import {formatDate} from '../../../utils/common';
 
 class WithdrawList extends PureComponent {
 
@@ -14,25 +15,26 @@ class WithdrawList extends PureComponent {
     }
 
     showWithdrawItem = (withdraw, index) => {
-        const {} = withdraw;
+        const {Money, OpretionTime} = withdraw;
         return (
-            <div key={index.toString()} className="art-withdrawList__item">
-                <h2>2016年9月</h2>
+            <div key={index.toString()} className="art-withdrawList__item" onClick={() => {
+                history.push('./withdrawDetails', {withdraw});
+            }}>
+                {/* <h2></h2>*/}
 
-                <div className="art-withdrawList__item-content">
-                    <div style={{
-                        //background: `url(${''}) 0% 0% / cover`,
-                    }}/>
+                <div className="art-withdrawList__item-content"
+                     style={{borderTop: index > 0 ? "10px solid #f3f3f3" : ""}}>
+                    <div/>
 
                     <div>
                         <div>
-                            <h4>提现-到支付宝</h4>
-                            <h5>500.00</h5>
+                            <h4>提现</h4>
+                            <h5>{`￥${-Money}`}</h5>
                         </div>
 
                         <div>
-                            <h4>09月10日 11:45</h4>
-                            <h5>流水号：w2568412592412</h5>
+                            <h4>{formatDate(OpretionTime, 'MM月dd日 HH:mm')}</h4>
+                            {/* <h5>流水号：w2568412592412</h5>*/}
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,7 @@ class WithdrawList extends PureComponent {
     };
 
     render() {
-        const {recordList = ['1']} = this.props;
+        const {recordList = []} = this.props;
 
         return (
             <Fragment>

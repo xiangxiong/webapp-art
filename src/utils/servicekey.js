@@ -109,7 +109,7 @@ export const UPDATE_PARTENER_DEPOSIT = 'Art.Service.Product.Dto.Api.UpdateParten
 export const GET_RECOMMEND_AUTHOR_LIST = 'Art.Service.Product.Dto.Request.GetRecommendAuthorListRequest';
 
 // 查询用户卡包
-export const ACCOUNT_LIST = 'Art.Service.Customer.Dto.Api.AccountListRequest';
+export const ACCOUNT_LIST = 'Art.Service.Customer.Dto.Api.CardQueryRequest';
 
 // 创建用户银行卡
 export const CARD_ADD = 'Art.Service.Customer.Dto.Api.CardAddRequest';
@@ -118,7 +118,7 @@ export const CARD_ADD = 'Art.Service.Customer.Dto.Api.CardAddRequest';
 export const DESPOSITS = 'Art.Service.Customer.Dto.Api.DespositsRequest';
 
 // 余额提现日志记录
-export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api. DespositsRecordRequest';
+export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api.DespositsRecordRequest';
 
 // 艺术大家分类
 export const ART_CATEGORY_API = 'Art.Service.Product.Dto.Request.GetAllCategoryAuthorListRequest';
@@ -167,3 +167,6 @@ export const ART_COMMUNITY_GROUP_DETAIL_API = 'Art.Service.Promotion.Dto.GetGrou
 
 // 我的团购列表.
 export const ART_COMMUNITY_MY_GROUP_API = 'Art.Service.Promotion.Dto.GetCustomerGroupBuyListRequest';
+
+// 删除用户银行卡
+export const CARD_DELETE = 'Art.Service.Customer.Dto.Api.CardDeleteRequest';

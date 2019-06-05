@@ -40,7 +40,7 @@ class PublicHeader extends PureComponent{
     }
 
     render(){
-        const {bgColor,icon,share,jump} = this.props;
+        const {bgColor,icon,rightContent,jump} = this.props;
         const {title} = this.state;
 
         return (
@@ -58,11 +58,11 @@ class PublicHeader extends PureComponent{
                         }
                     }}
                     rightContent={
-                        share && <div className="art-icon art-icon-share"></div>
+                        rightContent
                     }
                     >
                     {
-                        title 
+                        title
                     }
                 </NavBar>
             </Fragment>

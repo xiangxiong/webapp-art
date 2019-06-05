@@ -81,6 +81,11 @@ const normalNavItems = [
         routeUrl: '/withdraw'
     },
     {
+        title: '银行卡',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: '/bankCardList'
+    },
+    {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
         routeUrl: ''

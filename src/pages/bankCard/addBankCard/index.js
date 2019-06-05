@@ -6,8 +6,6 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {getCardAdd} from '../store/actionCreators';
 
-const Item = List.Item;
-
 class AddBankCard extends PureComponent {
 
     constructor(props) {
@@ -18,12 +16,11 @@ class AddBankCard extends PureComponent {
             BankName: '',       //开户行名称
             BankInfo: '',       //省市名称+开户行名称
             BankAccount: '',    //卡号
-            CardType: '',       //卡类型 1：储蓄卡 2：信用卡
         }
     }
 
     onSubmit = () => {
-        const {BankPersonName, BankName, BankInfo, BankAccount, CardType} = this.state;
+        const {BankPersonName, BankName, BankInfo, BankAccount} = this.state;
 
         if (_.isEmpty(BankPersonName)) {
             Toast.info('请填写持卡人名称', 1);
@@ -41,10 +38,6 @@ class AddBankCard extends PureComponent {
             Toast.info('请填写卡号', 1);
             return;
         }
-        if (_.isEmpty(CardType)) {
-            Toast.info('请选择卡类型', 1);
-            return;
-        }
 
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
@@ -58,7 +51,7 @@ class AddBankCard extends PureComponent {
         params.BankName = BankName;
         params.BankInfo = BankInfo;
         params.BankAccount = BankAccount;
-        params.CardType = CardType;
+        params.CardType = 1;
 
         this.props.getCardAdd(params);
     };
@@ -69,12 +62,6 @@ class AddBankCard extends PureComponent {
             <Fragment>
                 <PublicHeader jump="User" title="添加银行卡"/>
                 <List>
-                    <Item
-                        arrow="horizontal"
-                        onClick={() => {
-                        }}>
-                        银行
-                    </Item>
                     <InputItem
                         clear
                         moneyKeyboardAlign="left"
@@ -82,7 +69,16 @@ class AddBankCard extends PureComponent {
                         onChange={(v) => {
                             this.setState({BankName: v});
                         }}>
-                        开户行网点名称
+                        银行
+                    </InputItem>
+                    <InputItem
+                        clear
+                        moneyKeyboardAlign="left"
+                        placeholder="请输入"
+                        onChange={(v) => {
+                            this.setState({BankInfo: v});
+                        }}>
+                        开户行网点
                     </InputItem>
 
                     <InputItem
@@ -102,15 +98,6 @@ class AddBankCard extends PureComponent {
                         }}>
                         开户行姓名
                     </InputItem>
-
-                    <InputItem
-                        clear
-                        placeholder="请输入"
-                        onChange={(v) => {
-                            this.setState({ShippingAddress: v});
-                        }}>
-                        开户行手机号
-                    </InputItem>
                 </List>
 
                 <div className="art-addBankCard__bottom"
@@ -125,10 +112,7 @@ class AddBankCard extends PureComponent {
     }
 }
 
-const mapStateToProps = ({bank}) => {
-    return {
-        bankCardList: bank.bankCardList,
-    }
+const mapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch => ({

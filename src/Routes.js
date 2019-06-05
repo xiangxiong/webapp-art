@@ -19,7 +19,7 @@ import Success from './pages/user/pay/Success';
 import Community from './pages/community';
 import CommunityDetail from './pages/community/detail';
 import Category from './pages/category';
-import BankLlist from './pages/withdraw/bankLlist/index';
+import BankList from './pages/withdraw/bankList/index';
 import Withdraw from './pages/withdraw/index';
 import WithdrawDetails from './pages/withdraw/withdrawDetails/index';
 import  WithdrawList from './pages/withdraw/withdrawList/index';
@@ -193,9 +193,9 @@ export default [
         key:'shopHomepage'
     },
     {
-        path: "/bankLlist",
-        component: BankLlist,
-        key: 'bankLlist'
+        path: "/bankList",
+        component: BankList,
+        key: 'bankList'
     },
     {
         path: "/withdraw",

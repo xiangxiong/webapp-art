@@ -9,29 +9,31 @@ import {getAccountList} from '../../bankCard/store/actionCreators';
 
 const AgreeItem = Checkbox.AgreeItem;
 
-class BankLlist extends PureComponent {
+class BankList extends PureComponent {
 
     constructor(props) {
         super(props);
+        this.state = {
+            selecteId: -1,
+        }
     }
 
     showBankItem = (bank, index) => {
-        const {} = bank;
+        let {Id, BankName, TailNo} = bank;
         return (
             <div key={index.toString()} className="art-bankList__item">
-                <div style={{
-                    //background: `url(${''}) 0% 0% / cover`,
-                }}/>
+                <div/>
 
                 <div>
-                    <h4>招商银行</h4>
-                    <h5>4324******4355</h5>
+                    <h4>{BankName}</h4>
+                    <h5>{`********${TailNo}`}</h5>
                 </div>
 
                 <AgreeItem
-                    checked={false}
+                    checked={Id == this.state.selecteId}
                     data-seed="logId"
                     onChange={e => {
+                        this.setState({selecteId: Id})
                     }}>
                 </AgreeItem>
             </div>
@@ -39,18 +41,20 @@ class BankLlist extends PureComponent {
     };
 
     nextStep = () => {
+        const {withdrawMoney} = this.props.location.state;
+
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         let Token = storage.get('userInfo').Token;
 
-        let BankId = '';
-        let Money = '';
+        let BankId = this.state.selecteId;
+        let Money = withdrawMoney;
 
         this.props.getDesposits(CustomerId, Token, BankId, Money);
     };
 
     render() {
-        const {bankCardList = ['1']} = this.props;
+        const {bankCardList = []} = this.props;
 
         return (
             <Fragment>
@@ -88,7 +92,7 @@ const mapStateToProps = ({bank}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getDesposits: (Token, CustomerId, BankId, Money) => {
+    getDesposits: (CustomerId, Token, BankId, Money) => {
         dispatch(getDesposits({Token, CustomerId, BankId, Money}))
     },
 
@@ -97,4 +101,4 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BankLlist);
+export default connect(mapStateToProps, mapDispatchToProps)(BankList);

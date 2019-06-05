@@ -3,7 +3,7 @@ import './index.scss';
 import PublicHeader from './../../../components/header'
 import history from './../../../utils/history';
 import {connect} from 'react-redux';
-import {getAccountList} from '../store/actionCreators';
+import {getAccountList, getCardDelete} from '../store/actionCreators';
 
 class BankCardList extends PureComponent {
 
@@ -16,7 +16,7 @@ class BankCardList extends PureComponent {
     };
 
     showBankCardItem = (bankCard, index) => {
-        let {} = bankCard;
+        let {Id, BankName, TailNo} = bankCard;
 
         return (
             <div className="art-bankCardList__item" key={index.toString()}
@@ -26,17 +26,22 @@ class BankCardList extends PureComponent {
                 </div>
 
                 <div>
-                    <h2>招商银行</h2>
-                    <h4>3456******6574</h4>
+                    <h2>{BankName}</h2>
+                    <h4>{`********${TailNo}`}</h4>
                 </div>
 
-                <span>解绑</span>
+                <span
+                    onClick={() => {
+                        let storage = Storage.Base.getInstance();
+                        let CustomerId = storage.get('userInfo').CustomerId;
+                        this.props.getCardDelete(Id, CustomerId);
+                    }}>解绑</span>
             </div>
         )
     };
 
     render() {
-        const {bankCardList = ['11', '22']} = this.props;
+        const {bankCardList = []} = this.props;
 
         return (
             <Fragment>
@@ -76,6 +81,10 @@ const mapStateToProps = ({bank}) => {
 const mapDispatchToProps = dispatch => ({
     getAccountList: (CustomerId, Token) => {
         dispatch(getAccountList({CustomerId, Token}))
+    },
+
+    getCardDelete: (Id, CustomerId) => {
+        dispatch(getCardDelete({Id, CustomerId}))
     },
 });
 
