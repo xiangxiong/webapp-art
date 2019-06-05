@@ -80,7 +80,7 @@ class Cart extends PureComponent {
     };
 
     state = {
-        isShow:'hidden'
+        isShow:'visible'
     }
 
 
@@ -123,7 +123,6 @@ class Cart extends PureComponent {
             </div>
         )
     }
-
     componentDidMount() {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;

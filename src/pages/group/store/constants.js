@@ -1,0 +1,1 @@
+export const GROUP_LIST = 'group/GROUP_LIST';

@@ -158,3 +158,12 @@ export const ART_COMMUNITY_COLLECTIN_API = 'Art.Service.Customer.Dto.Api.Collect
 
 // 用户/关注/喜欢/收藏相关
 export const COLLECTIN = 'Art.Service.Customer.Dto.Api.CollectInRequest';
+
+// 团购列表
+export const ART_COMMUNITY_GROUP_API = 'Art.Service.Promotion.Dto.GetGroupBuyProductListRequest';
+
+// 团购详情
+export const ART_COMMUNITY_GROUP_DETAIL_API = 'Art.Service.Promotion.Dto.GetGroupBuyDetailRequest';
+
+// 我的团购列表.
+export const ART_COMMUNITY_MY_GROUP_API = 'Art.Service.Promotion.Dto.GetCustomerGroupBuyListRequest';

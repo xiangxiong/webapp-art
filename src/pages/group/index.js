@@ -1,9 +1,25 @@
 import PublicHeader from './../../components/header';
-import React,{Fragment} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import './index.scss';
 import history from './../../utils/history';
+import {connect} from 'react-redux';
+import * as actionCreators from './store/actionCreators';
 
-const Group = () =>{
+const Group = ({dispatchGroupList}) =>{
+
+    async function loadData(){
+        var payLoad = {
+            CurrentPage:1,
+            PageSize:10
+        };
+       const result = await dispatchGroupList(payLoad);
+       console.log('result',result);
+    }
+    
+    useEffect(()=>{
+        loadData();
+    },[]);
+
     return (
         <Fragment>
             <PublicHeader title="超值团购"/>
@@ -19,19 +35,19 @@ const Group = () =>{
                     <p>团购价 <i className="art-group__product-price">原价：￥1998</i> </p>
                     <p>8人团购 <i className="art-group__product-join">已有5人参团</i></p>
                 </div>
-                <div className="art-group__product-item">
-                    <div></div>
-                    <p>团购价</p>
-                    <p>8人团购</p>
-                </div>
-                <div className="art-group__product-item">
-                    <div></div>
-                    <p>团购价</p>
-                    <p>8人团购</p>
-                </div>
             </div>
         </Fragment>
     )
 }
 
-export default Group;
+const mapStateToProps = (state) =>{
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGroupList: (data) => dispatch(actionCreators.dispatchGroupList(data))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(React.memo(Group));
