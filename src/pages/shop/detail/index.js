@@ -11,6 +11,7 @@ import {getModifyCart} from '../../cart/store/actionCreators';
 class Detail extends PureComponent {
 
     handleBuy = () => {
+        console.log('this.props.shopWorthGoodsDetail',this.props.shopWorthGoodsDetail);
         history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
     };
 
@@ -199,13 +200,10 @@ const mapDispatchToProps = dispatch => ({
     getWorthGoodsDetail: (ProdId, PromotionId) => {
         dispatch(getWorthGoodsDetail({ProdId, PromotionId}))
     },
-
     getProductComment: (ProdIds, CustomerId) => {
         dispatch(getProductComment({ProdIds, CustomerId, CommentType: 9, CurrentPage: 1, PageSize: 50}))
     },
-
     getModifyCart: (params) => dispatch(getModifyCart(params)),
-
     getCollectin: (params) => dispatch(getCollectin(params)),
 });
 

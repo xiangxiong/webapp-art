@@ -4,8 +4,11 @@ import './index.scss';
 import history from './../../utils/history';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
+import {PRODIMGURL} from './../../utils/api';
 
 const Group = ({dispatchGroupList}) =>{
+
+    const [productList,setProductList] = useState([]);
 
     async function loadData(){
         var payLoad = {
@@ -13,7 +16,7 @@ const Group = ({dispatchGroupList}) =>{
             PageSize:10
         };
        const result = await dispatchGroupList(payLoad);
-       console.log('result',result);
+       setProductList(result.Data.DataList);
     }
     
     useEffect(()=>{
@@ -27,14 +30,19 @@ const Group = ({dispatchGroupList}) =>{
             </div>
 
             <div className="art-group__product">
-                <div className="art-group__product-item" onClick={()=>{ history.push('./groupdetail') }}>
-                    <div style={{background: 'url("http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg") 0% 0% / cover'}}>
-                        ddd
-                    </div>
-                    <h4>景德镇紫砂壶</h4>
-                    <p>团购价 <i className="art-group__product-price">原价：￥1998</i> </p>
-                    <p>8人团购 <i className="art-group__product-join">已有5人参团</i></p>
-                </div>
+                {
+                    productList.map((item,index)=>{
+                        return (
+                            <div className="art-group__product-item" key={index} onClick={()=>{ history.push('./groupdetail',{PromotionId:item.PromotionId})}}>
+                                <div style={{background: `url(${PRODIMGURL+item.ImgPath}) 0% 0% / cover`}}>
+                                </div>
+                                <h4>{item.ProductName}</h4>
+                                <p>团购价：￥{item.LimitPrice} <i className="art-group__product-price">原价：￥{item.MarketPrice} </i> </p>
+                                <p>{item.JoinBuyer}人团购 <i className="art-group__product-join">已有{item.LockCount}人参团</i></p>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </Fragment>
     )
@@ -42,7 +50,6 @@ const Group = ({dispatchGroupList}) =>{
 
 const mapStateToProps = (state) =>{
     return {
-
     }
 }
 

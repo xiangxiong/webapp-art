@@ -1,6 +1,6 @@
 import {post} from './../../../utils/request';
 import * as serverKey from './../../../utils/servicekey';
-import * as contants from './constants';
+import * as constants from './constants';
 
 export const dispatchGroupList = (params) =>{
     return async (dispatch) =>{
@@ -15,3 +15,11 @@ export const dispatchGroupDetail = (params) => {
         return result;
     }
 }
+
+export const dispatchGoodsDetail = (params) => {
+    return async (dispatch) => {
+        console.log('params',params);
+        const result = await post(serverKey.WorthGoodsDetail, params);
+        return result;
+    }
+};

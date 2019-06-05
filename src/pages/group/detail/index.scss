@@ -4,7 +4,7 @@
     background: #FFFFFF;
 
     &__detail{
-        margin-top: 1.2rem;
+        margin-top: 1.3rem;
 
         &>h4{
             font-size:20px;
@@ -16,7 +16,7 @@
         }
 
         &>p{
-            height:41px;
+            height:61px;
             font-size:13px;
             padding-left: 15px;
             padding-top: 11px;
@@ -26,6 +26,7 @@
         }
 
         &-font{
+            height: 100px;
             border-bottom: 1px solid #E7E7E7;
 
             &>:nth-child(-n+2){
@@ -213,7 +214,7 @@
         display: flex;
 
         &>div:nth-child(1){
-            width: 15%;
+            width: 20%;
             text-align: center;
             border-right: 1px solid #ddd;
 
@@ -227,41 +228,49 @@
         }
 
         &>div:nth-child(2){
-            width: 15%;
+            width: 40%;
             text-align: center;
             border-right: 1px solid #ddd;
-
-            &>div{
-                position: relative;
-                top: 5px;
-                left: 13px;
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        &>div:nth-child(3){
-            width: 35%;
-            text-align: center;
-            border-right: 1px solid #ddd;
-            line-height: 60px;
-            font-size:18px;
-            font-family:MicrosoftYaHei;
-            font-weight:400;
-            color:#333333;
-            background: #FFFFFF;
-        }
-
-        &>div:nth-child(4){
-            width: 35%;
-            text-align: center;
-            border-right: 1px solid #ddd;
-            background: #E87908;
-            font-size:18px;
+            font-size:14px;
+            padding-top: 10px;
             font-family:MicrosoftYaHei;
             font-weight:400;
             color:#FFFFFF;
-            line-height: 60px;
+            background: #C30F22 ;
+            opacity: 0.4;
+        }
+
+        &>div:nth-child(3){
+            width: 40%;
+            text-align: center;
+            border-right: 1px solid #ddd;
+            background: #E87908;
+            font-size:14px;
+            padding-top: 10px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
+            color:#FFFFFF;
+            background: #C30F22 ;
+        }
+    }
+
+    &__lockCount{
+        display: block;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    &__personCount{
+        float: right;
+        margin-right: 10px;
+
+        &-item{
+            display: inline-block;
+            background: red;
+            text-align: center;
+            height: 26px;
+            width: 26px;
+            border-radius: 20px;
         }
     }
 }

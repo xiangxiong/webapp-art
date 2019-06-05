@@ -33,6 +33,15 @@ export const worthGoodsDetail = (Entity) => ({
     value: Entity
 });
 
+export const getWorthGoodsDetail = (params) => {
+    return (dispatch) => {
+        return post(WorthGoodsDetail, params)
+            .then((response) => {
+                dispatch(worthGoodsDetail(response.Data.Entity));
+            });
+    }
+};
+
 export const productComment = (Data) => ({
     type: constants.SHOP_PRODUCT_COMMENT,
     value: Data
@@ -46,14 +55,7 @@ export const getProductCommend = (params) => {
     }
 };
 
-export const getWorthGoodsDetail = (params) => {
-    return (dispatch) => {
-        return post(WorthGoodsDetail, params)
-            .then((response) => {
-                dispatch(worthGoodsDetail(response.Data.Entity));
-            });
-    }
-};
+
 
 export const getProductComment = (params) => {
     return (dispatch) => {

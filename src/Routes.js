@@ -246,6 +246,11 @@ export default [
         path: "/groupdetail",
         component: GroupDetail,
         key: 'groupdetail'
+    },
+    {
+        path: "/groupdetail/:id",
+        component: GroupDetail,
+        key: 'groupdetailId'
     }
 ];
 
