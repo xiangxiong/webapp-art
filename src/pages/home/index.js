@@ -184,8 +184,8 @@ class Home extends PureComponent{
         selectedTab = 'redTab'
      }
      else{
-        // selectedTab = 'blueTab'
-        selectedTab = 'greenTab'
+        selectedTab = 'blueTab'
+        // selectedTab = 'greenTab'
      }
 
      this.setState({
