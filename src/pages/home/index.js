@@ -187,11 +187,11 @@ class Home extends PureComponent{
         // selectedTab = 'blueTab'
         selectedTab = 'greenTab'
      }
-    
+
      this.setState({
         selectedTab:selectedTab
      });
-
+     
      eventProxy.on('selectedTab',(item)=>{
         this.setState({
           selectedTab:item

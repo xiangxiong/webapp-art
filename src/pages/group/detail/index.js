@@ -38,7 +38,6 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
             const goods = await dispatchGoodsDetail(goodsParams);
             setIsLoading(false);
             setGroupItem(result.Data.Entity);
-
             setProduct(goods.Data.Entity);
             setProviderName(result.Data.Entity.Provider.ProviderName);
             setFansCount(result.Data.Entity.Provider.FansCount);

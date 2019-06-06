@@ -18,7 +18,7 @@ const carouselData = [
 ]
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
-    dispatchCommunityComment,dispatchCommunityCollectIn,forceUpdate}) =>{
+    dispatchCommunityComment,dispatchCommunityCollectIn}) =>{
     const [isOpen,setIsOpen] = useState(false);
 
     async function getCommunityDeteilApi(){
@@ -36,7 +36,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     useEffect(()=>{
         getCommunityDeteilApi();
     },[]);
-
+    
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
     const imgUrl = PRODIMGURL + ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
@@ -50,7 +50,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         var payLoad = {
             TopicId:2,
-            CustomerId:11,
+            CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
             IsReply:false,
             ReplyCommentId:2,
             CommentContent:count
@@ -103,8 +103,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             <div className="art-community-detail">
                  <div className="art-community-detail__visit">
                      <img src={imgUrl}/>
-                     <span className="art-community-detail-name">{LoginName}</span>
-                     {
+                     <span className="art-community-detail-name">{LoginName}</span>{
                          IsCollected === true ?  <span onClick={()=>{handleCollectIn(CustomerId,false)}}>已关注</span> : <span onClick={()=>{handleCollectIn(CustomerId,true)}}>关注</span>
                      }
                  </div>
@@ -144,7 +143,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                 afterClose={()=>{ setIsOpen(false)}}>
                 <List renderHeader={() => <div>发表评论</div>} className="popup-list">
                     <TextareaItem
-                        {...getFieldProps('count', {
+                        {...getFieldProps('count',{
                             initialValue: '',
                         })}
                         placeholder="写下你的想法..."

@@ -35,12 +35,12 @@ class SubmitOrder extends PureComponent {
     HandleSubmitOrder = () => {
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo').CustomerId;
-
+        
         const {UsrMemo = ''} = this.state;
         let {productList = []} = this.props.location.state;
 
         let OrderItems = [];
-        productList.map((product) => {
+        productList.map((product)=>{
             const {ProdId, KillPrice, productNumber = 1} = product;
             let OrderItem = {ProdId, UnitPrice: KillPrice, PromotionId: '0', Quantity: productNumber, CartId: '0'};
             OrderItems.push(OrderItem);

@@ -15,19 +15,23 @@ const queryCarList = (response) => ({
 
 export const getQueryCarList = (params) => {
     return async (dispatch) => {
-        return await post(QUERY_CAR_LIST, params);
+        const result = await post(QUERY_CAR_LIST, params);
+        return result;
     }
 };
 
 export const getModifyCart = (params) => {
     return async (dispatch) => {
-        return await post(MODIFY_CART, params);
+        const result = await post(MODIFY_CART, params);
+        return result;
     }
 };
 
 export const getBatchDelCart = (params) => {
+    console.log('getBatchDelCart params',params);
     return async (dispatch) => {
-        return await post(BATCH_DEL_CART, params);
+        const result = await post(BATCH_DEL_CART, params);
+        return result;
     }
 };
 
