@@ -32,6 +32,8 @@ import Loadable from "react-loadable";
 import Loading from './components/loading';
 import Group from './pages/group';
 import GroupDetail from './pages/group/detail';
+import OrderReturnGoods from './pages/order/returnGoods';
+import OrderEvaluation from './pages/order/evaluation';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -251,7 +253,17 @@ export default [
         path: "/groupdetail/:id",
         component: GroupDetail,
         key: 'groupdetailId'
-    }
+    },
+    {
+        path: "/orderReturnGoods",
+        component: OrderReturnGoods,
+        key: 'orderReturnGoods'
+    },
+    {
+        path: "/orderEvaluation",
+        component: OrderEvaluation,
+        key: 'orderEvaluation'
+    },
 ];
 
 

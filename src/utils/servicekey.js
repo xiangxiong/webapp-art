@@ -170,3 +170,9 @@ export const ART_COMMUNITY_MY_GROUP_API = 'Art.Service.Promotion.Dto.GetCustomer
 
 // 删除用户银行卡
 export const CARD_DELETE = 'Art.Service.Customer.Dto.Api.CardDeleteRequest';
+
+// 申请退货
+export const SAVE_RMAM_ASTER = 'Art.Service.RMA.Dto.Request.Api.SaveRMAMasterApiRequest';
+
+// 用户订单进行评价
+export const COMMENT_ADD = 'Art.Service.Customer.Dto.Api.CommentAddRequest';

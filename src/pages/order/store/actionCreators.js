@@ -6,6 +6,8 @@ import {
     QueryCustomerOrderList,
     GetOrderDetail,
     POrderInfo,
+    SAVE_RMAM_ASTER,
+    COMMENT_ADD
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -108,4 +110,30 @@ const getWechatParams = (params) => {
         .then(response => {
             return response;
         });
+};
+
+export const getSaveRmamAster = (params) => {
+    return (dispatch) => {
+        return post(SAVE_RMAM_ASTER, params)
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    history.goBack();
+                } else {
+                    Toast.info(response.Message);
+                }
+            });
+    }
+};
+
+export const getCommentAdd = (params) => {
+    return (dispatch) => {
+        return post(COMMENT_ADD, params)
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    history.goBack();
+                } else {
+                    Toast.info(response.Message);
+                }
+            });
+    }
 };
