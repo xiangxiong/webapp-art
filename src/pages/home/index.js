@@ -30,7 +30,7 @@ class Home extends PureComponent{
   constructor(props){
         super(props);
         this.state = {
-            selectedTab: 'blueTab',
+            selectedTab: 'greenTab',
             hidden: false,
             fullScreen: true,
             isSelected:false,
@@ -184,7 +184,8 @@ class Home extends PureComponent{
         selectedTab = 'redTab'
      }
      else{
-        selectedTab = 'blueTab'
+        // selectedTab = 'blueTab'
+        selectedTab = 'greenTab'
      }
     
      this.setState({
