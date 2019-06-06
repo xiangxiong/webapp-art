@@ -72,7 +72,7 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
     useEffect(()=>{
         loadData();
     },[]);
-
+    
     return (
         <Fragment>
             {isLoading?(
