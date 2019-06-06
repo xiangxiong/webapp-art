@@ -35,14 +35,14 @@ class SubmitOrder extends PureComponent {
     HandleSubmitOrder = () => {
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo').CustomerId;
-
+        
         const {UsrMemo = ''} = this.state;
         let {productList = []} = this.props.location.state;
 
         let OrderItems = [];
-        productList.map((product) => {
-            const {ProdId, KillPrice, productNumber = 1} = product;
-            let OrderItem = {ProdId, UnitPrice: KillPrice, PromotionId: '0', Quantity: productNumber, CartId: '0'};
+        productList.map((product)=>{
+            const {ProdId, KillPrice, productNumber = 1,PromotionId = 0} = product;
+            let OrderItem = {ProdId, UnitPrice: KillPrice, PromotionId: PromotionId, Quantity: productNumber, CartId: '0'};
             OrderItems.push(OrderItem);
         });
 
@@ -106,6 +106,7 @@ class SubmitOrder extends PureComponent {
         let {productList = []} = this.props.location.state;
         let money = 0;
         productList.map((product) => {
+            console.log('submit order',product);
             const {KillPrice, productNumber = 1} = product;
             money += KillPrice * productNumber;
         });

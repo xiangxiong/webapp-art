@@ -7,6 +7,7 @@ import {getWorthGoodsDetail, getProductComment, getCollectin} from '../store/act
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 import {getModifyCart} from '../../cart/store/actionCreators';
+import { Toast } from 'antd-mobile';
 
 class Detail extends PureComponent {
 
@@ -19,6 +20,7 @@ class Detail extends PureComponent {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
+        Toast.success("加入成功");
     };
 
     handleCollection = (ProductId) => {

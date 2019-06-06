@@ -118,8 +118,6 @@ class Main extends PureComponent{
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
 
-        const {} = this.state;
-
         return (
             <Fragment>
                 <div className="art-main">

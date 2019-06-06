@@ -1,4 +1,4 @@
-import React, {Fragment,useState,useEffect} from 'react';
+import React, {Fragment,useState,useEffect,useCallback} from 'react';
 import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
@@ -6,6 +6,7 @@ import history from './../../../utils/history';
 import {connect} from 'react-redux';
 import * as actionCreators  from './../store/actionCreators';
 import { PRODIMGURL } from '../../../utils/api';
+import  {pictureUrl} from '../../../utils/common';
 
 const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
 
@@ -20,7 +21,9 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
     const [MonthSalesCount,setMonthSalesCount] = useState(0);
     const [ProductDetail,setProductDetail] = useState("");
     const [product,setProduct] = useState({});
-    
+    const [productItem,setProductItem] = useState({}); 
+    const [pdtImgList,setPdtImgList] = useState([]);
+
     async function loadData(){
         setIsLoading(true);
         var payLoad = {
@@ -31,6 +34,7 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
         if(location.state.PromotionId>0){
             var carouselData = [];
             const result = await dispatchGroupDetail(payLoad);
+            const entity = result.Data.Entity;
             var goodsParams = {
                 ProdId:result.Data.Entity.ProductId,
                 PromotionId:result.Data.Entity.PromotionId
@@ -38,7 +42,6 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
             const goods = await dispatchGoodsDetail(goodsParams);
             setIsLoading(false);
             setGroupItem(result.Data.Entity);
-
             setProduct(goods.Data.Entity);
             setProviderName(result.Data.Entity.Provider.ProviderName);
             setFansCount(result.Data.Entity.Provider.FansCount);
@@ -46,8 +49,19 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
             setProductCount(result.Data.Entity.Provider.ProductCount);
             setProviderId(result.Data.Entity.Provider.ProviderId);
             setMonthSalesCount(result.Data.Entity.Provider.MonthSalesCount);
-            setProductDetail(result.Data.Entity.Provider.ProductDetail)
-
+            setProductDetail(result.Data.Entity.Provider.ProductDetail);
+            setPdtImgList(entity.PdtImgList);
+            console.log('result.Data.Entity',result.Data.Entity);
+            let selectImgs = [];
+            selectImgs.push(entity.ImgPath);
+            setProductItem({
+                ProdId:entity.ProductId,
+                KillPrice:entity.LimitPrice,
+                productNumber:1,
+                Name: entity.ProductName,
+                MainImgs:selectImgs,
+                PromotionId:entity.PromotionId
+            });
             result.Data.Entity.PdtImgList.map((item,index)=>{
                 carouselData.push({ImgUrl:PRODIMGURL+item});
                 setBanners(carouselData)
@@ -111,17 +125,26 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
                         </div>
 
                         <div className="art-product__space"></div>
-
                         <div className="art-product__homepage">
                             <div className="art-product__homepage__detail">
                                 商品详情
                             </div>
                         </div>
-
                         <div className="art-product__homepage__content">
                             <p>{ProductDetail}</p>
                         </div>
-
+                        <div>
+                            {pdtImgList && pdtImgList.map((imageName, index) => {
+                                return (
+                                    <div className="art-product-shop__homepage__picture"
+                                        key={index.toString()}
+                                        style={{
+                                            background: `url(${pictureUrl(imageName)}) 0% 0% / cover`,
+                                        }}>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                     <div className="art-product__comment-whiteSpace">
                     </div>
@@ -134,7 +157,9 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
                             <p>{groupItem.MarketPrice}</p>
                             <p>直接购买</p>
                         </div>
-                        <div onClick={() => {}}>
+                        <div onClick={() => {
+                               history.push('./submitorder', {productList:[productItem]})
+                        }}>
                             <p>{groupItem.LimitPrice}</p>
                             <p>参与拼团</p>
                         </div>
