@@ -7,10 +7,7 @@ import {connect} from 'react-redux';
 import * as actionCreators  from './../store/actionCreators';
 import { PRODIMGURL } from '../../../utils/api';
 
-
-var ProviderName = '';
-
-const Detail =({dispatchGroupDetail,dispatchGoodsDetail,match,location}) => {
+const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
 
     const [groupItem,setGroupItem] = useState([]);
     const [banners,setBanners] = useState([]);
@@ -24,9 +21,7 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,match,location}) => {
     const [ProductDetail,setProductDetail] = useState("");
     const [product,setProduct] = useState({});
     
-
     async function loadData(){
-    console.log('location.state.PromotionId',location.state.PromotionId);
         setIsLoading(true);
         var payLoad = {
             PromotionId:location.state.PromotionId,
@@ -135,10 +130,7 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,match,location}) => {
                             <div className="art-icon art-icon-collect"></div>
                             <p onClick={()=>{}}>收藏</p>
                         </div>
-                        <div onClick={() => {         
-                            console.log('fdsafds')
-                            history.push('./submitorder', {productList: [product]});
-}}>
+                        <div onClick={() => {history.push('./submitorder', {productList: [product]});}}>
                             <p>{groupItem.MarketPrice}</p>
                             <p>直接购买</p>
                         </div>

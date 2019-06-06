@@ -36,7 +36,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     useEffect(()=>{
         getCommunityDeteilApi();
     },[]);
-    
+
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
     const imgUrl = PRODIMGURL + ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
@@ -47,7 +47,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         if(_.isEmpty(count)){
             Toast.fail("请写下你的想法");
             return;
-        }
+        };
         var payLoad = {
             TopicId:2,
             CustomerId:11,

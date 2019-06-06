@@ -8,7 +8,6 @@ import {PRODIMGURL} from './../../utils/api';
 
 const Category = React.memo(
   props => {
-
     const [data,setData] = useState([]);
 
     useEffect(()=>{
@@ -54,7 +53,7 @@ const Category = React.memo(
       };
       fetchCategoryList();
     },[]);
-
+    
     return (
         <Fragment>
             <PublicHeader title="大师云集"/>
