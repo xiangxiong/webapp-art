@@ -45,8 +45,6 @@ var selectAllProducts = [],selectImgs=[]
         const result = await events.dispatchBatchDelCart(payload);
 
         return result.Data.Status;
-
-        console.log('result',result);
     }
  }
 
@@ -295,7 +293,13 @@ var selectAllProducts = [],selectImgs=[]
                                           全选
                                         </div>
                                         <div> { cartTotalPrice === 0 ? ""  : "合计:￥"+cartTotalPrice}</div>
-                                        <div onClick={()=>{ history.push('./submitorder', {productList:product})}}>去结算({selectCount})</div>
+                                        <div onClick={()=>{ if(product.length>0) 
+                                        {
+                                            history.push('./submitorder', {productList:product})
+                                        }else{
+                                            Toast.info('请选择商品');
+                                        }
+                                    }}>去结算({selectCount})</div>
                                 </div>
                             </Fragment>
                     </Fragment>
@@ -320,7 +324,7 @@ const Cart = (props) =>{
         console.log('result',result);
         setCartList(result.Data.DataList);
     }
-
+    
     useEffect(()=>{
         loadCartData();
     },[]);
