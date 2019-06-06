@@ -37,7 +37,7 @@ const navItems = [
     {
         title: '发布大师印象',
         icon: 'art-icon art-icon-user-release-master',
-        routeUrl: ''
+        routeUrl: '/releaseMaster'
     },
     {
         title: '订单管理',

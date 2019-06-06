@@ -44,6 +44,7 @@ class OrderReturnGoods extends PureComponent {
     };
 
     save = () => {
+        const {order} = this.props.location.state;
         const {buttonIndex, files, SOMemo} = this.state;
 
         if (buttonIndex == -1) {
@@ -58,14 +59,13 @@ class OrderReturnGoods extends PureComponent {
 
         params.Token = Token;
 
-        params.SONumber = '';
-        params.OrderNumber = '';
-        params.ProdId = '';
-        params.RMAType = '';
+        params.SONumber = order.SONumber;
+        params.OrderNumber = order.OrderNumber;
+        params.ProdId = order.ProdId;
+        params.RMAType = 1;
         params.RmaReason = BUTTONS[buttonIndex];
         params.Quantity = '';
         params.ImageNameList = '';
-        params.IPAddress = '';
         params.SOMemo = SOMemo;
 
         this.props.getSaveRmamAster(params);

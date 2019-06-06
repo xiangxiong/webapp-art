@@ -176,3 +176,12 @@ export const SAVE_RMAM_ASTER = 'Art.Service.RMA.Dto.Request.Api.SaveRMAMasterApi
 
 // 用户订单进行评价
 export const COMMENT_ADD = 'Art.Service.Customer.Dto.Api.CommentAddRequest';
+
+// 查询快递公司列表
+export const SHIP_VIA = 'Art.Service.Basis.Dto.ShipViaRequest';
+
+// 订单发货
+export const ORDER_SEND = 'Art.Service.Order.Dto.Request.api.OrderSendRequest';
+
+// 发布社区话题
+export const PUBLISH_TOPIC_INFO = 'Art.Service.Info.Dto.Request.Api.PublishTopicInfoRequest';

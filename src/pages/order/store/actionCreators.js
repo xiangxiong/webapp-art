@@ -7,7 +7,9 @@ import {
     GetOrderDetail,
     POrderInfo,
     SAVE_RMAM_ASTER,
-    COMMENT_ADD
+    COMMENT_ADD,
+    SHIP_VIA,
+    ORDER_SEND
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -32,6 +34,11 @@ export const orderDetail = (data) => ({
 export const pOrderInfo = (OrderInfo) => ({
     type: constants.PORDER_INFO,
     value: OrderInfo
+});
+
+export const shipVia = (DataList) => ({
+    type: constants.ORDER_SHIP_VIA,
+    value: DataList
 });
 
 export const getDefaultAddress = (params) => {
@@ -128,6 +135,28 @@ export const getSaveRmamAster = (params) => {
 export const getCommentAdd = (params) => {
     return (dispatch) => {
         return post(COMMENT_ADD, params)
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    history.goBack();
+                } else {
+                    Toast.info(response.Message);
+                }
+            });
+    }
+};
+
+export const getShipVia = (params) => {
+    return (dispatch) => {
+        return post(SHIP_VIA, params)
+            .then((response) => {
+                dispatch(shipVia(response.Data.ShipViaList));
+            });
+    }
+};
+
+export const getOrderSend = (params) => {
+    return (dispatch) => {
+        return post(ORDER_SEND, params)
             .then((response) => {
                 if (response.Data && response.Data.Status == 200) {
                     history.goBack();

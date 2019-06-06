@@ -73,9 +73,9 @@ class OrderList extends PureComponent {
                     )
                 })}
 
-                <div className="art-list__bussinss-total">
-                    <span>{`共${ProductCount}件商品 合计:￥${SOAmount}(运费￥0)`}</span>
-                </div>
+                {SOAmount > 0 ? (<div className="art-list__bussinss-total">
+                    <span>{ `共${ProductCount}件商品 合计:￥${SOAmount}`}</span>
+                </div>) : null}
 
                 {this.getOrderOperation(order)}
             </div>
@@ -95,13 +95,18 @@ class OrderList extends PureComponent {
     };
 
     //评价
-    evaluation = () => {
-        history.push('./orderEvaluation', {});
+    evaluation = (order) => {
+        history.push('./orderEvaluation', {order});
     };
 
     //申请退货
-    returnGoods = () => {
-        history.push('./orderReturnGoods', {});
+    returnGoods = (order) => {
+        history.push('./orderReturnGoods', {order});
+    };
+
+    //立即发货
+    onDelivery = (order) => {
+        history.push('./orderDelivery', {order});
     };
 
     getOrderOperation = (order) => {
@@ -119,32 +124,45 @@ class OrderList extends PureComponent {
                         </div>
                     </div>
                 );
-            case 100:
+
+            case 20:
                 return (
                     <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={() => {
-                            this.confirmGoods();
+                        <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                            e.stopPropagation();
+                            this.onDelivery(order);
                         }}>
-                            确认收货
+                            立即发货
                         </div>
                     </div>
                 );
+            // case 100:
+            //     return (
+            //         <div className="art-list__bussinss-operation">
+            //             <div className="art-list__bussinss-operation-item" onClick={() => {
+            //                 this.confirmGoods();
+            //             }}>
+            //                 确认收货
+            //             </div>
+            //         </div>
+            //     );
             case 300:
             case 200:
                 return (
                     <div className="art-list__bussinss-operation">
                         <div style={{display: 'flex', dipflexDirection: 'row'}}>
                             <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
-                                 onClick={() => {
-                                     this.evaluation();
+                                 onClick={(e) => {
+                                     e.stopPropagation();
+                                     this.evaluation(order);
                                  }}>
                                 评价
                             </div>
-                            <div className="art-list__bussinss-operation-item" onClick={() => {
-                                this.returnGoods();
-                            }}>
-                                申请退货
-                            </div>
+                            {/*<div className="art-list__bussinss-operation-item" onClick={() => {
+                             this.returnGoods(order);
+                             }}>
+                             申请退货
+                             </div>*/}
                         </div>
                     </div>
                 )

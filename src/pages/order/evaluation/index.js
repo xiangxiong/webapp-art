@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PublicHeader from './../../../components/header';
 import {getCommentAdd} from '../store/actionCreators';
 import Space from '../../common/space';
-import {ImagePicker, Toast, TextareaItem, InputItem, ActionSheet} from 'antd-mobile';
+import {TextareaItem, InputItem, ActionSheet} from 'antd-mobile';
 import  {pictureUrl} from '../../../utils/common';
 
 let BUTTONS = ['好评', '中评', '差评'];
@@ -14,7 +14,6 @@ class OrderEvaluation extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            files: [],
             buttonIndex: -1,
         }
     }
@@ -38,14 +37,10 @@ class OrderEvaluation extends PureComponent {
             });
     };
 
-    onChange = (files, type, index) => {
-        this.setState({
-            files,
-        });
-    };
-
     release = () => {
-        const {files, Content} = this.state;
+        const {order} = this.props.location.state;
+        console.log('order', order);
+        const {Content, buttonIndex} = this.state;
 
         let storage = Storage.Base.getInstance();
         let Token = storage.get('userInfo').Token;
@@ -55,37 +50,44 @@ class OrderEvaluation extends PureComponent {
         params.Token = Token;
         params.CustomerId = CustomerId;
 
-        params.SONumber = '';
-        params.OrderNumber = '';
-        params.ProdId = '';
-        params.Type = '';
+        params.SONumber = order.SONumber;
+        params.OrderNumber = order.OrderNumber;
+        params.ProdId = order.ProdId;
+        params.Type = 9;
         params.Content = Content;
-        params.ProviderId = '';
-        params.CommentLevel = '';
+        params.ProviderId = order.ProviderId;
+        if (buttonIndex == 0) {
+            params.CommentLevel = '10';
+        } else if (buttonIndex == 1) {
+            params.CommentLevel = '20';
+        } else if (buttonIndex == 2) {
+            params.CommentLevel = '30';
+        }
 
         this.props.getCommentAdd(params);
     };
 
     showProduct = () => {
-        const {ProductName = '新疆和田玉', ProductImg, SalesPrice = '35.00', TransactionNumber = '1'} = this.props;
+        const {order = {}} = this.props.location.state;
+        const {ProductName = '', ImageName = '', LastPrice = '', Quantity = ''} = order.Details[0];
         return (
             <div className="art-orderEvaluation__goods-item">
                 <div style={{
-                    //background: `url(${pictureUrl(ProductImg)}) 0% 0% / cover`,
+                    background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`,
                 }}/>
                 <div>
                     <h4>{ProductName}</h4>
-                    <h4>{`￥${SalesPrice}`}</h4>
+                    <h4>{`￥${LastPrice}`}</h4>
                 </div>
                 <div>
-                    <span>{`×${TransactionNumber}`}</span>
+                    <span>{`×${Quantity}`}</span>
                 </div>
             </div>
         )
     };
 
     render() {
-        const {files = [], buttonIndex} = this.state;
+        const {buttonIndex} = this.state;
 
         return (
             <Fragment>
@@ -112,7 +114,6 @@ class OrderEvaluation extends PureComponent {
                         placeholder="请选择"
                         value={BUTTONS[buttonIndex]}
                         editable={false}
-                        extra={">"}
                         onClick={() => this.handleCategory()}>
                         综合评分
                     </InputItem>
@@ -124,22 +125,15 @@ class OrderEvaluation extends PureComponent {
                             }}
                             placeholder="买到好的东西了！马上写点评价"
                             rows={3}/>
-                        <ImagePicker
-                            files={files}
-                            onChange={this.onChange}
-                            onImageClick={(index, fs) => console.log(index, fs)}
-                            selectable={files.length < 5}/>
-
                     </div>
-
                 </div>
-
             </Fragment>
         )
     }
 
     componentDidMount() {
-
+        const {order} = this.props.location.state;
+        console.log('order', order);
     }
 }
 

@@ -1,0 +1,26 @@
+@import './../../style/index.scss';
+
+.art-releaseMaster {
+  background: $color-bg-color;
+
+  & > h4 {
+    margin-left: 15px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid rgba(235, 235, 235, 1);
+  }
+
+  &__submit {
+    margin: 0 15px 0 15px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: -0.42px;
+    background: #E87908;
+    border-radius: 4px;
+  }
+
+}

@@ -35,6 +35,8 @@ import GroupDetail from './pages/group/detail';
 import OrderReturnGoods from './pages/order/returnGoods';
 import OrderEvaluation from './pages/order/evaluation';
 import OrderSellDetails from './pages/order/orderSellDetails';
+import OrderDelivery from './pages/order/delivery';
+import ReleaseMaster from './pages/releaseMaster/index';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -269,6 +271,16 @@ export default [
         path: "/orderSellDetails",
         component: OrderSellDetails,
         key: 'orderSellDetails'
+    },
+    {
+        path: "/orderDelivery",
+        component: OrderDelivery,
+        key: 'orderDelivery'
+    },
+    {
+        path: "/releaseMaster",
+        component: ReleaseMaster,
+        key: 'releaseMaster'
     },
 ];
 
