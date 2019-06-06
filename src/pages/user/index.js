@@ -42,7 +42,7 @@ const navItems = [
     {
         title: '订单管理',
         icon: 'art-icon art-icon-user-order',
-        routeUrl: ''
+        routeUrl: '/orderList'
     }
 ];
 
@@ -134,7 +134,11 @@ class User extends PureComponent{
     }
 
     handleNavUrl(url) {
-        history.push(url, {customerDetail: this.props.customerDetail});
+        if(url==='/orderList'){
+            history.push(url, {index:0,type:'sell'});
+        }else{
+            history.push(url, {customerDetail: this.props.customerDetail});
+        }
     }
 
     bindSellList() {
@@ -203,7 +207,7 @@ class User extends PureComponent{
 
     render() {
         const {ProviderStatus} = this.state;
-         
+
         const tabs  = ProviderStatus === 1 ?  [
             {title: '我是买家'},
             {title: '我是卖家'}
@@ -257,11 +261,11 @@ class User extends PureComponent{
                 />
                 <Tabs tabs={tabs} initialPage={0}>
                     <div style={styles.tab}>
-                        <InfiniteScroll
-                            loadMore={this.loadMoreItem.bind(this)}
-                            hasMore={this.state.hasMoreItems}
-                            loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}
-                            useWindow={false}>
+                        {/*<InfiniteScroll*/}
+                            {/*loadMore={this.loadMoreItem.bind(this)}*/}
+                            {/*hasMore={this.state.hasMoreItems}*/}
+                            {/*loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}*/}
+                            {/*useWindow={false}>*/}
                             <OrderItem
                                 AwaitPayCount={AwaitPayCount}
                                 AwaitShipCount={AwaitShipCount}
@@ -278,7 +282,7 @@ class User extends PureComponent{
                                     {this.showRecomandItem()}
                                 </div>
                             </div>
-                        </InfiniteScroll>
+                        {/*</InfiniteScroll>*/}
                     </div>
                     <div style={styles.tab}>
                         <div className="art-user__nav">

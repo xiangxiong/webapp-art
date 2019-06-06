@@ -87,11 +87,12 @@ class OrderList extends PureComponent {
 
     //评价
     evaluation = () => {
-
+        history.push('./orderEvaluation', {});
     };
 
     //申请退货
     returnGoods = () => {
+        history.push('./orderReturnGoods', {});
     };
 
     getOrderOperation = (order) => {
@@ -194,16 +195,25 @@ class OrderList extends PureComponent {
     }
 
     componentDidMount() {
-        const {index = -1} = this.props.location.state;
+        const {index = -1, type} = this.props.location.state;
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
 
-        this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage);
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+
+        if (type === 'sell') {
+            //卖家
+            this.props.getQueryCustomerOrderList(0, (index - 1), this.CurrentPage, ObjectItem.ProviderId);
+        } else {
+            //买家
+            this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage, 0);
+        }
     }
 }
 
-const mapStateToProps = ({order}) => {
+const mapStateToProps = ({order, user}) => {
     return {
+        customerDetail: user.customerDetail,
         orderList: order.orderList,
     }
 };
