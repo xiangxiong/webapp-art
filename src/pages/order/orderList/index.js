@@ -112,30 +112,36 @@ class OrderList extends PureComponent {
     getOrderOperation = (order) => {
         const {OrderStatus} = order;
 
+        const {type} = this.props.location.state;
+
         switch (OrderStatus) {
             case 5:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={(e) => {
-                            e.stopPropagation();
-                            this.onPayment(order);
-                        }}>
-                            立即付款
+                if (type !== 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.onPayment(order);
+                            }}>
+                                立即付款
+                            </div>
                         </div>
-                    </div>
-                );
+                    );
+                }
 
             case 20:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={(e) => {
-                            e.stopPropagation();
-                            this.onDelivery(order);
-                        }}>
-                            立即发货
+                if (type === 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.onDelivery(order);
+                            }}>
+                                立即发货
+                            </div>
                         </div>
-                    </div>
-                );
+                    );
+                }
             // case 100:
             //     return (
             //         <div className="art-list__bussinss-operation">
@@ -148,24 +154,26 @@ class OrderList extends PureComponent {
             //     );
             case 300:
             case 200:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div style={{display: 'flex', dipflexDirection: 'row'}}>
-                            <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
-                                 onClick={(e) => {
-                                     e.stopPropagation();
-                                     this.evaluation(order);
+                if (type !== 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div style={{display: 'flex', dipflexDirection: 'row'}}>
+                                <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
+                                     onClick={(e) => {
+                                         e.stopPropagation();
+                                         this.evaluation(order);
+                                     }}>
+                                    评价
+                                </div>
+                                {/*<div className="art-list__bussinss-operation-item" onClick={() => {
+                                 this.returnGoods(order);
                                  }}>
-                                评价
+                                 申请退货
+                                 </div>*/}
                             </div>
-                            {/*<div className="art-list__bussinss-operation-item" onClick={() => {
-                             this.returnGoods(order);
-                             }}>
-                             申请退货
-                             </div>*/}
                         </div>
-                    </div>
-                )
+                    )
+                }
         }
     };
 
