@@ -14,21 +14,7 @@ class User extends PureComponent {
         return (
             <Fragment>
                 <div className="art-search">
-
-                    <div className="art-search__hot">
-                        <h2>热门搜索</h2>
-                    </div>
-
-                    <div className="art-search__item">
-                        {['11', '22', '33', '44', '55'].map(() => {
-                            return (
-                                <span className="art-search__item-text">
-                                    女性保健品
-                                </span>
-                            )
-                        })}
-                    </div>
-
+                    
                     <div className="art-search__hot">
                         <h2>历史记录</h2>
                         <div></div>
