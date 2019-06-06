@@ -34,6 +34,7 @@ import Group from './pages/group';
 import GroupDetail from './pages/group/detail';
 import OrderReturnGoods from './pages/order/returnGoods';
 import OrderEvaluation from './pages/order/evaluation';
+import OrderSellDetails from './pages/order/orderSellDetails';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -263,6 +264,11 @@ export default [
         path: "/orderEvaluation",
         component: OrderEvaluation,
         key: 'orderEvaluation'
+    },
+    {
+        path: "/orderSellDetails",
+        component: OrderSellDetails,
+        key: 'orderSellDetails'
     },
 ];
 
