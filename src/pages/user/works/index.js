@@ -11,7 +11,7 @@ import {APIURL}   from './../../../utils/api';
 import {createProduct,getProductType,getDicItem,getUploadVideoFile,getQueryCategoryList} from './../store/actionCreators';
 const data = [];
 
-const orders =  [
+const orders = [
     {
         label: '现货',
         value: '10',
@@ -107,7 +107,7 @@ class Works extends PureComponent{
                       })
                   }
               ]
-           };
+          };
 
           axios({
               method: 'post',
@@ -385,11 +385,23 @@ class Works extends PureComponent{
                 <div className="art-user-work__upload-text">上传图片</div>
 
                 <div className="art-user-work__uploadvideo">
-                      <div className="art-user-work__wrapper">
-                           {statusText}
-                      </div>
-                      <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
-                      {/* <div className="art-user-work__uploadsuccess">上传成功</div> */}
+                      {
+                       statusText === "选择视频" ? "" : ( statusText === "上传成功" ? (
+                              <div className="art-user-work__wrapper" style={{background:'url(http://art.laoliwuyou.com/icon/video.png) 0% 0% / cover'}}>
+                                      <div style={{width:'50px',height:'50px',position:'relative',top:'-140px',left:'230px'}} 
+                                      className="art-icon art-icon-video-close" onClick={()=>{
+                                          this.setState({
+                                            statusText:"选择视频"
+                                          })
+                                      }}>
+                                      </div>
+                              </div>
+                          ):(
+                            <div className="art-user-work__wrapper">{statusText}</div>
+                          )
+                       )
+                      }
+                      <input type="file" className={statusText==="选择视频"?"art-user-work__uploadfile":"art-user-work__uploadfile-item"}  id="fileUpload" onChange={this.fileChange}/>
                 </div>
                 <div className="art-user-work__upload-text">上传视频</div>
 

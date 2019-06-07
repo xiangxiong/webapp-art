@@ -45,22 +45,36 @@
     }
 
     &__uploadfile{
-        width: 75px;
-        height: 80px;
+        width: 85px;
+        height: 85px;
         border-radius: 5px;
         position: relative;
-        left: -130px;
-        top: -90px;
+        right: 142px;
         border-radius: 0.03rem;
         border: 1PX solid #ddd;
-        background-color: #fff;
+        background-color: red;
         line-height: 80px;
         color: #fff;
         padding-left: 5px;
         text-align: center;
-        opacity: 0;
     }
 
+    &__uploadfile-item{
+        width: 85px;
+        height: 85px;
+        border-radius: 5px;
+        position: relative;
+        right: 45px;
+        bottom: 85px;
+        border-radius: 0.03rem;
+        border: 1PX solid #ddd;
+        background-color: gray;
+        line-height: 80px;
+        color: #fff;
+        padding-left: 5px;
+        text-align: center;
+    }
+    
     &__uploadlabel{
         position: relative;
         left: -140px;

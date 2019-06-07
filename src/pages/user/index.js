@@ -113,7 +113,7 @@ const normalNavItems = [
 ];
 
 class User extends PureComponent{
-
+    
     constructor(props) {
         super(props);
         this.state = {
