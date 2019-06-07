@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {getUserWorkActionDispatch,offLineProduct} from '../store/actionCreators';
 import {pictureUrl} from '../../../utils/common';
 import { Modal,Toast } from 'antd-mobile';
-
+import history from './../../../utils/history';
 const alert = Modal.alert;
 
 class WorkList extends PureComponent{
@@ -73,9 +73,15 @@ class WorkList extends PureComponent{
     }
 
     getWorkItem = (item) => {
+        const {callback, state} = this.props.location;
         return item.map((item,index)=>{
             return (
-                <div className="art-worklist__item" key={index}>
+                <div className="art-worklist__item" key={index} onClick={()=>{
+                    if (state.type === 'releaseMaster') {
+                        callback && callback(item);
+                        history.goBack();
+                    }
+                }}>
                     <div className="art-worklist__item-img">
                         <div style={{background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`}}>
                         </div>

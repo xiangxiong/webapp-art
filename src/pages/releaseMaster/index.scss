@@ -23,4 +23,43 @@
     border-radius: 4px;
   }
 
+  &__work {
+    margin: 15px;
+    height: 106px;
+    display: flex;
+    flex-direction: row;
+
+    & > div:nth-child(1) {
+      width: 106px;
+      height: 106px;
+      border-radius: 3px;
+    }
+    & > div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      margin-left: 15px;
+
+      font-size: 17px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(102, 102, 102, 1);
+      width: 55%;
+
+      & > h4 {
+        font-family: PingFangSC-Semibold;
+        font-size: 14px;
+        color: #333333;
+        letter-spacing: -0.09px;
+      }
+      & > h6 {
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #666666;
+        letter-spacing: -0.1px;
+        margin-top: 5px;
+      }
+
+    }
+  }
+
 }

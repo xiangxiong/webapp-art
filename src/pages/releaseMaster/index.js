@@ -6,6 +6,8 @@ import PublicHeader from './../../components/header';
 import {TextareaItem, ImagePicker, List} from 'antd-mobile';
 import Space from '../common/space';
 import history from './../../utils/history';
+import  {pictureUrl} from '../../utils/common';
+
 const Item = List.Item;
 
 class ReleaseMaster extends PureComponent {
@@ -16,6 +18,7 @@ class ReleaseMaster extends PureComponent {
         this.state = {
             files: [],
             TopicContent: '',
+            work: {},
         }
     }
 
@@ -45,8 +48,40 @@ class ReleaseMaster extends PureComponent {
         });
     }
 
+    setWork = (work) => {
+        console.log('work setWork', work, this);
+        this.setState({work});
+    };
+
+    componentWillUnmount = () => {
+        this.setState = (state, callback) => {
+            return;
+        };
+    };
+
+    showWork = (work) => {
+        const {ImageName = '', ProdName = '', MarketPrice = ''} = work || {};
+
+        if (work || true) {
+            return (
+                <div className="art-releaseMaster__work">
+                    <div style={{
+                        background: `url(${pictureUrl(ImageName)}) 0% 0% / cover`
+                    }}/>
+                    <div>
+                        <h4>{ProdName}</h4>
+                        <h6>作品尺寸&重量：30克</h6>
+                        <h6>作品材质：紫砂</h6>
+                        <h6>{`市场价：${MarketPrice}元`}</h6>
+                        <h6>库 存：578件</h6>
+                    </div>
+                </div>
+            )
+        }
+    };
+
     render() {
-        const {files} = this.state;
+        const {files = [], work} = this.state;
 
         return (
             <Fragment>
@@ -79,12 +114,22 @@ class ReleaseMaster extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            history.push('./');
+                            history.push({
+                                pathname: './worklist',
+                                callback: this.setWork,
+                                state: {type: 'releaseMaster'}
+                            });
                         }}>
                         请选择作品
                     </Item>
 
-                    <div className="art-releaseMaster__submit">
+                    {this.showWork(work)}
+
+                    <div
+                        className="art-releaseMaster__submit"
+                        onClick={() => {
+                            this.submit();
+                        }}>
                         确认并提交
                     </div>
 
