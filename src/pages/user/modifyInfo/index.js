@@ -35,7 +35,7 @@ class ModifyInfo extends PureComponent {
     save = () => {
         let {NickName, RealName, buttonIndex, genderName, date, Email, avatarFiles, backgroundFiles} = this.state;
 
-        date = new Date(date).getTime();
+        let dateStr = new Date(date).getTime();
 
         if (_.isEmpty(NickName)) {
             Toast.info('请输入昵称', 1);
@@ -52,7 +52,7 @@ class ModifyInfo extends PureComponent {
             return;
         }
 
-        if (_.isEmpty(date)) {
+        if (!date) {
             Toast.info('请输入出生日期', 1);
             return;
         }
@@ -77,7 +77,7 @@ class ModifyInfo extends PureComponent {
         params.NickName = NickName;
         params.RealName = RealName;
         params.Gender = buttonIndex;
-        params.Birthday = new Date(date).getTime();
+        params.Birthday = dateStr;
         params.Email = Email;
         params.ImageName = '';
         params.ImageData = encodeURIComponent(avatarFiles[0].url.split(',')[1]);
