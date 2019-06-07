@@ -38,6 +38,7 @@ import OrderSellDetails from './pages/order/orderSellDetails';
 import OrderDelivery from './pages/order/delivery';
 import ReleaseMaster from './pages/releaseMaster/index';
 import SearchResults from './pages/search/results/index';
+import ModifyInfo from './pages/user/modifyInfo/index';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -287,6 +288,11 @@ export default [
         path: "/searchResults",
         component: SearchResults,
         key: 'searchResults'
+    },
+    {
+        path: "/modifyInfo",
+        component: ModifyInfo,
+        key: 'modifyInfo'
     },
 ];
 

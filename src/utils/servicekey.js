@@ -188,3 +188,6 @@ export const PUBLISH_TOPIC_INFO = 'Art.Service.Info.Dto.Request.Api.PublishTopic
 
 // 搜索综合接口
 export const Search_All = 'Art.Search.Dto.Request.Api.SearchAllRequest';
+
+// 修改用户信息
+export const CUSTOMER_UPDATE = 'Art.Service.Customer.Dto.Api.CustomerUpdateRequest';

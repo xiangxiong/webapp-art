@@ -1,5 +1,6 @@
 import React,{Fragment} from 'react';
 import './index.scss';
+import history from './../../../../utils/history';
 
 const Header = (props) =>{
     const {src, UserName, Money, CollectCount, FollowCount, VisitCount, GroupCount} = props;
@@ -13,7 +14,7 @@ const Header = (props) =>{
                          <div>{UserName}</div>
                          <div>{`账户余额: ${Money}`}</div>
                      </div>
-                     <div className="art-icon art-icon-user-arrow"></div>
+                     <div className="art-icon art-icon-user-arrow" onClick={()=>{history.push('./modifyInfo')}}></div>
                 </div>
 
                 <div className="art-user__action">
