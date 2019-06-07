@@ -36,7 +36,9 @@ class ReleaseMaster extends PureComponent {
         params.TopicMainImg = '';
         params.CustomerId = CustomerId;
         params.TopicImgs = '';
-        params.Type = '';
+
+        const {customerDetail} = this.props.location.state;
+        params.Type = customerDetail.CustomerType;
         params.ProductId = '';
 
         this.props.getPublishTopicInfo(params);
@@ -82,11 +84,21 @@ class ReleaseMaster extends PureComponent {
 
     render() {
         const {files = [], work} = this.state;
+        const {customerDetail} = this.props.location.state;
+
+        let title = '';
+        if (customerDetail.CustomerType == '1') {
+            //艺术家
+            title = '发布大师印象';
+        } else if (customerDetail.CustomerType == '2') {
+            //商户
+            title = '发布实拍实测';
+        }
 
         return (
             <Fragment>
                 <div className="art-releaseMaster">
-                    <PublicHeader title="发布实拍实测"/>
+                    <PublicHeader title={title}/>
 
                     <TextareaItem
                         onChange={(v) => {

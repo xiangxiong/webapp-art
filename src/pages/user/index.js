@@ -152,7 +152,12 @@ class User extends PureComponent{
     }
 
     bindSellList() {
+        let CustomerType = this.props.customerDetail.CustomerType;
+
         return navItems.map((navItem, index) => {
+            if (index === 2 && CustomerType == 2) {
+                navItem.title = '发布实拍实测';
+            }
             return (
                 <List key={index.toString()}>
                     <Item
