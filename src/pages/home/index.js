@@ -180,6 +180,9 @@ class Home extends PureComponent{
      if(getUrlParam('tab') === "User"){
         selectedTab = 'yellowTab';
      }
+     if(getUrlParam('tab') === "Cart"){
+        selectedTab = 'greenTab';
+     }
      else if(getUrlParam('tab') === "Shop"){
         selectedTab = 'redTab'
      }

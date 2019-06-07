@@ -1,0 +1,8 @@
+.art-category{
+    &__item{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 5px;
+    }
+}

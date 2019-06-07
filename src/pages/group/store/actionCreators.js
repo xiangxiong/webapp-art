@@ -23,3 +23,10 @@ export const dispatchGoodsDetail = (params) => {
         return result;
     }
 };
+
+export const dispatchCollectGroupProduct = (params) => {
+    return async (dispatch)=>{
+        const result = await post(serverKey.COLLECTIN, params);
+        return result;
+    }
+}

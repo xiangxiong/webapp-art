@@ -55,8 +55,6 @@ export const getProductCommend = (params) => {
     }
 };
 
-
-
 export const getProductComment = (params) => {
     return (dispatch) => {
         return post(ProductComment, params)
@@ -70,7 +68,7 @@ export const getCollectin = (params) => {
     return (dispatch) => {
         return post(COLLECTIN, params)
             .then((response) => {
-                if (response && response.Data && response.Data.Status == 200) {
+                if(response && response.Data && response.Data.Status == 200) {
                     Toast.info('操作成功');
                 } else {
                     Toast.info('网络异常');

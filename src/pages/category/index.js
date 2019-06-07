@@ -31,7 +31,7 @@ const Category = React.memo(
                })
             }
           }
-
+          
           for(let i = 0; i < result.length; i++){
             if(result[i].AuthorClassifyList.length>0){
                for(let authItem = 0; authItem < result[i].AuthorClassifyList.length;authItem ++){
@@ -65,7 +65,6 @@ const Category = React.memo(
 
 const mapStateToProps = (state) =>{
   return {
-    
   }
 }
 

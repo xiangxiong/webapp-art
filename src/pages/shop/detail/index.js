@@ -27,7 +27,6 @@ class Detail extends PureComponent {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         let Token = storage.get('userInfo').Token;
-
         this.props.getCollectin({CustomerId, Token, CollectType: 1, ObjId: ProductId});
     };
 
@@ -40,7 +39,7 @@ class Detail extends PureComponent {
             KillPrice,
             MarketPrice,
             Provider = {},
-            ProdId,
+            ProdId
         } = this.props.shopWorthGoodsDetail;
 
         const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount} = Provider;
@@ -154,7 +153,7 @@ class Detail extends PureComponent {
                 </div>
 
                 <div className="art-product-shop__tooBar">
-                    <div>
+                    <div onClick={()=>{ history.push('/home?tab=Cart');}}>
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
                     </div>
