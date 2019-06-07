@@ -154,7 +154,7 @@ class Detail extends PureComponent {
                 </div>
 
                 <div className="art-product-shop__tooBar">
-                    <div>
+                    <div onClick={()=>{ history.push('./cart')}}>
                         <div className="art-icon art-icon-cart"></div>
                         <p>购物车</p>
                     </div>
