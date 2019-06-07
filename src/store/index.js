@@ -10,6 +10,7 @@ import {reducer as bankCardReducer} from '../pages/bankCard/store';
 import {reducer as withdrawCardReducer} from '../pages/withdraw/store';
 import {reducer as cartCardReducer} from '../pages/cart/store';
 import {reducer as communityReducer} from '../pages/community/store';
+import {reducer as searchReducer} from '../pages/search/store';
 import logger from 'redux-logger';
 const middlewares = [];
 const reducer = combineReducers({
@@ -22,7 +23,8 @@ const reducer = combineReducers({
     bank: bankCardReducer,
     withdraw: withdrawCardReducer,
     cart: cartCardReducer,
-    community:communityReducer
+    community:communityReducer,
+    search:searchReducer,
 });
 
 const composeEnhancers = 

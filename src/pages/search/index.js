@@ -1,30 +1,72 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
-import {connect} from 'react-redux';
 import history from './../../utils/history';
-import {pictureUrl} from '../../utils/common';
+import _ from 'lodash';
+import {Toast} from 'antd-mobile';
 
-class User extends PureComponent {
+export default class Search extends PureComponent {
 
     constructor(props) {
         super(props);
     }
 
     render() {
+        let searchHistory = localStorage.getItem('searchHistory');
+        let searchHistoryArray = [];
+
+        if (!_.isEmpty(searchHistory)) {
+            searchHistoryArray = JSON.parse(searchHistory);
+        }
+
         return (
             <Fragment>
                 <div className="art-search">
-                    
+
+                    <div className="art-search__head">
+                        <div
+                            className="art-icon art-icon-kefu"
+                            onClick={() => {
+                                history.go(-1);
+                            }}>
+
+                        </div>
+                        <div>
+                            <input
+                                ref={input => this.input = input}
+                                type="text"
+                                placeholder="大家多在搜紫砂壶"/>
+                        </div>
+                        <div
+                            onClick={() => {
+                                const inpVal = this.input.value;
+                                if (_.isEmpty(inpVal)) {
+                                    Toast.info('请输入搜索内容', 1);
+                                    return;
+                                }
+                                history.push('./searchResults', {inpVal});
+
+                                searchHistoryArray.push(inpVal);
+                                localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArray));
+                            }}>
+                            确定
+                        </div>
+                    </div>
+
                     <div className="art-search__hot">
                         <h2>历史记录</h2>
-                        <div></div>
+
+                        <div
+                            className="art-icon art-icon-cart-del"
+                            onClick={() => {
+                                localStorage.clear();
+                            }}/>
                     </div>
 
                     <div className="art-search__item">
-                        {['11', '22', '33', '44', '55'].map(() => {
+                        {searchHistoryArray.map((searchHistory) => {
                             return (
                                 <span className="art-search__item-text">
-                                    女性保健品
+                                    {searchHistory}
                                 </span>
                             )
                         })}
@@ -38,13 +80,3 @@ class User extends PureComponent {
 
     }
 }
-
-const mapStateToProps = (state) => {
-    return {}
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(User);

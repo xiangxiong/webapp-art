@@ -185,3 +185,6 @@ export const ORDER_SEND = 'Art.Service.Order.Dto.Request.api.OrderSendRequest';
 
 // 发布社区话题
 export const PUBLISH_TOPIC_INFO = 'Art.Service.Info.Dto.Request.Api.PublishTopicInfoRequest';
+
+// 搜索综合接口
+export const Search_All = 'Art.Search.Dto.Request.Api.SearchAllRequest';

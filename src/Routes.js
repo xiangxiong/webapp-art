@@ -37,6 +37,7 @@ import OrderEvaluation from './pages/order/evaluation';
 import OrderSellDetails from './pages/order/orderSellDetails';
 import OrderDelivery from './pages/order/delivery';
 import ReleaseMaster from './pages/releaseMaster/index';
+import SearchResults from './pages/search/results/index';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -281,6 +282,11 @@ export default [
         path: "/releaseMaster",
         component: ReleaseMaster,
         key: 'releaseMaster'
+    },
+    {
+        path: "/searchResults",
+        component: SearchResults,
+        key: 'searchResults'
     },
 ];
 
