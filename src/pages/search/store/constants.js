@@ -1,1 +1,1 @@
-export const SEARCH_SEARCH_ALL = 'search/SearchAll';
+export const SEARCH_SEARCH_ALL = 'searchProduct/SearchAll';
