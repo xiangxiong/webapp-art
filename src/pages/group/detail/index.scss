@@ -217,13 +217,11 @@
             width: 20%;
             text-align: center;
             border-right: 1px solid #ddd;
-
-            &>div{
-                position: relative;
-                top: 5px;
-                left: 13px;
-                width: 30px;
-                height: 30px;
+            height: 55px;
+            margin-top:8px;
+            
+            &>p{
+                margin-top: 5px;
             }
         }
 
