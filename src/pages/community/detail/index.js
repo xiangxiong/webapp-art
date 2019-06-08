@@ -39,7 +39,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         dispatchCommunityDetail(params);
     }
-
+    
     useEffect(()=>{
         getCommunityDeteilApi();
     },[isRefesh]);
@@ -143,7 +143,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                  </div>
                  <div className="art-community-detail__comment-split"></div>
             </div>
-
             <Modal
                 popup
                 visible={isOpen}

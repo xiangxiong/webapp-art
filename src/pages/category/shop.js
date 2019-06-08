@@ -11,7 +11,9 @@ const ShopCategroy = (props) =>{
     async function getCategoryList(){
         const result = await props.dispatchShopCategoryList({});
         let response =[];
+        
         if(result){
+
             for(let i = 0; i < result.length; i++){
               response.push({
                 title: result[i].CategoryName,
@@ -32,6 +34,7 @@ const ShopCategroy = (props) =>{
                 )
               }
             }
+
         }
         
         setData(response);
