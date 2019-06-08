@@ -24,7 +24,7 @@ export default class Search extends PureComponent {
 
                     <div className="art-search__head">
                         <div
-                            className="art-icon art-icon-kefu"
+                            className="art-icon art-icon-arrow-left"
                             onClick={() => {
                                 history.go(-1);
                             }}>

@@ -1,7 +1,6 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import history from './../../../utils/history';
-import _ from 'lodash';
 import {connect} from 'react-redux';
 import {getSearchAll} from '../store/actionCreators';
 import SearchProduct from '../../common/searchProduct/index';
@@ -19,7 +18,7 @@ class SearchResults extends PureComponent {
         if (searchResultsList.length <= 0) {
             return;
         }
-        searchResultsList.DataList.map((item, key) => {
+        searchResultsList.map((item) => {
             items.push(<SearchProduct {...item} key={Math.random()}/>);
         });
         return items;
@@ -34,7 +33,7 @@ class SearchResults extends PureComponent {
 
                     <div className="art-searchResults__head">
                         <div
-                            className="art-icon art-icon-kefu"
+                            className="art-icon art-icon-arrow-left"
                             onClick={() => {
                                 history.go(-1);
                             }}>
@@ -48,9 +47,12 @@ class SearchResults extends PureComponent {
                         </div>
                     </div>
 
-                    <div className="art-searchResults__content">
-                        {this.showRecomandItem()}
+                    <div className="art-searchResults__recommend">
+                        <div className="art-searchResults__recommend-content">
+                            {this.showRecomandItem()}
+                        </div>
                     </div>
+
                 </div>
             </Fragment>
         )

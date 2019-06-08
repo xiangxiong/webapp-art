@@ -3,25 +3,24 @@ import './index.scss';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 
-function handleJumpUrl(ProductId) {
-    history.push('./detail', {ProductId})
+function handleJumpUrl(id) {
+    history.push('./detail', {id})
 }
 
 const SearchProduct = (props) => {
-    let {ImgPath = '', ProductName = '', SalePrice = '', MarketPrice = '', index = 0, ProductId} = props;
+    let {img = '', name = '', limitprice = '', id, index=0} = props;
 
     return (
         <div className="art-searchProduct__recommend-item" key={index.toString()} onClick={() => {
-            handleJumpUrl(ProductId)
+            handleJumpUrl(id)
         }}>
-            <div className="art-searchProduct__recommend-img img-mrg-right"
+            <div className='art-searchProduct__recommend-img img-mrg-right'
                  style={{
-                     background: `url(${pictureUrl(ImgPath)}) 0% 0% / cover`
+                     background: `url(${pictureUrl(img)}) 0% 0% / cover`
                  }}>
             </div>
-            <p>{ProductName}</p>
-            <p><i className="art-searchProduct__recommend-money">{`￥${SalePrice}`}</i>
-                <i className="art-searchProduct__recommend-marketprice">{`￥${MarketPrice}`}</i></p>
+            <p>{name}</p>
+            <p><i className="art-searchProduct__recommend-money">{`￥${limitprice}`}</i></p>
         </div>
     )
 };

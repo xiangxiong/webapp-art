@@ -41,10 +41,15 @@
     }
   }
 
-  &__content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  &__recommend {
+    margin: 0 12px 0px 12px;
+
+    &-content {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
+
 }
