@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import {post} from './../../../utils/request';
-import {ART_CATEGORY_API,PUBLISH_USER_TYPE,ProductCommend} from './../../../utils/servicekey';
+import {ART_CATEGORY_API,PUBLISH_USER_TYPE,ProductCommend,GuessUserLikeProducts} from './../../../utils/servicekey';
 
 export const dispatchCategoryList = (params) => {
     return async (dispatch)=>{
@@ -20,7 +20,7 @@ export const dispatchShopCategoryList = (params) => {
 
 export const dispatchProductList = (params) => {
     return async (dispatch) =>{
-        const result =  await post(ProductCommend,params);
+        const result = await post(GuessUserLikeProducts,params);
         return result.Data.DataList;
     }
 }

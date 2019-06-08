@@ -21,14 +21,13 @@ function List(props){
 
     async function getProductList(){
         var payload = {
-            CommendType:1,
-            CategoryId:props.match.params.id,
+            CategoryIds:[props.match.params.id],
             CurrentPage:1,
             PageSize:10
         };
 
         const result = await props.dispatchProductList(payload);
-        
+        console.log('result',result);
         setData(result);
     }
 

@@ -73,7 +73,12 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap
+
+         
+
         }
+      
+       
       }
     }
   }
@@ -99,6 +104,7 @@
         height: auto;
         border: 0;
         vertical-align: middle;
+        display: none;
       }
     }
     &-column {
@@ -124,12 +130,15 @@
           a {
             text-decoration: none;
             color: #252525;
+       
+
             img {
               border-radius: 5px;
               width: 55px;
               height: 55px;
               border: 0;
               vertical-align: middle;
+              display: none;
             }
             span {
               display: block;
@@ -139,6 +148,7 @@
               color: #686868;
               overflow: hidden;
               text-overflow: ellipsis;
+              border: 1px solid #686868;
             }
           }
         }
