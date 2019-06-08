@@ -97,7 +97,7 @@ class Detail extends PureComponent {
                                     history.push('./masterDetail/' + ProviderId);
                                 } else if (CooperationWay == '2') {
                                     //商户详情
-                                    history.push('./shopHomepage');
+                                    history.push('./shopHomepage', {ProviderId});
                                 }
                             }}>
                             <div className="art-product__homepage-jump">去逛逛</div>
