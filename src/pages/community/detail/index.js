@@ -9,6 +9,7 @@ import {Modal,List,Button,TextareaItem, Toast} from 'antd-mobile';
 import { createForm } from 'rc-form';
 import history from './../../../utils/history';
 import _ from 'lodash';
+import {getUrlParam} from './../../../utils/common';
 
 const carouselData = [
     {
@@ -18,12 +19,18 @@ const carouselData = [
 ]
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
-    dispatchCommunityComment,dispatchCommunityCollectIn}) =>{
+    dispatchCommunityComment,dispatchCommunityCollectIn,location}) =>{
     const [isOpen,setIsOpen] = useState(false);
+
+    console.log('getUrlParam',getUrlParam('topicId'));
+    const [topicIds,setTopicIds] = useState(getUrlParam('topicId'));
+    const [isRefesh,setIsRefesh] = useState();
+
+    console.log('location',location);
 
     async function getCommunityDeteilApi(){
         var params ={
-            TopicId:2,
+            TopicId:topicIds,
             CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
             CommentCount:3,
             HasChoicenessProvider:false,
@@ -35,7 +42,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
 
     useEffect(()=>{
         getCommunityDeteilApi();
-    },[]);
+    },[isRefesh]);
     
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
@@ -49,7 +56,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             return;
         };
         var payLoad = {
-            TopicId:2,
+            TopicId:topicIds,
             CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
             IsReply:false,
             ReplyCommentId:2,
@@ -57,12 +64,13 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         const result = await dispatchCommunityComment(payLoad);
         if(result && result.Status === 200){
-            Toast.success("发送成功");
+            Toast.success("发送成功",1);
             setIsOpen(false);
         }else{
-            Toast.fail("发送失败");
+            Toast.fail("发送失败",1);
             setIsOpen(false);
         }
+        setIsRefesh(Math.random());
     },[isOpen]);
 
     const handleCollectIn = useCallback(async(CustomerId,islike)=>{
@@ -75,10 +83,11 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         const result = await dispatchCommunityCollectIn(params);
 
         if(result && result.Status === 200){
-            islike ? Toast.success("已关注") : Toast.success("已取消");
+            islike ? Toast.success("已关注",1) : Toast.success("取消关注",1);
         }else{
             Toast.fail("网络异常");
         }
+        setIsRefesh(Math.random());
     },[]);
 
     for(var item in ProductInfo){

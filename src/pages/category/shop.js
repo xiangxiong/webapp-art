@@ -11,7 +11,6 @@ const ShopCategroy = (props) =>{
     async function getCategoryList(){
         const result = await props.dispatchShopCategoryList({});
         let response =[];
-       
         if(result){
             for(let i = 0; i < result.length; i++){
               response.push({
@@ -27,7 +26,7 @@ const ShopCategroy = (props) =>{
                   response[i].children.push(
                     {
                       children: [
-                        { title: result[i].Childs[0].CategoryName, path: '/categroyProducts/'+result[i].Childs[0].CategoryId, image: '//img20.360buyimg.com/focus/jfs/t13861/165/1416050485/4023/7a99270b/5a1fb902N806b102c.jpg' }
+                        { title: result[i].Childs[0].CategoryName, path: '/categroyProducts/'+result[i].Childs[0].CategoryId}
                       ],
                     }
                 )

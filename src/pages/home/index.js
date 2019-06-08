@@ -172,7 +172,6 @@ class Home extends PureComponent{
   }
 
   componentDidMount(){
-    //  this.init();
      this.initLikeList();
 
      let selectedTab = "blueTab";
