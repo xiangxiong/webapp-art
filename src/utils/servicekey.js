@@ -191,3 +191,6 @@ export const Search_All = 'Art.Search.Dto.Request.Api.SearchAllRequest';
 
 // 修改用户信息
 export const CUSTOMER_UPDATE = 'Art.Service.Product.Dto.Api.UpdateAuthorInfoRequest';
+
+// 获取商户信息
+export const GET_PROVIDER_INFO = 'Art.Service.Product.Dto.Request.GetProviderInfoRequest';

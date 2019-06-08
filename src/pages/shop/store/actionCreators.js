@@ -1,7 +1,18 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {ProductCommend, WorthGoodsDetail, ProductComment, COLLECTIN} from "../../../utils/servicekey";
+import {
+    ProductCommend,
+    WorthGoodsDetail,
+    ProductComment,
+    COLLECTIN,
+    GET_PROVIDER_INFO
+} from "../../../utils/servicekey";
 import {Toast} from 'antd-mobile';
+
+export const providerInfo = (Entity) => ({
+    type: constants.SHOP_PROVIDER_INFO,
+    value: Entity
+});
 
 export const shopCarouselAdList = (DataList) => ({
     type: constants.SHOP_CAROUSEL_AD_LIST,
@@ -68,11 +79,20 @@ export const getCollectin = (params) => {
     return (dispatch) => {
         return post(COLLECTIN, params)
             .then((response) => {
-                if(response && response.Data && response.Data.Status == 200) {
+                if (response && response.Data && response.Data.Status == 200) {
                     Toast.info('操作成功');
                 } else {
                     Toast.info('网络异常');
                 }
+            });
+    }
+};
+
+export const getProviderInfo = (params) => {
+    return (dispatch) => {
+        return post(GET_PROVIDER_INFO, params)
+            .then((response) => {
+                dispatch(providerInfo(response.Data.Entity));
             });
     }
 };
