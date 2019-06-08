@@ -4,7 +4,7 @@ import history from './../../../utils/history';
 
 
 function jumpUrl(){
-    history.push('./category');
+    history.push('./shopCategroy');
 }
 
 const SearchCategory = (props) =>{

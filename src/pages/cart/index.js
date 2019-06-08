@@ -30,7 +30,7 @@ var selectAllProducts = [],selectImgs=[]
  
  }
 
-  function useDelItem(product,events){
+ function useDelItem(product,events){
     Modal.alert('确定要删除', '', [
         { text: '确定', onPress: () => handleDel() },
         { text: '取消', onPress: () => console.log('cancel') },
@@ -48,8 +48,8 @@ var selectAllProducts = [],selectImgs=[]
     }
  }
 
-
  function CartItem(props){
+
     const [cartItem,setCartItem] = useState({});
     const [totalPrice,setTotalPrice] = useState(0);
     const [totalCount,setTotalCount] = useState(0);
@@ -208,7 +208,7 @@ var selectAllProducts = [],selectImgs=[]
 
     useEffect(()=>{
         console.log('checkItemUpdate useEffect');
-    },[checkItemUpdate])
+    },[checkItemUpdate]);
 
     console.log('reredner,',cartItem);
 
@@ -285,15 +285,15 @@ var selectAllProducts = [],selectImgs=[]
 
                                 <div className="art-cart__footer">
                                         <div>
-                                            <CheckboxItem onChange={()=>{selectedAllItem()}}>
+                                            {/* <CheckboxItem onChange={()=>{selectedAllItem()}}>
                                             全选
-                                            </CheckboxItem>
+                                            </CheckboxItem> */}
                                         </div>
                                         <div>
-                                          全选
+                                          {/* 全选 */}
                                         </div>
                                         <div> { cartTotalPrice === 0 ? ""  : "合计:￥"+cartTotalPrice}</div>
-                                        <div onClick={()=>{ if(product.length>0) 
+                                          <div onClick={()=>{ if(product.length>0) 
                                         {
                                             history.push('./submitorder', {productList:product})
                                         }else{
@@ -306,11 +306,9 @@ var selectAllProducts = [],selectImgs=[]
             }
         </Fragment>
     )
-}
+ }
 
-
-
-const Cart = (props) =>{
+ const Cart = (props) =>{
     const [cartList,setCartList] = useState([]);
     const {getQueryCarList,getModifyCart,getBatchDelCart} = props;
 

@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import * as actionCreators  from './../store/actionCreators';
 import { PRODIMGURL } from '../../../utils/api';
 import  {pictureUrl} from '../../../utils/common';
+import { Toast } from 'antd-mobile';
 
-const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
+const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location,dispatchCollectGroupProduct}) => {
 
     const [groupItem,setGroupItem] = useState([]);
     const [banners,setBanners] = useState([]);
@@ -68,6 +69,20 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
             });
         }
     }
+
+    const handleCollectProduct = useCallback(async()=>{
+        let storage = Storage.Base.getInstance();
+        var payLoad = {
+            CustomerId:storage.get('userInfo').CustomerId,
+            Token:storage.get('userInfo').Token,
+            CollectType:1,
+            ObjId:product.ProdId
+        };
+        const result = await dispatchCollectGroupProduct(payLoad);
+        if(result.Data && result.Data.Status === 200){
+            Toast.success("收藏成功");
+        }
+    });
 
     useEffect(()=>{
         loadData();
@@ -151,7 +166,10 @@ const Detail =({dispatchGroupDetail,dispatchGoodsDetail,location}) => {
                     <div className="art-product__tooBar">
                         <div>
                             <div className="art-icon art-icon-collect"></div>
-                            <p onClick={()=>{}}>收藏</p>
+                            <p onClick={()=>{ 
+                                handleCollectProduct();
+                                console.log('收藏'); 
+                            }}>收藏</p>
                         </div>
                         <div onClick={() => {history.push('./submitorder', {productList: [product]});}}>
                             <p>{groupItem.MarketPrice}</p>
@@ -178,7 +196,8 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch) =>({
     dispatchGroupDetail:(data)=>dispatch(actionCreators.dispatchGroupDetail(data)),
-    dispatchGoodsDetail:(data)=>dispatch(actionCreators.dispatchGoodsDetail(data))
+    dispatchGoodsDetail:(data)=>dispatch(actionCreators.dispatchGoodsDetail(data)),
+    dispatchCollectGroupProduct:(data)=>dispatch(actionCreators.dispatchCollectGroupProduct(data))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(React.memo(Detail));

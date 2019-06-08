@@ -39,6 +39,8 @@ import OrderDelivery from './pages/order/delivery';
 import ReleaseMaster from './pages/releaseMaster/index';
 import SearchResults from './pages/search/results/index';
 import ModifyInfo from './pages/user/modifyInfo/index';
+import ShopCategroy from './pages/category/shop';
+import CategroyList from './pages/category/list';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -294,7 +296,20 @@ export default [
         component: ModifyInfo,
         key: 'modifyInfo'
     },
+    {
+        path: "/shopCategroy",
+        component: ShopCategroy,
+        key: 'shopCategroy'
+    },
+    {
+        path: "/categroyProducts/:id",
+        component: CategroyList,
+        key: 'categroyListId'
+    }
 ];
+
+
+
 
 
 

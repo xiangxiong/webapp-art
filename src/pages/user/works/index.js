@@ -385,23 +385,39 @@ class Works extends PureComponent{
                 <div className="art-user-work__upload-text">上传图片</div>
 
                 <div className="art-user-work__uploadvideo">
-                      {
+                     
+                    
+                       {
                        statusText === "选择视频" ? "" : ( statusText === "上传成功" ? (
-                              <div className="art-user-work__wrapper" style={{background:'url(http://art.laoliwuyou.com/icon/video.png) 0% 0% / cover'}}>
-                                      <div style={{width:'50px',height:'50px',position:'relative',top:'-140px',left:'230px'}} 
-                                      className="art-icon art-icon-video-close" onClick={()=>{
-                                          this.setState({
-                                            statusText:"选择视频"
-                                          })
-                                      }}>
-                                      </div>
+                        <Fragment>
+                        <div className="art-user-work__wrapper" >
+                            <div className="art-icon art-icon-video-show">
+                              <div style={{width:'50px',height:'50px',marginLeft:'150px',marginTop:'-290px'}} 
+                              className="art-icon art-icon-video-close" onClick={()=>{
+                                  this.setState({
+                                    statusText:"选择视频"
+                                  })
+                              }}>
                               </div>
+                            </div>
+                        </div>
+                      </Fragment>
                           ):(
                             <div className="art-user-work__wrapper">{statusText}</div>
                           )
                        )
                       }
-                      <input type="file" className={statusText==="选择视频"?"art-user-work__uploadfile":"art-user-work__uploadfile-item"}  id="fileUpload" onChange={this.fileChange}/>
+                      {
+                        statusText==="选择视频" ? <div className="art-user-work__uploadfile-mask">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div> : <div className="art-user-work__uploadfile-mask-success">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div>
+                      }
+                      {
+                        statusText==="选择视频" ?  <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
+                        : ""
+                      }
                 </div>
                 <div className="art-user-work__upload-text">上传视频</div>
 
