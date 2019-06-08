@@ -2,7 +2,7 @@ import React,{Fragment,PureComponent} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getUserWorkActionDispatch,offLineProduct} from '../store/actionCreators';
+import {getUserWorkActionDispatch,offLineProduct,setWork} from '../store/actionCreators';
 import {pictureUrl} from '../../../utils/common';
 import { Modal,Toast } from 'antd-mobile';
 import history from './../../../utils/history';
@@ -78,7 +78,7 @@ class WorkList extends PureComponent{
             return (
                 <div className="art-worklist__item" key={index} onClick={()=>{
                     if (state.type === 'releaseMaster') {
-                        callback && callback(item);
+                        this.props.setWork(item);
                         history.goBack();
                     }
                 }}>
@@ -118,6 +118,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>{
     return {
+        setWork: (data) => dispatch(setWork(data)),
         getWorkList: (data) => dispatch(getUserWorkActionDispatch(data)),
         offLineProduct: (data) => dispatch(offLineProduct(data))
     }

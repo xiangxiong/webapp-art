@@ -7,7 +7,8 @@ import {
     USER_WORKS_PRODUCT_TYPE,
     USER_WORKS_LIST,
     USER_DIC_ITEM,
-    USER_UPLOAD_VIDEO
+    USER_UPLOAD_VIDEO,
+    USER_SET_WORK
 } from './constants';
 
 const defaultState = {
@@ -19,11 +20,18 @@ const defaultState = {
     userProductTypes:[],
     workList:[],
     userDicItem:[],
-    fileItem:[]
+    fileItem:[],
+    setWork:{},
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case USER_SET_WORK:
+            return {
+                ...state,
+                setWork: action.value
+            };
+            break;
         case USER_CUSTOMER_DETAIL:
             return {
                 ...state,

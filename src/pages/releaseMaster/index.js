@@ -3,10 +3,11 @@ import './index.scss';
 import {connect} from 'react-redux';
 import {getPublishTopicInfo} from './store/actionCreators';
 import PublicHeader from './../../components/header';
-import {TextareaItem, ImagePicker, List} from 'antd-mobile';
+import {TextareaItem, ImagePicker, List, Toast} from 'antd-mobile';
 import Space from '../common/space';
 import history from './../../utils/history';
 import  {pictureUrl} from '../../utils/common';
+import _ from 'lodash';
 
 const Item = List.Item;
 
@@ -18,7 +19,6 @@ class ReleaseMaster extends PureComponent {
         this.state = {
             files: [],
             TopicContent: '',
-            work: {},
         }
     }
 
@@ -28,43 +28,61 @@ class ReleaseMaster extends PureComponent {
 
         let params = {};
 
-        let {TopicContent} = this.state;
+        let {TopicContent, files} = this.state;
+
+        let {setWork} = this.props;
+
+        if (_.isEmpty(TopicContent)) {
+            Toast.info('请输入分享的内容', 1);
+            return;
+        }
+
+        if (files.length < 2) {
+            Toast.info('请选择需要分享的图片', 1);
+            return;
+        }
+
+        if (_.isEmpty(setWork)) {
+            Toast.info('请选择商品', 1);
+            return;
+        }
+
+        let TopicImgs = [];
+        for (let i = 1; i < files.length; i++) {
+            let topicImg = {};
+            topicImg.ImageNameData = encodeURIComponent(files[i].url.split(',')[1]);
+            topicImg.ImageType = 2;
+            TopicImgs.push(topicImg);
+        }
 
         params.TopicId = '0';
         params.TopicContent = TopicContent;
-        params.TopicMainImgData = '';
+        params.TopicMainImgData = encodeURIComponent(files[0].url.split(',')[1]);
         params.TopicMainImg = '';
         params.CustomerId = CustomerId;
-        params.TopicImgs = '';
+        params.TopicImgs = TopicImgs;
+
+        params.VideoId = '';    //上传视频
+        params.IsHaveVideo = '';    //上传视频
 
         const {customerDetail} = this.props.location.state;
         params.Type = customerDetail.CustomerType;
-        params.ProductId = '';
+        params.ProductId = setWork.ProdId;
 
         this.props.getPublishTopicInfo(params);
     };
 
-    handleChange(files, type, index) {
+    handleChange = (files, type, index) => {
         this.setState({
             files,
         });
-    }
-
-    setWork = (work) => {
-        console.log('work setWork', work, this);
-        this.setState({work});
     };
 
-    componentWillUnmount = () => {
-        this.setState = (state, callback) => {
-            return;
-        };
-    };
+    showWork = () => {
+        const {setWork} = this.props;
+        const {ImageName = '', ProdName = '', MarketPrice = ''} = setWork;
 
-    showWork = (work) => {
-        const {ImageName = '', ProdName = '', MarketPrice = ''} = work || {};
-
-        if (work || true) {
+        if (!_.isEmpty(setWork)) {
             return (
                 <div className="art-releaseMaster__work">
                     <div style={{
@@ -72,10 +90,7 @@ class ReleaseMaster extends PureComponent {
                     }}/>
                     <div>
                         <h4>{ProdName}</h4>
-                        <h6>作品尺寸&重量：30克</h6>
-                        <h6>作品材质：紫砂</h6>
                         <h6>{`市场价：${MarketPrice}元`}</h6>
-                        <h6>库 存：578件</h6>
                     </div>
                 </div>
             )
@@ -83,7 +98,7 @@ class ReleaseMaster extends PureComponent {
     };
 
     render() {
-        const {files = [], work} = this.state;
+        const {files = []} = this.state;
         const {customerDetail} = this.props.location.state;
 
         let title = '';
@@ -107,7 +122,6 @@ class ReleaseMaster extends PureComponent {
                         rows={3}
                         placeholder="输入你想分享的内容"/>
 
-
                     <Space/>
 
                     <h4>上传图片1-9张</h4>
@@ -116,7 +130,7 @@ class ReleaseMaster extends PureComponent {
                         files={files}
                         onChange={this.handleChange}
                         onImageClick={(index, fs) => console.log(index, fs)}
-                        selectable={files.length < 10}
+                        selectable={files.length < 9}
                         multiple={true}/>
 
                     <Space/>
@@ -128,14 +142,13 @@ class ReleaseMaster extends PureComponent {
                         onClick={() => {
                             history.push({
                                 pathname: './worklist',
-                                callback: this.setWork,
                                 state: {type: 'releaseMaster'}
                             });
                         }}>
                         请选择作品
                     </Item>
 
-                    {this.showWork(work)}
+                    {this.showWork()}
 
                     <div
                         className="art-releaseMaster__submit"
@@ -155,8 +168,10 @@ class ReleaseMaster extends PureComponent {
     }
 }
 
-const mapStateToProps = () => {
-    return {}
+const mapStateToProps = ({user}) => {
+    return {
+        setWork: user.setWork
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {

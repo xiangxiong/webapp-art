@@ -20,6 +20,11 @@ import {
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
 
+export const setWork = (Data) => ({
+    type: constants.USER_SET_WORK,
+    value: Data
+});
+
 export const userCustomerDetail = (DataList) => ({
     type: constants.USER_CUSTOMER_DETAIL,
     value: DataList
