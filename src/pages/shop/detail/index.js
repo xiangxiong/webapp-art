@@ -42,7 +42,7 @@ class Detail extends PureComponent {
             ProdId
         } = this.props.shopWorthGoodsDetail;
 
-        const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount} = Provider;
+        const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount,CooperationWay,ProviderId} = Provider;
 
         let carouselData = MainImgs.map((mainImg) => {
             return {ImgUrl: mainImg}
@@ -90,8 +90,17 @@ class Detail extends PureComponent {
                                 {`作品：${ProductCount}件 月销：${MonthSalesCount}件 粉丝：${FansCount}个`}
                                 </span>
                         </div>
-                        <div>
-                            {/* <div className="art-product__homepage-jump">去逛逛</div>*/}
+                        <div
+                            onClick={() => {
+                                if (CooperationWay == '1') {
+                                    //艺术家详情
+                                    history.push('./masterDetail/' + ProviderId);
+                                } else if (CooperationWay == '2') {
+                                    //商户详情
+                                    history.push('./shopHomepage');
+                                }
+                            }}>
+                            <div className="art-product__homepage-jump">去逛逛</div>
                         </div>
                     </div>
 
