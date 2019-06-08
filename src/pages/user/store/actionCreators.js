@@ -15,7 +15,8 @@ import {
     GET_WECHAT_OAUTH_API,
     BIND_WECHAT_USERNAME,
     UPDATE_PARTENER_DEPOSIT,
-    CUSTOMER_UPDATE
+    CUSTOMER_UPDATE,
+    ART_MASTER_DETAIL_API,
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -23,6 +24,16 @@ import {Toast} from 'antd-mobile';
 export const setWork = (Data) => ({
     type: constants.USER_SET_WORK,
     value: Data
+});
+
+export const masterDetail = (DataList) => ({
+    type: constants.USER_MASTERDETAIL,
+    value: DataList
+});
+
+export const queryDictList = (DataList) => ({
+    type: constants.USER_MODIFY_DICT_LIST,
+    value: DataList
 });
 
 export const userCustomerDetail = (DataList) => ({
@@ -206,6 +217,28 @@ export const getCustomerUpdate = (params) => {
                     history.goBack();
                 } else {
                     Toast.info('网络异常');
+                }
+            });
+    }
+};
+
+export const getDictList = (params) => {
+    return (dispatch) => {
+        return post(Dict, params)
+            .then((response) => {
+                if (response && response.Data && response.Data.DataList && response.Data.DataList.AuthorType) {
+                    dispatch(queryDictList(response.Data.DataList.AuthorType));
+                }
+            });
+    }
+};
+
+export const dispatchMasterDetail = (params) => {
+    return (dispatch) => {
+        return post(ART_MASTER_DETAIL_API, params)
+            .then((response) => {
+                if (response && response.Data) {
+                    dispatch(masterDetail(response.Data));
                 }
             });
     }

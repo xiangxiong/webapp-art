@@ -246,7 +246,7 @@ class User extends PureComponent{
             CustomerType
         } = this.props.customerDetail || { };
 
-        var ObjectItem = this.props.customerDetail.ProviderInfo;
+        var ObjectItem = this.props.customerDetail.ProviderInfo||{};
         for(var item in ObjectItem){
             let storage = Storage.Base.getInstance();
             storage.set('ProviderStatus',ObjectItem[item]);
@@ -273,6 +273,8 @@ class User extends PureComponent{
                     FollowCount={FollowCount}
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
+                    CustomerType={CustomerType}
+                    ProviderId={ObjectItem.ProviderId}
                 />
                 <Tabs tabs={tabs} initialPage={0}>
                     <div style={styles.tab}>

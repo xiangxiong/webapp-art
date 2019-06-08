@@ -10,3 +10,5 @@ export const USER_DIC_ITEM = 'user/user_dic_item';
 export const USER_UPLOAD_VIDEO = 'user/upload_video_file';
 export const USER_WORKS_CATEGORY = 'user/user_works_category';
 export const USER_SET_WORK = 'user/user_set_work';
+export const USER_MODIFY_DICT_LIST = 'user/user_modify_dict_list';
+export const USER_MASTERDETAIL = 'user/user_master_detail';

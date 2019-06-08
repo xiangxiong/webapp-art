@@ -1,12 +1,13 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {connect} from 'react-redux';
-import {getCustomerUpdate} from './../store/actionCreators';
+import {getCustomerUpdate, getDictList, dispatchMasterDetail} from './../store/actionCreators';
 import PublicHeader from './../../../components/header';
-import {List, InputItem, Toast, ActionSheet, DatePicker, ImagePicker} from 'antd-mobile';
+import {List, InputItem, Toast, ActionSheet, DatePicker, TextareaItem} from 'antd-mobile';
 import _ from 'lodash';
-
-let BUTTONS = ['保密', '男', '女'];
+import  {pictureUrl} from '../../../utils/common';
+import Space from '../../common/space';
+import {formatDate} from '../../../utils/common';
 
 class ModifyInfo extends PureComponent {
 
@@ -14,81 +15,60 @@ class ModifyInfo extends PureComponent {
         super(props);
         this.state = {
             buttonIndex: -1,
-            genderName: '',
-            avatarFiles: [],
-            backgroundFiles: [],
+            levelName: '',
         };
     }
 
-    onChangeAvatar = (files, type, index) => {
-        this.setState({
-            avatarFiles: files,
-        });
-    };
-
-    onChangeBackground = (files, type, index) => {
-        this.setState({
-            backgroundFiles: files,
-        });
-    };
-
     save = () => {
-        let {NickName, RealName, buttonIndex, genderName, date, Email, avatarFiles, backgroundFiles} = this.state;
+        const {ProviderId} = this.props.location.state;
+
+        let {Keyid, date, Speciality, Motto, Description} = this.state;
 
         let dateStr = new Date(date).getTime();
-
-        if (_.isEmpty(NickName)) {
-            Toast.info('请输入昵称', 1);
-            return;
-        }
-
-        if (_.isEmpty(RealName)) {
-            Toast.info('请输入真实姓名', 1);
-            return;
-        }
-
-        if (_.isEmpty(genderName)) {
-            Toast.info('请选择性别', 1);
-            return;
-        }
 
         if (!date) {
             Toast.info('请输入出生日期', 1);
             return;
         }
 
-        if (_.isEmpty(Email)) {
-            Toast.info('请输入邮箱', 1);
+        if (_.isEmpty(Speciality)) {
+            Toast.info('请输入擅长描述', 1);
             return;
         }
 
-        if (avatarFiles.length < 1) {
-            Toast.info('请选择头像', 1);
+        if (_.isEmpty(Motto)) {
+            Toast.info('请输入座右铭', 1);
             return;
         }
 
-        if (backgroundFiles.length < 1) {
-            Toast.info('请输入背景图片', 1);
+        if (_.isEmpty(Description)) {
+            Toast.info('请输入获奖经历', 1);
             return;
         }
+
+        let storage = Storage.Base.getInstance();
 
         let params = {};
 
-        params.NickName = NickName;
-        params.RealName = RealName;
-        params.Gender = buttonIndex;
-        params.Birthday = dateStr;
-        params.Email = Email;
-        params.ImageName = '';
-        params.ImageData = encodeURIComponent(avatarFiles[0].url.split(',')[1]);
-        params.BackgroundImg = '';
-        params.BackgroundImgData = encodeURIComponent(backgroundFiles[0].url.split(',')[1]);
+        params.Token = storage.get('userInfo').Token;
+        params.CustomerId = storage.get('userInfo').CustomerId;
+        params.ProviderId = ProviderId;
+        params.Birthday = formatDate(dateStr, "yyyy-MM-dd");
+        params.AuthorType = Keyid;
+        params.Speciality = Speciality;
+        params.Motto = Motto;
+        params.Description = Description;
 
         this.props.getCustomerUpdate(params);
     };
 
+    handleLevel = () => {
+        const {userModifyDictList} = this.props;
 
-    handleCategory = () => {
+        let BUTTONS = userModifyDictList.map(userModifyDict => {
+            return userModifyDict.Value
+        });
+
         const {buttonIndex} = this.state;
 
         ActionSheet.showActionSheetWithOptions({
@@ -99,18 +79,20 @@ class ModifyInfo extends PureComponent {
                 'data-seed': 'logId',
             },
             (buttonIndex) => {
-                let genderName = BUTTONS[buttonIndex];
-                if (!_.isEmpty(genderName)) {
+                let levelName = BUTTONS[buttonIndex];
+                if (!_.isEmpty(levelName)) {
                     this.setState({
-                        genderName,
-                        buttonIndex
+                        levelName,
+                        buttonIndex,
+                        Keyid: userModifyDictList[buttonIndex].Keyid,
                     });
                 }
             });
     };
 
     render() {
-        const {genderName, avatarFiles = [], backgroundFiles = []} = this.state;
+        let {levelName} = this.state;
+        let {src, UserName} = this.props.location.state;
 
         return (
             <Fragment>
@@ -120,58 +102,25 @@ class ModifyInfo extends PureComponent {
                         <div onClick={() => {
                             this.save();
                         }}>
-                            保存
+                            修改
                         </div>
                     }/>
                 <div className="art-modifyInfo">
 
-                    <div className="art-modifyInfo__avatar"
-                         style={{borderBottom: '1px solid #E7E7E7'}}>
-                        <h6>点击修改头像</h6>
-                        <ImagePicker
-                            files={avatarFiles}
-                            onChange={this.onChangeAvatar}
-                            onImageClick={(index, fs) => console.log(index, fs)}
-                            selectable={avatarFiles.length < 1}/>
+                    <div className="art-modifyInfo__head">
+                        <div style={{
+                            background: `url(${pictureUrl(src)}) 0% 0% / cover`
+                        }}/>
                     </div>
 
-                    <div className="art-modifyInfo__avatar">
-                        <h6>点击修改背景图片</h6>
-                        <ImagePicker
-                            files={backgroundFiles}
-                            onChange={this.onChangeBackground}
-                            onImageClick={(index, fs) => console.log(index, fs)}
-                            selectable={backgroundFiles.length < 1}/>
-                    </div>
+                    <Space/>
 
                     <List>
                         <InputItem
-                            placeholder="请输入昵称"
-                            clear
-                            onChange={(v) => {
-                                this.setState({NickName: v})
-                            }}
+                            value={UserName}
+                            editable={false}
                             moneyKeyboardAlign="left">
                             昵称
-                        </InputItem>
-
-                        <InputItem
-                            placeholder="请输入真实姓名"
-                            clear
-                            onChange={(v) => {
-                                this.setState({RealName: v})
-                            }}
-                            moneyKeyboardAlign="left">
-                            真实姓名
-                        </InputItem>
-
-                        <InputItem
-                            clear
-                            placeholder="请选择性别"
-                            value={genderName}
-                            editable={false}
-                            onClick={() => this.handleCategory()}>
-                            性别
                         </InputItem>
 
                         <DatePicker
@@ -184,17 +133,43 @@ class ModifyInfo extends PureComponent {
                             <List.Item arrow="horizontal">出生日期</List.Item>
                         </DatePicker>
 
-
                         <InputItem
-                            placeholder="请输入邮箱"
                             clear
-                            onChange={(v) => {
-                                this.setState({Email: v})
-                            }}
-                            moneyKeyboardAlign="left">
-                            邮箱
+                            placeholder="请选择认证级别"
+                            value={levelName}
+                            editable={false}
+                            onClick={() => this.handleLevel()}>
+                            认证级别
                         </InputItem>
 
+                        <Space/>
+
+                        <TextareaItem
+                            title="个人擅长："
+                            autoHeight
+                            labelNumber={5}
+                            onChange={(v) => {
+                                this.setState({Speciality: v})
+                            }}
+                            placeholder="请输入"/>
+
+                        <TextareaItem
+                            title="座右铭："
+                            autoHeight
+                            labelNumber={5}
+                            onChange={(v) => {
+                                this.setState({Motto: v})
+                            }}
+                            placeholder="请输入"/>
+
+                        <TextareaItem
+                            title="获奖经历"
+                            autoHeight
+                            labelNumber={5}
+                            onChange={(v) => {
+                                this.setState({Description: v})
+                            }}
+                            placeholder="如**年**月获得《***大奖》"/>
                     </List>
                 </div>
             </Fragment>
@@ -202,15 +177,26 @@ class ModifyInfo extends PureComponent {
     }
 
     componentDidMount() {
+        const {ProviderId} = this.props.location.state;
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        this.props.dispatchMasterDetail({CustomerId, ProviderId});
+
+        this.props.getDictList({Key: 'AuthorType'});
     }
 }
 
-const mapStateToProps = () => {
-    return {}
+const mapStateToProps = ({user}) => {
+    return {
+        userMasterdetail: user.userMasterdetail,
+        userModifyDictList: user.userModifyDictList,
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        dispatchMasterDetail: (data) => dispatch(dispatchMasterDetail(data)),
+        getDictList: (params) => dispatch(getDictList(params)),
         getCustomerUpdate: (params) => dispatch(getCustomerUpdate(params)),
     };
 };

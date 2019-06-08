@@ -8,7 +8,9 @@ import {
     USER_WORKS_LIST,
     USER_DIC_ITEM,
     USER_UPLOAD_VIDEO,
-    USER_SET_WORK
+    USER_SET_WORK,
+    USER_MODIFY_DICT_LIST,
+    USER_MASTERDETAIL
 } from './constants';
 
 const defaultState = {
@@ -16,16 +18,30 @@ const defaultState = {
     userCategoryList: [],
     userDictList: [],
     userIntertionalPartener: {},
-    publishReponse:{},
-    userProductTypes:[],
-    workList:[],
-    userDicItem:[],
-    fileItem:[],
-    setWork:{},
+    publishReponse: {},
+    userProductTypes: [],
+    workList: [],
+    userDicItem: [],
+    fileItem: [],
+    setWork: {},
+    userModifyDictList: [],
+    userMasterdetail: {},
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case USER_MASTERDETAIL:
+            return {
+                ...state,
+                userMasterdetail: action.value
+            };
+            break;
+        case USER_MODIFY_DICT_LIST:
+            return {
+                ...state,
+                userModifyDictList: action.value
+            };
+            break;
         case USER_SET_WORK:
             return {
                 ...state,
@@ -45,7 +61,7 @@ export default (state = defaultState, action) => {
         case USER_DIC_ITEM:
             return {
                 ...state,
-                userDicItem:action.value
+                userDicItem: action.value
             };
         case USER_QUERY_CATEGORY_LIST:
             return {
@@ -60,23 +76,23 @@ export default (state = defaultState, action) => {
         case USER_WORKS_ADD:
             return {
                 ...state,
-                publishReponse:action.value
+                publishReponse: action.value
             }
         case USER_WORKS_PRODUCT_TYPE:
             return {
                 ...state,
-                userProductTypes:action.value
+                userProductTypes: action.value
             }
         case USER_WORKS_LIST:
-            console.log('action.value',action.value);
+            console.log('action.value', action.value);
             return {
                 ...state,
-                workList:action.value
+                workList: action.value
             }
         case USER_UPLOAD_VIDEO:
             return {
                 ...state,
-                fileItem:action.value
+                fileItem: action.value
             }
         default:
             return state;

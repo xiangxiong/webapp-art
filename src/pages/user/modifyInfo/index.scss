@@ -3,6 +3,18 @@
 .art-modifyInfo {
   background: $color-bg-color;
 
+  &__head {
+    display: flex;
+    justify-content: center;
+    & > div {
+      width: 60px;
+      height: 60px;
+      margin: 14px;
+      border-radius: 50%;
+      background-color: #C30F22;
+    }
+  }
+
   &__avatar {
     display: flex;
     flex-direction: column;
