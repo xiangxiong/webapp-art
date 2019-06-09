@@ -171,6 +171,9 @@ class Home extends PureComponent{
   componentDidMount(){
      this.initLikeList();
      console.log('getUrlParam()',getUrlParam('tab'));
+     this.setState({
+      selectedTab:'blueTab'
+   });
      if(getUrlParam('tab') === "User"){
         this.setState({
           selectedTab:'yellowTab'
