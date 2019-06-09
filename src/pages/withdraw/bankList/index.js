@@ -58,7 +58,7 @@ class BankList extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader jump="User" title="选择银行卡方式"/>
+                <PublicHeader title="选择银行卡方式"/>
 
                 <div className="art-bankList">
                     {bankCardList.map((bank, index) => {

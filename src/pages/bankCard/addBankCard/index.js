@@ -60,7 +60,7 @@ class AddBankCard extends PureComponent {
 
         return (
             <Fragment>
-                <PublicHeader jump="User" title="添加银行卡"/>
+                <PublicHeader title="添加银行卡"/>
                 <List>
                     <InputItem
                         clear
