@@ -20,7 +20,6 @@ const Item = List.Item;
 const styles = {};
 styles.tab = {
     backgroundColor: '#fff',
-    height: "40px"
 }
 
 const navItems = [
