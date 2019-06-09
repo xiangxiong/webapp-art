@@ -49,7 +49,7 @@ class Shop extends PureComponent {
                     </div>
                     <div className="art-shop__border"></div>
                     <div className="art-shop__hot">
-                        <Title title="猜你喜欢" more="更多"/>
+                        <Title title="猜你喜欢"/>
                         <div className="art-shop__hot-content">
                             {shopUserLikeProducts.map((shopProductCommend, index) => {
                                 return <Product key={index.toString()} {...shopProductCommend}/>
