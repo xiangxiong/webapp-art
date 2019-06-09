@@ -24,7 +24,7 @@ for(let i=0;i<10;i++){
 var pushList=[];
 
 const cloumnData = [
-    {title:'「 好货推荐 」', name: '上千件好物等你来选',url:'./category'},
+    {title:'「 好货推荐 」', name: '上千件好物等你来选',url:'./shopCategroy'},
     {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
 ];
 
@@ -150,7 +150,7 @@ class Main extends PureComponent{
                         <Letters data={newsPagerList}/>
                         <Advert commonAdList={commonAdList}/>
                         <Space/>
-                        <Column cloumnData={cloumnData}  leftImgUrl={'/icon/9.png'} rightImgUrl={'/icon/9.png'}/>
+                        <Column cloumnData={cloumnData}  leftImgUrl={'/icon/8.png'} rightImgUrl={'/icon/9.png'}/>
                         <div className="art-main__recommend">
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">

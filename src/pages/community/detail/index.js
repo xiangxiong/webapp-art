@@ -95,7 +95,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             })
         }
         catch(e){
-            
         }
     }
 
@@ -160,10 +159,9 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                  </div>
                  {
                    
-                   isShowVideo ? isHaveVideo >0 ? <div class="prism-player" style={{height:'900px'}} id="player-con"></div> : <CarouselBanner imgHeight="3rem" data={carouselData}/> 
-                   : carouselData.length > 0 ? <CarouselBanner imgHeight="3rem" data={carouselData}/> : ""
+                   isShowVideo ? isHaveVideo >0 ? <div class="prism-player" id="player-con"></div> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
+                   : carouselData.length > 0 ? <CarouselBanner imgHeight="3.14rem" data={carouselData}/> : ""
                  }
-
                  <div className="art-community-detail__autovideo">
                      <span onClick={()=>{
                          handleImageClick();
