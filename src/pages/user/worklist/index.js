@@ -90,10 +90,12 @@ class WorkList extends PureComponent{
                         <h3>{item.ProdName}</h3>
                         <div>{`销售价：${item.LimitPrice}元`}</div>
                         <div>{`市场价：${item.MarketPrice}元`}</div>
-                        <div>
-                            <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>
-                            <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
-                        </div>
+                        {state.type !== 'releaseMaster'?(
+                            <div>
+                                <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>
+                                <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
+                            </div>
+                        ):''}
                     </div>
                 </div>
             )

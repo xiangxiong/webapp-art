@@ -11,6 +11,7 @@ import {reducer as withdrawCardReducer} from '../pages/withdraw/store';
 import {reducer as cartCardReducer} from '../pages/cart/store';
 import {reducer as communityReducer} from '../pages/community/store';
 import {reducer as searchReducer} from '../pages/search/store';
+import {reducer as releaseMasterReducer} from '../pages/releaseMaster/store';
 import logger from 'redux-logger';
 const middlewares = [];
 const reducer = combineReducers({
@@ -25,6 +26,7 @@ const reducer = combineReducers({
     cart: cartCardReducer,
     community:communityReducer,
     search:searchReducer,
+    releaseMaster:releaseMasterReducer,
 });
 
 const composeEnhancers = 

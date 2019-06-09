@@ -1,7 +1,7 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {connect} from 'react-redux';
-import {getPublishTopicInfo} from './store/actionCreators';
+import {getPublishTopicInfo, setValue} from './store/actionCreators';
 import PublicHeader from './../../components/header';
 import {TextareaItem, ImagePicker, List, Toast} from 'antd-mobile';
 import Space from '../common/space';
@@ -15,10 +15,11 @@ class ReleaseMaster extends PureComponent {
 
     constructor(props) {
         super(props);
+        const {files, TopicContent} = props.releaseMasterInfo;
 
         this.state = {
-            files: [],
-            TopicContent: '',
+            files: files,
+            TopicContent: TopicContent,
         }
     }
 
@@ -98,7 +99,7 @@ class ReleaseMaster extends PureComponent {
     };
 
     render() {
-        const {files = []} = this.state;
+        const {TopicContent, files = []} = this.state;
         const {customerDetail} = this.props.location.state;
 
         let title = '';
@@ -116,6 +117,7 @@ class ReleaseMaster extends PureComponent {
                     <PublicHeader title={title}/>
 
                     <TextareaItem
+                        value={TopicContent}
                         onChange={(v) => {
                             this.setState({TopicContent: v})
                         }}
@@ -140,6 +142,10 @@ class ReleaseMaster extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
+                            this.props.setValue({
+                                TopicContent,
+                                files
+                            });
                             history.push({
                                 pathname: './worklist',
                                 state: {type: 'releaseMaster'}
@@ -168,15 +174,17 @@ class ReleaseMaster extends PureComponent {
     }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({user, releaseMaster}) => {
     return {
-        setWork: user.setWork
+        setWork: user.setWork,
+        releaseMasterInfo: releaseMaster.releaseMasterInfo
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getPublishTopicInfo: params => dispatch(getPublishTopicInfo(params)),
+        setValue: params => dispatch(setValue(params)),
     }
 };
 

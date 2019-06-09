@@ -19,3 +19,7 @@ export const getPublishTopicInfo = (params) => {
     }
 };
 
+export const setValue = (value) => ({
+    type: constants.RELEASEMASTER_SET_VALUE,
+    value: value
+});
