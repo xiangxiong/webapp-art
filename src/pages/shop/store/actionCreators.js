@@ -5,13 +5,19 @@ import {
     WorthGoodsDetail,
     ProductComment,
     COLLECTIN,
-    GET_PROVIDER_INFO
+    GET_PROVIDER_INFO,
+    ART_MASTER_GET_PRODUCT_API
 } from "../../../utils/servicekey";
 import {Toast} from 'antd-mobile';
 
 export const providerInfo = (Entity) => ({
     type: constants.SHOP_PROVIDER_INFO,
     value: Entity
+});
+
+export const masterGetProduct = (DataList) => ({
+    type: constants.SHOP_MASTER_GET_PRODUCT,
+    value: DataList
 });
 
 export const shopCarouselAdList = (DataList) => ({
@@ -93,6 +99,15 @@ export const getProviderInfo = (params) => {
         return post(GET_PROVIDER_INFO, params)
             .then((response) => {
                 dispatch(providerInfo(response.Data.Entity));
+            });
+    }
+};
+
+export const dispatchMasterGetProduct = (params) => {
+    return (dispatch) => {
+        return post(ART_MASTER_GET_PRODUCT_API, params)
+            .then((response) => {
+                dispatch(masterGetProduct(response.Data.DataList));
             });
     }
 };

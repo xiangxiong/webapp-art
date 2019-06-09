@@ -87,4 +87,15 @@
         width: 100%;
         background: #F3F3F3;
     }
+
+    &__recommend{
+        margin: 0 12px 0px 12px;
+
+        &-content{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+    }
 }

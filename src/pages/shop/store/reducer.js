@@ -8,10 +8,13 @@ const defaultState = {
     shopUserLikeProducts: [],
     shopWorthGoodsDetail: {},
     showProductComment: [],
-    shopProviderInfo:{}
+    shopProviderInfo:{},
+    shopMasterGetProduct:[],
 };
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case constants.SHOP_MASTER_GET_PRODUCT:
+            return {...state, shopMasterGetProduct: action.value};
         case constants.SHOP_CAROUSEL_AD_LIST:
             return {...state, shopCarouselAdList: action.value};
         case constants.SHOP_COMMON_AD_LIST:

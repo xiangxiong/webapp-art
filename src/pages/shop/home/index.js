@@ -2,10 +2,25 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getProviderInfo} from '../store/actionCreators';
+import {getProviderInfo, dispatchMasterGetProduct} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
+import Product from './../../common/product';
 
 class ShopHomePage extends PureComponent {
+
+    showRecomandItem() {
+        const {shopMasterGetProduct} = this.props;
+        var items = [];
+        if (shopMasterGetProduct.length <= 0) {
+            return;
+        }
+
+        shopMasterGetProduct.map((shopMasterProduct, index) => {
+            items.push(<Product {...shopMasterProduct} key={Math.random()}/>);
+        });
+
+        return items;
+    }
 
     render() {
         const {ImageName, ProviderName, FansCount, CategoryName, ProductCount, WeekProductCount, TopicCount} = this.props.shopProviderInfo;
@@ -49,6 +64,13 @@ class ShopHomePage extends PureComponent {
                     <div className="art-shop-home__space">
 
                     </div>
+
+                    <div className="art-shop-home__recommend">
+                        <div className="art-shop-home__recommend-content">
+                            {this.showRecomandItem()}
+                        </div>
+                    </div>
+
                 </div>
 
             </Fragment>
@@ -60,17 +82,21 @@ class ShopHomePage extends PureComponent {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         this.props.getProviderInfo({CustomerId, ProviderId});
+
+        this.props.dispatchMasterGetProduct({CustomerId, ProviderId, SaleType: 10, CurrentPage: 1, PageSize: 10});
     }
 }
 
 const mapStateToProps = ({shop}) => {
     return {
         shopProviderInfo: shop.shopProviderInfo,
+        shopMasterGetProduct: shop.shopMasterGetProduct,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     getProviderInfo: (params) => dispatch(getProviderInfo(params)),
+    dispatchMasterGetProduct: (params) => dispatch(dispatchMasterGetProduct(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopHomePage);
