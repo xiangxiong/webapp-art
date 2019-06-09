@@ -42,7 +42,7 @@ import ModifyInfo from './pages/user/modifyInfo/index';
 import ShopCategroy from './pages/category/shop';
 import CategroyList from './pages/category/list';
 import Agreement from './pages/agreement/index';
-import PdfViewer from './pages/agreement/pdf/pdfViewer';
+import HtmlViewer from './pages/agreement/html/htmlViewer';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -314,9 +314,9 @@ export default [
         key: 'agreement'
     },
     {
-        path: "/pdfViewer",
-        component: PdfViewer,
-        key: 'pdfViewer'
+        path: "/htmlViewer",
+        component: HtmlViewer,
+        key: 'htmlViewer'
     },
 ];
 

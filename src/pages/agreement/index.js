@@ -11,8 +11,8 @@ export default class Agreement extends PureComponent {
         super(props);
     }
 
-    onJump = (pdfFilePath, title) => {
-        history.push('./pdfViewer', {pdfFilePath, title});
+    onJump = (htmlFilePath, title) => {
+        history.push('./htmlViewer', {htmlFilePath, title});
     };
 
     render() {
