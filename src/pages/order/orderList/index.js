@@ -2,7 +2,7 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {connect} from 'react-redux';
 import PublicHeader from './../../../components/header';
-import {getQueryCustomerOrderList} from '../store/actionCreators';
+import {getQueryCustomerOrderList, getOrderReceived} from '../store/actionCreators';
 import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/common';
@@ -89,9 +89,42 @@ class OrderList extends PureComponent {
         history.push('./payorder', {OrderAmount: SOAmount, SONumber, OrderNumber});
     };
 
-    //确认收货
-    confirmGoods = () => {
 
+    init = () => {
+        const {index = -1, type} = this.props.location.state;
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+
+        this.CurrentPage = 1;
+
+        if (type === 'sell') {
+            //卖家
+            this.props.getQueryCustomerOrderList(0, (index - 1), this.CurrentPage, ObjectItem.ProviderId);
+        } else {
+            //买家
+            this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage, 0);
+        }
+    };
+
+
+    //确认收货
+    confirmGoods = (order) => {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let {SONumber, OrderNumber} = order;
+
+        const {index = -1, type} = this.props.location.state;
+
+        let OrderStatus = (index - 1);
+
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+        let ProviderId = ObjectItem.ProviderId;
+
+        this.CurrentPage = 1;
+
+        this.props.getOrderReceived({SONumber, OrderNumber, CustomerId, OrderStatus, ProviderId, type});
     };
 
     //评价
@@ -144,16 +177,20 @@ class OrderList extends PureComponent {
                     );
                 }
                 break;
-            // case 100:
-            //     return (
-            //         <div className="art-list__bussinss-operation">
-            //             <div className="art-list__bussinss-operation-item" onClick={() => {
-            //                 this.confirmGoods();
-            //             }}>
-            //                 确认收货
-            //             </div>
-            //         </div>
-            //     );
+            case 100:
+                if (type !== 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.confirmGoods(order);
+                            }}>
+                                确认收货
+                            </div>
+                        </div>
+                    );
+                }
+                break;
             case 300:
             case 200:
                 if (type !== 'sell') {
@@ -232,12 +269,14 @@ class OrderList extends PureComponent {
         )
     }
 
-    componentDidMount() {
+    init = () => {
         const {index = -1, type} = this.props.location.state;
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
 
         let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+
+        this.CurrentPage = 1;
 
         if (type === 'sell') {
             //卖家
@@ -246,6 +285,10 @@ class OrderList extends PureComponent {
             //买家
             this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage, 0);
         }
+    };
+
+    componentDidMount() {
+        this.init();
     }
 }
 
@@ -259,6 +302,9 @@ const mapStateToProps = ({order, user}) => {
 const mapDispatchToProps = dispatch => ({
     getQueryCustomerOrderList: (CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize = 10) => {
         dispatch(getQueryCustomerOrderList({CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize}))
+    },
+    getOrderReceived: (params) => {
+        dispatch(getOrderReceived(params))
     }
 });
 

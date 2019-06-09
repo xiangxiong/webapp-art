@@ -9,7 +9,8 @@ import {
     SAVE_RMAM_ASTER,
     COMMENT_ADD,
     SHIP_VIA,
-    ORDER_SEND
+    ORDER_SEND,
+    ORDER_RECEIVED
 } from "../../../utils/servicekey";
 import history from '../../../utils/history';
 import {Toast} from 'antd-mobile';
@@ -58,15 +59,15 @@ export const getDefaultAddress = (params) => {
 export const getCreateOrder = (params) => {
     return (dispatch) => {
         return post(CreateOrder, params)
-        .then((response) => {
-            if (response.Data && response.Data.Status == 200) {
-                let {OrderAmount, SONumber} = response.Data;
-                history.push('./payorder', {OrderAmount, SONumber});
-                Toast.info(response.Data.ResponseMessage);
-            } else {
-                Toast.info(response.Data.ResponseMessage);
-            }
-        });
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    let {OrderAmount, SONumber} = response.Data;
+                    history.push('./payorder', {OrderAmount, SONumber});
+                    Toast.info(response.Data.ResponseMessage);
+                } else {
+                    Toast.info(response.Data.ResponseMessage);
+                }
+            });
     }
 };
 
@@ -161,6 +162,40 @@ export const getOrderSend = (params) => {
             .then((response) => {
                 if (response.Data && response.Data.Status == 200) {
                     history.goBack();
+                } else {
+                    Toast.info(response.Data.Message);
+                }
+            });
+    }
+};
+
+export const getOrderReceived = (params) => {
+    return (dispatch) => {
+        const {SONumber, OrderNumber, CustomerId, OrderStatus, ProviderId, type} = params;
+
+        return post(ORDER_RECEIVED, {SONumber, OrderNumber, CustomerId})
+            .then((response) => {
+                if (response.Data && response.Data.Status == 200) {
+                    Toast.info('确认收货成功');
+                    if (type === 'sell') {
+                        //卖家
+                        dispatch(getQueryCustomerOrderList({
+                            CustomerId: 0,
+                            OrderStatus,
+                            CurrentPage: 1,
+                            ProviderId,
+                            PageSize: 10
+                        }));
+                    } else {
+                        //买家
+                        dispatch(getQueryCustomerOrderList({
+                            CustomerId,
+                            OrderStatus,
+                            CurrentPage: 1,
+                            ProviderId: 0,
+                            PageSize: 10
+                        }));
+                    }
                 } else {
                     Toast.info(response.Data.Message);
                 }

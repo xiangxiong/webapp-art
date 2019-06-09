@@ -194,3 +194,6 @@ export const CUSTOMER_UPDATE = 'Art.Service.Product.Dto.Api.UpdateAuthorInfoRequ
 
 // 获取商户信息
 export const GET_PROVIDER_INFO = 'Art.Service.Product.Dto.Request.GetProviderInfoRequest';
+
+// 确认收货
+export const ORDER_RECEIVED = 'Art.Service.Order.Dto.Request.api.OrderReceivedRequest';
