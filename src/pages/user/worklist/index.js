@@ -12,11 +12,7 @@ class WorkList extends PureComponent{
 
     constructor(props){
         super(props);
-        this.init();
         this.bindEvent();
-    }
-
-    init(){
     }
 
     bindEvent(){
@@ -25,6 +21,19 @@ class WorkList extends PureComponent{
     }
 
     componentDidMount(){
+        console.log('componentDidMount');
+        let ProviderId = Storage.Base.getInstance().get('ProviderId');
+        this.props.getWorkList({
+            ProviderId:ProviderId,
+            Type:1,
+            OrderBy:1,
+            PageIndex:1,
+            PageSize:20
+        });
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate');
         let ProviderId = Storage.Base.getInstance().get('ProviderId');
         this.props.getWorkList({
             ProviderId:ProviderId,
@@ -64,11 +73,9 @@ class WorkList extends PureComponent{
         console.log("result",result);
         if(result && result.Status === 200 ){
             Toast.info('该商品已下架');
-            this.forceUpdate();
         }
         else{
             Toast.info("下架失败");
-            this.forceUpdate();
         }
     }
 
@@ -77,7 +84,7 @@ class WorkList extends PureComponent{
         return item.map((item,index)=>{
             return (
                 <div className="art-worklist__item" key={index} onClick={()=>{
-                    if (state.type === 'releaseMaster') {
+                    if (state && state.type === 'releaseMaster') {
                         this.props.setWork(item);
                         history.goBack();
                     }
@@ -91,7 +98,7 @@ class WorkList extends PureComponent{
                         <div>{`销售价：${item.LimitPrice}元`}</div>
                         <div>{`市场价：${item.MarketPrice}元`}</div>
                         <div>
-                            <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>
+                            {/* <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span> */}
                             <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
                         </div>
                     </div>

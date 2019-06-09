@@ -19,14 +19,13 @@ const carouselData = [
 ]
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
-    dispatchCommunityComment,dispatchCommunityCollectIn,location}) =>{
+    dispatchCommunityComment,dispatchCommunityCollectIn,dispatchVideoPalyer,location}) =>{
     const [isOpen,setIsOpen] = useState(false);
-
-    console.log('getUrlParam',getUrlParam('topicId'));
     const [topicIds,setTopicIds] = useState(getUrlParam('topicId'));
     const [isRefesh,setIsRefesh] = useState();
-
-    console.log('location',location);
+    const [videoId,setVideoId] = useState();
+    const [playAuth,setPlayAuth] = useState();
+    const [isHaveVideo,setIsHaveVideo] = useState();
 
     async function getCommunityDeteilApi(){
         var params ={
@@ -37,17 +36,55 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             HasProductsRecommend:false,
             HasRelatedRecommend:false
         };
-        dispatchCommunityDetail(params);
+        const result = await dispatchCommunityDetail(params);
+        setVideoId(result.Data.VideoId);
+        console.log('result',result);
+        setIsHaveVideo(result.Data.IsHaveVideo)
+        initAliplayer(result.Data.VideoId);
     }
     
     useEffect(()=>{
+        console.log('useEffect');
         getCommunityDeteilApi();
     },[isRefesh]);
     
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
     const imgUrl = PRODIMGURL + ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
-    var productImg = '',productName = '',SalePrice = 0,ProductId = 0;
+    var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
+
+    for(var item in ProductInfo){
+        if(item === "ImgPath"){
+            productImg = PRODIMGURL + ProductInfo[item];
+        }
+        if(item === "ProductName"){
+            productName = ProductInfo[item]
+        }
+        if(item === "ProductId"){
+            ProductId = ProductInfo[item]
+        }
+        if(item === "SalePrice"){
+            SalePrice = ProductInfo[item]
+        }
+    }
+
+
+    async function initAliplayer(videoId){
+        const result = await dispatchVideoPalyer({
+            VedioId:videoId
+        });
+        // eslint-disable-next-line no-undef
+        var player = new Aliplayer({
+            id: 'player-con',
+            width: '100%',
+            autoplay: true,
+            vid : videoId,
+            playauth : result.Data.PlayAuth
+            // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
+        },function(player){
+            console.log('播放器创建好了。')
+       })
+    }
 
     const handleSendComment = useCallback(async()=>{ 
         const {count} = form.getFieldsValue();
@@ -81,7 +118,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             ObjId:CustomerId
         };
         const result = await dispatchCommunityCollectIn(params);
-
         if(result && result.Status === 200){
             islike ? Toast.success("已关注",1) : Toast.success("取消关注",1);
         }else{
@@ -89,23 +125,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         }
         setIsRefesh(Math.random());
     },[]);
-
-    for(var item in ProductInfo){
-        if(item === "ImgPath"){
-            productImg = PRODIMGURL + ProductInfo[item];
-            console.log('ProductInfo',ProductInfo[item]);
-        }
-        if(item === "ProductName"){
-            productName = ProductInfo[item]
-        }
-        if(item === "ProductId"){
-            ProductId = ProductInfo[item]
-        }
-        if(item === "SalePrice"){
-            SalePrice = ProductInfo[item]
-        }
-    }
-
+    
     return (
         <Fragment>
             <PublicHeader title="社区详情"/>
@@ -116,8 +136,11 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                          IsCollected === true ?  <span onClick={()=>{handleCollectIn(CustomerId,false)}}>已关注</span> : <span onClick={()=>{handleCollectIn(CustomerId,true)}}>关注</span>
                      }
                  </div>
-                 <CarouselBanner imgHeight="3rem" data={carouselData}/>
-                 <div className="art-community-detail__shop">
+                 {
+                     isHaveVideo >0 ? <div class="prism-player" style={{height:'800px'}} id="player-con"></div>
+                     : <CarouselBanner imgHeight="3rem" data={carouselData}/> 
+                 }
+                 <div className={ isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop'}>
                      <img src={productImg}/>
                      <span className="art-community-detail__shop-container">
                          <h3 className="art-community-detail__shop-title">{productName}</h3>
@@ -162,6 +185,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                     </List.Item>
                 </List>
             </Modal>
+           
         </Fragment>
     )
 }
@@ -175,7 +199,9 @@ const mapStateToProps = state =>{
 const mapStateToDispatch = dispatch => ({
     dispatchCommunityDetail:(data)=> dispatch(actionCreators.dispatchCommunityDetail(data)),
     dispatchCommunityComment:(data) => dispatch(actionCreators.dispatchCommunityComment(data)),
-    dispatchCommunityCollectIn:(data) => dispatch(actionCreators.dispatchCommunityCollectIn(data))
+    dispatchCommunityCollectIn:(data) => dispatch(actionCreators.dispatchCommunityCollectIn(data)),
+    dispatchGetDicItem:(data)=>dispatch(actionCreators.dispatchGetDicItem(data)),
+    dispatchVideoPalyer:(data)=>dispatch(actionCreators.dispatchVideoPalyer(data))
 });
 
 const CommunityDetailWrapper = createForm()(React.memo(CommunityDetail));

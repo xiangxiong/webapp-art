@@ -16,6 +16,20 @@ export const dispatchCommunityList = (params) =>{
     }
 }
 
+export const dispatchVideoPalyer = (params) =>{
+    return async (dispatch) =>{
+        const result = await  post(service.API_VIDOE_PALYER,params);
+        return result;
+    }
+}
+
+export const getDicItem = (params) => {
+    return async (dispatch) => {
+        const result = await post(service.DIC_ITEM_API, params);
+        return result;
+    }
+};
+
 export const actionCommunityDetail = (list) => ({
     type:constants.COMMUNITY_DETAIL,
     value:list

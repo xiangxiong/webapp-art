@@ -6,6 +6,7 @@ import {getProviderInfo, dispatchMasterGetProduct} from '../store/actionCreators
 import  {pictureUrl} from '../../../utils/common';
 import Product from './../../common/product';
 
+
 class ShopHomePage extends PureComponent {
 
     showRecomandItem() {
@@ -14,14 +15,15 @@ class ShopHomePage extends PureComponent {
         if (shopMasterGetProduct.length <= 0) {
             return;
         }
-
         shopMasterGetProduct.map((shopMasterProduct, index) => {
-            items.push(<Product {...shopMasterProduct} key={Math.random()}/>);
+            items.push(
+            <Product {...shopMasterProduct} key={Math.random()}/>
+            );
         });
 
         return items;
     }
-    
+
     render() {
         const {ImageName, ProviderName, FansCount, CategoryName, ProductCount, WeekProductCount, TopicCount} = this.props.shopProviderInfo;
 
@@ -83,7 +85,6 @@ class ShopHomePage extends PureComponent {
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         this.props.getProviderInfo({CustomerId, ProviderId});
-
         this.props.dispatchMasterGetProduct({CustomerId, ProviderId, SaleType: 10, CurrentPage: 1, PageSize: 10});
     }
 }

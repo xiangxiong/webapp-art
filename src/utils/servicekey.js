@@ -197,3 +197,6 @@ export const GET_PROVIDER_INFO = 'Art.Service.Product.Dto.Request.GetProviderInf
 
 // 确认收货
 export const ORDER_RECEIVED = 'Art.Service.Order.Dto.Request.api.OrderReceivedRequest';
+
+// 视频点播
+export const API_VIDOE_PALYER = 'Art.Service.Product.Dto.Request.Vod.PlayAuthRequest';
