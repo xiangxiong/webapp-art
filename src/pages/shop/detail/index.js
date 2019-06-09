@@ -39,7 +39,8 @@ class Detail extends PureComponent {
             KillPrice,
             MarketPrice,
             Provider = {},
-            ProdId
+            ProdId,
+            IsCollect
         } = this.props.shopWorthGoodsDetail;
 
         const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount,CooperationWay,ProviderId} = Provider;
@@ -169,10 +170,12 @@ class Detail extends PureComponent {
                     </div>
                     <div
                         onClick={() => {
-                            this.handleCollection(ProdId)
+                            if(!IsCollect){
+                                this.handleCollection(ProdId)
+                            }
                         }}>
                         <div className="art-icon art-icon-collect"></div>
-                        <p>收藏</p>
+                        <p>{IsCollect?'已收藏':'收藏'}</p>
                     </div>
                     <div
                         onClick={() => {
@@ -195,7 +198,7 @@ class Detail extends PureComponent {
         const {ProductId} = this.props.location.state;
         let storage = Storage.Base.getInstance();
         let customerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-        this.props.getWorthGoodsDetail(ProductId);
+        this.props.getWorthGoodsDetail(ProductId,customerId);
         this.props.getProductComment([ProductId], customerId);
     }
 }
@@ -208,8 +211,8 @@ const mapStateToProps = ({shop}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getWorthGoodsDetail: (ProdId, PromotionId) => {
-        dispatch(getWorthGoodsDetail({ProdId, PromotionId}))
+    getWorthGoodsDetail: (ProdId, CustomerId) => {
+        dispatch(getWorthGoodsDetail({ProdId, CustomerId}))
     },
     getProductComment: (ProdIds, CustomerId) => {
         dispatch(getProductComment({ProdIds, CustomerId, CommentType: 9, CurrentPage: 1, PageSize: 50}))

@@ -87,6 +87,15 @@ export const getCollectin = (params) => {
             .then((response) => {
                 if (response && response.Data && response.Data.Status == 200) {
                     Toast.info('操作成功');
+                    if (params.CollectType == 1) {
+                        let storage = Storage.Base.getInstance();
+                        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+                        dispatch(getWorthGoodsDetail({ProdId: params.ObjId,CustomerId}));
+                    } else if (params.CollectType == 4) {
+                        let storage = Storage.Base.getInstance();
+                        let CustomerId = storage.get('userInfo').CustomerId;
+                        dispatch(getProviderInfo({CustomerId, ProviderId: params.ProviderId}));
+                    }
                 } else {
                     Toast.info('网络异常');
                 }
