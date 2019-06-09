@@ -19,30 +19,29 @@ export default class Agreement extends PureComponent {
     showTop = () => {
         const {CustomerType = ''} = this.props.location.state || {};
 
-        let enterText = '';
-        if (CustomerType == 1) {
+        if(CustomerType == 1){
             //艺术家
-            enterText = '艺术家入驻合作协议';
-        } else if (CustomerType == 2) {
+            return (
+                <Item
+                    arrow="horizontal"
+                    onClick={() => {
+                        this.onJump('./commonProblem/艺术大家艺术家入驻合作协议.html', '艺术家入驻合作协议');
+                    }}>
+                    {'艺术家入驻合作协议'}
+                </Item>
+            )
+        }else if(CustomerType == 2){
             // 商家
-            enterText = '艺商城入驻合作协议'
+            return (
+                <Item
+                    arrow="horizontal"
+                    onClick={() => {
+                        this.onJump('./commonProblem/艺术大家艺商城入驻合作协议.html', '艺商城入驻合作协议');
+                    }}>
+                    {'艺商城入驻合作协议'}
+                </Item>
+            )
         }
-
-        return (
-            <Item
-                arrow="horizontal"
-                onClick={() => {
-                    if (CustomerType == 1) {
-                        //艺术家
-                        this.onJump('./commonProblem/艺术大家艺术家入驻合作协议.html', enterText);
-                    } else if (CustomerType == 2) {
-                        // 商家
-                        this.onJump('./commonProblem/艺术大家艺商城入驻合作协议.html', enterText);
-                    }
-                }}>
-                {enterText}
-            </Item>
-        )
     };
 
 
