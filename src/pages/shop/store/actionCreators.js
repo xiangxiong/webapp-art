@@ -54,10 +54,18 @@ export const getWorthGoodsDetail = (params) => {
     return (dispatch) => {
         return post(WorthGoodsDetail, params)
             .then((response) => {
-                dispatch(worthGoodsDetail(response.Data.Entity));
+               return dispatch(worthGoodsDetail(response.Data.Entity));
             });
     }
 };
+
+export const getProductDetail = (params) => {
+    return async (dispatch) => {
+        const result = await post(WorthGoodsDetail, params);
+        return result;
+    }
+};
+
 
 export const productComment = (Data) => ({
     type: constants.SHOP_PRODUCT_COMMENT,

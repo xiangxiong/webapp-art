@@ -80,7 +80,7 @@ class Home extends PureComponent{
             return (<Main/>);
        }
   }
-
+  
   renderContent(pageText){
         if(pageText==="USER"){
           return (

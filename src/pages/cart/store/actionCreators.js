@@ -5,7 +5,8 @@ import {Toast} from 'antd-mobile';
 import {
     QUERY_CAR_LIST,
     MODIFY_CART,
-    BATCH_DEL_CART
+    BATCH_DEL_CART,
+    API_VIDOE_PALYER
 } from "../../../utils/servicekey";
 
 const queryCarList = (response) => ({
@@ -34,6 +35,15 @@ export const getBatchDelCart = (params) => {
         return result;
     }
 };
+
+
+export const dispatchVideoPalyer = (params) =>{
+    return async (dispatch) =>{
+        const result = await post(API_VIDOE_PALYER,params);
+        console.log('dispatchVideoPalyer',result);
+        return result;
+    }
+}
 
 
 

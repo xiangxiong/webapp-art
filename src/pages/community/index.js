@@ -62,24 +62,24 @@ const Community = ({dispatchCommunityList,list}) => {
     return (
         <Fragment>
             <PublicHeader title="社区"/>
-            
+
             <Tabs tabs={tabs} initalPage={'t2'}>
                     <div style={{ height: '3000px',backgroundColor: '#fff' }}>
                             <div className="art-community__productlist">
                                 {
-                                        count && count.map((item,index)=>{
-                                            return (
-                                                    <div className="art-master__productlist-item" key={index}>
-                                                        <Link to={`/communitydetail?topicId=${item.TopicId}`}>
-                                                                <img style={{height:'100%',width:'100%',borderRadius:'5px'}} src={PRODIMGURL+item.TopicMainImg}/>
-                                                        </Link> 
-                                                        <h3>{item.TopicContent}{item.TopicId}</h3>
-                                                        <p style={{textAlign:'right'}}>
-                                                            {item.LoginName}
-                                                        </p>
-                                                    </div>
-                                              )
-                                        })
+                                    count && count.map((item,index)=>{
+                                        return (
+                                            <div className="art-master__productlist-item" key={index}>
+                                                <Link to={`/communitydetail?topicId=${item.TopicId}`}>
+                                                        <img style={{height:'100%',width:'100%',borderRadius:'5px'}} src={PRODIMGURL+item.TopicMainImg}/>
+                                                </Link> 
+                                                <h3>{item.TopicContent}{item.TopicId}</h3>
+                                                <p style={{textAlign:'right'}}>
+                                                    {item.LoginName}
+                                                </p>
+                                            </div>
+                                        )
+                                    })
                                 }
                             </div>
                     </div>

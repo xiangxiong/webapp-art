@@ -36,9 +36,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         const result = await dispatchCommunityDetail(params);
         setVideoId(result.Data.VideoId);
-        // {
-        //     ImgUrl:'http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg'
-        // }
         carouselData.push({
             ImgUrl:result.Data.TopicMainImg
         })
@@ -49,7 +46,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                 });
                 console.log('item.ImageName',item.ImageName);
             });
-          
         }
         console.log('result',result);
         setIsHaveVideo(result.Data.IsHaveVideo)
@@ -99,9 +95,8 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             })
         }
         catch(e){
-
+            
         }
-       
     }
 
     const handleSendComment = useCallback(async()=>{ 
