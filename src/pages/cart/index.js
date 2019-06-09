@@ -227,7 +227,7 @@ var selectAllProducts = [],selectImgs=[]
                             {cartItem.products && cartItem.products.map((product,index) => (
                                 <CheckboxItem checked={product.Selected}  key={index} onChange={()=>{handleCheckedItem(product)}}>
                                     <div className="art-cart__item">
-                                        <div className="art-cart__item-product" style={{background:`url(${PRODIMGURL+product.ProductImg}) 0% 0% / cover`}}>1</div>
+                                        <div className="art-cart__item-product" style={{background:`url(${PRODIMGURL+product.ProductImg}) 0% 0% / cover`}}></div>
                                         <div className="art-cart__item-desc">
                                             <h4>
                                                     {product.ProductName}

@@ -20,7 +20,7 @@ class ReleaseMaster extends PureComponent {
         const {files, TopicContent} = props.releaseMasterInfo;
 
         this.state = {
-            files: files,
+            files:files,
             TopicContent: TopicContent,
             isOrder:0,
             timeout: '',
@@ -41,6 +41,7 @@ class ReleaseMaster extends PureComponent {
             categoryList:[],
             selectVideo:'选择文件'
         }
+        this.bindEvent();
     }
 
     submit = () => {
@@ -49,7 +50,7 @@ class ReleaseMaster extends PureComponent {
 
         let params = {};
 
-        let {TopicContent, files} = this.state;
+        let {TopicContent, files,videoId} = this.state;
 
         let {setWork} = this.props;
 
@@ -58,13 +59,8 @@ class ReleaseMaster extends PureComponent {
             return;
         }
 
-        if (files.length < 2) {
+        if (files.length < 1) {
             Toast.info('请选择需要分享的图片', 1);
-            return;
-        }
-
-        if (_.isEmpty(setWork)) {
-            Toast.info('请选择商品', 1);
             return;
         }
 
@@ -75,15 +71,15 @@ class ReleaseMaster extends PureComponent {
             topicImg.ImageType = 2;
             TopicImgs.push(topicImg);
         }
-
+        
         params.TopicId = '0';
         params.TopicContent = TopicContent;
         params.TopicMainImgData = encodeURIComponent(files[0].url.split(',')[1]);
         params.TopicMainImg = '';
         params.CustomerId = CustomerId;
         params.TopicImgs = TopicImgs;
-        params.VideoId = '';    //上传视频
-        params.IsHaveVideo =false;    //上传视频
+        params.VideoId = videoId;    //上传视频
+        params.IsHaveVideo = videoId === 0  || "" ? 0 : 1;
 
         const {customerDetail} = this.props.location.state;
         params.Type = customerDetail.CustomerType;
@@ -128,7 +124,6 @@ class ReleaseMaster extends PureComponent {
                     }
                 ]
             };
-            
             axios({
                 method: 'post',
                 url: APIURL,
@@ -175,7 +170,7 @@ class ReleaseMaster extends PureComponent {
               //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
               // });
               that.setState({
-                statusText:'文件开始上传...'
+                statusText:'开始上传...'
               })
               // statusText = '文件开始上传...'
               console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
@@ -184,7 +179,7 @@ class ReleaseMaster extends PureComponent {
           onUploadSucceed: function (uploadInfo) {
             console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
             that.setState({
-              statusText:'文件上传成功...'
+              statusText:'上传成功...'
             })
             // statusText = '文件上传成功!'
           },
@@ -192,14 +187,14 @@ class ReleaseMaster extends PureComponent {
           onUploadFailed: function (uploadInfo, code, message) {
             console.log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message)
             that.setState({
-              statusText:'文件上传失败...'
+              statusText:'上传失败...'
             })
             // statusText = '文件上传失败!'
           },
           // 取消文件上传
           onUploadCanceled: function (uploadInfo, code, message) {
             console.log("Canceled file: " + uploadInfo.file.name + ", code: " + code + ", message:" + message)
-            statusText = '文件已暂停上传'
+            statusText = '已暂停上传'
           },
           // 文件上传进度，单位：字节, 可以在这个函数中拿到上传进度并显示在页面上
           onUploadProgress: function (uploadInfo, totalSize, progress) {
@@ -247,6 +242,39 @@ class ReleaseMaster extends PureComponent {
         });
     };
 
+    fileChange (e) {
+        console.log('target',e.target.files[0]);
+        this.file = e.target.files[0];
+        console.log('this.file.name',this.file);
+        if (!this.file) {
+          alert("请先选择需要上传的文件!")
+          return
+        };
+        var userData = '{"Vod":{}}'
+        if (this.uploader) {
+          this.uploader.stopUpload()
+          this.authProgress = 0
+          this.statusText = ""
+        };
+        this.uploader = this.createUploader();
+        // 首先调用 uploader.addFile(event.target.files[i], null, null, null, userData)
+        // console.log(userData)
+        this.uploader.addFile(this.file, null, null, null, userData)
+        this.uploadDisabled = false;
+        this.pauseDisabled = true;
+        this.resumeDisabled = false;
+        this.stsUpload();
+    }
+
+    stsUpload(){
+        // 然后调用 startUpload 方法, 开始上传
+        if (this.uploader !== null){
+          this.uploader.startUpload()
+          this.uploadDisabled = true
+          this.pauseDisabled = false
+        }
+    }
+
     showWork = () => {
         const {setWork} = this.props;
         const {ImageName = '', ProdName = '', MarketPrice = ''} = setWork;
@@ -291,7 +319,6 @@ class ReleaseMaster extends PureComponent {
                         }}
                         rows={3}
                         placeholder="输入你想分享的内容"/>
-
                     <Space/>
 
                     <h4>上传图片1-9张</h4>
@@ -303,44 +330,43 @@ class ReleaseMaster extends PureComponent {
                         selectable={files.length < 9}
                         multiple={true}/>
                     <Space/>
+                    
+                    <h4>上传视频</h4>
 
-                    <div className="art-user-work__uploadvideo">
+                    <div className="art-user-work__uploadvideo" style={{marginTop:'30px'}}>
                        {
-                       statusText === "选择视频" ? "" :( statusText === "上传成功" ? (
-                            <Fragment>
-                                <div className="art-user-work__wrapper" >
-                                    <div className="art-icon art-icon-video-show">
-                                    <div style={{width:'50px',height:'50px',marginLeft:'150px',marginTop:'-290px'}} 
-                                    className="art-icon art-icon-video-close" onClick={()=>{
-                                        this.setState({
-                                            statusText:"选择视频"
-                                        })
-                                    }}>
+                        statusText === "选择视频" ? "" :( statusText === "上传成功" ? (
+                                <Fragment>
+                                    <div className="art-user-work__wrapper" >
+                                        <div className="art-icon art-icon-video-show">
+                                        <div style={{width:'50px',height:'50px',marginLeft:'189px',marginTop:'-390px'}} 
+                                        className="art-icon art-icon-video-close" onClick={()=>{
+                                            this.setState({
+                                                statusText:"选择视频"
+                                            })
+                                        }}>
+                                        </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                </div>
-                            </Fragment>
-                          ):(
-                            <div className="art-user-work__wrapper">{statusText}</div>
-                          )
-                       )
+                                </Fragment>
+                            ):(
+                                <div className="art-user-work__wrapper">{statusText}</div>
+                            )
+                        )
                       }
                       {
                         statusText==="选择视频" ? 
-                        <div className="art-user-work__uploadfile-mask">
-                           <div className="art-icon art-icon-video-add"></div>
-                        </div> : <div className="art-user-work__uploadfile-mask-success">
-                           <div className="art-icon art-icon-video-add"></div>
-                        </div>
+                            <div className="art-user-work__uploadfile-mask">
+                            <div className="art-icon art-icon-video-add"></div>
+                            </div> : 
+                           ""
                       }
                       {
-                        statusText==="选择视频" ?  <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
-                        : ""
+                        statusText==="选择视频" ? <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
+                           : ""
                       }
                 </div>
                 
-                <div className="art-user-work__upload-text">上传视频</div>
-
                     <Item
                         arrow="horizontal"
                         onClick={() => {
