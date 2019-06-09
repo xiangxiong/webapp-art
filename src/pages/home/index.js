@@ -186,8 +186,6 @@ class Home extends PureComponent{
         selectedTab:'redTab'
       });
      }
-     
-     console.log('User yellowTab');
 
      eventProxy.on('selectedTab',(item)=>{
         this.setState({
