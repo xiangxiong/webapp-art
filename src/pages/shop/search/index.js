@@ -26,5 +26,4 @@ class SearchCategory extends PureComponent{
         )
     }
 }
-
 export default SearchCategory;

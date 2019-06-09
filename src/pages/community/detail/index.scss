@@ -4,6 +4,17 @@
         position: relative;
         top: -12px;
     }
+    
+    &__autovideo{
+        height: 40px;
+        width: 100%;
+        z-index: 1000;
+        position: absolute;
+        text-align: center;
+        line-height: 40px;
+        top: 355px;
+        color: #FFFFFF;
+    }
 
     &__visit{
         height: 57px;
@@ -36,7 +47,7 @@
     &__shop-video{
         height: 95px;
         background: #F6F6F6;
-        margin-top: 140px;
+        margin-top: 6px;
 
         &>img{
             width: 72px;

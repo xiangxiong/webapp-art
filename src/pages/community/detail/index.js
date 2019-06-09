@@ -11,11 +11,8 @@ import history from './../../../utils/history';
 import _ from 'lodash';
 import {getUrlParam} from './../../../utils/common';
 
-const carouselData = [
-    {
-        ImgUrl:'http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg',
-        ImgUrl:'http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg'
-    }
+var carouselData = [
+   
 ]
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
@@ -26,6 +23,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     const [videoId,setVideoId] = useState();
     const [playAuth,setPlayAuth] = useState();
     const [isHaveVideo,setIsHaveVideo] = useState();
+    const [isShowVideo,setIsShowVideo] = useState(1);
 
     async function getCommunityDeteilApi(){
         var params ={
@@ -38,6 +36,21 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         const result = await dispatchCommunityDetail(params);
         setVideoId(result.Data.VideoId);
+        // {
+        //     ImgUrl:'http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-24/art_ca5f74ac-4d75-4eda-b261-976f440d9635.jpg'
+        // }
+        carouselData.push({
+            ImgUrl:result.Data.TopicMainImg
+        })
+        if(result.Data.TopicImgs.length>0){
+            result.Data.TopicImgs.map((item,index)=>{
+                carouselData.push({
+                    ImgUrl:item.ImageName
+                });
+                console.log('item.ImageName',item.ImageName);
+            });
+          
+        }
         console.log('result',result);
         setIsHaveVideo(result.Data.IsHaveVideo)
         initAliplayer(result.Data.VideoId);
@@ -68,22 +81,27 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         }
     }
 
-
     async function initAliplayer(videoId){
-        const result = await dispatchVideoPalyer({
-            VedioId:videoId
-        });
-        // eslint-disable-next-line no-undef
-        var player = new Aliplayer({
-            id: 'player-con',
-            width: '100%',
-            autoplay: true,
-            vid : videoId,
-            playauth : result.Data.PlayAuth
-            // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
-        },function(player){
-            console.log('播放器创建好了。')
-       })
+        try{
+            const result = await dispatchVideoPalyer({
+                VedioId:videoId
+            });
+             // eslint-disable-next-line no-undef
+                var player = new Aliplayer({
+                    id: 'player-con',
+                    width: '100%',
+                    autoplay: true,
+                    vid : videoId,
+                    playauth : result.Data.PlayAuth
+                    // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
+                },function(player){
+                    console.log('播放器创建好了。')
+            })
+        }
+        catch(e){
+
+        }
+       
     }
 
     const handleSendComment = useCallback(async()=>{ 
@@ -125,6 +143,15 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         }
         setIsRefesh(Math.random());
     },[]);
+
+    const handleImageClick = useCallback(async()=>{
+        setIsShowVideo(0);
+    });
+
+    const handleVideoClick = useCallback(async()=>{
+        setIsShowVideo(1);
+        initAliplayer(videoId);
+    })
     
     return (
         <Fragment>
@@ -137,12 +164,19 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                      }
                  </div>
                  {
-                     isHaveVideo >0 ? <div class="prism-player" style={{height:'800px'}} id="player-con"></div> : "" 
+                   
+                   isShowVideo ? isHaveVideo >0 ? <div class="prism-player" style={{height:'900px'}} id="player-con"></div> : <CarouselBanner imgHeight="3rem" data={carouselData}/> 
+                   : carouselData.length > 0 ? <CarouselBanner imgHeight="3rem" data={carouselData}/> : ""
                  }
-                 {
-                     carouselData.length > 0 ? <CarouselBanner imgHeight="3rem" data={carouselData}/> : ""
-                 }
-                 <div className={ isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop'}>
+
+                 <div className="art-community-detail__autovideo">
+                     <span onClick={()=>{
+                         handleImageClick();
+                     }}>图片</span> | <span onClick={()=>{
+                         handleVideoClick();
+                     }}>视频</span>
+                 </div>
+                 <div className={ isShowVideo? isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop' :'art-community-detail__shop'}>
                      <img src={productImg}/>
                      <span className="art-community-detail__shop-container">
                          <h3 className="art-community-detail__shop-title">{productName}</h3>
