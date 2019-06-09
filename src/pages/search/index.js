@@ -71,9 +71,10 @@ export default class Search extends PureComponent {
                     </div>
 
                     <div className="art-search__item">
-                        {searchHistoryArray.map((searchHistory) => {
+                        {searchHistoryArray.map((searchHistory, index) => {
                             return (
                                 <span
+                                    key={index.toString()}
                                     className="art-search__item-text"
                                     onClick={() => {
                                         history.push('./searchResults', {inpVal: searchHistory});
