@@ -97,6 +97,7 @@ class ModifyInfo extends PureComponent {
         return (
             <Fragment>
                 <PublicHeader
+                    jump="User"
                     title="个人信息"
                     rightContent={
                         <div onClick={() => {

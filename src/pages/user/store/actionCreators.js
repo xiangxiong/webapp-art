@@ -214,7 +214,7 @@ export const getCustomerUpdate = (params) => {
         return post(CUSTOMER_UPDATE, params)
             .then((response) => {
                 if (response && response.Status == 200) {
-                    history.goBack();
+                    history.push('/home?tab=User');
                 } else {
                     Toast.info('网络异常');
                 }

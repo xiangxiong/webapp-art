@@ -23,8 +23,10 @@ class AddressList extends PureComponent {
         return (
             <div className="art-list__item" key={index.toString()}
                  onClick={() => {
-                     callback && callback(address);
-                     history.goBack();
+                     if(callback){
+                         callback && callback(address);
+                         history.goBack();
+                     }
                  }}
             >
                 <div className="art-list__item___left">
