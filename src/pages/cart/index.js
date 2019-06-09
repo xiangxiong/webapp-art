@@ -329,7 +329,7 @@ var selectAllProducts = [],selectImgs=[]
 
     return (
         <Fragment>
-            <PublicHeader title="购物车"/>
+            <PublicHeader title="购物车" isNoIcon={true}/>
             {
                 cartList.length>0 ? (<>
                     <div className="art-cart__tips">

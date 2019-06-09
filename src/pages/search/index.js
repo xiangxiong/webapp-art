@@ -8,15 +8,21 @@ export default class Search extends PureComponent {
 
     constructor(props) {
         super(props);
-    }
 
-    render() {
         let searchHistory = localStorage.getItem('searchHistory');
         let searchHistoryArray = [];
 
         if (!_.isEmpty(searchHistory)) {
             searchHistoryArray = JSON.parse(searchHistory);
         }
+
+        this.state = {
+            searchHistoryArray: searchHistoryArray,
+        };
+    }
+
+    render() {
+        const {searchHistoryArray} = this.state;
 
         return (
             <Fragment>
@@ -43,10 +49,11 @@ export default class Search extends PureComponent {
                                     Toast.info('请输入搜索内容', 1);
                                     return;
                                 }
-                                history.push('./searchResults', {inpVal});
+                                let newSearchHistoryArray = _.clone(searchHistoryArray);
 
-                                searchHistoryArray.push(inpVal);
-                                localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArray));
+                                newSearchHistoryArray.push(inpVal);
+                                localStorage.setItem('searchHistory', JSON.stringify(newSearchHistoryArray));
+                                history.push('./searchResults', {inpVal});
                             }}>
                             确定
                         </div>
@@ -59,6 +66,7 @@ export default class Search extends PureComponent {
                             className="art-icon art-icon-cart-del"
                             onClick={() => {
                                 localStorage.clear();
+                                this.setState({searchHistoryArray: []});
                             }}/>
                     </div>
 

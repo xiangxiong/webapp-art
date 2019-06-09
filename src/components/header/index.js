@@ -40,7 +40,7 @@ class PublicHeader extends PureComponent{
     }
 
     render(){
-        const {bgColor,icon,rightContent,jump} = this.props;
+        const {bgColor,icon,rightContent,jump,isNoIcon} = this.props;
         const {title} = this.state;
 
         return (
@@ -48,13 +48,15 @@ class PublicHeader extends PureComponent{
                 <NavBar
                     style={{background:bgColor,color:'#FFFFFF'}}
                     mode="light"
-                    icon={<Icon type={icon}/>}
+                    icon={!isNoIcon?<Icon type={icon}/>:null}
                     onLeftClick={() => {
-                        if(jump === "User"){
-                            history.push('/home?tab='+jump);
-                        }
-                        else{
-                            history.go(-1)
+                        if(!isNoIcon){
+                            if(jump){
+                                history.push('/home?tab='+jump);
+                            }
+                            else{
+                                history.go(-1)
+                            }
                         }
                     }}
                     rightContent={
@@ -73,13 +75,15 @@ class PublicHeader extends PureComponent{
 PublicHeader.defaultProps ={
     bgColor:'#E87908',
     icon:'left',
-    share:''
+    share:'',
+    isNoIcon:false
 }
 
 PublicHeader.propTypes = {
     title:PropTypes.string,
     bgColor:PropTypes.string,
-    icon:PropTypes.string
+    icon:PropTypes.string,
+    isNoIcon:PropTypes.bool,
 }
 
 export default PublicHeader;
