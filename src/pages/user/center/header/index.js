@@ -14,14 +14,14 @@ const Header = (props) =>{
                          <div>{UserName}</div>
                          <div>{`账户余额: ${Money}`}</div>
                      </div>
-                    <div
-                        className="art-icon art-icon-user-arrow"
-                        onClick={() => {
-                            if(CustomerType==1){
+                    {CustomerType == 1 ? (
+                        <div
+                            className="art-icon art-icon-user-arrow"
+                            onClick={() => {
                                 history.push('./modifyInfo', {src, ProviderId, UserName})
-                            }
-                        }}>
-                    </div>
+                            }}>
+                        </div>
+                    ) : null}
                 </div>
 
                 <div className="art-user__action">
