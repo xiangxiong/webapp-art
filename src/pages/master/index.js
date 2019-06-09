@@ -11,15 +11,24 @@ import Column from '../common/column';
 import Artist from '../common/artist/index';
 import Title from './../common/title';
 import {getRecommendAuthorList} from './store/actionCreators';
+import history from './../../utils/history';
+
+
+
 
 class Master extends PureComponent {
+
+    handleJumpUrl(){
+        history.push('./category');
+    }
+
     render() {
         const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList=[], masterUserLikeProductsList = []} = this.props;
 
         return (
             <Fragment>
                 <div className="art-master">
-                    <SearchCategory/>
+                    <SearchCategory jumpUrl={this.handleJumpUrl.bind(this)}/>
                     <CarouselBanner data={masterCarouselAdList}/>
                     <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
                     <div className="art-master__hot">

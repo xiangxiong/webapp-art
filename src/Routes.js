@@ -46,13 +46,13 @@ const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
     loading: Loading,
     timeout: 1000
-})
+});
 
 const LoadMasterDetail = Loadable({
     loader: () => import("./pages/master/detail"),
     loading: Loading,
     timeout: 1000
-})
+});
 
 const LoadHome = Loadable({
     loader: () => import("./pages/home"),
@@ -238,7 +238,7 @@ export default [
     },
     {
         path: "/category",
-        component: LoadCategory,
+        component: Category,
         key: 'category'
     },
     {
@@ -307,13 +307,6 @@ export default [
         key: 'categroyListId'
     }
 ];
-
-
-
-
-
-
-
 
 
 
