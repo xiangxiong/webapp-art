@@ -8,6 +8,8 @@ import Space from '../common/space';
 import history from './../../utils/history';
 import  {pictureUrl} from '../../utils/common';
 import _ from 'lodash';
+import axios from 'axios';
+import {APIURL}   from './../../utils/api';
 
 const Item = List.Item;
 
@@ -20,6 +22,24 @@ class ReleaseMaster extends PureComponent {
         this.state = {
             files: files,
             TopicContent: TopicContent,
+            isOrder:0,
+            timeout: '',
+            partSize: '',
+            parallel: '',
+            retryCount: '',
+            retryDuration: '',
+            region: 'cn-shanghai',
+            userId: '1303984639806000',        
+            file: null,
+            stsProgress: 0,
+            uploadDisabled: true,
+            resumeDisabled: true,
+            pauseDisabled: true,
+            statusText: '选择视频',
+            videoId:0,
+            uploader: null,
+            categoryList:[],
+            selectVideo:'选择文件'
         }
     }
 
@@ -62,9 +82,8 @@ class ReleaseMaster extends PureComponent {
         params.TopicMainImg = '';
         params.CustomerId = CustomerId;
         params.TopicImgs = TopicImgs;
-
         params.VideoId = '';    //上传视频
-        params.IsHaveVideo = '';    //上传视频
+        params.IsHaveVideo =false;    //上传视频
 
         const {customerDetail} = this.props.location.state;
         params.Type = customerDetail.CustomerType;
@@ -72,6 +91,155 @@ class ReleaseMaster extends PureComponent {
 
         this.props.getPublishTopicInfo(params);
     };
+
+    createUploader () {
+        console.log('console');
+        var that = this;
+        var {timeout,partSize,parallel,retryCount,retryDuration,region,userId,file,stsProgress,uploadDisabled,resumeDisabled,pauseDisabled,statusText,uploader} = this.state;
+        // eslint-disable-next-line no-undef
+        var upload = new AliyunUpload.Vod({
+          timeout: timeout || 60000,
+          partSize: partSize || 1048576,
+          parallel: parallel || 5,
+          retryCount: retryCount || 3,
+          retryDuration: retryDuration|| 2,
+          region: region,
+          userId: userId,
+          addFileSuccess:function(uploadInfo){
+            uploadDisabled = false
+            resumeDisabled = false;
+            that.setState({
+              statusText:'添加文件成功, 等待上传...'
+            })
+            // statusText = '添加文件成功, 等待上传...'
+            console.log("addFileSuccess: " + uploadInfo.file.name)
+          },
+          onUploadstarted:function(uploadInfo){
+              let params = {
+                ParamList: [
+                    {
+                        servicekey:'Art.Service.Product.Dto.Request.Vod.VodUploadRequest',
+                        jsonobjparam: JSON.stringify({
+                          Title:uploadInfo.file.name,
+                          FileName:uploadInfo.file.name,
+                          FileSize:uploadInfo.file.size,
+                          IpAddress:'192.168.2.12'
+                        })
+                    }
+                ]
+            };
+            
+            axios({
+                method: 'post',
+                url: APIURL,
+                data: JSON.stringify(params),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+                timeout: 3000
+             }).then((response)=>{
+                let data = response.data.DataObject.Data;
+                console.log('response',data);
+                // console.log(upload);
+
+                that.setState({
+                  videoId:data.VideoId
+                });
+
+                upload.setUploadAuthAndAddress(uploadInfo, data.UploadAuth, data.UploadAddress,data.VideoId);
+             });
+              //  axios.get(stsUrl).then(({data})=>{
+              //   let info = data.SecurityTokenInfo
+              //   let accessKeyId = info.AccessKeyId
+              //   let accessKeySecret = info.AccessKeySecret
+              //   let secretToken = info.SecurityToken
+              //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+              // });
+              // that.props.getVideoActionFile({
+              //   Title:uploadInfo.file.name,
+              //   FileName:uploadInfo.file.name,
+              //   FileSize:uploadInfo.file.size,
+              //   IpAddress:'192.168.2.12'
+              // })
+              // uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+              // 如果是 STSToken 上传方式, 需要调用 uploader.setUploadAuthAndAddress 方法
+              // 用户需要自己获取 accessKeyId, accessKeySecret,secretToken
+              // 下面的 URL 只是测试接口, 用于获取 测试的 accessKeyId, accessKeySecret,secretToken
+              // let stsUrl = 'http://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0'
+              // axios.get(stsUrl).then(({data})=>{
+              //   let info = data.SecurityTokenInfo
+              //   let accessKeyId = info.AccessKeyId
+              //   let accessKeySecret = info.AccessKeySecret
+              //   let secretToken = info.SecurityToken
+              //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
+              // });
+              that.setState({
+                statusText:'文件开始上传...'
+              })
+              // statusText = '文件开始上传...'
+              console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
+          },
+          // 文件上传成功
+          onUploadSucceed: function (uploadInfo) {
+            console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
+            that.setState({
+              statusText:'文件上传成功...'
+            })
+            // statusText = '文件上传成功!'
+          },
+           // 文件上传失败
+          onUploadFailed: function (uploadInfo, code, message) {
+            console.log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message)
+            that.setState({
+              statusText:'文件上传失败...'
+            })
+            // statusText = '文件上传失败!'
+          },
+          // 取消文件上传
+          onUploadCanceled: function (uploadInfo, code, message) {
+            console.log("Canceled file: " + uploadInfo.file.name + ", code: " + code + ", message:" + message)
+            statusText = '文件已暂停上传'
+          },
+          // 文件上传进度，单位：字节, 可以在这个函数中拿到上传进度并显示在页面上
+          onUploadProgress: function (uploadInfo, totalSize, progress) {
+            console.log("onUploadProgress:file:" + uploadInfo.file.name + ", fileSize:" + totalSize + ", percent:" + Math.ceil(progress * 100) + "%")
+            let progressPercent = Math.ceil(progress * 100)
+            stsProgress = progressPercent
+            // statusText = '文件上传中...'
+            that.setState({
+              statusText:'上传中'+ Math.ceil(progress * 100)+ "%"
+            })
+          },
+           // 上传凭证超时
+           onUploadTokenExpired:function(uploadInfo){
+            that.setState({
+              statusText:'文件超时...'
+            })
+            // statusText = '文件超时...'
+          },
+          // 全部文件上传结束
+          onUploadEnd: function (uploadInfo) {
+            that.setState({
+              statusText:'上传成功'
+            })
+            console.log("onUploadEnd: uploaded all the files");
+            // statusText = '文件上传完毕'
+          }
+        });
+        return upload
+    
+    }
+
+    bindEvent(){
+        this.handleUploadVideo = this.handleUploadVideo.bind(this);
+        this.fileChange = this.fileChange.bind(this);
+        this.stsUpload = this.stsUpload.bind(this);
+    }
+     
+    handleUploadVideo(){
+       this.createUploader();
+    }
 
     handleChange = (files, type, index) => {
         this.setState({
@@ -99,7 +267,7 @@ class ReleaseMaster extends PureComponent {
     };
 
     render() {
-        const {TopicContent, files = []} = this.state;
+        const {TopicContent, files = [],statusText} = this.state;
         const {customerDetail} = this.props.location.state;
 
         let title = '';
@@ -134,10 +302,44 @@ class ReleaseMaster extends PureComponent {
                         onImageClick={(index, fs) => console.log(index, fs)}
                         selectable={files.length < 9}
                         multiple={true}/>
-
                     <Space/>
 
-                    <h4>上传视频</h4>
+                    <div className="art-user-work__uploadvideo">
+                       {
+                       statusText === "选择视频" ? "" :( statusText === "上传成功" ? (
+                            <Fragment>
+                                <div className="art-user-work__wrapper" >
+                                    <div className="art-icon art-icon-video-show">
+                                    <div style={{width:'50px',height:'50px',marginLeft:'150px',marginTop:'-290px'}} 
+                                    className="art-icon art-icon-video-close" onClick={()=>{
+                                        this.setState({
+                                            statusText:"选择视频"
+                                        })
+                                    }}>
+                                    </div>
+                                    </div>
+                                </div>
+                            </Fragment>
+                          ):(
+                            <div className="art-user-work__wrapper">{statusText}</div>
+                          )
+                       )
+                      }
+                      {
+                        statusText==="选择视频" ? 
+                        <div className="art-user-work__uploadfile-mask">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div> : <div className="art-user-work__uploadfile-mask-success">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div>
+                      }
+                      {
+                        statusText==="选择视频" ?  <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
+                        : ""
+                      }
+                </div>
+                
+                <div className="art-user-work__upload-text">上传视频</div>
 
                     <Item
                         arrow="horizontal"

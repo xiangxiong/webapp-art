@@ -13,7 +13,7 @@ class SearchCategory extends PureComponent{
         return (
             <div className="art-shop__search">
                 <div>
-                    <input type="text" placeholder="大家多在搜紫砂壶22" className="art-shop__input" readonly = "readonly" onClick={()=>{
+                    <input type="text" placeholder="大家多在搜紫砂壶" className="art-shop__input" readonly = "readonly" onClick={()=>{
                         history.push('./search');
                     }}/>
                 </div>

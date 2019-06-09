@@ -45,7 +45,7 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
                     return (
                         // todo:ProductId 传递不过去.
                         <div onClick={()=>{ history.push('/detail',{ProductId:1})}} className="art-master__productlist-item" key={index}>
-                            <img src="http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-02/art_1ebd26c7-b6bb-4304-b71e-d13492a110c0.jpg"/>
+                            <img src={PRODIMGURL+item.ImgPath}/>
                             <h3>{item.ProductName}</h3>
                             <p>
                                 {item.SalePrice} <i>￥  {item.MarketPrice}</i>
@@ -57,11 +57,13 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
            return "";
        }
      
+
+       // ImgPath
        function loadOrderProduct(){
             if(orderProductList.length>0){
                 return orderProductList.map((item,index)=>{
                     return (<div onClick={(item)=>{ history.push('/detail',{ProductId:item.ProductId})}} className="art-master__productlist-item" key={index}>
-                        <img src="http://res.laoliwuyou.com/pic/public/upload/paimai/2019-05-02/art_1ebd26c7-b6bb-4304-b71e-d13492a110c0.jpg"/>
+                        <img src={PRODIMGURL+item.ImgPath}/>
                         <h3>{item.ProductName}</h3>
                         <p>
                             {item.SalePrice} <i>￥  {item.MarketPrice}</i>

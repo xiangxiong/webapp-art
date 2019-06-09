@@ -214,5 +214,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(defaultAddress(addressObj))
     }
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(SubmitOrder);

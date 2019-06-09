@@ -16,7 +16,7 @@ const tabs = [
 ];
 
 const loadMoreData = () =>{
-       
+    
 }
 
 const jumpUrl = () => {
@@ -65,7 +65,7 @@ const Community = ({dispatchCommunityList,list}) => {
             <PublicHeader title="社区"/>
 
             <Tabs tabs={tabs} initalPage={'t2'}>
-                    <div style={{ display: 'flex', justifyContent: 'center', height: '3000px',backgroundColor: '#fff' }}>
+                    <div style={{ height: '3000px',backgroundColor: '#fff' }}>
 
                             <div className="art-community__productlist">
                                 {

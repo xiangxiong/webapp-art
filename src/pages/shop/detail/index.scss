@@ -104,7 +104,7 @@
 
         &-jump{
             width: 52px;
-            height:22px;
+            height:12px;
             border:1px solid rgba(229,137,48,1);
             margin: 0 auto;
             border-radius: 10px;
@@ -148,9 +148,11 @@
             width: 70%;
         }
         &>:nth-child(3){
-            width: 30%;
-            height: 46px;
-            margin-top: 12px;
+            width: 80px;
+            height: 26px;
+            line-height: 26px;
+            margin-top: 10px;
+            margin-right: 10px;
         }
     }
 

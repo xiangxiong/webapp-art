@@ -90,20 +90,21 @@ class Detail extends PureComponent {
                                 {`作品：${ProductCount}件 月销：${MonthSalesCount}件 粉丝：${FansCount}个`}
                                 </span>
                         </div>
-                        <div
-                            onClick={() => {
+                            <div className="art-product__homepage-jump"  onClick={() => {
                                 if (CooperationWay == '1') {
-                                    //艺术家详情
-                                    history.push('./masterDetail/' + ProviderId);
+                                    //艺术家详情 
+                                    history.push('./shopHomepage/',{
+                                            ProviderId:ProviderId
+                                    });
                                 } else if (CooperationWay == '2') {
                                     //商户详情
-                                    history.push('./shopHomepage', {ProviderId});
+                                    history.push('./shopHomepage', {
+                                            ProviderId:ProviderId
+                                    });
                                 }
-                            }}>
-                            <div className="art-product__homepage-jump">去逛逛</div>
-                        </div>
+                            }}>去逛逛</div>
                     </div>
-
+                    
                     <div className="art-product-shop__space"></div>
 
                     <div className="art-product-shop__homepage">
