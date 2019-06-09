@@ -41,6 +41,7 @@ import SearchResults from './pages/search/results/index';
 import ModifyInfo from './pages/user/modifyInfo/index';
 import ShopCategroy from './pages/category/shop';
 import CategroyList from './pages/category/list';
+import Agreement from './pages/agreement/index';
 
 const LoadCategory = Loadable({
     loader: () => import("./pages/category"),
@@ -305,7 +306,12 @@ export default [
         path: "/categroyProducts/:id",
         component: CategroyList,
         key: 'categroyListId'
-    }
+    },
+    {
+        path: "/agreement",
+        component: Agreement,
+        key: 'agreement'
+    },
 ];
 
 

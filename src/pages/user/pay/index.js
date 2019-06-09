@@ -81,7 +81,12 @@ class Pay extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getDict({listKey: 'ProviderDepositLevel'});
+        const {type} = this.props.location.state;
+        if (type === "art") {
+            this.props.getDict({listKey: 'ProviderDepositAuthorLevel'});
+        } else {
+            this.props.getDict({listKey: 'ProviderDepositLevel'});
+        }
     }
 }
 

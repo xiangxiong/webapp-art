@@ -60,7 +60,7 @@ const customerNavItems = [
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
-        routeUrl: ''
+        routeUrl: '/agreement'
     },
     {
         title: '收货地址',
@@ -98,7 +98,7 @@ const normalNavItems = [
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
-        routeUrl: ''
+        routeUrl: '/agreement'
     },
     {
         title: '收货地址',
@@ -144,9 +144,12 @@ class User extends PureComponent{
     }
 
     handleNavUrl(url) {
-        if(url==='/orderList'){
-            history.push(url, {index:0,type:'sell'});
-        }else{
+        let CustomerType = this.props.customerDetail.CustomerType;
+        if (url === '/orderList') {
+            history.push(url, {index: 0, type: 'sell'});
+        } else if (url === '/agreement') {
+            history.push(url, {CustomerType});
+        } else {
             history.push(url, {customerDetail: this.props.customerDetail});
         }
     }
