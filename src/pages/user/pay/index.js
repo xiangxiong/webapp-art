@@ -23,8 +23,7 @@ class Pay extends PureComponent {
                 <div>
                     {`￥${userDict.Value}`}
                 </div>
-                <div>
-                    {userDict.Detail}
+                <div dangerouslySetInnerHTML={{__html: userDict.Detail}}>
                 </div>
                 <div>
                     <AgreeItem
