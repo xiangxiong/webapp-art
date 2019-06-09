@@ -15,7 +15,8 @@ export default class Agreement extends PureComponent {
         history.push('./htmlViewer', {htmlFilePath, title});
     };
 
-    render() {
+
+    showTop = () => {
         const {CustomerType = ''} = this.props.location.state || {};
 
         let enterText = '';
@@ -28,17 +29,31 @@ export default class Agreement extends PureComponent {
         }
 
         return (
+            <Item
+                arrow="horizontal"
+                onClick={() => {
+                    if (CustomerType == 1) {
+                        //艺术家
+                        this.onJump('./commonProblem/艺术大家艺术家入驻合作协议.html', enterText);
+                    } else if (CustomerType == 2) {
+                        // 商家
+                        this.onJump('./commonProblem/艺术大家艺商城入驻合作协议.html', enterText);
+                    }
+                }}>
+                {enterText}
+            </Item>
+        )
+    };
+
+
+    render() {
+
+        return (
             <Fragment>
                 <PublicHeader jump="User" title="协议规则"/>
 
                 <List>
-                    <Item
-                        arrow="horizontal"
-                        onClick={() => {
-                            this.onJump('', enterText);
-                        }}>
-                        {enterText}
-                    </Item>
+                    {this.showTop()}
 
                     <Item>
                         常见问题
@@ -47,7 +62,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '用户使用协议');
+                            this.onJump('./commonProblem/艺术大家用户使用协议.html', '用户使用协议');
                         }}>
                         用户使用协议
                     </Item>
@@ -59,7 +74,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '签收注意事项');
+                            this.onJump('./commonProblem/签收注意事项.html', '签收注意事项');
                         }}>
                         签收注意事项
                     </Item>
@@ -67,7 +82,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '商品出现损坏');
+                            this.onJump('./commonProblem/商品出现损坏.html', '商品出现损坏');
                         }}>
                         商品出现损坏
                     </Item>
@@ -75,7 +90,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '收到的作品有瑕疵或损坏，能否办理退换货？');
+                            this.onJump('./commonProblem/收到的作品有瑕疵或损坏.html', '收到的作品有瑕疵或损坏，能否办理退换货？');
                         }}>
                         收到的作品有瑕疵或损坏，能否办理退换货？
                     </Item>
@@ -83,7 +98,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '收到货后是否需要确认收货？');
+                            this.onJump('./commonProblem/收到货后是否需要确认收货.html', '收到货后是否需要确认收货？');
                         }}>
                         收到货后是否需要确认收货？
                     </Item>
@@ -91,7 +106,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '售后退换货时效？');
+                            this.onJump('./commonProblem/售后退换货时效.html', '售后退换货时效？');
                         }}>
                         售后退换货时效？
                     </Item>
@@ -99,7 +114,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '退换货处理标准');
+                            this.onJump('./commonProblem/退换货处理标准.html', '退换货处理标准');
                         }}>
                         退换货处理标准
                     </Item>
@@ -107,7 +122,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '退换货邮费问题');
+                            this.onJump('./commonProblem/退换货邮费问题.html', '退换货邮费问题');
                         }}>
                         退换货邮费问题
                     </Item>
@@ -119,7 +134,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '买家下单流程');
+                            this.onJump('./commonProblem/买家下单流程.html', '买家下单流程');
                         }}>
                         买家下单流程
                     </Item>
@@ -127,7 +142,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '如何查看物流信息？');
+                            this.onJump('./commonProblem/如何查看物流信息.html', '如何查看物流信息？');
                         }}>
                         如何查看物流信息？
                     </Item>
@@ -135,7 +150,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '商品寄回给卖家了，如何退款？');
+                            this.onJump('./commonProblem/商品寄回给卖家了.html', '商品寄回给卖家了，如何退款？');
                         }}>
                         商品寄回给卖家了，如何退款？
                     </Item>
@@ -143,7 +158,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '收到的货品货不对板怎么办？');
+                            this.onJump('./commonProblem/收到的货品货不对板怎么办.html', '收到的货品货不对板怎么办？');
                         }}>
                         收到的货品货不对板怎么办？
                     </Item>
@@ -151,7 +166,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '下单后什么时候发货呢？');
+                            this.onJump('./commonProblem/下单后什么时候发货呢.html', '下单后什么时候发货呢？');
                         }}>
                         下单后什么时候发货呢？
                     </Item>
@@ -163,7 +178,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '担保期是多久？延长担保期是多久？');
+                            this.onJump('./commonProblem/担保期是多久延长担保期是多久.html', '担保期是多久？延长担保期是多久？');
                         }}>
                         担保期是多久？延长担保期是多久？
                     </Item>
@@ -171,7 +186,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '买家收到货品后不点击“确认收货”怎么办？');
+                            this.onJump('./commonProblem/买家收到货品后不点击确认收货怎么办.html', '买家收到货品后不点击“确认收货”怎么办？');
                         }}>
                         买家收到货品后不点击“确认收货”怎么办？
                     </Item>
@@ -179,7 +194,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '卖家违规管理办法');
+                            this.onJump('./commonProblem/卖家违规管理办法.html', '卖家违规管理办法');
                         }}>
                         卖家违规管理办法
                     </Item>
@@ -187,7 +202,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '如何查看订单数量？');
+                            this.onJump('./commonProblem/如何查看订单数量.html', '如何查看订单数量？');
                         }}>
                         如何查看订单数量？
                     </Item>
@@ -195,7 +210,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '如何联系买家提供物流信息？');
+                            this.onJump('./commonProblem/如何联系买家提供物流信息.html', '如何联系买家提供物流信息？');
                         }}>
                         如何联系买家提供物流信息？
                     </Item>
@@ -203,7 +218,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '如何入驻？');
+                            this.onJump('./commonProblem/如何入驻.html', '如何入驻？');
                         }}>
                         如何入驻？
                     </Item>
@@ -211,7 +226,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '如何提现？');
+                            this.onJump('./commonProblem/如何提现.html', '如何提现？');
                         }}>
                         如何提现？
                     </Item>
@@ -219,7 +234,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '什么是诚信契约保障金？');
+                            this.onJump('./commonProblem/什么是诚信契约保障金.html', '什么是诚信契约保障金？');
                         }}>
                         什么是诚信契约保障金？
                     </Item>
@@ -227,7 +242,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '什么是担保支付？');
+                            this.onJump('./commonProblem/.html', '什么是担保支付？');
                         }}>
                         什么是担保支付？
                     </Item>
@@ -235,7 +250,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '收到用户退货商品，如何为其退款？');
+                            this.onJump('./commonProblem/收到用户退货商品.html', '收到用户退货商品，如何为其退款？');
                         }}>
                         收到用户退货商品，如何为其退款？
                     </Item>
@@ -243,7 +258,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '提现次数和金额有无限制？');
+                            this.onJump('./commonProblem/提现次数和金额有无限制.html', '提现次数和金额有无限制？');
                         }}>
                         提现次数和金额有无限制？
                     </Item>
@@ -251,7 +266,7 @@ export default class Agreement extends PureComponent {
                     <Item
                         arrow="horizontal"
                         onClick={() => {
-                            this.onJump('', '用户付完款 卖家如何拿到这笔货款？');
+                            this.onJump('./commonProblem/用户付完款卖家如何拿到这笔货款.html', '用户付完款 卖家如何拿到这笔货款？');
                         }}>
                         用户付完款 卖家如何拿到这笔货款？
                     </Item>
