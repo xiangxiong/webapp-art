@@ -67,7 +67,7 @@ const Category = React.memo(
 
 const mapStateToProps = (state) =>{
   return {
-    
+
   }
 }
 

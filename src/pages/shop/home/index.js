@@ -21,7 +21,7 @@ class ShopHomePage extends PureComponent {
 
         return items;
     }
-
+    
     render() {
         const {ImageName, ProviderName, FansCount, CategoryName, ProductCount, WeekProductCount, TopicCount} = this.props.shopProviderInfo;
 
@@ -79,6 +79,7 @@ class ShopHomePage extends PureComponent {
 
     componentDidMount() {
         const {ProviderId = ''} = this.props.location.state;
+        console.log('location',this.props.location);
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
         this.props.getProviderInfo({CustomerId, ProviderId});

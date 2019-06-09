@@ -58,14 +58,15 @@ export const getDefaultAddress = (params) => {
 export const getCreateOrder = (params) => {
     return (dispatch) => {
         return post(CreateOrder, params)
-            .then((response) => {
-                if (response.Data && response.Data.Status == 200) {
-                    let {OrderAmount, SONumber} = response.Data;
-                    history.push('./payorder', {OrderAmount, SONumber});
-                } else {
-                    Toast.info(response.Message);
-                }
-            });
+        .then((response) => {
+            if (response.Data && response.Data.Status == 200) {
+                let {OrderAmount, SONumber} = response.Data;
+                history.push('./payorder', {OrderAmount, SONumber});
+                Toast.info(response.Data.ResponseMessage);
+            } else {
+                Toast.info(response.Data.ResponseMessage);
+            }
+        });
     }
 };
 
