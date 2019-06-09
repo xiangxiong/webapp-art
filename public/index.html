@@ -60,3 +60,29 @@
      <div id="root"></div>
   </body>
 </html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+function autoPlay() {
+            wx.config({
+                // 配置信息, 即使不正确也能使用 wx.ready
+                debug: false,
+                appId: 'wxd78e408c5668f65f',
+                timestamp: 1560101735,
+                nonceStr: '4B0A59DDF11C58E7446C9DF0DA541A84',
+                signature: 'd18048ca20ee6a7acebb10984dd5f4301d2ebba9',
+                jsApiList: [
+                "onMenuShareTimeline",
+                    "onMenuShareAppMessage"
+                ]
+            });
+            wx.ready(function() {
+                if(player)//创建的Aliplayer对象
+                {
+                    alert('创建的Aliplayer对象')
+                  player.play();
+                }
+            });
+    };
+    // 解决ios不自动播放的问题
+    autoPlay();
+</script>

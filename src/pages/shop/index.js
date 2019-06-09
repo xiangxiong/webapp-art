@@ -15,8 +15,8 @@ import Title from './../common/title';
 import history from './../../utils/history';
 
 const cloumnData = [
-    {title:'「 大师云集 」', name:'上千件好物等你来选', url:'./community'},
-    {title:'「 大师印象 」', name:'邀请好友一起拼团', url:'./group'}
+    {title:'「 实拍实测 」', name:'商家好物实拍实测', url:'./community'},
+    {title:'「 超值团购 」', name:'邀请好友一起拼团', url:'./group'}
 ];
 
 class Shop extends PureComponent {
