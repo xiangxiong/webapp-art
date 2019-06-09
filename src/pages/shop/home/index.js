@@ -44,19 +44,17 @@ class ShopHomePage extends PureComponent {
                                 <p className="art-shop-home__header-top-category">{`主营品类：${CategoryName}`}</p>
                             </div>
                             <div onClick={() => {
-                                if (IsCollect == 0) {
-                                    const {ProviderId = ''} = this.props.location.state;
-                                    let storage = Storage.Base.getInstance();
-                                    let CustomerId = storage.get('userInfo').CustomerId;
-                                    let Token = storage.get('userInfo').Token;
-                                    this.props.getCollectin({
-                                        CustomerId,
-                                        Token,
-                                        CollectType: 4,
-                                        ObjId: ProviderCustomerId,
-                                        ProviderId
-                                    });
-                                }
+                                const {ProviderId = ''} = this.props.location.state;
+                                let storage = Storage.Base.getInstance();
+                                let CustomerId = storage.get('userInfo').CustomerId;
+                                let Token = storage.get('userInfo').Token;
+                                this.props.getCollectin({
+                                    CustomerId,
+                                    Token,
+                                    CollectType: 4,
+                                    ObjId: ProviderCustomerId,
+                                    ProviderId
+                                });
                             }}>
                                 <span className="art-shop-home__header-like">{IsCollect == 0 ? '+关注' : '已关注'}</span>
                             </div>
