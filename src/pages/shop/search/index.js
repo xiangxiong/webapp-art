@@ -9,11 +9,11 @@ class SearchCategory extends PureComponent{
     }
 
     render() {
-        console.log('this.props',this.props);
+
         return (
             <div className="art-shop__search">
                 <div>
-                    <input type="text" placeholder="大家多在搜紫砂壶" className="art-shop__input" readonly = "readonly" onClick={()=>{
+                    <input type="text" placeholder="大家多在搜紫砂壶" className="art-shop__input" onClick={()=>{
                         history.push('./search');
                     }}/>
                 </div>
@@ -26,6 +26,5 @@ class SearchCategory extends PureComponent{
         )
     }
 }
-
 
 export default SearchCategory;
