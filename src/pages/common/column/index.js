@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import './index.scss';
-import {PICTUREURL} from '../../../utils/api';
+import {PRODUCTURL} from '../../../utils/api';
 import PropTypes from 'prop-types';
 import history from './../../../utils/history';
 
@@ -21,7 +21,7 @@ const Column = (props) => {
                                     history.push(cloumnData[0].url);
                                 }}}
                                 style={{
-                                    background:`url(${PICTUREURL + leftImgUrl})`,
+                                    background:`url(${PRODUCTURL + leftImgUrl})`,
                                     marginRight: "3px",
                                     backgroundSize: "100%"
                                 }}>
@@ -33,7 +33,7 @@ const Column = (props) => {
                                     history.push(cloumnData[1].url);
                                  }}}
                                 style={{
-                                    background:`url(${PICTUREURL + rightImgUrl}) 100%`,
+                                    background:`url(${PRODUCTURL + rightImgUrl}) 100%`,
                                     marginLeft: "3px",
                                     backgroundSize: "100%"
                                 }}>

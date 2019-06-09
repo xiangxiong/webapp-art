@@ -62,10 +62,9 @@ const Community = ({dispatchCommunityList,list}) => {
     return (
         <Fragment>
             <PublicHeader title="社区"/>
-
+            
             <Tabs tabs={tabs} initalPage={'t2'}>
                     <div style={{ height: '3000px',backgroundColor: '#fff' }}>
-
                             <div className="art-community__productlist">
                                 {
                                         count && count.map((item,index)=>{
@@ -83,14 +82,12 @@ const Community = ({dispatchCommunityList,list}) => {
                                         })
                                 }
                             </div>
-                            
                     </div>
                     <div style={{height: '3000px',backgroundColor: '#fff' }}>
                             <div className="art-community__productlist">
                                 {slide}
                             </div>
                     </div>
-                    
             </Tabs>
         </Fragment>
     )

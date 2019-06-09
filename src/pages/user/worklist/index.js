@@ -75,7 +75,7 @@ class WorkList extends PureComponent{
             Toast.info('该商品已下架');
         }
         else{
-            Toast.info("下架失败");
+            Toast.info('该商品已下架');
         }
     }
 
@@ -85,10 +85,10 @@ class WorkList extends PureComponent{
             return (
                 <div className="art-worklist__item" key={index} onClick={()=>{
                     if (state && state.type === 'releaseMaster') {
-                        this.props.setWork(item);
-                        history.goBack();
-                    }
-                }}>
+                            this.props.setWork(item);
+                            history.goBack();
+                        }
+                    }}>
                     <div className="art-worklist__item-img">
                         <div style={{background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`}}>
                         </div>

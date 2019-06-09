@@ -15,8 +15,8 @@ import Title from './../common/title';
 import history from './../../utils/history';
 
 const cloumnData = [
-    {title:'「 实拍实测 」', name:'上千件好物等你来拍', url:'./community'},
-    {title:'「 超值团购 」', name:'邀请好友一起拼团', url:'./group'}
+    {title:'「 大师云集 」', name:'上千件好物等你来选', url:'./community'},
+    {title:'「 大师印象 」', name:'邀请好友一起拼团', url:'./group'}
 ];
 
 class Shop extends PureComponent {
@@ -38,7 +38,7 @@ class Shop extends PureComponent {
                     <Letters data={shopNewsPagerList}/>
                     <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
-                    <Column cloumnData={cloumnData} leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                    <Column cloumnData={cloumnData} leftImgUrl={'/icon/30.png'} rightImgUrl={'/icon/31.png'}/>
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">

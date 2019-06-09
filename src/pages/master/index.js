@@ -13,8 +13,10 @@ import Title from './../common/title';
 import {getRecommendAuthorList} from './store/actionCreators';
 import history from './../../utils/history';
 
-
-
+const cloumnData = [
+    {title:'「 大师云集 」', name:'上千件好物等你来选', url:'./community'},
+    {title:'「 大师印象 」', name:'邀请好友一起拼团', url:'./group'}
+];
 
 class Master extends PureComponent {
 
@@ -30,7 +32,7 @@ class Master extends PureComponent {
                 <div className="art-master">
                     <SearchCategory jumpUrl={this.handleJumpUrl.bind(this)}/>
                     <CarouselBanner data={masterCarouselAdList}/>
-                    <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                    <Column  cloumnData={cloumnData}  leftImgUrl={'/icon/30.png'} rightImgUrl={'/icon/31.png'}/>
                     <div className="art-master__hot">
                         <Title title="大师推荐" more="更多"/>
                         <div className="art-master__hot-content">
@@ -63,7 +65,6 @@ class Master extends PureComponent {
         this.props.getMasterAdvertList(31);
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-
         this.props.getRecommendAuthorList(CustomerId);
         this.props.getRecommendAuthorList(CustomerId, 1);
     }

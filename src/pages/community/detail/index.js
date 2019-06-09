@@ -137,8 +137,10 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                      }
                  </div>
                  {
-                     isHaveVideo >0 ? <div class="prism-player" style={{height:'800px'}} id="player-con"></div>
-                     : <CarouselBanner imgHeight="3rem" data={carouselData}/> 
+                     isHaveVideo >0 ? <div class="prism-player" style={{height:'800px'}} id="player-con"></div> : "" 
+                 }
+                 {
+                     carouselData.length > 0 ? <CarouselBanner imgHeight="3rem" data={carouselData}/> : ""
                  }
                  <div className={ isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop'}>
                      <img src={productImg}/>

@@ -24,7 +24,7 @@ for(let i=0;i<10;i++){
 var pushList=[];
 
 const cloumnData = [
-    {title:'「 大师云集 」', name: '上千件好物等你来选',url:'./category'},
+    {title:'「 好货推荐 」', name: '上千件好物等你来选',url:'./category'},
     {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
 ];
 
@@ -150,7 +150,7 @@ class Main extends PureComponent{
                         <Letters data={newsPagerList}/>
                         <Advert commonAdList={commonAdList}/>
                         <Space/>
-                        <Column cloumnData={cloumnData}  leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                        <Column cloumnData={cloumnData}  leftImgUrl={'/icon/9.png'} rightImgUrl={'/icon/9.png'}/>
                         <div className="art-main__recommend">
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">
@@ -194,15 +194,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//     getAdvertList: (type) => {
-//         dispatch(getAdvertList(type))
-//     },
-//     getNewsPagerList: () => {
-//         dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
-//     },
-//     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
