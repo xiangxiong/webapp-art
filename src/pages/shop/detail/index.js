@@ -118,7 +118,7 @@ class Detail extends PureComponent {
                 <div className="art-product-shop">
                     <PublicHeader title="商品详情" bgColor="#E87908"/>
                     {
-                        isShowVideo ? isHaveVideo>0 ? <div class="prism-player" style={{height:'940px'}} id="player-detail"></div> : 
+                        isShowVideo ? isHaveVideo>0 ? <div class="prism-player" style={{height:'943px'}} id="player-detail"></div> : 
 <CarouselBanner imgHeight="3.14rem" data={carouselData}/> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
                     }
                     
