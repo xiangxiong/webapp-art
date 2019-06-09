@@ -6,7 +6,7 @@ import {Tabs} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {dispatchMasterDetail,dispatchMasterGetProduct} from '../store/actionCreators';
 import { PRODIMGURL} from './../../../utils/api';
-import history from './../../../utils/history';
+import {Link} from 'react-router-dom';
 
 const tabs = [
     { title: '成品专区' },
@@ -44,8 +44,13 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
                 return productList.map((item,index)=>{
                     return (
                         // todo:ProductId 传递不过去.
-                        <div onClick={()=>{ history.push('/detail',{ProductId:1})}} className="art-master__productlist-item" key={index}>
+                        <div className="art-master__productlist-item" key={index}>
+                            <Link  to={{
+                                pathname: "/detail",
+                                state: { ProductId: item.ProductId}
+                            }}>
                             <img src={PRODIMGURL+item.ImgPath}/>
+                            </Link>
                             <h3>{item.ProductName}</h3>
                             <p>
                                 {item.SalePrice} <i>￥  {item.MarketPrice}</i>
@@ -62,8 +67,13 @@ const MasterDetail = ({match,dispatchMasterDetail,dispatchMasterGetProduct}) =>
        function loadOrderProduct(){
             if(orderProductList.length>0){
                 return orderProductList.map((item,index)=>{
-                    return (<div onClick={(item)=>{ history.push('/detail',{ProductId:item.ProductId})}} className="art-master__productlist-item" key={index}>
+                    return (<div className="art-master__productlist-item" key={index}>
+                        <Link  to={{
+                            pathname: "/detail",
+                            state: { ProductId: item.ProductId}
+                        }}>
                         <img src={PRODIMGURL+item.ImgPath}/>
+                        </Link>
                         <h3>{item.ProductName}</h3>
                         <p>
                             {item.SalePrice} <i>￥  {item.MarketPrice}</i>
