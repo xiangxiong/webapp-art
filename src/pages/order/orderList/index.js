@@ -129,6 +129,7 @@ class OrderList extends PureComponent {
                     );
                 }
 
+                break;
             case 20:
                 if (type === 'sell') {
                     return (
@@ -142,6 +143,7 @@ class OrderList extends PureComponent {
                         </div>
                     );
                 }
+                break;
             // case 100:
             //     return (
             //         <div className="art-list__bussinss-operation">
@@ -174,6 +176,7 @@ class OrderList extends PureComponent {
                         </div>
                     )
                 }
+                break;
         }
     };
 
