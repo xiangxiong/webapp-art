@@ -92,7 +92,6 @@ class Main extends PureComponent{
         });
         return items;
     }
-
     componentWillMount(){
         NEWDATAINDEX = 1;
     }

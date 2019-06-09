@@ -42,7 +42,6 @@ class Home extends PureComponent{
         };
         
         eventProxy.on("targetHome",(object)=>{
-          console.log('objecteeee',object);
            this.setState({
               selectedTab:"yellowTab"
            });
@@ -143,7 +142,6 @@ class Home extends PureComponent{
           )
       }
       if(pageText==="CART"){
-      
           return (
               <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
                   {

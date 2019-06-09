@@ -12,6 +12,7 @@ import Space from '../common/space';
 import Column from '../common/column';
 import Product from './../common/product';
 import Title from './../common/title';
+import history from './../../utils/history';
 
 const cloumnData = [
     {title:'「 实拍实测 」', name:'上千件好物等你来拍', url:'./community'},
@@ -19,14 +20,20 @@ const cloumnData = [
 ];
 
 class Shop extends PureComponent {
+
+    handleJumpUrl(){
+        history.push('./shopCategroy');
+    }
+
     render() {
+      
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
 
         return (
             <Fragment>
                 <div className="art-shop">
                     {/* <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/> */}
-                    <SearchCategory/>
+                    <SearchCategory jumpUrl={this.handleJumpUrl.bind(this)}/>
                     <CarouselBanner data={shopCarouselAdList}/>
                     <Letters data={shopNewsPagerList}/>
                     <Advert commonAdList={shopCommonAdList}/>

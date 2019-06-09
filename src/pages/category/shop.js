@@ -56,8 +56,8 @@ const mapStateToProps = ()=>({
 
 });
 
-const mapDispatchToProps = (dispatch)=>({
+const mapDispatchToProps = (dispatch)=> ({
     dispatchShopCategoryList:(data)=>dispatch(serviceKey.dispatchShopCategoryList(data))
-})
+});
 
 export default connect(mapStateToProps,mapDispatchToProps)(React.memo(ShopCategroy));
