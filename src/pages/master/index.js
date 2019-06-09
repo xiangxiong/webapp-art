@@ -14,8 +14,8 @@ import {getRecommendAuthorList} from './store/actionCreators';
 import history from './../../utils/history';
 
 const cloumnData = [
-    {title:'「 大师云集 」', name:'上千件好物等你来选', url:'./community'},
-    {title:'「 大师印象 」', name:'邀请好友一起拼团', url:'./group'}
+    {title:'「 大师云集 」', name:'云集各类大师', url:'./category'},
+    {title:'「 大师印象 」', name:'看大师制作手法', url:'./community'}
 ];
 
 class Master extends PureComponent {
