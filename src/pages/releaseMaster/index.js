@@ -71,7 +71,6 @@ class ReleaseMaster extends PureComponent {
             topicImg.ImageType = 2;
             TopicImgs.push(topicImg);
         }
-        
         params.TopicId = '0';
         params.TopicContent = TopicContent;
         params.TopicMainImgData = encodeURIComponent(files[0].url.split(',')[1]);
