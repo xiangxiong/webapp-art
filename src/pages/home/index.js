@@ -162,7 +162,6 @@ class Home extends PureComponent{
     };
     let userLikes = await this.props.getUserLikeList(data);
     eventProxy.trigger('recomandItem',userLikes.Data);
-    console.log('userLikes',userLikes.Data.DataList);
   }
 
   init(){
@@ -171,27 +170,25 @@ class Home extends PureComponent{
 
   componentDidMount(){
      this.initLikeList();
-
-     let selectedTab = "blueTab";
-
+     console.log('getUrlParam()',getUrlParam('tab'));
      if(getUrlParam('tab') === "User"){
-        selectedTab = 'yellowTab';
+        this.setState({
+          selectedTab:'yellowTab'
+       });
      }
      if(getUrlParam('tab') === "Cart"){
-        selectedTab = 'greenTab';
+      this.setState({
+        selectedTab:'greenTab'
+      });
      }
      else if(getUrlParam('tab') === "Shop"){
-        selectedTab = 'redTab'
+      this.setState({
+        selectedTab:'redTab'
+      });
      }
-     else{
-        selectedTab = 'blueTab'
-        // selectedTab = 'greenTab'
-     }
-
-     this.setState({
-        selectedTab:selectedTab
-     });
      
+     console.log('User yellowTab');
+
      eventProxy.on('selectedTab',(item)=>{
         this.setState({
           selectedTab:item
@@ -298,7 +295,6 @@ class Home extends PureComponent{
 }
 
 const mapStateToProps = (state) => {
-  console.log('state',state);
   return {
      authInfo:state.home.authInfo,
      userLikeProducts: state.home.userLikeProducts,
@@ -317,7 +313,6 @@ const mapDispatchToProps = dispatch => {
       return  dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     },
     getUserLikeList: (data) => {
-      console.log('getUserLikeList data',data);
       return  dispatch(getUserLikeList(data))
     }
  }
