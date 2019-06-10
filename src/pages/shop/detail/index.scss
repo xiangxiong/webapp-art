@@ -5,19 +5,37 @@
 
 
     &__autovideo{
-        height: 40px;
+        height: 30px;
         width: 100%;
-        z-index: 1000;
+        z-index: 9999;
+        color: #FFFFFF;
         position: absolute;
         text-align: center;
-        line-height: 40px;
-        top: 300px;
-        color: #FFFFFF;
-    }
+        top: 320px;
 
+        &>span:nth-child(1){
+            display: inline-block;
+            border-radius: 5px;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-right: 10px;
+            border:1px solid #FFFFFF;
+        }
+        &>span:nth-child(2){
+            display: inline-block;
+            border-radius: 5px;
+            border:1px solid #FFFFFF;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-left: 10px;
+        }
+    }
     &__detail{
         margin-top: 1.4rem;
-
         &>h4{
             font-size:20px;
             font-family:MicrosoftYaHei-Bold;

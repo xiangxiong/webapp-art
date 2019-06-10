@@ -19,14 +19,13 @@ const cloumnData = [
     {title:'「 超值团购 」', name:'邀请好友一起拼团', url:'./group'}
 ];
 
-class Shop extends PureComponent {
+class Shop extends PureComponent{
 
     handleJumpUrl(){
         history.push('./shopCategroy');
     }
 
-    render() {
-      
+    render(){
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
 
         return (

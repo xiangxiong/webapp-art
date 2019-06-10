@@ -12,8 +12,8 @@ import _ from 'lodash';
 import {getUrlParam} from './../../../utils/common';
 
 var carouselData = [
-   
-]
+
+];
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     dispatchCommunityComment,dispatchCommunityCollectIn,dispatchVideoPalyer,location}) =>{
@@ -24,6 +24,8 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     const [playAuth,setPlayAuth] = useState();
     const [isHaveVideo,setIsHaveVideo] = useState();
     const [isShowVideo,setIsShowVideo] = useState(1);
+    const [isSelectedVideo,setIsSelectedVideo] = useState(true);
+    const [isSelectedImg,setIsSelectedImg] = useState(false);
 
     async function getCommunityDeteilApi(){
         var params ={
@@ -83,7 +85,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                 VedioId:videoId
             });
              // eslint-disable-next-line no-undef
-                var player = new Aliplayer({
+            var player = new Aliplayer({
                     id: 'player-con',
                     width: '100%',
                     autoplay: true,
@@ -92,7 +94,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                     // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
                 },function(player){
                     console.log('播放器创建好了。')
-            })
+                });
         }
         catch(e){
         }
@@ -140,10 +142,14 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
 
     const handleImageClick = useCallback(async()=>{
         setIsShowVideo(0);
+        setIsSelectedVideo(false);
+        setIsSelectedImg(true);
     });
 
     const handleVideoClick = useCallback(async()=>{
         setIsShowVideo(1);
+        setIsSelectedVideo(true);
+        setIsSelectedImg(false);
         initAliplayer(videoId);
     })
     
@@ -158,30 +164,32 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                      }
                  </div>
                  {
-                   
-                   isShowVideo ? isHaveVideo >0 ? <div class="prism-player" id="player-con"></div> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
+                   isShowVideo ? isHaveVideo >0 ? <div className="prism-player" id="player-con"></div> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
                    : carouselData.length > 0 ? <CarouselBanner imgHeight="3.14rem" data={carouselData}/> : ""
                  }
-                 <div className="art-community-detail__autovideo">
-                     <span onClick={()=>{
-                         handleImageClick();
-                     }}>图片</span> | <span onClick={()=>{
-                         handleVideoClick();
-                     }}>视频</span>
-                 </div>
-                 <div className={ isShowVideo? isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop' :'art-community-detail__shop'}>
-                     <img src={productImg}/>
-                     <span className="art-community-detail__shop-container">
-                         <h3 className="art-community-detail__shop-title">{productName}</h3>
-                         <span className="art-community-detail__shop-price">
-                             ￥ {SalePrice}  <i>￥ {SalePrice}</i>
-                         </span>
-                     </span>
-                     <span className="art-community-detail__shop-like" onClick={()=>{history.push('./detail',{ProductId:ProductId})}}>购买</span>
-                 </div>
-                 <div className="art-community-detail__desc">
+                    <div className="art-community-detail__autovideo">
+                        <span style={{backgroundColor: isSelectedVideo ? '#E87908':'#F3F3F3',color: isSelectedVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={()=>{handleVideoClick()}}>视频</span>
+                        <span style={{backgroundColor: isSelectedImg ? '#E87908':'#F3F3F3',color: isSelectedImg ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={()=>{handleImageClick()}}>图片</span> 
+                    </div> 
+
+                
+                {
+                    productName &&  <div className={ isShowVideo? isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop' :'art-community-detail__shop'}>
+                    <img src={productImg}/>
+                    <span className="art-community-detail__shop-container">
+                        <h3 className="art-community-detail__shop-title">{productName}</h3>
+                        <span className="art-community-detail__shop-price">
+                            ￥ {SalePrice}  <i>￥ {SalePrice}</i>
+                        </span>
+                    </span>
+                    <span className="art-community-detail__shop-like" onClick={()=>{history.push('./detail',{ProductId:ProductId})}}>购买</span>
+                </div>
+                }
+
+                 <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
                     {TopicContent}
                  </div>
+
                  <div className="art-community-detail__comment-list">
                      {
                        TopicComments && TopicComments.map((item,index)=>(

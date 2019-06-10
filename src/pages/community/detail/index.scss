@@ -8,12 +8,34 @@
     &__autovideo{
         height: 40px;
         width: 100%;
-        z-index: 1000;
+        z-index: 100;
         position: absolute;
         text-align: center;
         line-height: 40px;
-        top: 355px;
+        top: 375px;
         color: #FFFFFF;
+
+        &>span:nth-child(1){
+            display: inline-block;
+            border-radius: 5px;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-right: 10px;
+            border:1px solid #FFFFFF;
+        }
+        
+        &>span:nth-child(2){
+            display: inline-block;
+            border-radius: 5px;
+            border:1px solid #FFFFFF;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-left: 10px;
+        }
     }
 
     &__visit{
@@ -166,6 +188,15 @@
             text-align: center;
           
         }
+    }
+
+    &__video-desc{
+        font-family: PingFangSC-Regular;
+        font-size: 13px;
+        color: #333333;
+        letter-spacing: -0.09px;
+        padding: 8px;
+        margin-top: 138px;
     }
 
     &__desc{

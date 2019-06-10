@@ -11,10 +11,12 @@ class ShopHomePage extends PureComponent {
 
     showRecomandItem() {
         const {shopMasterGetProduct} = this.props;
+        
         var items = [];
         if (shopMasterGetProduct.length <= 0) {
             return;
         }
+
         shopMasterGetProduct.map((shopMasterProduct, index) => {
             items.push(
                 <Product {...shopMasterProduct} key={Math.random()}/>
@@ -25,6 +27,7 @@ class ShopHomePage extends PureComponent {
     }
 
     render() {
+
         const {ImageName, ProviderName, FansCount, CategoryName, ProductCount, WeekProductCount, TopicCount, IsCollect, ProviderCustomerId} = this.props.shopProviderInfo;
 
         return (

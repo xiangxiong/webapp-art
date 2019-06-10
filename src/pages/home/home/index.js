@@ -14,6 +14,7 @@ import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
 import history from './../../../utils/history';
 import { Toast } from 'antd-mobile';
+import {IMGURL} from './../../../utils/api';
 
 const Data = [];
 let NEWDATAINDEX = 1;
@@ -32,12 +33,11 @@ class Main extends PureComponent{
 
     constructor(props) {
         super(props);
-
         this.navDataList = [
-            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集',url:'/category'},
-            {imageUrl: `${PICTUREURL}3.png`, name: '市集',url:'/shiji'},
-            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城',url:'/shop'},
-            {imageUrl: `${PICTUREURL}5.png`, name: '艺社区',url:'/community'},
+            {imageUrl: `${IMGURL}/icon/master.png`, name: '大师云集',url:'/category'},
+            {imageUrl: `${IMGURL}/icon/atshop.png`, name: '市集',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/shop.png`, name: '艺商城',url:'/shop'},
+            {imageUrl: `${IMGURL}/icon/community.png`, name: '艺社区',url:'/community'},
         ];
 
         this.state = {
@@ -98,7 +98,9 @@ class Main extends PureComponent{
     }
 
     loadMoreItem(){
+
         const {DataList = [], TotalRecords} = this.props.userLikeProducts;
+
         if (DataList.length >= TotalRecords) {
             this.setState({hasMoreItems:false});
         }else{

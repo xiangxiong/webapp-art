@@ -24,7 +24,6 @@ for (let i = 0; i < 10; i++) {
 }
 var countCurrentPage = 2;
 
-
 class Home extends PureComponent{
 
   constructor(props){

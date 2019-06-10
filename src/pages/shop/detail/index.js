@@ -11,10 +11,120 @@ import {Toast} from 'antd-mobile';
 
 class Detail extends PureComponent {
 
+    constructor(props){
+        super(props);
+        this.isLiving = false;
+    }
+
     state = {
         videoId: '',
         isShowVideo: true,
-        isHaveVideo: 0
+        isHaveVideo: 0,
+        isCreateVideo:false,
+        isSelectedVideo:true,
+        isSelectedImg:false
+    }
+
+    // static defaultProps = {
+    //     id: 'player-detail',
+    //     autoplay: true,
+    //     isLive:true,
+    //     width:"100%",
+    //     height:"5.6rem",
+    //     playsinline:true,
+    //     controlBarVisibility:'hover',
+    //     source:"",
+    //     useH5Prism:true,
+    //     useFlashPrism:false,
+    //     x5_video_position:'top',
+    //     //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+    //     x5_type:'h5', //
+    //     cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png'
+    // };
+
+    componentDidUpdate(){
+
+        const {isCreateVideo,} = this.state;
+        console.log('ref',this.refs.playerDetail);
+        console.log('this.player',this.player);
+        console.log('componentDidUpdate',this.state.isShowVideo);
+        if(this.state.isShowVideo){
+            this.setupPlayer();
+            // if(!this.player)
+            // {
+            //     this.setupPlayer();
+            // }
+            // else{
+            //     this.player.dispose();
+            //     this.setupPlayer();
+            // }
+            // else
+            // {
+            //     this.player.dispose();
+            //     this.setupPlayer();
+            // }
+        }
+    }
+
+    componentDidCatch(e){
+        console.log(`componentDidCatch: ${e.message}`);
+    }
+
+    componentWillUnmount(){
+        console.log('componentWillUnmount');
+        if(this.player){
+            this.player.dispose();
+        }
+    }
+
+    componentDidMount() {
+        const {ProductId} = this.props.location.state;
+        let storage = Storage.Base.getInstance();
+        let customerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+        const promise = this.props.getWorthGoodsDetail(ProductId, customerId);
+        this.props.getProductComment([ProductId], customerId);
+        var that = this;
+        promise.then((response) => {
+            that.setState({
+                isHaveVideo: response.value.IsHaveVideo,
+                videoId: response.value.VideoId,
+                isSelectdVideo: response.value.IsHaveVideo>0?true:false
+            });
+        });
+    }
+
+  async setupPlayer(){
+      console.log('setupPlayer');
+        var props = {};
+            const result = await this.props.dispatchVideoPalyer({
+                VedioId: this.state.videoId
+            });
+            console.log('this.state.videoId',this.state.videoId)
+            console.log('result.Data.PlayAuth',this.state.videoId)
+            this.isLiving = true;
+            // eslint-disable-next-line no-undef
+            this.player = new Aliplayer({
+                id: 'player-detail',
+                autoplay: true,
+                isLive:true,
+                width:"100%",
+                vid: this.state.videoId,
+                playauth: result.Data.PlayAuth,
+                height:"5.6rem",
+                playsinline:true,
+                controlBarVisibility:'hover',
+                useH5Prism:true,
+                useFlashPrism:false,
+                x5_video_position:'top',
+                //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+                x5_type:'h5' //
+            });
+            this.player.on('play',()=>{
+              console.log('play');
+            });
+            this.setState({
+                isCreateVideo:true
+            })
     }
 
     handleBuy = () => {
@@ -38,56 +148,21 @@ class Detail extends PureComponent {
 
     handleImageClick = () => {
         this.setState({
-            isShowVideo: false
-        })
+            isShowVideo: false,
+            isSelectdVideo: false,
+            isSelectedImg:true
+        });
     }
 
     handleVideoClick = () => {
         this.setState({
-            isShowVideo: true
-        })
-        this.initAliplayer();
-    }
-
-    async initAliplayer() {
-        const result = await this.props.dispatchVideoPalyer({
-            VedioId: this.state.videoId
-        });
-        // eslint-disable-next-line no-undef
-        var player = new Aliplayer({
-            id: 'player-detail',
-            width: '100%',
-            autoplay: true,
-            vid: this.state.videoId,
-            playauth: result.Data.PlayAuth
-            // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',
-        }, function (player) {
-            console.log('播放器创建好了。')
+            isShowVideo: true,
+            isSelectdVideo: true,
+            isSelectedImg:false
         })
     }
-
-    componentDidMount() {
-        const {ProductId} = this.props.location.state;
-        let storage = Storage.Base.getInstance();
-        let customerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-        const promise = this.props.getWorthGoodsDetail(ProductId, customerId);
-        this.props.getProductComment([ProductId], customerId);
-        var that = this;
-        promise.then((response) => {
-            that.setState({
-                isHaveVideo: response.value.IsHaveVideo,
-                videoId: response.value.VideoId
-            });
-            if (response.value.IsHaveVideo > 0) {
-                this.initAliplayer();
-            }
-        })
-    }
-
 
     render() {
-
-
         let {
             MainImgs = [],
             ImageNames = [],
@@ -99,49 +174,39 @@ class Detail extends PureComponent {
             ProdId,
             IsCollect
         } = this.props.shopWorthGoodsDetail;
-
         const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount, CooperationWay, ProviderId} = Provider;
-
         let carouselData = MainImgs.map((mainImg) => {
             return {ImgUrl: mainImg}
         });
-
         let {TotalRecords, DataList = []} = this.props.showProductComment;
 
-        const {isShowVideo, isHaveVideo} = this.state;
+        const {isShowVideo, isHaveVideo,isSelectdVideo,isSelectedImg} = this.state;
 
-
-        console.log('isHaveVideo', isHaveVideo);
-        console.log('isShowVideo', isShowVideo);
         return (
             <Fragment>
                 <div className="art-product-shop">
                     <PublicHeader title="商品详情" bgColor="#E87908"/>
                     {
-                        isShowVideo ? isHaveVideo>0 ? <div class="prism-player" id="player-detail"></div> : 
-<CarouselBanner imgHeight="3.14rem" data={carouselData}/> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
+                        isShowVideo ? isHaveVideo>0 ? <div className="prism-player" ref="playerDetail" id="player-detail"></div> : 
+<CarouselBanner imgHeight="3.15rem" data={carouselData}/> : <CarouselBanner imgHeight="3.15rem" data={carouselData}/> 
                     }
-
+                    
                     <div className="art-product-shop__autovideo">
-                        <span onClick={this.handleImageClick.bind(this)}>图片</span> | <span
-                        onClick={this.handleVideoClick.bind(this)}>视频</span>
-                    </div>
+                        <span style={{backgroundColor: isSelectdVideo ? '#E87908':'#F3F3F3',color: isSelectdVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={this.handleVideoClick.bind(this)}>视频</span>
+                        <span style={{backgroundColor: isSelectedImg ? '#E87908':'#F3F3F3',color: isSelectedImg ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={this.handleImageClick.bind(this)}>图片</span> 
+                    </div> 
 
-                    {/* className={isShowVideo ? isHaveVideo>0? "art-product-shop__autovideo" :"art-product-shop__detail" :"art-product-shop__detail"} */}
-                    <div
-                        className={isShowVideo ? isHaveVideo > 0 ? "art-product-shop__detailvideo" : "art-product-shop__detail" : "art-product-shop__detail"}>
-
+                    <div className={isShowVideo ? isHaveVideo > 0 ? "art-product-shop__detailvideo" : "art-product-shop__detail" : "art-product-shop__detail"}>
                         <h4>{Name}</h4>
                         <p className="art-product-shop__detail-font">
                             <span>现价:</span>
                             <i>￥</i>
                             <i>{KillPrice}</i>
                             <span>
-                        ￥{MarketPrice}
-                        </span>
+                                ￥{MarketPrice}
+                            </span>
                         </p>
                     </div>
-
                     <div className="art-product-shop__free">
                         <div>运费</div>
                         <div>包邮</div>
@@ -235,6 +300,7 @@ class Detail extends PureComponent {
                 </div>
 
                 <div className="art-product-shop__comment-whiteSpace">
+                    
                 </div>
 
                 <div className="art-product-shop__tooBar">
