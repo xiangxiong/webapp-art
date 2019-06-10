@@ -46,7 +46,7 @@ export const getDefaultAddress = (params) => {
     return (dispatch) => {
         return post(AddressList, params)
             .then((response) => {
-                let DataList = response.Data.DataList;
+                let DataList = response.Data.DataList||[];
                 DataList.map(data => {
                     if (data.IsDefault == 0) {
                         dispatch(defaultAddress(data));

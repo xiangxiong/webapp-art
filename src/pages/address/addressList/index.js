@@ -23,10 +23,8 @@ class AddressList extends PureComponent {
         return (
             <div className="art-list__item" key={index.toString()}
                  onClick={() => {
-                     if(callback){
-                         callback && callback(address);
-                         history.goBack();
-                     }
+                     callback && callback(address);
+                     history.goBack();
                  }}
             >
                 <div className="art-list__item___left">
@@ -75,7 +73,7 @@ class AddressList extends PureComponent {
     };
 
     render() {
-        const {addressList} = this.props;
+        const {addressList=[]} = this.props;
 
         return (
             <Fragment>
