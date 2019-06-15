@@ -15,6 +15,8 @@ const Item = List.Item;
 
 class ReleaseMaster extends PureComponent {
 
+    static INTERVAL = 1000;
+
     constructor(props) {
         super(props);
         const {files, TopicContent} = props.releaseMasterInfo;
@@ -63,8 +65,6 @@ class ReleaseMaster extends PureComponent {
             Toast.info('请选择需要分享的图片', 1);
             return;
         }
-
-        this.refs.btnSubmit.setAttribute("disabled","disabled")
 
         let TopicImgs = [];
         for (let i = 1; i < files.length; i++) {
@@ -230,6 +230,12 @@ class ReleaseMaster extends PureComponent {
         this.handleUploadVideo = this.handleUploadVideo.bind(this);
         this.fileChange = this.fileChange.bind(this);
         this.stsUpload = this.stsUpload.bind(this);
+        const wait = ReleaseMaster.INTERVAL;
+        this.onElementClicked = _.debounce(this.onClickDebounced,wait,{
+            maxWait:wait,
+            leading:true,
+            trailing:false
+        });
     }
      
     handleUploadVideo(){
@@ -293,6 +299,10 @@ class ReleaseMaster extends PureComponent {
             )
         }
     };
+
+    onClickDebounced(e){
+        this.submit();
+    }
 
     render() {
         const {TopicContent, files = [],statusText} = this.state;
@@ -387,12 +397,9 @@ class ReleaseMaster extends PureComponent {
                     <div
                         ref="btnSubmit"
                         className="art-releaseMaster__submit"
-                        onClick={() => {
-                            this.submit();
-                        }}>
+                        onClick={e=>this.onElementClicked(e)}>
                         确认并提交
                     </div>
-
                 </div>
             </Fragment>
         )
