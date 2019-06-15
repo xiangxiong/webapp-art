@@ -30,14 +30,14 @@ const cloumnData = [
 ];
 
 class Main extends PureComponent{
-
+    
     constructor(props) {
         super(props);
         this.navDataList = [
-            {imageUrl: `${IMGURL}/icon/master.png`, name: '大师云集',url:'/category'},
-            {imageUrl: `${IMGURL}/icon/atshop.png`, name: '市集',url:'/shiji'},
-            {imageUrl: `${IMGURL}/icon/shop.png`, name: '艺商城',url:'/shop'},
-            {imageUrl: `${IMGURL}/icon/community.png`, name: '艺社区',url:'/community'},
+            {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
+            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '市集',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/shop.svg`, name: '艺商城',url:'/shop'},
+            {imageUrl: `${IMGURL}/icon/community.svg`, name: '艺社区',url:'/community'},
         ];
 
         this.state = {
@@ -64,7 +64,7 @@ class Main extends PureComponent{
     HandleJumpUrl(url){
         console.log('HandleJumpUrl',url);
         if(url==="/shiji"){
-            Toast.success("正在开发中");
+            Toast.success("正在开发中",1);
             return;
         }
         else if(url === "/shop"){

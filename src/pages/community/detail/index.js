@@ -61,7 +61,7 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
-    const imgUrl = PRODIMGURL + ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
+    const imgUrl = ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
     var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
 
     for(var item in ProductInfo){

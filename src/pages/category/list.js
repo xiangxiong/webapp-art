@@ -13,7 +13,7 @@ function List(props){
 
     async function getCategory(){
         var payload = {
-            OneCategoryId:24,
+            OneCategoryId:props.match.params.id,
         };
         const result = await props.dispatchShopCategoryList(payload);
         setTitle(result[0].CategoryName);

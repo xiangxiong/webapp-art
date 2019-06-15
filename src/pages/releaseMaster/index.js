@@ -64,6 +64,8 @@ class ReleaseMaster extends PureComponent {
             return;
         }
 
+        this.refs.btnSubmit.setAttribute("disabled","disabled")
+
         let TopicImgs = [];
         for (let i = 1; i < files.length; i++) {
             let topicImg = {};
@@ -79,16 +81,15 @@ class ReleaseMaster extends PureComponent {
         params.TopicImgs = TopicImgs;
         params.VideoId = videoId;    //上传视频
         params.IsHaveVideo = videoId === 0  || "" ? 0 : 1;
-
         const {customerDetail} = this.props.location.state;
         params.Type = customerDetail.CustomerType;
         params.ProductId = setWork.ProdId;
 
         this.props.getPublishTopicInfo(params);
+
     };
 
     createUploader () {
-        console.log('console');
         var that = this;
         var {timeout,partSize,parallel,retryCount,retryDuration,region,userId,file,stsProgress,uploadDisabled,resumeDisabled,pauseDisabled,statusText,uploader} = this.state;
         // eslint-disable-next-line no-undef
@@ -384,6 +385,7 @@ class ReleaseMaster extends PureComponent {
                     {this.showWork()}
 
                     <div
+                        ref="btnSubmit"
                         className="art-releaseMaster__submit"
                         onClick={() => {
                             this.submit();

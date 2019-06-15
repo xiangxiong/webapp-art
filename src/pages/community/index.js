@@ -16,7 +16,7 @@ const tabs = [
 ];
 
 const loadMoreData = () =>{
-    
+        
 }
 
 const jumpUrl = () => {
@@ -33,7 +33,7 @@ const Community = ({dispatchCommunityList,list}) => {
                     <Link to={`/communitydetail?topicId=${list[i].TopicId}`}>
                             <img style={{height:'100%',width:'100%',borderRadius:'5px'}} src={PRODIMGURL+list[i].TopicMainImg}/>
                     </Link> 
-                    <h3>{list[i].TopicContent}{list[i].TopicId}</h3>
+                    <h3>{list[i].TopicContent}</h3>
                     <p style={{textAlign:'right'}}>
                         {list[i].LoginName}
                     </p>
@@ -73,7 +73,7 @@ const Community = ({dispatchCommunityList,list}) => {
                                                 <Link to={`/communitydetail?topicId=${item.TopicId}`}>
                                                         <img style={{height:'100%',width:'100%',borderRadius:'5px'}} src={PRODIMGURL+item.TopicMainImg}/>
                                                 </Link> 
-                                                <h3>{item.TopicContent}{item.TopicId}</h3>
+                                                <h3>{item.TopicContent}</h3>
                                                 <p style={{textAlign:'right'}}>
                                                     {item.LoginName}
                                                 </p>

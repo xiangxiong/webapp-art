@@ -9,7 +9,6 @@ class SearchCategory extends PureComponent{
     }
 
     render() {
-
         return (
             <div className="art-shop__search">
                 <div>
@@ -20,7 +19,7 @@ class SearchCategory extends PureComponent{
                 <div className="art-icon art-icon-category">
                         <div onClick={()=>{
                            this.props.jumpUrl()
-                        }} className="art-shop__input-text">分  类</div>
+                        }} className="art-shop__input-text">分 类</div>
                 </div>
             </div>
         )

@@ -192,8 +192,12 @@ class Detail extends PureComponent {
                     }
                     
                     <div className="art-product-shop__autovideo">
-                        <span style={{backgroundColor: isSelectdVideo ? '#E87908':'#F3F3F3',color: isSelectdVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={this.handleVideoClick.bind(this)}>视频</span>
+                        {
+                            isHaveVideo>0 ? <Fragment>
+<span style={{backgroundColor: isSelectdVideo ? '#E87908':'#F3F3F3',color: isSelectdVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={this.handleVideoClick.bind(this)}>视频</span>
                         <span style={{backgroundColor: isSelectedImg ? '#E87908':'#F3F3F3',color: isSelectedImg ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={this.handleImageClick.bind(this)}>图片</span> 
+                            </Fragment> : <Fragment></Fragment>
+                        }
                     </div> 
 
                     <div className={isShowVideo ? isHaveVideo > 0 ? "art-product-shop__detailvideo" : "art-product-shop__detail" : "art-product-shop__detail"}>
