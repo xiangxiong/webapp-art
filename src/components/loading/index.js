@@ -1,23 +1,16 @@
-/** Loading组件 用于按需加载时过渡显示等 **/
-import React from "react";
-import "./index.less";
-export default function LoadingComponent(props) {
-  function makeType(p) {
-    let msg;
-    if (p.error) {
-      msg = "加载出错，请刷新页面";
-    } else if (p.timedOut) {
-      msg = "加载超时";
-    } else if (p.pastDelay) {
-      msg = "加载中…";
-    }
-    return msg;
-  }
+import React from 'react';
+import './index.scss';
 
+const loading = () =>{
   return (
-    <div className="loading">
-      <img src="http://art.laoliwuyou.com/icon/loading.gif" />
-      <div>{makeType(props)}</div>
-    </div>
-  );
+    <div class="loading_container">
+      <div class="load_img" style={{backgroundPositionY:'-(positionY%7)*2.5 rem'}}>
+      </div>
+      <svg class="load_ellipse" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <ellipse cx="26" cy="10" rx="26" ry="10" style="fill:#ddd;stroke:none;"></ellipse>
+      </svg>
+	  </div>
+  )
 }
+
+export default loading;

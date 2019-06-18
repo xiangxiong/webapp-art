@@ -54,7 +54,7 @@ const Community = ({dispatchCommunityList,list}) => {
        console.log('result',result.Data.DataList);
        setCount(result.Data.DataList);
     }
-
+    
     useEffect(()=>{
         getCommunityApi();
     },[]);

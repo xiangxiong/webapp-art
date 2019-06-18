@@ -1,4 +1,4 @@
-import React,{Fragment,useEffect,useState,useCallback} from 'react';
+import React,{Fragment,useEffect,useState,useCallback,useLayoutEffect} from 'react';
 import PublicHeader from './../../../components/header';
 import './index.scss';
 import CarouselBanner from '../../common/carousel';
@@ -12,12 +12,13 @@ import _ from 'lodash';
 import {getUrlParam} from './../../../utils/common';
 
 var carouselData = [
-
 ];
+// {ImgUrl:'/public/upload/mallproduct/2019-06-15/art_96ee3cc9-d3bc-45d2-aa08-da41953a53fd.jpg'}
 
 const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     dispatchCommunityComment,dispatchCommunityCollectIn,dispatchVideoPalyer,location}) =>{
     const [isOpen,setIsOpen] = useState(false);
+    const [carouselData,setCarouselData] = useState([]);
     const [topicIds,setTopicIds] = useState(getUrlParam('topicId'));
     const [isRefesh,setIsRefesh] = useState();
     const [videoId,setVideoId] = useState();
@@ -38,17 +39,20 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         };
         const result = await dispatchCommunityDetail(params);
         setVideoId(result.Data.VideoId);
-        carouselData.push({
+        var  carouselList =[];
+        carouselList.push({
             ImgUrl:result.Data.TopicMainImg
-        })
+        });
+
         if(result.Data.TopicImgs.length>0){
             result.Data.TopicImgs.map((item,index)=>{
-                carouselData.push({
+                carouselList.push({
                     ImgUrl:item.ImageName
                 });
                 console.log('item.ImageName',item.ImageName);
             });
         }
+        setCarouselData(carouselList);
         console.log('result',result);
         setIsHaveVideo(result.Data.IsHaveVideo)
         initAliplayer(result.Data.VideoId);
@@ -58,6 +62,12 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         console.log('useEffect');
         getCommunityDeteilApi();
     },[isRefesh]);
+
+
+    useLayoutEffect(()=>{
+        console.log('useLayoutEffect');
+        getCommunityDeteilApi();
+    },[])
     
     const { getFieldProps } = form;
     const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
@@ -152,8 +162,30 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
         setIsSelectedImg(false);
         initAliplayer(videoId);
     })
+
+    const isNullProduct = () =>{
+        console.log('productName',productName);
+        if(productName){
+            return (
+                 <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
+                    {TopicContent}
+                 </div>
+                )
+        }else{
+            return (
+                <Fragment>
+                    { isHaveVideo===0 && <div className="art-community-detail__whitespace"></div>} 
+                    <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
+                        {TopicContent}
+                    </div>
+                </Fragment>
+                )
+        }
+    }
     
     return (
+
+        
         <Fragment>
             <PublicHeader title="社区详情"/>
             <div className="art-community-detail">
@@ -184,16 +216,17 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                     </span>
                     <span className="art-community-detail__shop-like" onClick={()=>{history.push('./detail',{ProductId:ProductId})}}>购买</span>
                 </div>
-                }
 
-                 <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
-                    {TopicContent}
-                 </div>
+                }
+            
+                 {
+                     isNullProduct()
+                 }
 
                  <div className="art-community-detail__comment-list">
                      {
                        TopicComments && TopicComments.map((item,index)=>(
-                            <p>{item.LoginName}：{item.CommentContent}</p>
+                            <p key={index}>{item.LoginName}：{item.CommentContent}</p>
                          ))
                      }
                     <p className="art-community-detail__comment-list-all">查看{CommentCount}条评论</p>
