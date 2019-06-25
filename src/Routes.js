@@ -65,7 +65,7 @@ const LoadHome = Loadable({
 export default [
     {
         path: "/home",
-        component: LoadHome,
+        component: Home,
         exact: true,
         key: 'home'
     },
