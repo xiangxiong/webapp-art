@@ -164,10 +164,11 @@ class Home extends PureComponent{
   }
 
   init(){
-    // Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+    Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
   }
 
   componentDidMount(){
+     this.init();
      this.initLikeList();
      console.log('getUrlParam()',getUrlParam('tab'));
      this.setState({

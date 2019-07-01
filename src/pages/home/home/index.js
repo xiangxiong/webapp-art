@@ -21,9 +21,7 @@ let NEWDATAINDEX = 1;
 for(let i=0;i<10;i++){
     Data.push(i)
 };
-
 var pushList=[];
-
 const cloumnData = [
     {title:'「 好货推荐 」', name: '上千件好物等你来选',url:'./shopCategroy'},
     {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
@@ -35,7 +33,7 @@ class Main extends PureComponent{
         super(props);
         this.navDataList = [
             {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
-            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '市集',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '线下活动',url:'/shiji'},
             {imageUrl: `${IMGURL}/icon/shop.svg`, name: '艺商城',url:'/shop'},
             {imageUrl: `${IMGURL}/icon/community.svg`, name: '艺社区',url:'/community'},
         ];
