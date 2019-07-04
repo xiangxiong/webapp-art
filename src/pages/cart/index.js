@@ -205,7 +205,10 @@ let imgs = [];
                                         {providerItem.products && providerItem.products.map((product,index) => (
                                             <CheckboxItem checked={product.Selected}  key={index} onChange={(event)=>{handleCheckedItem(cartItem,product,event)}}>
                                                 <div className="art-cart__item">
-                                                    <div className="art-cart__item-product" style={{background:`url(${PRODIMGURL+product.ProductImg}) 0% 0% / cover`}}></div>
+                                                {/* style={{background:`url(${PRODIMGURL+product.ProductImg}) 0% 0% / cover`}} */}
+                                                    <div className="art-cart__item-product">
+                                                            <img src={PRODIMGURL+product.ProductImg}/>
+                                                    </div>
                                                     <div className="art-cart__item-desc">
                                                         <h4>
                                                                 {product.ProductName}
@@ -264,8 +267,6 @@ let imgs = [];
                             }
  
                             <Fragment>
-                               
-
                                 <div className="art-cart__footer">
                                         <div>
                                         </div>
