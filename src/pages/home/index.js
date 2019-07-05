@@ -184,12 +184,17 @@ class Home extends PureComponent{
         selectedTab:'greenTab'
       });
      }
+     if(getUrlParam('tab') === "Art"){
+      this.setState({
+        selectedTab:'artTab'
+      });
+     }
      else if(getUrlParam('tab') === "Shop"){
       this.setState({
         selectedTab:'redTab'
       });
      }
-
+     
      eventProxy.on('selectedTab',(item)=>{
         this.setState({
           selectedTab:item
@@ -216,6 +221,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'blueTab',
               });
+              history.push('/home?tab=Home');
               eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId"
@@ -234,6 +240,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'redTab'
               });
+              history.push('/home?tab=Shop');
               eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId1"
@@ -251,6 +258,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'artTab',
               });
+              history.push('/home?tab=Art');
               eventProxy.trigger("showcart",'hidden');
             }}
             data-seed="logId1"
@@ -268,6 +276,7 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'greenTab',
               });
+              history.push('/home?tab=Cart');
               eventProxy.trigger("showcart",'visible');
             }}
           >
@@ -285,6 +294,7 @@ class Home extends PureComponent{
                   selectedTab: 'yellowTab',
                   isSelected:true
                 });
+                history.push('/home?tab=User');
                 eventProxy.trigger("showcart",'hidden');
             }}>
             {this.renderContent('USER')}

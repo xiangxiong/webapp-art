@@ -265,7 +265,6 @@ let imgs = [];
                                     </Fragment>
                                 ))
                             }
- 
                             <Fragment>
                                 <div className="art-cart__footer">
                                         <div>
