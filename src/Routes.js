@@ -235,7 +235,7 @@ export default [
     },
     {
         path:"/masterDetail/:id",
-        component:LoadMasterDetail,
+        component:MasterDetail,
         key:'masterDetail'
     },
     {
