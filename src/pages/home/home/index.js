@@ -157,6 +157,7 @@ class Main extends PureComponent{
                                 {this.showRecomandItem()}
                             </div>
                         </div>
+                        <div> 回到顶部 </div>
                 </div>
             </Fragment>
         )

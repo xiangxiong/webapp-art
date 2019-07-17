@@ -43,7 +43,7 @@ class Master extends PureComponent {
                         </div>
                     </div>
                     <div style={{borderBottom: '1px solid #E7E7E7'}}/>
-                    <Letters data={masterNewsPagerList}/>
+                    {/* <Letters data={masterNewsPagerList}/> */}
                     <Advert commonAdList={masterCommonAdList}/>
                     <Space/>
                     <div className="art-master__border"></div>

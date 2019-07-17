@@ -79,11 +79,11 @@ const normalNavItems = [
         icon: 'art-icon art-icon-user-cor',
         routeUrl: '/enter'
     },
-    {
-        title: '好货推荐',
-        icon: 'art-icon art-icon-user-recomand',
-        routeUrl: ''
-    },
+    // {
+    //     title: '好货推荐',
+    //     icon: 'art-icon art-icon-user-recomand',
+    //     routeUrl: ''
+    // },
     {
         title: '提现',
         icon: 'art-icon art-icon-user-cash',

@@ -190,7 +190,6 @@ class Detail extends PureComponent {
                         isShowVideo ? isHaveVideo>0 ? <div className="prism-player" ref="playerDetail" id="player-detail"></div> : 
 <CarouselBanner imgHeight="3.15rem" data={carouselData}/> : <CarouselBanner imgHeight="3.15rem" data={carouselData}/> 
                     }
-                    
                     <div className="art-product-shop__autovideo">
                         {
                             isHaveVideo>0 ? <Fragment>

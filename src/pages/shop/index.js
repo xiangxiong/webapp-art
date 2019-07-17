@@ -34,7 +34,8 @@ class Shop extends PureComponent{
                     {/* <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/> */}
                     <SearchCategory jumpUrl={this.handleJumpUrl.bind(this)}/>
                     <CarouselBanner data={shopCarouselAdList}/>
-                    <Letters data={shopNewsPagerList}/>
+                    {/* <Letters data={null}/> */}
+                    <div style={{height:'20px',width:'100%'}}></div>
                     <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
                     <Column cloumnData={cloumnData} leftImgUrl={'/icon/30.png'} rightImgUrl={'/icon/31.png'}/>

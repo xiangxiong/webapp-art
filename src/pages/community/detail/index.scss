@@ -214,13 +214,11 @@
     &__comment-list{
         background: #F6F6F6;
         border-radius: 6px;
-        height: 89px;
         margin: 13px;
 
         &>p{
-            height: 23px;
-            line-height: 23px;
-            padding-left: 10px;
+            padding: 10px;
+            word-break:break-all;
         }
 
         &-all{
