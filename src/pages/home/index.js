@@ -59,6 +59,8 @@ class Home extends PureComponent{
       this.setState({
         totalRecords:userLikes.Data.TotalRecords
       });
+      console.log('userLikes.Data',userLikes.Data);
+
       eventProxy.trigger('recomandItem',userLikes.Data);
       countCurrentPage ++;
   }
@@ -92,26 +94,24 @@ class Home extends PureComponent{
         }
         
         if(pageText==="MAIN"){
-   
-          return (
-            <div ref="wrapperScroll" className="container">
-              <Scroll
-              click={true}
-              pullUpLoad
-              pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
-              isPullUpTipHide={ false }>
-              {
-                      this.renderFactory(pageText)
-              }
-              </Scroll>
-            </div>
-          );
+            return (
+              <div ref="wrapperScroll" className="container">
+                <Scroll
+                click={true}
+                pullUpLoad
+                pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                isPullUpTipHide={ false }>
+                {
+                        this.renderFactory(pageText)
+                }
+               </Scroll>
+              </div>
+            );
         }
-
         if(pageText==="ARTSHOP"){
-    
+
            return (
-            <div className="container">
+              <div className="container">
                   <Scroll
                     click={true}
                     pullUpLoad
@@ -123,20 +123,19 @@ class Home extends PureComponent{
                   </Scroll>
               </div>
            )
-        }
+      }
       if(pageText==="MASTER"){
-      
           return (
               <div className="container">
-                  <Scroll
+                  {/* <Scroll
                       click={true}
                       pullUpLoad
                       pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
                       isPullUpTipHide={ false }>
-                      {
-                          this.renderFactory(pageText)
-                      }
-                  </Scroll>
+                      { */}
+                          {this.renderFactory(pageText)}
+                      {/* } */}
+                  {/* </Scroll> */}
               </div>
           )
       }
@@ -151,7 +150,13 @@ class Home extends PureComponent{
       }
   }
 
+  // init(){
+  //   Storage.Base.getInstance().set("userInfo",{"Token":1613432322014178,"Register":true,"Type":2,"CustomerId":3,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+  //   // {"val":
+  // }
+  
   async initLikeList(){
+    // this.init();
     let storage = Storage.Base.getInstance().get("userInfo");
     let data = {
       CustomerId: storage == null ? 0 : storage.CustomerId ,
@@ -163,14 +168,9 @@ class Home extends PureComponent{
     eventProxy.trigger('recomandItem',userLikes.Data);
   }
 
-  init(){
-    Storage.Base.getInstance().set("userInfo",{"Token":1318493861476309,"Register":true,"Type":2,"CustomerId":128,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
-  }
-
   componentDidMount(){
-     this.init();
      this.initLikeList();
-     console.log('getUrlParam()',getUrlParam('tab'));
+    //  console.log('getUrlParam()',getUrlParam('tab'));
      this.setState({
       selectedTab:'blueTab'
    });

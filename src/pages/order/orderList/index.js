@@ -10,11 +10,11 @@ import ArtListView from '../../../components/artListView';
 import history from './../../../utils/history';
 
 const orderTabs = [
-    {title: '全部'},
-    {title: '待付款'},
-    {title: '待发货'},
-    {title: '已发货'},
-    {title: '待评价'},
+    {title: '全部',index:0},
+    {title: '待付款',index:1},
+    {title: '待发货',index:2},
+    {title: '已发货',index:3},
+    {title: '待评价',index:4}
 ];
 
 class OrderList extends PureComponent {
@@ -92,6 +92,8 @@ class OrderList extends PureComponent {
 
     init = () => {
         const {index = -1, type} = this.props.location.state;
+
+
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
 
@@ -144,12 +146,13 @@ class OrderList extends PureComponent {
 
     getOrderOperation = (order) => {
         const {OrderStatus} = order;
-
         const {type} = this.props.location.state;
 
+        console.log("OrderStatus",OrderStatus);
         switch (OrderStatus) {
             case 5:
                 if (type !== 'sell') {
+
                     return (
                         <div className="art-list__bussinss-operation">
                             <div className="art-list__bussinss-operation-item" onClick={(e) => {
@@ -161,7 +164,6 @@ class OrderList extends PureComponent {
                         </div>
                     );
                 }
-
                 break;
             case 20:
                 if (type === 'sell') {
@@ -231,6 +233,9 @@ class OrderList extends PureComponent {
         const {index = 0} = this.props.location.state;
         const {orderList = []} = this.props;
 
+        console.log('this.props;',this.props);
+
+        console.log('this.props.location.state',this.props.location.state);
         return (
             <Fragment>
                 <PublicHeader jump="User" title="我的订单"/>
@@ -273,11 +278,8 @@ class OrderList extends PureComponent {
         const {index = -1, type} = this.props.location.state;
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
-
         let ObjectItem = this.props.customerDetail.ProviderInfo || {};
-
         this.CurrentPage = 1;
-
         if (type === 'sell') {
             //卖家
             this.props.getQueryCustomerOrderList(0, (index - 1), this.CurrentPage, ObjectItem.ProviderId);
