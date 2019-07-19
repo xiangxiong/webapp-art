@@ -1,5 +1,10 @@
 @import './../../../style/index.scss';
 
+.sticky-list .sticky-container .am-list-item { padding-left: 0; }
+.sticky-list .sticky-container .am-list-line { padding-right: 0; }
+.sticky-list .sticky-container .am-list-line .am-list-content { padding-top: 0; padding-bottom: 0; }
+.sticky-list .sticky-container .sticky { padding: 7px 15px; transform: none; }
+
 .art-main{
   background:$color-bg-color;
 

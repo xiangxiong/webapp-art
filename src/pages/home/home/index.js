@@ -13,7 +13,7 @@ import Product from './../../common/product';
 import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
 import history from './../../../utils/history';
-import { Toast } from 'antd-mobile';
+import { Toast,ListView } from 'antd-mobile';
 import {IMGURL} from './../../../utils/api';
 
 const Data = [];
@@ -27,10 +27,46 @@ const cloumnData = [
     {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
 ];
 
+
+const data = [
+    {
+      img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
+      title: 'Meet hotel',
+      des: '不是所有的兼职汪都需要风吹日晒',
+    },
+    {
+      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+      title: 'McDonald\'s invites you',
+      des: '不是所有的兼职汪都需要风吹日晒',
+    },
+    {
+      img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+      title: 'Eat the week',
+      des: '不是所有的兼职汪都需要风吹日晒',
+    },
+  ];
+  const NUM_ROWS = 2;
+  let pageIndex = 0;
+  
+  function genData(pIndex = 0) {
+    const dataBlob = {};
+    for (let i = 0; i < NUM_ROWS; i++) {
+      const ii = (pIndex * NUM_ROWS) + i;
+      dataBlob[`${ii}`] = `row - ${ii}`;
+    }
+    return dataBlob;
+  }
+
+  
 class Main extends PureComponent{
     
     constructor(props) {
         super(props);
+
+        const dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+          });
+
         this.navDataList = [
             {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
             {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '线下活动',url:'/shiji'},
@@ -55,36 +91,40 @@ class Main extends PureComponent{
             hasMoreItems: true,
             current:'visible',
             listData: Data,
-            show:false
+            show:false,
+            dataSource,
+            isLoading: true
         };
         this.currentPage=1;//为你推荐 当前页 hidden
         // this.handleScroll = this.handleScroll.bind(this);
         // this.HandleBackTop = this.HandleBackTop.bind(this);
     }
 
-    // handleScroll(event){
-    //     let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
-    //     console.log('scrollTop',scrollTop);
-    //     if(scrollTop>100){
-    //         this.setState({
-    //             show:false
-    //         })
-    //     }
-    //     else{
-    //         this.setState({
-    //             show:false
-    //         })
-    //     }
-    // }
+    componentDidMount(){
+            // simulate initial Ajax
+    setTimeout(() => {
+        this.rData = genData();
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.rData),
+          isLoading: false,
+        });
+      }, 600);
 
-    // HandleBackTop(){
-    //     console.log('HandleBackTop',document.documentElement.scrollTop);
-    //     // document.body.scrollTop = 0;
-    // }
+        eventProxy.on('recomandItem',(object)=>{
+          pushList.push(object);
+          this.forceUpdate();
+        });
+        this.props.getAdvertList(1);
+        this.props.getNewsPagerList();
+        this.props.getAdvertList(11);
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+        this.props.getUserLikeProducts(CustomerId, this.currentPage);
+
+    }
 
     componentWillMount(){
         NEWDATAINDEX = 1;
-        // window.addEventListener('scroll',this.handleScroll,true);
     }
 
     HandleJumpUrl(url){
@@ -136,8 +176,66 @@ class Main extends PureComponent{
         }
     }
 
+    onEndReached = (event) => {
+        console.log('event',event);
+        // load new data
+        // hasMore: from backend data, indicates whether it is the last page, here is false
+        if (this.state.isLoading && !this.state.hasMore) {
+          return;
+        }
+        console.log('reach end', event);
+        this.setState({ isLoading: true });
+        setTimeout(() => {
+          this.rData = { ...this.rData, ...genData(++pageIndex) };
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(this.rData),
+            isLoading: false,
+          });
+        }, 1000);
+      }
+
+      
+
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
+        const separator = (sectionID, rowID) => (
+            <div
+              key={`${sectionID}-${rowID}`}
+              style={{
+                backgroundColor: '#F5F5F9',
+                height: 8,
+                borderTop: '1px solid #ECECED',
+                borderBottom: '1px solid #ECECED',
+              }}
+            />
+          );
+          let index = data.length - 1;
+          const row = (rowData, sectionID, rowID) => {
+            if (index < 0) {
+              index = data.length - 1;
+            }
+            const obj = data[index--];
+            return (
+              <div key={rowID} style={{ padding: '0 15px' }}>
+                <div
+                  style={{
+                    lineHeight: '50px',
+                    color: '#888',
+                    fontSize: 18,
+                    borderBottom: '1px solid #F6F6F6',
+                  }}
+                >{obj.title}</div>
+                <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
+                  <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                  <div style={{ lineHeight: 1 }}>
+                    <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                    <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
 
         return (
             <Fragment>
@@ -181,19 +279,6 @@ class Main extends PureComponent{
                 </div>
             </Fragment>
         )
-    }
-
-    componentDidMount() {
-        eventProxy.on('recomandItem',(object)=>{
-            pushList.push(object);
-            this.forceUpdate();
-        });
-        this.props.getAdvertList(1);
-        this.props.getNewsPagerList();
-        this.props.getAdvertList(11);
-        let storage = Storage.Base.getInstance();
-        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-        this.props.getUserLikeProducts(CustomerId, this.currentPage);
     }
 }
 
