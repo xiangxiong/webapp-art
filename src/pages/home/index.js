@@ -64,7 +64,6 @@ class Home extends PureComponent{
         totalRecords:userLikes.Data.TotalRecords
       });
       console.log('userLikes.Data',userLikes.Data);
-
       eventProxy.trigger('recomandItem',userLikes.Data);
       countCurrentPage ++;
   }
@@ -125,15 +124,14 @@ class Home extends PureComponent{
         if(pageText==="MAIN"){
             return (
               <div id="containerMain" className="container">
-                 {  this.renderFactory(pageText)}
                 {
-                //   <Scroll  ref="wrapperScroll" 
-                //   click={true}
-                //   pullUpLoad
-                //   pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
-                //   isPullUpTipHide={ false }>
-                
-                //  </Scroll>
+                  <Scroll  ref="wrapperScroll" 
+                  click={true}
+                  pullUpLoad
+                  pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                  isPullUpTipHide={ false }>
+                   { this.renderFactory(pageText) }
+                 </Scroll>
                 }
                { this.renderShowBackTop() }
               </div>

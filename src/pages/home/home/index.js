@@ -111,7 +111,18 @@ class Main extends PureComponent{
       }, 600);
 
         eventProxy.on('recomandItem',(object)=>{
-          pushList.push(object);
+          if(pushList.length>0){
+            if(object.DataList[0]){
+                 var result = pushList[0].DataList.filter(item => item.ProviderId ===  object.DataList[0].ProviderId);
+                 if(result.length===0){
+                    pushList.push(object);
+                 }
+                 console.log('object',object.DataList[0].ProviderId);
+            }
+          }
+          else{
+            pushList.push(object);
+          }
           this.forceUpdate();
         });
         this.props.getAdvertList(1);
