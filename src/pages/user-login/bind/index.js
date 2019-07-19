@@ -108,7 +108,6 @@ class Bind extends PureComponent{
             Phone:phone
         };
         const result = await this.props.bindWeChatOauth(data);
-        console.log('result',result);
 
         return result;
     }

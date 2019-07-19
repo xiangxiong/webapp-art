@@ -18,9 +18,7 @@
     font-size: 0.17rem !important;
 }
 .container {
-    position: relative;
     height: 100%;
-    overflow:hidden；
 }
 .wrapper{
     position: absolute;
@@ -36,4 +34,36 @@
     height: 60px;
     line-height: 60px;
     font-size: 6px;
+}
+
+.backTop{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum';
+    position: fixed;
+    text-align: center;
+    right: 20px;
+    bottom: 70px;
+    z-index: 100000;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: rgb(232, 121, 8);
+}
+
+.backTop>p{
+    height: 20px;
+    font-size: 12px;
+    width: 35px;
+    text-align: center;
+    margin: 2px;
+    color: #FFFFFF;
 }

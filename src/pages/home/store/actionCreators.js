@@ -120,7 +120,6 @@ export const wxLogin = (params) =>{
 export const getUserLikeList = (params) => {
     return async () => {
         const result = await post(GuessUserLikeProducts,params);
-        console.log('result',result);
         return result;
     }
 }

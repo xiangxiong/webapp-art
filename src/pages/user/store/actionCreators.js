@@ -197,7 +197,6 @@ export const offLineProduct = (params) => {
 export const getWeChatOauth = (params) => {
     return async (dispatch) => {
         const result = await post(GET_WECHAT_OAUTH_API, params);
-        console.log('getWeChatOauth result',result);
         return result.Data.DataList;
     }
 };

@@ -8,6 +8,14 @@
     height: 176px;
   }
 
+  &__backTop{
+    z-index: 1000;
+    width: 100%;
+    height: 50px;
+    background: red;
+    margin-top: 200px;
+  }
+
   &__loader{
     height: 48px;
     line-height: 48px;

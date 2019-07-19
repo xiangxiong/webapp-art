@@ -35,8 +35,6 @@ class PublicHeader extends PureComponent{
     }
 
     componentDidMount(){
-        console.log('title',this.state.title);
-        console.log('componentDidMount');
     }
 
     render(){

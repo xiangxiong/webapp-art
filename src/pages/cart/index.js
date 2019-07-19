@@ -71,7 +71,6 @@ let imgs = [];
                     });
                     mulBusiness.push(productItem);
             });
-            console.log('productList',result.Data.DataList);
             setCartItem(mulBusiness);
             setCartTotalPrice(0);
             setSelectCount(0);
@@ -299,7 +298,6 @@ let imgs = [];
             PageSize:10
         };
         const result = await getQueryCarList(payload);
-        console.log('result',result);
         setCartList(result.Data.DataList);
     }
     

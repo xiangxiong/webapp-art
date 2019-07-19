@@ -29,7 +29,6 @@ export const getModifyCart = (params) => {
 };
 
 export const getBatchDelCart = (params) => {
-    console.log('getBatchDelCart params',params);
     return async (dispatch) => {
         const result = await post(BATCH_DEL_CART, params);
         return result;
@@ -40,7 +39,6 @@ export const getBatchDelCart = (params) => {
 export const dispatchVideoPalyer = (params) =>{
     return async (dispatch) =>{
         const result = await post(API_VIDOE_PALYER,params);
-        console.log('dispatchVideoPalyer',result);
         return result;
     }
 }

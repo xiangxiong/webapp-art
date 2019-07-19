@@ -318,7 +318,6 @@ class User extends PureComponent{
             Url:encodeURIComponent(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=${PRODUCTURL}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`)
         };
         const result = await this.props.getWeChatOauth(data);
-        console.log('getWeChatOauth result',result);
     }
 
     componentDidMount(){

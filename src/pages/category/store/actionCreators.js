@@ -5,7 +5,6 @@ import {ART_CATEGORY_API,PUBLISH_USER_TYPE,ProductCommend,GuessUserLikeProducts}
 export const dispatchCategoryList = (params) => {
     return async (dispatch)=>{
         const result = await post(ART_CATEGORY_API,params);
-        console.log('result',result);
         return result.Data.DataList;
     }
 }
@@ -13,7 +12,6 @@ export const dispatchCategoryList = (params) => {
 export const dispatchShopCategoryList = (params) => {
     return async (dispatch) => {
         const result = await post(PUBLISH_USER_TYPE,params);
-        console.log('result',result);
         return result.Data.DataList;
     }
 }

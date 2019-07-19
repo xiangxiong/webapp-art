@@ -38,7 +38,6 @@ class PayOrder extends PureComponent {
 
         const result = await this.props.handleWechatPay(data,payType);
         
-        console.log('result.data.Data',result.data.Data);
 
         if(result.status === 200 && result.data.Data) {
             window.WeChatPay.Base.getInstance().WeChatPay(result.data.Data,this.HandlePayCallBack);

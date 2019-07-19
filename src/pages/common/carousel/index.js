@@ -9,8 +9,6 @@ export default class CarouselBanner extends PureComponent{
         const {data,imgHeight} = this.props;
         const  aimgHeight = imgHeight === 'auto' ? '1.76rem': imgHeight;
 
-        console.log('data CarouselBanner',data);
-        
         return (
             <div className="art-main__header">
             <Carousel

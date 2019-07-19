@@ -7,7 +7,6 @@ const defaultState = fromJS({
 });
 
 export default (state = defaultState, action) => {
-    console.log('action.value',action.value);
     switch(action.type){
         case constants.COMMUNITY_LIST:
             return state.merge({

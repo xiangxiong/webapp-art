@@ -54,13 +54,40 @@ class Main extends PureComponent{
             }),
             hasMoreItems: true,
             current:'visible',
-            listData: Data
+            listData: Data,
+            show:false
         };
         this.currentPage=1;//为你推荐 当前页 hidden
+        // this.handleScroll = this.handleScroll.bind(this);
+        // this.HandleBackTop = this.HandleBackTop.bind(this);
+    }
+
+    // handleScroll(event){
+    //     let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+    //     console.log('scrollTop',scrollTop);
+    //     if(scrollTop>100){
+    //         this.setState({
+    //             show:false
+    //         })
+    //     }
+    //     else{
+    //         this.setState({
+    //             show:false
+    //         })
+    //     }
+    // }
+
+    // HandleBackTop(){
+    //     console.log('HandleBackTop',document.documentElement.scrollTop);
+    //     // document.body.scrollTop = 0;
+    // }
+
+    componentWillMount(){
+        NEWDATAINDEX = 1;
+        // window.addEventListener('scroll',this.handleScroll,true);
     }
 
     HandleJumpUrl(url){
-        console.log('HandleJumpUrl',url);
         if(url==="/shiji"){
             Toast.success("正在开发中",1);
             return;
@@ -71,7 +98,6 @@ class Main extends PureComponent{
             return;
         }else{
             if(url === "/category"){
-                console.log('category navitem');
                 eventProxy.trigger('navitem','大师云集');
             }
             history.push(url);
@@ -90,13 +116,8 @@ class Main extends PureComponent{
         });
         return items;
     }
-    
-    componentWillMount(){
-        NEWDATAINDEX = 1;
-    }
 
     loadMoreItem(){
-
         const {DataList = [], TotalRecords} = this.props.userLikeProducts;
 
         if (DataList.length >= TotalRecords) {
@@ -157,7 +178,6 @@ class Main extends PureComponent{
                                 {this.showRecomandItem()}
                             </div>
                         </div>
-                        <div> 回到顶部 </div>
                 </div>
             </Fragment>
         )
@@ -165,7 +185,6 @@ class Main extends PureComponent{
 
     componentDidMount() {
         eventProxy.on('recomandItem',(object)=>{
-            console.log('recomandItem',object);
             pushList.push(object);
             this.forceUpdate();
         });

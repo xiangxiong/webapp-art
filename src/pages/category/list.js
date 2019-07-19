@@ -27,7 +27,6 @@ function List(props){
         };
 
         const result = await props.dispatchProductList(payload);
-        console.log('result',result);
         setData(result);
     }
 

@@ -37,7 +37,8 @@ class Home extends PureComponent{
             childData: 666,
             currentPage:1,
             calcHeight:760,
-            totalRecords:0
+            totalRecords:0,
+            show:false
         };
         
         eventProxy.on("targetHome",(object)=>{
@@ -45,6 +46,9 @@ class Home extends PureComponent{
               selectedTab:"yellowTab"
            });
         });
+
+        this.handleScroll = this.handleScroll.bind(this);
+        this.HandleBackTop = this.HandleBackTop.bind(this);
   }
 
   async loadMoreData(props){
@@ -81,6 +85,31 @@ class Home extends PureComponent{
             return (<Main/>);
        }
   }
+
+  renderShowBackTop(){
+    const {show} = this.state;
+    return (
+      show ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
+          <p>回到顶部</p>
+       </div> : ""
+    )
+  }
+
+
+  handleScroll(event){
+    let scrollTop = document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop;
+    if(scrollTop>100){
+        this.setState({
+            show:true
+        });
+    }
+    else{
+        this.setState({
+            show:false
+        });
+    }
+  }
+
   
   renderContent(pageText){
         if(pageText==="USER"){
@@ -95,16 +124,18 @@ class Home extends PureComponent{
         
         if(pageText==="MAIN"){
             return (
-              <div ref="wrapperScroll" className="container">
-                <Scroll
-                click={true}
-                pullUpLoad
-                pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
-                isPullUpTipHide={ false }>
+              <div id="containerMain" className="container">
+                 {  this.renderFactory(pageText)}
                 {
-                        this.renderFactory(pageText)
+                //   <Scroll  ref="wrapperScroll" 
+                //   click={true}
+                //   pullUpLoad
+                //   pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                //   isPullUpTipHide={ false }>
+                
+                //  </Scroll>
                 }
-               </Scroll>
+               { this.renderShowBackTop() }
               </div>
             );
         }
@@ -112,15 +143,16 @@ class Home extends PureComponent{
 
            return (
               <div className="container">
-                  <Scroll
+                  { this.renderFactory(pageText)}
+                  {/* <Scroll
                     click={true}
                     pullUpLoad
                     pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
                     isPullUpTipHide={ false }>
-                    {
-                          this.renderFactory(pageText)
-                    }
-                  </Scroll>
+                    { */}
+                       
+                    {/* }
+                  </Scroll> */}
               </div>
            )
       }
@@ -150,11 +182,11 @@ class Home extends PureComponent{
       }
   }
 
-  // init(){
-  //   Storage.Base.getInstance().set("userInfo",{"Token":1613432322014178,"Register":true,"Type":2,"CustomerId":3,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
-  //   // {"val":
-  // }
-  
+// init(){
+//   Storage.Base.getInstance().set("userInfo",{"Token":1613432322014178,"Register":true,"Type":2,"CustomerId":3,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+//   // {"val":
+// }
+
   async initLikeList(){
     // this.init();
     let storage = Storage.Base.getInstance().get("userInfo");
@@ -173,7 +205,7 @@ class Home extends PureComponent{
     //  console.log('getUrlParam()',getUrlParam('tab'));
      this.setState({
       selectedTab:'blueTab'
-   });
+     });
      if(getUrlParam('tab') === "User"){
         this.setState({
           selectedTab:'yellowTab'
@@ -200,6 +232,16 @@ class Home extends PureComponent{
           selectedTab:item
        });
      });
+  }
+
+
+  componentWillMount(){
+    window.addEventListener('scroll',this.handleScroll,true);
+  }
+ 
+  HandleBackTop(){
+    console.log('HandleBackTop',document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop);
+    document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop = 0;
   }
 
   render(){

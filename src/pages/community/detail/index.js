@@ -53,7 +53,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             });
         }
         setCarouselData(carouselList);
-        console.log('result',result);
         setIsHaveVideo(result.Data.IsHaveVideo)
         initAliplayer(result.Data.VideoId);
     }

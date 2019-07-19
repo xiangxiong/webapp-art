@@ -27,7 +27,6 @@ class Master extends PureComponent {
     render() {
         const {masterCarouselAdList, masterCommonAdList, masterNewsPagerList, masterProductCommendList=[], masterUserLikeProductsList = []} = this.props;
 
-        console.log('masterUserLikeProductsList',masterUserLikeProductsList);
         return (
             <Fragment>
                 <div className="art-master">
