@@ -37,8 +37,7 @@ class Home extends PureComponent{
             childData: 666,
             currentPage:1,
             calcHeight:760,
-            totalRecords:0,
-            show:false
+            totalRecords:0
         };
         
         eventProxy.on("targetHome",(object)=>{
@@ -46,9 +45,6 @@ class Home extends PureComponent{
               selectedTab:"yellowTab"
            });
         });
-
-        this.handleScroll = this.handleScroll.bind(this);
-        this.HandleBackTop = this.HandleBackTop.bind(this);
   }
 
   async loadMoreData(props){
@@ -85,29 +81,6 @@ class Home extends PureComponent{
        }
   }
 
-  renderShowBackTop(){
-    const {show} = this.state;
-    return (
-      show ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
-          <p>回到顶部</p>
-       </div> : ""
-    )
-  }
-
-
-  handleScroll(event){
-    let scrollTop = document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop;
-    if(scrollTop>100){
-        this.setState({
-            show:true
-        });
-    }
-    else{
-        this.setState({
-            show:false
-        });
-    }
-  }
 
   
   renderContent(pageText){
@@ -124,16 +97,13 @@ class Home extends PureComponent{
         if(pageText==="MAIN"){
             return (
               <div id="containerMain" className="container">
-                {
                   <Scroll  ref="wrapperScroll" 
                   click={true}
                   pullUpLoad
                   pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
                   isPullUpTipHide={ false }>
-                   { this.renderFactory(pageText) }
+                    {this.renderFactory(pageText)}
                  </Scroll>
-                }
-               { this.renderShowBackTop() }
               </div>
             );
         }
@@ -232,15 +202,6 @@ class Home extends PureComponent{
      });
   }
 
-
-  componentWillMount(){
-    window.addEventListener('scroll',this.handleScroll,true);
-  }
- 
-  HandleBackTop(){
-    console.log('HandleBackTop',document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop);
-    document.getElementsByClassName('am-tabs-pane-wrap am-tabs-pane-wrap-active')[0].scrollTop = 0;
-  }
 
   render(){
      return (

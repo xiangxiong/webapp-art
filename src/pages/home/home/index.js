@@ -96,28 +96,25 @@ class Main extends PureComponent{
             isLoading: true
         };
         this.currentPage=1;//为你推荐 当前页 hidden
-        // this.handleScroll = this.handleScroll.bind(this);
-        // this.HandleBackTop = this.HandleBackTop.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.HandleBackTop = this.HandleBackTop.bind(this);
     }
 
     componentDidMount(){
-            // simulate initial Ajax
-    setTimeout(() => {
-        this.rData = genData();
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(this.rData),
-          isLoading: false,
-        });
-      }, 600);
-
         eventProxy.on('recomandItem',(object)=>{
+
+        //   if(object.DataList.length>0){
+        //       this.setState({
+        //           show:true
+        //       });
+        //   }
+
           if(pushList.length>0){
             if(object.DataList[0]){
                  var result = pushList[0].DataList.filter(item => item.ProviderId ===  object.DataList[0].ProviderId);
                  if(result.length===0){
                     pushList.push(object);
                  }
-                 console.log('object',object.DataList[0].ProviderId);
             }
           }
           else{
@@ -131,11 +128,6 @@ class Main extends PureComponent{
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
         this.props.getUserLikeProducts(CustomerId, this.currentPage);
-
-    }
-
-    componentWillMount(){
-        NEWDATAINDEX = 1;
     }
 
     HandleJumpUrl(url){
@@ -187,65 +179,47 @@ class Main extends PureComponent{
         }
     }
 
-    onEndReached = (event) => {
-        console.log('event',event);
-        // load new data
-        // hasMore: from backend data, indicates whether it is the last page, here is false
-        if (this.state.isLoading && !this.state.hasMore) {
-          return;
-        }
-        console.log('reach end', event);
-        this.setState({ isLoading: true });
-        setTimeout(() => {
-          this.rData = { ...this.rData, ...genData(++pageIndex) };
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.rData),
-            isLoading: false,
-          });
-        }, 1000);
+    renderShowBackTop(){
+        const {show} = this.state;
+        console.log('show',show);
+        return (
+            true ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
+              <p>回到顶部</p>
+           </div> : ""
+        )
       }
+    
+    handleScroll(event){
+        console.log('event');
+        let scrollTop = document.getElementsByClassName('am-tabs-content-wrap')[0].scrollTop;
+        if(scrollTop>100){
+            this.setState({
+                show:true
+            });
+        }
+        else{
+            this.setState({
+                show:false
+            });
+        }
+    }
 
+    componentWillMount(){
+        window.addEventListener('scroll',this.handleScroll,true);
+    }
+     
+    HandleBackTop(){
+        let root = document.getElementsByClassName('b-scroll-content')[0];
+        root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
+        console.log('root',root.style);
+        this.setState({
+            show:false
+        })
+    }
       
 
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
-        const separator = (sectionID, rowID) => (
-            <div
-              key={`${sectionID}-${rowID}`}
-              style={{
-                backgroundColor: '#F5F5F9',
-                height: 8,
-                borderTop: '1px solid #ECECED',
-                borderBottom: '1px solid #ECECED',
-              }}
-            />
-          );
-          let index = data.length - 1;
-          const row = (rowData, sectionID, rowID) => {
-            if (index < 0) {
-              index = data.length - 1;
-            }
-            const obj = data[index--];
-            return (
-              <div key={rowID} style={{ padding: '0 15px' }}>
-                <div
-                  style={{
-                    lineHeight: '50px',
-                    color: '#888',
-                    fontSize: 18,
-                    borderBottom: '1px solid #F6F6F6',
-                  }}
-                >{obj.title}</div>
-                <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                  <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
-                  <div style={{ lineHeight: 1 }}>
-                    <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
-                    <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div>
-                  </div>
-                </div>
-              </div>
-            );
-          };
 
 
         return (
@@ -282,6 +256,7 @@ class Main extends PureComponent{
                         <Space/>
                         <Column cloumnData={cloumnData}  leftImgUrl={'/icon/8.png'} rightImgUrl={'/icon/9.png'}/>
                         <div className="art-main__recommend">
+                           {this.renderShowBackTop()}
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">
                                 {this.showRecomandItem()}
