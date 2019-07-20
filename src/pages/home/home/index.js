@@ -15,9 +15,9 @@ import eventProxy from 'react-eventproxy';
 import history from './../../../utils/history';
 import { Toast,ListView } from 'antd-mobile';
 import {IMGURL} from './../../../utils/api';
+import {getUrlParam} from './../../../utils/common';
 
 const Data = [];
-let NEWDATAINDEX = 1;
 for(let i=0;i<10;i++){
     Data.push(i)
 };
@@ -28,25 +28,7 @@ const cloumnData = [
 ];
 
 
-const data = [
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-      title: 'Meet hotel',
-      des: '不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: 'McDonald\'s invites you',
-      des: '不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-      title: 'Eat the week',
-      des: '不是所有的兼职汪都需要风吹日晒',
-    },
-  ];
   const NUM_ROWS = 2;
-  let pageIndex = 0;
   
   function genData(pIndex = 0) {
     const dataBlob = {};
@@ -91,7 +73,7 @@ class Main extends PureComponent{
             hasMoreItems: true,
             current:'visible',
             listData: Data,
-            show:false,
+            show:this.props.top,
             dataSource,
             isLoading: true
         };
@@ -120,6 +102,14 @@ class Main extends PureComponent{
           }
           this.forceUpdate();
         });
+
+        eventProxy.on('showTop',(object)=>{
+            console.log('object',object);
+            this.setState({
+                show:object
+            })
+        });
+
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
@@ -179,13 +169,13 @@ class Main extends PureComponent{
 
     renderShowBackTop(){
         const {show} = this.state;
-        console.log('show',show);
+      
         return (
-            true ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
+            show ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
               <p>回到顶部</p>
            </div> : ""
         )
-      }
+    }
     
     handleScroll(event){
         console.log('event');
@@ -210,9 +200,9 @@ class Main extends PureComponent{
         let root = document.getElementsByClassName('b-scroll-content')[0];
         root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
         console.log('root',root.style);
-        this.setState({
-            show:false
-        })
+        // this.setState({
+        //     show:false
+        // })
     }
 
     render() {

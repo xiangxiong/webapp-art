@@ -67,17 +67,17 @@ class Home extends PureComponent{
   renderFactory(pageText){
        switch(pageText){
           case "MAIN":
-            return (<Main likeProducts={this.props.userLikeProducts}/>);
+            return (<Main top={true} likeProducts={this.props.userLikeProducts}/>);
           case "ARTSHOP":
-            return (<Shop/>);
+            return (<Shop top={false}/>);
           case "MASTER":
-            return (<Master/>);     
+            return (<Master  top={false}/>);     
           case "CART":
-            return (<Cart/>);     
+            return (<Cart  top={false}/>);     
           case "USER":
-            return (<User/>);     
+            return (<User  top={false}/>);     
          default:
-            return (<Main/>);
+            return (<Main  top={true}/>);
        }
   }
 
@@ -224,6 +224,7 @@ class Home extends PureComponent{
               });
               history.push('/home?tab=Home');
               eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",true);
             }}
             data-seed="logId"
           >
@@ -243,6 +244,7 @@ class Home extends PureComponent{
               });
               history.push('/home?tab=Shop');
               eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId1"
           >
@@ -261,6 +263,7 @@ class Home extends PureComponent{
               });
               history.push('/home?tab=Art');
               eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId1"
           >
@@ -279,6 +282,7 @@ class Home extends PureComponent{
               });
               history.push('/home?tab=Cart');
               eventProxy.trigger("showcart",'visible');
+              eventProxy.trigger("showTop",false);
             }}
           >
             {this.renderContent('CART')}
@@ -297,6 +301,7 @@ class Home extends PureComponent{
                 });
                 history.push('/home?tab=User');
                 eventProxy.trigger("showcart",'hidden');
+                eventProxy.trigger("showTop",false);
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>
