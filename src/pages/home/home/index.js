@@ -69,9 +69,9 @@ class Main extends PureComponent{
 
         this.navDataList = [
             {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
-            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '线下活动',url:'/shiji'},
             {imageUrl: `${IMGURL}/icon/shop.svg`, name: '艺商城',url:'/shop'},
-            {imageUrl: `${IMGURL}/icon/community.svg`, name: '艺社区',url:'/community'},
+            {imageUrl: `${IMGURL}/icon/community.svg`, name: '线下沙龙',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '艺社区',url:'/community'},
         ];
 
         this.state = {
@@ -102,13 +102,11 @@ class Main extends PureComponent{
 
     componentDidMount(){
         eventProxy.on('recomandItem',(object)=>{
-
         //   if(object.DataList.length>0){
         //       this.setState({
         //           show:true
         //       });
         //   }
-
           if(pushList.length>0){
             if(object.DataList[0]){
                  var result = pushList[0].DataList.filter(item => item.ProviderId ===  object.DataList[0].ProviderId);
@@ -216,7 +214,6 @@ class Main extends PureComponent{
             show:false
         })
     }
-      
 
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;

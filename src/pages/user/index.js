@@ -157,7 +157,7 @@ class User extends PureComponent{
         let CustomerType = this.props.customerDetail.CustomerType;
 
         return navItems.map((navItem, index) => {
-            if (index === 2 && CustomerType == 2) {
+            if (index === 2 && CustomerType === 2) {
                 navItem.title = '发布实拍实测';
             }
             return (
@@ -167,11 +167,31 @@ class User extends PureComponent{
                         onClick={() => {
                             this.handleNavUrl(navItem.routeUrl)
                         }}>
-                        <div><span className={navItem.icon}></span> {navItem.title}</div>
+                            {this.showTitle(navItem.title,navItem.icon)}
                     </Item>
                 </List>
             )
         })
+    }
+
+    showTitle(title,icon){
+        if(title === "联系客服(9:00-21:30)"){
+            return (
+                <div>
+                    <a style={{color:'#333333'}} href="tel:15858233309">
+                            <span className={icon}></span> 
+                               {title}
+                    </a>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div>
+                    <span className={icon}></span> {title}
+                </div>
+            )
+        }
     }
 
     bindBuyList() {
@@ -186,7 +206,8 @@ class User extends PureComponent{
                         onClick={() => {
                             this.handleNavUrl(navItem.routeUrl)
                         }}>
-                        <div><span className={navItem.icon}></span> {navItem.title}</div>
+                             {this.showTitle(navItem.title,navItem.icon)}
+                        {/* <div><span className={navItem.icon}></span> {navItem.title}</div> */}
                     </Item>
                 </List>
             )
