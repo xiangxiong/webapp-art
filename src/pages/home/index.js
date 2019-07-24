@@ -67,7 +67,7 @@ class Home extends PureComponent{
   renderFactory(pageText){
        switch(pageText){
           case "MAIN":
-            return (<Main top={true} likeProducts={this.props.userLikeProducts}/>);
+            return (<Main top={false} likeProducts={this.props.userLikeProducts}/>);
           case "ARTSHOP":
             return (<Shop top={false}/>);
           case "MASTER":
@@ -81,8 +81,11 @@ class Home extends PureComponent{
        }
   }
 
+  pullUpLoad(params) {
+    console.log('params',params);
+  }
 
-  
+
   renderContent(pageText){
         if(pageText==="USER"){
           return (
@@ -97,9 +100,9 @@ class Home extends PureComponent{
         if(pageText==="MAIN"){
             return (
               <div id="containerMain" className="container">
-                  <Scroll  ref="wrapperScroll" 
+                  <Scroll className="wrapper" ref="wrapperScroll" 
                   click={true}
-                  pullUpLoad
+                  pullUpLoad={true}
                   pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
                   isPullUpTipHide={ false }>
                     {this.renderFactory(pageText)}
@@ -170,7 +173,9 @@ class Home extends PureComponent{
 
   componentDidMount(){
      this.initLikeList();
-    //  console.log('getUrlParam()',getUrlParam('tab'));
+    //  this.scrollObj = this.refs.wrapperScroll.getScrollObj()
+     console.log('scrollObj',this.refs);
+
      this.setState({
       selectedTab:'blueTab'
      });
@@ -224,7 +229,7 @@ class Home extends PureComponent{
               });
               history.push('/home?tab=Home');
               eventProxy.trigger("showcart",'hidden');
-              eventProxy.trigger("showTop",true);
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId"
           >

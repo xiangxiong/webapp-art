@@ -77,6 +77,7 @@ class Main extends PureComponent{
             dataSource,
             isLoading: true
         };
+        console.log('this.props.top',this.props.top);
         this.currentPage=1;//为你推荐 当前页 hidden
         this.handleScroll = this.handleScroll.bind(this);
         this.HandleBackTop = this.HandleBackTop.bind(this);
@@ -89,6 +90,7 @@ class Main extends PureComponent{
         //           show:true
         //       });
         //   }
+            console.log('dafds');
           if(pushList.length>0){
             if(object.DataList[0]){
                  var result = pushList[0].DataList.filter(item => item.ProviderId ===  object.DataList[0].ProviderId);
@@ -96,6 +98,13 @@ class Main extends PureComponent{
                     pushList.push(object);
                  }
             }
+
+            this.setState({
+                show:true
+            });
+            //  let root = document.getElementsByClassName('b-scroll-content')[0];
+            //   console.log('root',root.style);
+            //  root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
           }
           else{
             pushList.push(object);
@@ -109,7 +118,6 @@ class Main extends PureComponent{
                 show:object
             })
         });
-
         this.props.getAdvertList(1);
         this.props.getNewsPagerList();
         this.props.getAdvertList(11);
@@ -198,11 +206,13 @@ class Main extends PureComponent{
      
     HandleBackTop(){
         let root = document.getElementsByClassName('b-scroll-content')[0];
-        root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
         console.log('root',root.style);
-        // this.setState({
-        //     show:false
-        // })
+        root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
+        setTimeout(() => {
+            this.setState({
+                show:false
+            });
+        }, 100);
     }
 
     render() {
