@@ -52,8 +52,8 @@ class Main extends PureComponent{
         this.navDataList = [
             {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
             {imageUrl: `${IMGURL}/icon/shop.svg`, name: '艺商城',url:'/shop'},
-            {imageUrl: `${IMGURL}/icon/community.svg`, name: '线下沙龙',url:'/shiji'},
-            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '艺社区',url:'/community'},
+            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '线下沙龙',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/community.svg`, name: '艺社区',url:'/community'},
         ];
 
         this.state = {
