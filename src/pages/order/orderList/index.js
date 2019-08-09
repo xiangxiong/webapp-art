@@ -2,7 +2,7 @@ import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
 import {connect} from 'react-redux';
 import PublicHeader from './../../../components/header';
-import {getQueryCustomerOrderList} from '../store/actionCreators';
+import {getQueryCustomerOrderList, getOrderReceived} from '../store/actionCreators';
 import {Tabs} from 'antd-mobile';
 import Space from '../../common/space';
 import  {pictureUrl} from '../../../utils/common';
@@ -10,11 +10,11 @@ import ArtListView from '../../../components/artListView';
 import history from './../../../utils/history';
 
 const orderTabs = [
-    {title: '全部'},
-    {title: '待付款'},
-    {title: '待发货'},
-    {title: '已发货'},
-    {title: '待评价'},
+    {title: '全部',index:0},
+    {title: '待付款',index:1},
+    {title: '待发货',index:2},
+    {title: '已发货',index:3},
+    {title: '待评价',index:4}
 ];
 
 class OrderList extends PureComponent {
@@ -24,11 +24,20 @@ class OrderList extends PureComponent {
     }
 
     getTabProduct = (order, index) => {
+        const {type} = this.props.location.state;
         const {ProviderName = '', OrderStatusName = '', Details = [], ProductCount = '', SOAmount = '', OrderStatus = '', SONumber, OrderNumber} = order;
 
         return (
             <div className="art-list__bussinss" key={index.toString()}
-                 onClick={() => history.push('./orderDetails', {SONumber, OrderNumber})}>
+                 onClick={() => {
+                     if (type === 'sell') {
+                         //卖家
+                         history.push('./orderSellDetails', {SONumber, OrderNumber})
+                     } else {
+                         //买家
+                         history.push('./orderDetails', {SONumber, OrderNumber})
+                     }
+                 }}>
                 <Space/>
 
                 <div className="art-list__bussinss-title">
@@ -64,9 +73,9 @@ class OrderList extends PureComponent {
                     )
                 })}
 
-                <div className="art-list__bussinss-total">
-                    <span>{`共${ProductCount}件商品 合计:￥${SOAmount}(运费￥0)`}</span>
-                </div>
+                {SOAmount > 0 ? (<div className="art-list__bussinss-total">
+                    <span>{ `共${ProductCount}件商品 合计:￥${SOAmount}`}</span>
+                </div>) : null}
 
                 {this.getOrderOperation(order)}
             </div>
@@ -80,64 +89,133 @@ class OrderList extends PureComponent {
         history.push('./payorder', {OrderAmount: SOAmount, SONumber, OrderNumber});
     };
 
-    //确认收货
-    confirmGoods = () => {
 
+    init = () => {
+        const {index = -1, type} = this.props.location.state;
+
+
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+
+        this.CurrentPage = 1;
+
+        if (type === 'sell') {
+            //卖家
+            this.props.getQueryCustomerOrderList(0, (index - 1), this.CurrentPage, ObjectItem.ProviderId);
+        } else {
+            //买家
+            this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage, 0);
+        }
+    };
+
+
+    //确认收货
+    confirmGoods = (order) => {
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo').CustomerId;
+        let {SONumber, OrderNumber} = order;
+
+        const {index = -1, type} = this.props.location.state;
+
+        let OrderStatus = (index - 1);
+
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+        let ProviderId = ObjectItem.ProviderId;
+
+        this.CurrentPage = 1;
+
+        this.props.getOrderReceived({SONumber, OrderNumber, CustomerId, OrderStatus, ProviderId, type});
     };
 
     //评价
-    evaluation = () => {
-
+    evaluation = (order) => {
+        history.push('./orderEvaluation', {order});
     };
 
     //申请退货
-    returnGoods = () => {
+    returnGoods = (order) => {
+        history.push('./orderReturnGoods', {order});
+    };
+
+    //立即发货
+    onDelivery = (order) => {
+        history.push('./orderDelivery', {order});
     };
 
     getOrderOperation = (order) => {
         const {OrderStatus} = order;
+        const {type} = this.props.location.state;
 
+        console.log("OrderStatus",OrderStatus);
         switch (OrderStatus) {
             case 5:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={(e) => {
-                            e.stopPropagation();
-                            this.onPayment(order);
-                        }}>
-                            立即付款
+                if (type !== 'sell') {
+
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.onPayment(order);
+                            }}>
+                                立即付款
+                            </div>
                         </div>
-                    </div>
-                );
+                    );
+                }
+                break;
+            case 20:
+                if (type === 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.onDelivery(order);
+                            }}>
+                                立即发货
+                            </div>
+                        </div>
+                    );
+                }
+                break;
             case 100:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div className="art-list__bussinss-operation-item" onClick={() => {
-                            this.confirmGoods();
-                        }}>
-                            确认收货
+                if (type !== 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div className="art-list__bussinss-operation-item" onClick={(e) => {
+                                e.stopPropagation();
+                                this.confirmGoods(order);
+                            }}>
+                                确认收货
+                            </div>
                         </div>
-                    </div>
-                );
+                    );
+                }
+                break;
             case 300:
             case 200:
-                return (
-                    <div className="art-list__bussinss-operation">
-                        <div style={{display: 'flex', dipflexDirection: 'row'}}>
-                            <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
-                                 onClick={() => {
-                                     this.evaluation();
+                if (type !== 'sell') {
+                    return (
+                        <div className="art-list__bussinss-operation">
+                            <div style={{display: 'flex', dipflexDirection: 'row'}}>
+                                <div style={{marginRight: '10px'}} className="art-list__bussinss-operation-item"
+                                     onClick={(e) => {
+                                         e.stopPropagation();
+                                         this.evaluation(order);
+                                     }}>
+                                    评价
+                                </div>
+                                {/*<div className="art-list__bussinss-operation-item" onClick={() => {
+                                 this.returnGoods(order);
                                  }}>
-                                评价
-                            </div>
-                            <div className="art-list__bussinss-operation-item" onClick={() => {
-                                this.returnGoods();
-                            }}>
-                                申请退货
+                                 申请退货
+                                 </div>*/}
                             </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
+                break;
         }
     };
 
@@ -155,6 +233,9 @@ class OrderList extends PureComponent {
         const {index = 0} = this.props.location.state;
         const {orderList = []} = this.props;
 
+        console.log('this.props;',this.props);
+
+        console.log('this.props.location.state',this.props.location.state);
         return (
             <Fragment>
                 <PublicHeader jump="User" title="我的订单"/>
@@ -193,17 +274,29 @@ class OrderList extends PureComponent {
         )
     }
 
-    componentDidMount() {
-        const {index = -1} = this.props.location.state;
+    init = () => {
+        const {index = -1, type} = this.props.location.state;
         let storage = Storage.Base.getInstance();
         let CustomerId = storage.get('userInfo').CustomerId;
+        let ObjectItem = this.props.customerDetail.ProviderInfo || {};
+        this.CurrentPage = 1;
+        if (type === 'sell') {
+            //卖家
+            this.props.getQueryCustomerOrderList(0, (index - 1), this.CurrentPage, ObjectItem.ProviderId);
+        } else {
+            //买家
+            this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage, 0);
+        }
+    };
 
-        this.props.getQueryCustomerOrderList(CustomerId, (index - 1), this.CurrentPage);
+    componentDidMount() {
+        this.init();
     }
 }
 
-const mapStateToProps = ({order}) => {
+const mapStateToProps = ({order, user}) => {
     return {
+        customerDetail: user.customerDetail,
         orderList: order.orderList,
     }
 };
@@ -211,6 +304,9 @@ const mapStateToProps = ({order}) => {
 const mapDispatchToProps = dispatch => ({
     getQueryCustomerOrderList: (CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize = 10) => {
         dispatch(getQueryCustomerOrderList({CustomerId, OrderStatus, CurrentPage, ProviderId, PageSize}))
+    },
+    getOrderReceived: (params) => {
+        dispatch(getOrderReceived(params))
     }
 });
 

@@ -263,7 +263,7 @@ class Application extends PureComponent {
 
     render() {
         const {type, Provider, Phone, isAgreement, CategoryName, files = [], AddDetail} = this.state;
-        const title = type === "art" ? "入住成为合作艺术家" : "入住成为艺术商城商户",
+        const title = type === "art" ? "入驻成为合作艺术家" : "入驻成为艺术商城商户",
             pickers = type === "art" ? artsTitle : shopsTitle;
         let uploadPanel = classNames('art-application__upload', {
             'art-application__art-panel': type === "art"

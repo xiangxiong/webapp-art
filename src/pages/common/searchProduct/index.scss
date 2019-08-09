@@ -1,0 +1,41 @@
+@import './../../../style/index.scss';
+
+.art-searchProduct {
+  background: $color-bg-color;
+
+  &__recommend {
+
+    &-item {
+      width: 50%;
+      margin-top: 10px;
+      text-align: right;
+
+      & > p:nth-child(2) {
+        height: 20px;
+        line-height: 20px;
+        text-align: left;
+        font-family: PingFangSC-Semibold;
+        font-size: 14px;
+        color: #333333;
+        letter-spacing: -0.09px;
+        margin: 3px 9px 3px 0px;
+      }
+
+      & > p:nth-child(3) {
+        text-align: left;
+      }
+    }
+
+    &-img {
+      height: 172px;
+      background: red;
+      border-radius: 3px;
+    }
+
+    &-money {
+      font-size: 14px;
+      color: $color-warn;
+      letter-spacing: -0.09px;
+    }
+  }
+}

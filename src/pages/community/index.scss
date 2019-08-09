@@ -1,0 +1,131 @@
+.art-community{
+    &-discover{
+        width: 100%;
+        height: 200px;
+        padding: 12px;
+
+        &-left-wrapper{
+            float: left;
+            width: 48%;
+            height: 280px;
+            margin-right: 5px;
+        }
+        &-right-wrapper{
+            float: left;
+            width: 48%;
+            margin-left: 5px;
+            border-radius: 4px;
+        }
+
+        &__left-img{
+            border-radius: 4px;
+            height: 250px;
+            background: blue;
+        }
+
+        &__left-font{
+            padding-top: 10px;
+            font-family: PingFangSC-Semibold;
+            font-size: 13px;
+            color: #333333;
+            letter-spacing: -0.09px;
+        }
+
+        &__left-right{
+        }
+
+        &__right-img{
+
+        }
+
+        &__right-font{
+
+        }
+
+      
+        &__right-img{
+            border-radius: 4px;
+            height: 210px;
+            background: blue;
+        }
+
+        &__right-font{
+            padding-top: 10px;
+            font-family: PingFangSC-Semibold;
+            font-size: 13px;
+            letter-spacing: -0.09px;
+        }
+
+     
+
+        &-visit{
+            text-align: right;
+            font-family: PingFangSC-Regular;
+            font-size: 11px;
+            letter-spacing: -0.09px;
+
+            &>img{
+                width: 20px;
+                height: 20px;
+                float: right;
+                border-radius: 10px;
+            }
+
+            &>p{
+                margin-top: 5px;
+                margin-right: 10px;
+                float: right;
+            }
+
+            
+        }
+    }
+
+    &__productlist{
+        width: 100%;
+        display: flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+
+        &-item{
+            padding:12px 12px 35px 12px;
+            width: 50%;
+            height: 200px;
+
+            &>img{
+                border-radius: 3px;
+                background-size: cover;
+                width: 100%;
+                height: 500px;
+                object-fit:cover;
+            }
+
+            &>h3{
+                padding-top: 5px;
+                font-family: PingFangSC-Semibold;
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: -0.09px;
+                height: 70px;
+                line-height: 70px;
+            }
+
+            &>p{
+                font-family: PingFangSC-Semibold;
+                font-size: 14px;
+                color: #C52125;
+                letter-spacing: -0.09px;
+                line-height: 20px;
+                height: 20px;
+                margin-bottom: 10px;
+                text-align: right;
+
+                &>i{
+                    color: #979797;
+                    text-decoration: line-through;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}

@@ -12,21 +12,33 @@ import Space from '../common/space';
 import Column from '../common/column';
 import Product from './../common/product';
 import Title from './../common/title';
+import history from './../../utils/history';
 
-class Shop extends PureComponent {
-    render() {
+const cloumnData = [
+    {title:'「 实拍实测 」', name:'商家好物实拍实测', url:'./community'},
+    {title:'「 超值团购 」', name:'邀请好友一起拼团', url:'./group'}
+];
+
+class Shop extends PureComponent{
+
+    handleJumpUrl(){
+        history.push('./shopCategroy');
+    }
+
+    render(){
         const {shopCarouselAdList, shopCommonAdList, shopNewsPagerList, shopProductCommendList, shopUserLikeProducts} = this.props;
 
         return (
             <Fragment>
                 <div className="art-shop">
                     {/* <PublicHeader title="艺商城" bgColor="#E87908" icon="none"/> */}
-                    <SearchCategory/>
+                    <SearchCategory jumpUrl={this.handleJumpUrl.bind(this)}/>
                     <CarouselBanner data={shopCarouselAdList}/>
-                    <Letters data={shopNewsPagerList}/>
+                    {/* <Letters data={null}/> */}
+                    <div style={{height:'20px',width:'100%'}}></div>
                     <Advert commonAdList={shopCommonAdList}/>
                     <Space/>
-                    <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                    <Column cloumnData={cloumnData} leftImgUrl={'/icon/30.png'} rightImgUrl={'/icon/31.png'}/>
                     <div className="art-shop__hot">
                         <Title title="热销作品" more="更多"/>
                         <div className="art-shop__hot-content">
@@ -37,7 +49,7 @@ class Shop extends PureComponent {
                     </div>
                     <div className="art-shop__border"></div>
                     <div className="art-shop__hot">
-                        <Title title="猜你喜欢" more="更多"/>
+                        <Title title="猜你喜欢"/>
                         <div className="art-shop__hot-content">
                             {shopUserLikeProducts.map((shopProductCommend, index) => {
                                 return <Product key={index.toString()} {...shopProductCommend}/>

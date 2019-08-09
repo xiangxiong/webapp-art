@@ -1,0 +1,62 @@
+@import './../../../style/index.scss';
+
+.art-main {
+  background: $color-bg-color;
+
+  &__recommend {
+    margin: 0 12px 0px 12px;
+
+    &-item {
+      width: 50%;
+
+      & > p:nth-child(2) {
+        height: 20px;
+        line-height: 20px;
+        margin: 3px 0 3px 0px;
+
+        & > i:nth-child(1) {
+          font-family: PingFangSC-Semibold;
+          font-size: 14px;
+          color: #333333;
+          letter-spacing: -0.09px;
+        }
+
+        & > i:nth-child(2) {
+          width: 44px;
+          height: 16px;
+          font-family: PingFangSC-Semibold;
+          font-size: 11px;
+          color: #FFFFFF;
+          letter-spacing: -0.07px;
+          background-color: #E87908;
+          border-radius: 3px;
+          margin-left: 4px;
+          padding: 0 3px 0 3px;
+        }
+      }
+    }
+
+    &-img {
+      height: 172px;
+      background: red;
+      border-radius: 3px;
+    }
+
+    &-label {
+      display: flex;
+      flex-direction: row;
+      margin: 5px 4px 13px 0;
+      justify-content: flex-end;
+
+      & > span {
+        padding: 3px;
+        border: 1px solid #D6D6D6;
+        font-family: PingFangSC-Regular;
+        font-size: 11px;
+        color: #888888;
+        letter-spacing: -0.07px;
+        margin-left: 4px;
+      }
+    }
+  }
+}

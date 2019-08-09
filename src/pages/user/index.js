@@ -20,7 +20,6 @@ const Item = List.Item;
 const styles = {};
 styles.tab = {
     backgroundColor: '#fff',
-    height: "40px"
 }
 
 const navItems = [
@@ -33,24 +32,34 @@ const navItems = [
         title: '作品库',
         icon: 'art-icon art-icon-user-works',
         routeUrl: '/worklist'
+    },
+    {
+        title: '发布大师印象',
+        icon: 'art-icon art-icon-user-release-master',
+        routeUrl: '/releaseMaster'
+    },
+    {
+        title: '订单管理',
+        icon: 'art-icon art-icon-user-order',
+        routeUrl: '/orderList'
     }
-    // {
-    //     title: '发布大师印象',
-    //     icon: 'art-icon art-icon-user-release-master',
-    //     routeUrl: ''
-    // },
-    // {
-    //     title: '订单管理',
-    //     icon: 'art-icon art-icon-user-order',
-    //     routeUrl: ''
-    // }
 ];
 
 const customerNavItems = [
     {
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: '/withdraw'
+    },
+    {
+        title: '银行卡',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: '/bankCardList'
+    },
+    {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
-        routeUrl: ''
+        routeUrl: '/agreement'
     },
     {
         title: '收货地址',
@@ -75,15 +84,20 @@ const normalNavItems = [
     //     icon: 'art-icon art-icon-user-recomand',
     //     routeUrl: ''
     // },
-    // {
-    //     title: '提现',
-    //     icon: 'art-icon art-icon-user-cash',
-    //     routeUrl: ''
-    // },
+    {
+        title: '提现',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: '/withdraw'
+    },
+    {
+        title: '银行卡',
+        icon: 'art-icon art-icon-user-cash',
+        routeUrl: '/bankCardList'
+    },
     {
         title: '协议规则',
         icon: 'art-icon art-icon-user-rule',
-        routeUrl: ''
+        routeUrl: '/agreement'
     },
     {
         title: '收货地址',
@@ -98,7 +112,7 @@ const normalNavItems = [
 ];
 
 class User extends PureComponent{
-
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -129,11 +143,23 @@ class User extends PureComponent{
     }
 
     handleNavUrl(url) {
-        history.push(url);
+        let CustomerType = this.props.customerDetail.CustomerType;
+        if (url === '/orderList') {
+            history.push(url, {index: 0, type: 'sell'});
+        } else if (url === '/agreement') {
+            history.push(url, {CustomerType});
+        } else {
+            history.push(url, {customerDetail: this.props.customerDetail});
+        }
     }
 
     bindSellList() {
+        let CustomerType = this.props.customerDetail.CustomerType;
+
         return navItems.map((navItem, index) => {
+            if (index === 2 && CustomerType === 2) {
+                navItem.title = '发布实拍实测';
+            }
             return (
                 <List key={index.toString()}>
                     <Item
@@ -141,11 +167,31 @@ class User extends PureComponent{
                         onClick={() => {
                             this.handleNavUrl(navItem.routeUrl)
                         }}>
-                        <div><span className={navItem.icon}></span> {navItem.title}</div>
+                            {this.showTitle(navItem.title,navItem.icon)}
                     </Item>
                 </List>
             )
         })
+    }
+
+    showTitle(title,icon){
+        if(title === "联系客服(9:00-21:30)"){
+            return (
+                <div>
+                    <a style={{color:'#333333'}} href="tel:15858233309">
+                            <span className={icon}></span> 
+                               {title}
+                    </a>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div>
+                    <span className={icon}></span> {title}
+                </div>
+            )
+        }
     }
 
     bindBuyList() {
@@ -160,7 +206,8 @@ class User extends PureComponent{
                         onClick={() => {
                             this.handleNavUrl(navItem.routeUrl)
                         }}>
-                        <div><span className={navItem.icon}></span> {navItem.title}</div>
+                             {this.showTitle(navItem.title,navItem.icon)}
+                        {/* <div><span className={navItem.icon}></span> {navItem.title}</div> */}
                     </Item>
                 </List>
             )
@@ -198,7 +245,7 @@ class User extends PureComponent{
 
     render() {
         const {ProviderStatus} = this.state;
-         
+
         const tabs  = ProviderStatus === 1 ?  [
             {title: '我是买家'},
             {title: '我是卖家'}
@@ -222,7 +269,7 @@ class User extends PureComponent{
             CustomerType
         } = this.props.customerDetail || { };
 
-        var ObjectItem = this.props.customerDetail.ProviderInfo;
+        var ObjectItem = this.props.customerDetail.ProviderInfo||{};
         for(var item in ObjectItem){
             let storage = Storage.Base.getInstance();
             storage.set('ProviderStatus',ObjectItem[item]);
@@ -249,14 +296,16 @@ class User extends PureComponent{
                     FollowCount={FollowCount}
                     VisitCount={VisitCount}
                     GroupCount={GroupCount}
+                    CustomerType={CustomerType}
+                    ProviderId={ObjectItem.ProviderId}
                 />
                 <Tabs tabs={tabs} initialPage={0}>
                     <div style={styles.tab}>
-                        <InfiniteScroll
-                            loadMore={this.loadMoreItem.bind(this)}
-                            hasMore={this.state.hasMoreItems}
-                            loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}
-                            useWindow={false}>
+                        {/*<InfiniteScroll*/}
+                            {/*loadMore={this.loadMoreItem.bind(this)}*/}
+                            {/*hasMore={this.state.hasMoreItems}*/}
+                            {/*loader={<div className="art-user__loader" key={0}> 正在努力加载中... </div>}*/}
+                            {/*useWindow={false}>*/}
                             <OrderItem
                                 AwaitPayCount={AwaitPayCount}
                                 AwaitShipCount={AwaitShipCount}
@@ -273,7 +322,7 @@ class User extends PureComponent{
                                     {this.showRecomandItem()}
                                 </div>
                             </div>
-                        </InfiniteScroll>
+                        {/*</InfiniteScroll>*/}
                     </div>
                     <div style={styles.tab}>
                         <div className="art-user__nav">
@@ -290,7 +339,6 @@ class User extends PureComponent{
             Url:encodeURIComponent(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd78e408c5668f65f&redirect_uri=${PRODUCTURL}&response_type=code&scope=snsapi_userinfo&state=vueapp#wechat_redirect`)
         };
         const result = await this.props.getWeChatOauth(data);
-        console.log('result',result);
     }
 
     componentDidMount(){

@@ -1,8 +1,9 @@
 import React,{Fragment} from 'react';
 import './index.scss';
+import history from './../../../../utils/history';
 
 const Header = (props) =>{
-    const {src, UserName, Money, CollectCount, FollowCount, VisitCount, GroupCount} = props;
+    const {src, UserName, Money, CollectCount, FollowCount, VisitCount, GroupCount, CustomerType, ProviderId} = props;
     return (
         <Fragment>
                 <div className="art-user__info">
@@ -13,7 +14,14 @@ const Header = (props) =>{
                          <div>{UserName}</div>
                          <div>{`账户余额: ${Money}`}</div>
                      </div>
-                     <div className="art-icon art-icon-user-arrow"></div>
+                    {CustomerType == 1 ? (
+                        <div
+                            className="art-icon art-icon-user-arrow"
+                            onClick={() => {
+                                history.push('./modifyInfo', {src, ProviderId, UserName})
+                            }}>
+                        </div>
+                    ) : null}
                 </div>
 
                 <div className="art-user__action">

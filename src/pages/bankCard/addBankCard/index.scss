@@ -1,0 +1,42 @@
+@import '../../../style/index';
+
+.art-addBankCard {
+  background: $color-bg-color;
+
+  &__bottom {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 20px;
+    height: 46px;
+    width: 90%;
+    background: #E87908;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > span {
+      height: 15px;
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #FFFFFF;
+      letter-spacing: -0.42px;
+      line-height: 15px;
+    }
+  }
+}
+
+.am-list-item .am-list-line .am-list-content {
+  flex: 1 1;
+  color: #222222;
+  font-size: 0.17rem;
+  line-height: 1.5;
+  text-align: left;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 0.07rem;
+  padding-bottom: 0.07rem;
+}

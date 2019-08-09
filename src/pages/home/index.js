@@ -16,6 +16,7 @@ import Scroll from 'react-bscroll'
 import BScroll from 'better-scroll';
 import 'react-bscroll/lib/react-scroll.css'
 import eventProxy from 'react-eventproxy';
+import { IMGURL } from '../../utils/api';
 
 const Data = [];
 for (let i = 0; i < 10; i++) {
@@ -23,31 +24,12 @@ for (let i = 0; i < 10; i++) {
 }
 var countCurrentPage = 2;
 
-function getRect(el) {
-  if (el instanceof window.SVGElement) {
-    let rect = el.getBoundingClientRect()
-    return {
-      top: rect.top,
-      left: rect.left,
-      width: rect.width,
-      height: rect.height
-    }
-  } else {
-    return {
-      top: el.offsetTop,
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      height: el.offsetHeight
-    }
-  }
-}
-
 class Home extends PureComponent{
 
   constructor(props){
         super(props);
         this.state = {
-            selectedTab: 'blueTab',
+            selectedTab: 'greenTab',
             hidden: false,
             fullScreen: true,
             isSelected:false,
@@ -59,7 +41,6 @@ class Home extends PureComponent{
         };
         
         eventProxy.on("targetHome",(object)=>{
-          console.log('objecteeee',object);
            this.setState({
               selectedTab:"yellowTab"
            });
@@ -78,27 +59,32 @@ class Home extends PureComponent{
       this.setState({
         totalRecords:userLikes.Data.TotalRecords
       });
+      console.log('userLikes.Data',userLikes.Data);
       eventProxy.trigger('recomandItem',userLikes.Data);
       countCurrentPage ++;
   }
 
   renderFactory(pageText){
-       console.log('pageText',pageText);
        switch(pageText){
           case "MAIN":
-            return (<Main likeProducts={this.props.userLikeProducts}/>);
+            return (<Main top={false} likeProducts={this.props.userLikeProducts}/>);
           case "ARTSHOP":
-            return (<Shop/>);
+            return (<Shop top={false}/>);
           case "MASTER":
-            return (<Master/>);     
+            return (<Master  top={false}/>);     
           case "CART":
-            return (<Cart/>);     
+            return (<Cart  top={false}/>);     
           case "USER":
-            return (<User/>);     
+            return (<User  top={false}/>);     
          default:
-            return (<Main/>);
+            return (<Main  top={true}/>);
        }
   }
+
+  pullUpLoad(params) {
+    console.log('params',params);
+  }
+
 
   renderContent(pageText){
         if(pageText==="USER"){
@@ -112,40 +98,68 @@ class Home extends PureComponent{
         }
         
         if(pageText==="MAIN"){
-
-          return (
-            <div ref="wrapperScroll" className="container">
-              <Scroll
-              click={true}
-              pullUpLoad
-              pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
-              isPullUpTipHide={ false }>
-              {
-                      this.renderFactory(pageText)
-              }
-              </Scroll>
-            </div>
-          );
+            return (
+              <div id="containerMain" className="container">
+                  <Scroll className="wrapper" ref="wrapperScroll" 
+                  click={true}
+                  pullUpLoad={true}
+                  pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                  isPullUpTipHide={ false }>
+                    {this.renderFactory(pageText)}
+                 </Scroll>
+              </div>
+            );
         }
-
         if(pageText==="ARTSHOP"){
+
            return (
-            <div className="container">
-                  <Scroll
+              <div className="container">
+                  { this.renderFactory(pageText)}
+                  {/* <Scroll
                     click={true}
                     pullUpLoad
                     pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
                     isPullUpTipHide={ false }>
-                    {
-                          this.renderFactory(pageText)
-                    }
-                  </Scroll>
+                    { */}
+                       
+                    {/* }
+                  </Scroll> */}
               </div>
            )
-        }
+      }
+      if(pageText==="MASTER"){
+          return (
+              <div className="container">
+                  {/* <Scroll
+                      click={true}
+                      pullUpLoad
+                      pullUpLoadMoreData={this.loadMoreData.bind(this,this.props.getUserLikeList)}
+                      isPullUpTipHide={ false }>
+                      { */}
+                          {this.renderFactory(pageText)}
+                      {/* } */}
+                  {/* </Scroll> */}
+              </div>
+          )
+      }
+      if(pageText==="CART"){
+          return (
+              <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+                  {
+                      this.renderFactory(pageText)
+                  }
+              </div>
+          );
+      }
   }
 
+// init(){
+//   Storage.Base.getInstance().set("userInfo",{"Token":1613432322014178,"Register":true,"Type":2,"CustomerId":3,"UserName":"向雄","NickName":"向雄","Phone":15618925212,"BaiChuanUserId":"","BaiChuanUserPasssword":"","IMUserSigExpire":0});
+//   // {"val":
+// }
+
   async initLikeList(){
+    // this.init();
     let storage = Storage.Base.getInstance().get("userInfo");
     let data = {
       CustomerId: storage == null ? 0 : storage.CustomerId ,
@@ -155,28 +169,44 @@ class Home extends PureComponent{
     };
     let userLikes = await this.props.getUserLikeList(data);
     eventProxy.trigger('recomandItem',userLikes.Data);
-    console.log('userLikes',userLikes.Data.DataList);
   }
 
   componentDidMount(){
      this.initLikeList();
-     this.setState({
-      selectedTab:getUrlParam('tab')=== "User" ? 'yellowTab':'blueTab'
-    });
+    //  this.scrollObj = this.refs.wrapperScroll.getScrollObj()
+     console.log('scrollObj',this.refs);
 
-    // setTimeout(()=>{
-    //       this.refs.listWrapper.style.minHeight = `${getRect(this.refs.wrapperScroll).height + 1}px`
-    // },1000)
-    // let timer = null;
-    // if(timer){
-    //   clearTimeout(timer)
-    // }
-    // timer = setTimeout(()=>{
-    //   const content = document.querySelector('#container');
-    //   let scroll = new BScroll(content,{});
-    //   console.log(content);
-    // },0);
+     this.setState({
+      selectedTab:'blueTab'
+     });
+     if(getUrlParam('tab') === "User"){
+        this.setState({
+          selectedTab:'yellowTab'
+       });
+     }
+     if(getUrlParam('tab') === "Cart"){
+      this.setState({
+        selectedTab:'greenTab'
+      });
+     }
+     if(getUrlParam('tab') === "Art"){
+      this.setState({
+        selectedTab:'artTab'
+      });
+     }
+     else if(getUrlParam('tab') === "Shop"){
+      this.setState({
+        selectedTab:'redTab'
+      });
+     }
+     
+     eventProxy.on('selectedTab',(item)=>{
+        this.setState({
+          selectedTab:item
+       });
+     });
   }
+
 
   render(){
      return (
@@ -190,13 +220,16 @@ class Home extends PureComponent{
           <TabBar.Item
             title="首页"
             key="Home"
-            icon={{ uri: 'http://art.laoliwuyou.com/icon/home.svg' }}
-            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/home_active.svg' }}
+            icon={{ uri: `${IMGURL}/icon/home.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/home_active.svg` }}
             selected={this.state.selectedTab === 'blueTab'}
             onPress={() => {
               this.setState({
                 selectedTab: 'blueTab',
               });
+              history.push('/home?tab=Home');
+              eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId"
           >
@@ -204,8 +237,8 @@ class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/13.svg' }}
-            selectedIcon={{ uri: 'http://art.laoliwuyou.com/icon/28.svg' }}
+            icon={{ uri: `${IMGURL}/icon/13.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/28.svg` }}
             title="艺商城"
             key="shop"
             selected={ this.state.selectedTab === 'redTab'}
@@ -214,15 +247,18 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'redTab'
               });
+              history.push('/home?tab=Shop');
+              eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId1"
           >
             {this.renderContent('ARTSHOP')}
           </TabBar.Item>
-          
-          {/* <TabBar.Item
-            icon={{ uri: 'http://res.laoliwuyou.com/icon/svg/14.svg' }}
-            selectedIcon={{ uri: 'http://res.laoliwuyou.com/icon/svg/29.svg' }}
+
+           <TabBar.Item
+            icon={{ uri: `${IMGURL}/icon/14.svg` }}
+            selectedIcon={{ uri: `${IMGURL}/icon/29.svg` }}
             title="艺术大家"
             key="art"
             selected={this.state.selectedTab === 'artTab'}
@@ -230,6 +266,9 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'artTab',
               });
+              history.push('/home?tab=Art');
+              eventProxy.trigger("showcart",'hidden');
+              eventProxy.trigger("showTop",false);
             }}
             data-seed="logId1"
           >
@@ -237,8 +276,8 @@ class Home extends PureComponent{
           </TabBar.Item>
 
           <TabBar.Item
-            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
-            selectedIcon={{ uri:'http://res.laoliwuyou.com/icon/svg/15.svg' }}
+            icon={{ uri:`${IMGURL}/icon/15.svg` }}
+            selectedIcon={{ uri:`${IMGURL}/icon/30.svg` }}
             title="购物车"
             key="cart"
             selected={this.state.selectedTab === 'greenTab'}
@@ -246,14 +285,17 @@ class Home extends PureComponent{
               this.setState({
                 selectedTab: 'greenTab',
               });
+              history.push('/home?tab=Cart');
+              eventProxy.trigger("showcart",'visible');
+              eventProxy.trigger("showTop",false);
             }}
           >
             {this.renderContent('CART')}
-          </TabBar.Item> */}
-
+          </TabBar.Item>
+          
           <TabBar.Item
-            icon={{ uri:'http://res.laoliwuyou.com/icon/svg/16.svg' }}
-            selectedIcon={{ uri:'http://art.laoliwuyou.com/icon/29.svg' }}
+            icon={{ uri:`${IMGURL}/icon/16.svg` }}
+            selectedIcon={{ uri:`${IMGURL}/icon/29.svg` }}
             title="我的"
             key="my"
             selected={this.state.selectedTab === 'yellowTab'}
@@ -262,6 +304,9 @@ class Home extends PureComponent{
                   selectedTab: 'yellowTab',
                   isSelected:true
                 });
+                history.push('/home?tab=User');
+                eventProxy.trigger("showcart",'hidden');
+                eventProxy.trigger("showTop",false);
             }}>
             {this.renderContent('USER')}
           </TabBar.Item>
@@ -272,7 +317,6 @@ class Home extends PureComponent{
 }
 
 const mapStateToProps = (state) => {
-  console.log('state',state);
   return {
      authInfo:state.home.authInfo,
      userLikeProducts: state.home.userLikeProducts,
@@ -291,7 +335,6 @@ const mapDispatchToProps = dispatch => {
       return  dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
     },
     getUserLikeList: (data) => {
-      console.log('getUserLikeList data',data);
       return  dispatch(getUserLikeList(data))
     }
  }

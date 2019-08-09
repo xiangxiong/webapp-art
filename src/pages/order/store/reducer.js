@@ -1,10 +1,11 @@
-import {DEFAULT_ADDRESS, ORDER_LIST, ORDER_DETAIL, PORDER_INFO} from './constants';
+import {DEFAULT_ADDRESS, ORDER_LIST, ORDER_DETAIL, PORDER_INFO, ORDER_SHIP_VIA} from './constants';
 
 const defaultState = {
     defaultAddress: {},
     orderList: [],
     orderDetail: {},
     pPOrderInfo: {},
+    shipViaList: [],
 };
 
 export default (state = defaultState, action) => {
@@ -28,6 +29,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 pPOrderInfo: action.value
+            };
+        case ORDER_SHIP_VIA:
+            return {
+                ...state,
+                shipViaList: action.value
             };
         default:
             return state;

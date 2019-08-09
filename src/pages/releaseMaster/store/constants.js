@@ -1,0 +1,1 @@
+export const RELEASEMASTER_SET_VALUE = 'releaseMaster/setValue';

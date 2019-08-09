@@ -1,0 +1,32 @@
+@import './../../../style/index.scss';
+
+.art-modifyInfo {
+  background: $color-bg-color;
+
+  &__head {
+    display: flex;
+    justify-content: center;
+    & > div {
+      width: 60px;
+      height: 60px;
+      margin: 14px;
+      border-radius: 50%;
+      background-color: #C30F22;
+    }
+  }
+
+  &__avatar {
+    display: flex;
+    flex-direction: column;
+
+    & > h6 {
+      padding-left: 0.15rem;
+      height: 30px;
+      line-height: 30px;
+      color: #000;
+      font-size: 0.16rem;
+    }
+
+  }
+
+}

@@ -1,6 +1,24 @@
 import * as constants from './constants';
 import {post} from "../../../utils/request";
-import {ProductCommend, WorthGoodsDetail, ProductComment} from "../../../utils/servicekey";
+import {
+    ProductCommend,
+    WorthGoodsDetail,
+    ProductComment,
+    COLLECTIN,
+    GET_PROVIDER_INFO,
+    ART_MASTER_GET_PRODUCT_API
+} from "../../../utils/servicekey";
+import {Toast} from 'antd-mobile';
+
+export const providerInfo = (Entity) => ({
+    type: constants.SHOP_PROVIDER_INFO,
+    value: Entity
+});
+
+export const masterGetProduct = (DataList) => ({
+    type: constants.SHOP_MASTER_GET_PRODUCT,
+    value: DataList
+});
 
 export const shopCarouselAdList = (DataList) => ({
     type: constants.SHOP_CAROUSEL_AD_LIST,
@@ -32,6 +50,23 @@ export const worthGoodsDetail = (Entity) => ({
     value: Entity
 });
 
+export const getWorthGoodsDetail = (params) => {
+    return (dispatch) => {
+        return post(WorthGoodsDetail, params)
+            .then((response) => {
+               return dispatch(worthGoodsDetail(response.Data.Entity));
+            });
+    }
+};
+
+export const getProductDetail = (params) => {
+    return async (dispatch) => {
+        const result = await post(WorthGoodsDetail, params);
+        return result;
+    }
+};
+
+
 export const productComment = (Data) => ({
     type: constants.SHOP_PRODUCT_COMMENT,
     value: Data
@@ -45,19 +80,51 @@ export const getProductCommend = (params) => {
     }
 };
 
-export const getWorthGoodsDetail = (params) => {
-    return (dispatch) => {
-        return post(WorthGoodsDetail, params)
-            .then((response) => {
-                dispatch(worthGoodsDetail(response.Data.Entity));
-            });
-    }
-};
 export const getProductComment = (params) => {
     return (dispatch) => {
         return post(ProductComment, params)
             .then((response) => {
                 dispatch(productComment(response.Data));
+            });
+    }
+};
+
+export const getCollectin = (params) => {
+    return (dispatch) => {
+        return post(COLLECTIN, params)
+            .then((response) => {
+                if (response && response.Data && response.Data.Status == 200) {
+                    Toast.info('操作成功');
+                    if (params.CollectType == 1) {
+                        let storage = Storage.Base.getInstance();
+                        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+                        dispatch(getWorthGoodsDetail({ProdId: params.ObjId,CustomerId}));
+                    } else if (params.CollectType == 4) {
+                        let storage = Storage.Base.getInstance();
+                        let CustomerId = storage.get('userInfo').CustomerId;
+                        dispatch(getProviderInfo({CustomerId, ProviderId: params.ProviderId}));
+                    }
+                } else {
+                    Toast.info('网络异常');
+                }
+            });
+    }
+};
+
+export const getProviderInfo = (params) => {
+    return (dispatch) => {
+        return post(GET_PROVIDER_INFO, params)
+            .then((response) => {
+                dispatch(providerInfo(response.Data.Entity));
+            });
+    }
+};
+
+export const dispatchMasterGetProduct = (params) => {
+    return (dispatch) => {
+        return post(ART_MASTER_GET_PRODUCT_API, params)
+            .then((response) => {
+                dispatch(masterGetProduct(response.Data.DataList));
             });
     }
 };

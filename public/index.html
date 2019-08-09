@@ -6,6 +6,10 @@
     <script src="http://art.laoliwuyou.com/es6-promise.min.js"></script>
     <script src="http://art.laoliwuyou.com/aliyun-oss-sdk-5.3.1.min.js"></script>
     <script src="http://art.laoliwuyou.com/aliyun-upload-sdk-1.5.0.min.js"></script>
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />
+<script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-min.js"></script>
+    <!-- <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" /> -->
+    <!-- <script charset="utf-8" type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-h5-min.js"></script> -->
     <script>
       ! function (e) {
             function t(a) {
@@ -56,3 +60,34 @@
      <div id="root"></div>
   </body>
 </html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+function autoPlay() {
+            wx.config({
+                // 配置信息, 即使不正确也能使用 wx.ready
+                debug: false,
+                appId: 'wxd78e408c5668f65f',
+                timestamp: 1560101735,
+                nonceStr: '4B0A59DDF11C58E7446C9DF0DA541A84',
+                signature: 'd18048ca20ee6a7acebb10984dd5f4301d2ebba9',
+                jsApiList: [
+                "onMenuShareTimeline",
+                    "onMenuShareAppMessage"
+                ]
+            });
+            wx.ready(function() {
+                if(player)//创建的Aliplayer对象
+                {
+                    alert('创建的Aliplayer对象')
+                    player.play();
+                }
+            });
+    };
+    // 解决ios不自动播放的问题
+    autoPlay();
+</script>
+<style>
+body{
+    overflow: auto;
+}
+</style>

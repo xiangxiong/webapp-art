@@ -104,3 +104,99 @@ export const BIND_WECHAT_USERNAME = 'Art.Service.Customer.Dto.Api.PartnerSetPwRe
 
 // 更新意向商家保证金信息
 export const UPDATE_PARTENER_DEPOSIT = 'Art.Service.Product.Dto.Api.UpdatePartenerDepositRequest';
+
+// 获取推荐的艺术家
+export const GET_RECOMMEND_AUTHOR_LIST = 'Art.Service.Product.Dto.Request.GetRecommendAuthorListRequest';
+
+// 查询用户卡包
+export const ACCOUNT_LIST = 'Art.Service.Customer.Dto.Api.CardQueryRequest';
+
+// 创建用户银行卡
+export const CARD_ADD = 'Art.Service.Customer.Dto.Api.CardAddRequest';
+
+// 余额提现
+export const DESPOSITS = 'Art.Service.Customer.Dto.Api.DespositsRequest';
+
+// 余额提现日志记录
+export const DESPOSITS_RECORD = 'Art.Service.Customer.Dto.Api.DespositsRecordRequest';
+
+// 艺术大家分类
+export const ART_CATEGORY_API = 'Art.Service.Product.Dto.Request.GetAllCategoryAuthorListRequest';
+
+// 大师详情
+export const ART_MASTER_DETAIL_API = 'Art.Service.Product.Dto.Request.GetAuthorDetailRequest';
+
+// 查询购物车列表
+export const QUERY_CAR_LIST = 'Art.Service.Order.Dto.Request.api.QueryCarListRequest';
+
+// 添加或修改购物车数量
+export const MODIFY_CART = 'Art.Service.Order.Dto.Request.api.ModifyCartRequest';
+
+// 批量删除或清空购物车
+export const BATCH_DEL_CART = 'Art.Service.Order.Dto.Request.api.BatchDelCartRequest';
+
+// 大师商品列表
+export const ART_MASTER_GET_PRODUCT_API = 'Art.Service.Product.Dto.Request.GetProductsListByProviderRequest';
+
+// 社区列表
+export const ART_COMMUNITY_LIST_API = 'Art.Service.Info.Dto.Request.Api.CommunityTopicListRequest';
+
+// 社区详情
+export const ART_COMMUNITY_DETAIL_API = 'Art.Service.Info.Dto.Request.Api.CommunityTopicDetailRequest';
+
+// 发布话题
+export const ART_COMMUNITY_PUBLISH_API = 'Art.Service.Info.Dto.Request.Api.PublishTopicCommentRequest';
+
+// 获取话题评论列表
+export const ART_COMMUNITY_COMMENT_LIST_API = 'Art.Service.Info.Dto.Request.Api.TopicCommentListRequest';
+
+// 发布社区话题
+export const ART_COMMUNITY_PUBLISH_TOPIC_API = 'Art.Service.Info.Dto.Request.Api.PublishTopicInfoRequest';
+
+// 关注接口.
+export const ART_COMMUNITY_COLLECTIN_API = 'Art.Service.Customer.Dto.Api.CollectInRequest';
+
+// 用户/关注/喜欢/收藏相关
+export const COLLECTIN = 'Art.Service.Customer.Dto.Api.CollectInRequest';
+
+// 团购列表
+export const ART_COMMUNITY_GROUP_API = 'Art.Service.Promotion.Dto.GetGroupBuyProductListRequest';
+
+// 团购详情
+export const ART_COMMUNITY_GROUP_DETAIL_API = 'Art.Service.Promotion.Dto.GetGroupBuyDetailRequest';
+
+// 我的团购列表.
+export const ART_COMMUNITY_MY_GROUP_API = 'Art.Service.Promotion.Dto.GetCustomerGroupBuyListRequest';
+
+// 删除用户银行卡
+export const CARD_DELETE = 'Art.Service.Customer.Dto.Api.CardDeleteRequest';
+
+// 申请退货
+export const SAVE_RMAM_ASTER = 'Art.Service.RMA.Dto.Request.Api.SaveRMAMasterApiRequest';
+
+// 用户订单进行评价
+export const COMMENT_ADD = 'Art.Service.Customer.Dto.Api.CommentAddRequest';
+
+// 查询快递公司列表
+export const SHIP_VIA = 'Art.Service.Basis.Dto.ShipViaRequest';
+
+// 订单发货
+export const ORDER_SEND = 'Art.Service.Order.Dto.Request.api.OrderSendRequest';
+
+// 发布社区话题
+export const PUBLISH_TOPIC_INFO = 'Art.Service.Info.Dto.Request.Api.PublishTopicInfoRequest';
+
+// 搜索综合接口
+export const Search_All = 'Art.Search.Dto.Request.Api.SearchAllRequest';
+
+// 修改用户信息
+export const CUSTOMER_UPDATE = 'Art.Service.Product.Dto.Api.UpdateAuthorInfoRequest';
+
+// 获取商户信息
+export const GET_PROVIDER_INFO = 'Art.Service.Product.Dto.Request.GetProviderInfoRequest';
+
+// 确认收货
+export const ORDER_RECEIVED = 'Art.Service.Order.Dto.Request.api.OrderReceivedRequest';
+
+// 视频点播
+export const API_VIDOE_PALYER = 'Art.Service.Product.Dto.Request.Vod.PlayAuthRequest';

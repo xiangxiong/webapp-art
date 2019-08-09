@@ -4,17 +4,27 @@ import PropTypes from 'prop-types';
 import './index.scss';
 import history from './../../utils/history'
 import eventProxy from 'react-eventproxy';
+var jumpUrlItem = "";
 
 class PublicHeader extends PureComponent{
 
     constructor(props){
         super(props);
+
         const {title} = props;
         this.state = {
             title:title
         }
+
+        eventProxy.on("navitem",(object)=>{
+            console.log('objecteeee',object);
+            jumpUrlItem = object;
+             this.setState({
+                title:object
+             });
+        });
     }
-    
+
     componentWillReceiveProps(nextProps){
         const {title} = nextProps;
         if(title !== this.state.title){
@@ -24,9 +34,11 @@ class PublicHeader extends PureComponent{
         }
     }
 
+    componentDidMount(){
+    }
+
     render(){
-        const {bgColor,icon,share,jump} = this.props;
-        console.log('jump',jump);
+        const {bgColor,icon,rightContent,jump,isNoIcon} = this.props;
         const {title} = this.state;
 
         return (
@@ -34,19 +46,19 @@ class PublicHeader extends PureComponent{
                 <NavBar
                     style={{background:bgColor,color:'#FFFFFF'}}
                     mode="light"
-                    icon={<Icon type={icon}/>}
+                    icon={!isNoIcon?<Icon type={icon}/>:null}
                     onLeftClick={() => {
-                        console.log('User');
-                        if(jump === "User"){
-                            history.push('/home?tab='+jump);
+                        if(!isNoIcon){
+                            if(jump){
+                                history.push('/home?tab='+jump);
+                            }
+                            else{
+                                history.go(-1)
+                            }
                         }
-                        else{
-                            history.push('/home?tab=1');
-                        }
-                        // history.go(-1)
                     }}
                     rightContent={
-                        share && <div className="art-icon art-icon-share"></div>
+                        rightContent
                     }
                     >
                     {
@@ -61,13 +73,15 @@ class PublicHeader extends PureComponent{
 PublicHeader.defaultProps ={
     bgColor:'#E87908',
     icon:'left',
-    share:''
+    share:'',
+    isNoIcon:false
 }
 
 PublicHeader.propTypes = {
     title:PropTypes.string,
     bgColor:PropTypes.string,
-    icon:PropTypes.string
+    icon:PropTypes.string,
+    isNoIcon:PropTypes.bool,
 }
 
 export default PublicHeader;

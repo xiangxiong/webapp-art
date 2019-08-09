@@ -23,8 +23,7 @@ class Pay extends PureComponent {
                 <div>
                     {`￥${userDict.Value}`}
                 </div>
-                <div>
-                    {userDict.Detail}
+                <div dangerouslySetInnerHTML={{__html: userDict.Detail}}>
                 </div>
                 <div>
                     <AgreeItem
@@ -52,8 +51,7 @@ class Pay extends PureComponent {
             <Fragment>
                 <PublicHeader title={title}/>
                 <p className="art-add__pay">
-                    你已通过入驻艺术家信息审核
-                    请选择入驻
+                    {`你已通过入驻${type === "art" ? "艺术家" : "艺术商城商户"}信息审核  请选择入驻`}
                 </p>
 
                 {userDictList.map((userDict, index) => {
@@ -82,7 +80,12 @@ class Pay extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getDict({listKey: 'ProviderDepositLevel'});
+        const {type} = this.props.location.state;
+        if (type === "art") {
+            this.props.getDict({listKey: 'ProviderDepositAuthorLevel'});
+        } else {
+            this.props.getDict({listKey: 'ProviderDepositLevel'});
+        }
     }
 }
 

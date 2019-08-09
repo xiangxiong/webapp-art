@@ -5,3 +5,5 @@ export const SHOP_PRODUCT_COMMEND_LIST = 'shop/productCommendList';
 export const SHOP_LIKE_PRODUCTS_LIST = 'shop/userLikeProductsList';
 export const SHOP_WORTH_GOODS_DETAIL = 'shop/worthGoodsDetail';
 export const SHOP_PRODUCT_COMMENT = 'shop/ProductComment';
+export const SHOP_PROVIDER_INFO = 'shop/providerInfo';
+export const SHOP_MASTER_GET_PRODUCT = 'shop/masterGetProduct';

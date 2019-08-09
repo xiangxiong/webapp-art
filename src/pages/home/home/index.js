@@ -12,25 +12,50 @@ import Space from '../../common/space';
 import Product from './../../common/product';
 import Title from './../../common/title';
 import eventProxy from 'react-eventproxy';
+import history from './../../../utils/history';
+import { Toast,ListView } from 'antd-mobile';
+import {IMGURL} from './../../../utils/api';
+import {getUrlParam} from './../../../utils/common';
 
 const Data = [];
-let NEWDATAINDEX = 1;
 for(let i=0;i<10;i++){
     Data.push(i)
 };
-
 var pushList=[];
+const cloumnData = [
+    {title:'「 好货推荐 」', name: '上千件好物等你来选',url:'./shopCategroy'},
+    {title:'「 超值团购 」', name: '邀请好友一起拼团',url:'./group'}
+];
 
+
+  const NUM_ROWS = 2;
+  
+  function genData(pIndex = 0) {
+    const dataBlob = {};
+    for (let i = 0; i < NUM_ROWS; i++) {
+      const ii = (pIndex * NUM_ROWS) + i;
+      dataBlob[`${ii}`] = `row - ${ii}`;
+    }
+    return dataBlob;
+  }
+
+  
 class Main extends PureComponent{
-
+    
     constructor(props) {
         super(props);
+
+        const dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+          });
+
         this.navDataList = [
-            {imageUrl: `${PICTUREURL}2.png`, name: '大师云集'},
-            {imageUrl: `${PICTUREURL}3.png`, name: '市集'},
-            {imageUrl: `${PICTUREURL}4.png`, name: '艺商城'},
-            {imageUrl: `${PICTUREURL}5.png`, name: '艺社区'},
+            {imageUrl: `${IMGURL}/icon/master.svg`, name: '大师云集',url:'/category'},
+            {imageUrl: `${IMGURL}/icon/shop.svg`, name: '艺商城',url:'/shop'},
+            {imageUrl: `${IMGURL}/icon/atshop.svg`, name: '线下沙龙',url:'/shiji'},
+            {imageUrl: `${IMGURL}/icon/community.svg`, name: '艺社区',url:'/community'},
         ];
+
         this.state = {
             imgHeight: 176,
             scrollCss:classNames(
@@ -47,9 +72,75 @@ class Main extends PureComponent{
             }),
             hasMoreItems: true,
             current:'visible',
-            listData: Data
+            listData: Data,
+            show:this.props.top,
+            dataSource,
+            isLoading: true
         };
+        console.log('this.props.top',this.props.top);
         this.currentPage=1;//为你推荐 当前页 hidden
+        this.handleScroll = this.handleScroll.bind(this);
+        this.HandleBackTop = this.HandleBackTop.bind(this);
+    }
+
+    componentDidMount(){
+        eventProxy.on('recomandItem',(object)=>{
+        //   if(object.DataList.length>0){
+        //       this.setState({
+        //           show:true
+        //       });
+        //   }
+            console.log('dafds');
+          if(pushList.length>0){
+            if(object.DataList[0]){
+                 var result = pushList[0].DataList.filter(item => item.ProviderId ===  object.DataList[0].ProviderId);
+                 if(result.length===0){
+                    pushList.push(object);
+                 }
+            }
+
+            this.setState({
+                show:true
+            });
+            //  let root = document.getElementsByClassName('b-scroll-content')[0];
+            //   console.log('root',root.style);
+            //  root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
+          }
+          else{
+            pushList.push(object);
+          }
+          this.forceUpdate();
+        });
+
+        eventProxy.on('showTop',(object)=>{
+            console.log('object',object);
+            this.setState({
+                show:object
+            })
+        });
+        this.props.getAdvertList(1);
+        this.props.getNewsPagerList();
+        this.props.getAdvertList(11);
+        let storage = Storage.Base.getInstance();
+        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
+        this.props.getUserLikeProducts(CustomerId, this.currentPage);
+    }
+
+    HandleJumpUrl(url){
+        if(url==="/shiji"){
+            Toast.success("正在开发中",1);
+            return;
+        }
+        else if(url === "/shop"){
+            history.push('/home?tab=Shop');
+            eventProxy.trigger('selectedTab','redTab')
+            return;
+        }else{
+            if(url === "/category"){
+                eventProxy.trigger('navitem','大师云集');
+            }
+            history.push(url);
+        }
     }
 
     showRecomandItem() {
@@ -65,12 +156,9 @@ class Main extends PureComponent{
         return items;
     }
 
-    componentWillMount(){
-        NEWDATAINDEX = 1;
-    }
-
     loadMoreItem(){
         const {DataList = [], TotalRecords} = this.props.userLikeProducts;
+
         if (DataList.length >= TotalRecords) {
             this.setState({hasMoreItems:false});
         }else{
@@ -87,8 +175,49 @@ class Main extends PureComponent{
         }
     }
 
+    renderShowBackTop(){
+        const {show} = this.state;
+      
+        return (
+            show ? <div className="backTop" onClick={this.HandleBackTop.bind(this)}> 
+              <p>回到顶部</p>
+           </div> : ""
+        )
+    }
+    
+    handleScroll(event){
+        console.log('event');
+        let scrollTop = document.getElementsByClassName('am-tabs-content-wrap')[0].scrollTop;
+        if(scrollTop>100){
+            this.setState({
+                show:true
+            });
+        }
+        else{
+            this.setState({
+                show:false
+            });
+        }
+    }
+
+    componentWillMount(){
+        window.addEventListener('scroll',this.handleScroll,true);
+    }
+     
+    HandleBackTop(){
+        let root = document.getElementsByClassName('b-scroll-content')[0];
+        console.log('root',root.style);
+        root.style.cssText = "transition-duration: 0ms; transform: translate(0px,58) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);";
+        setTimeout(() => {
+            this.setState({
+                show:false
+            });
+        }, 100);
+    }
+
     render() {
         const {carouselAdList, commonAdList, newsPagerList} = this.props;
+
 
         return (
             <Fragment>
@@ -110,7 +239,7 @@ class Main extends PureComponent{
                                     this.navDataList.map((navData, index) => {
                                         return (
                                             <div key={index.toString()}>
-                                                <div className="art-main__navitem-img-wrapper">
+                                                <div className="art-main__navitem-img-wrapper" onClick={this.HandleJumpUrl.bind(this,navData.url)}>
                                                     <img className="art-main__navitem-img" src={navData.imageUrl}/>
                                                 </div>
                                                 <span className="art-main__navitem-title" >{navData.name}</span>
@@ -122,8 +251,9 @@ class Main extends PureComponent{
                         <Letters data={newsPagerList}/>
                         <Advert commonAdList={commonAdList}/>
                         <Space/>
-                        <Column leftImgUrl={'30.png'} rightImgUrl={'31.png'}/>
+                        <Column cloumnData={cloumnData}  leftImgUrl={'/icon/8.png'} rightImgUrl={'/icon/9.png'}/>
                         <div className="art-main__recommend">
+                           {this.renderShowBackTop()}
                             <Title title="为你推荐"/>
                             <div className="art-main__recommend-content">
                                 {this.showRecomandItem()}
@@ -132,21 +262,6 @@ class Main extends PureComponent{
                 </div>
             </Fragment>
         )
-    }
-
-    componentDidMount() {
-        eventProxy.on('recomandItem',(object)=>{
-            console.log('recomandItem',object);
-            pushList.push(object);
-            this.forceUpdate();
-        });
-
-        this.props.getAdvertList(1);
-        this.props.getNewsPagerList();
-        this.props.getAdvertList(11);
-        let storage = Storage.Base.getInstance();
-        let CustomerId = storage.get('userInfo') == null ? 0 : storage.get('userInfo').CustomerId;
-        this.props.getUserLikeProducts(CustomerId, this.currentPage);
     }
 }
 
@@ -167,14 +282,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//     getAdvertList: (type) => {
-//         dispatch(getAdvertList(type))
-//     },
-//     getNewsPagerList: () => {
-//         dispatch(getNewsPagerList({CategoryId: 3, CurrentPage: 1, PageSize: 3}))
-//     },
-//     getUserLikeProducts: (CustomerId, CurrentPage, PageSize = 2) => dispatch(getUserLikeProducts({CustomerId, Position: 1, CurrentPage, PageSize}))
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+

@@ -1,0 +1,72 @@
+@import '../../../style/index';
+
+.art-bankCardList {
+  background: $color-bg-color;
+
+  &__item {
+    height: 70px;
+    display: flex;
+    padding: 0 15px 0 15px;
+    flex-direction: row;
+    align-items: center;
+
+    & > div:nth-child(1) {
+      width: 44px;
+      height: 44px;
+      background-color: #f3f3f3;
+      border-radius: 22px;
+    }
+
+    & > div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin: 0 10px 0 10px;
+
+      & > h2 {
+        font-family: PingFangSC-Semibold;
+        font-size: 16px;
+        color: #222222;
+        letter-spacing: -0.39px;
+      }
+
+      & > h4 {
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #999999;
+        letter-spacing: -0.34px;
+        margin-top: 8px;
+      }
+    }
+
+    & > span {
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #838383;
+      letter-spacing: -0.34px;
+      padding: 10px;
+    }
+  }
+
+  &__bottom {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 20px;
+    height: 46px;
+    width: 90%;
+    background: #E87908;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > span:nth-child(2) {
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #FFFFFF;
+      letter-spacing: -0.42px;
+    }
+  }
+
+}

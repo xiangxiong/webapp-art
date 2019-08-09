@@ -11,7 +11,7 @@ import {APIURL}   from './../../../utils/api';
 import {createProduct,getProductType,getDicItem,getUploadVideoFile,getQueryCategoryList} from './../store/actionCreators';
 const data = [];
 
-const orders =  [
+const orders = [
     {
         label: '现货',
         value: '10',
@@ -107,7 +107,7 @@ class Works extends PureComponent{
                       })
                   }
               ]
-           };
+          };
 
           axios({
               method: 'post',
@@ -155,7 +155,7 @@ class Works extends PureComponent{
             //   uploader.setSTSToken(uploadInfo, accessKeyId, accessKeySecret, secretToken)
             // });
             that.setState({
-              statusText:'文件开始上传...'
+              statusText:'开始上传...'
             })
             // statusText = '文件开始上传...'
             console.log("onUploadStarted:" + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
@@ -164,7 +164,7 @@ class Works extends PureComponent{
         onUploadSucceed: function (uploadInfo) {
           console.log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object)
           that.setState({
-            statusText:'文件上传成功...'
+            statusText:'上传成功...'
           })
           // statusText = '文件上传成功!'
         },
@@ -172,14 +172,14 @@ class Works extends PureComponent{
         onUploadFailed: function (uploadInfo, code, message) {
           console.log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message)
           that.setState({
-            statusText:'文件上传失败...'
+            statusText:'上传失败...'
           })
           // statusText = '文件上传失败!'
         },
         // 取消文件上传
         onUploadCanceled: function (uploadInfo, code, message) {
           console.log("Canceled file: " + uploadInfo.file.name + ", code: " + code + ", message:" + message)
-          statusText = '文件已暂停上传'
+          statusText = '已暂停上传'
         },
         // 文件上传进度，单位：字节, 可以在这个函数中拿到上传进度并显示在页面上
         onUploadProgress: function (uploadInfo, totalSize, progress) {
@@ -333,7 +333,8 @@ class Works extends PureComponent{
           };
 
           Toast.info("商品发布成功");
-          history.push('/worklist');
+          // history.push('/worklist');
+          history.replace('/worklist');
 
           axios({
             method: 'post',
@@ -385,11 +386,37 @@ class Works extends PureComponent{
                 <div className="art-user-work__upload-text">上传图片</div>
 
                 <div className="art-user-work__uploadvideo">
-                      <div className="art-user-work__wrapper">
-                           {statusText}
-                      </div>
-                      <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
-                      {/* <div className="art-user-work__uploadsuccess">上传成功</div> */}
+                       {
+                       statusText === "选择视频" ? "" : ( statusText === "上传成功" ? (
+                        <Fragment>
+                        <div className="art-user-work__wrapper" >
+                            <div className="art-icon art-icon-video-show">
+                              <div style={{width:'50px',height:'50px',marginLeft:'189px',marginTop:'-390px'}} 
+                              className="art-icon art-icon-video-close" onClick={()=>{
+                                  this.setState({
+                                    statusText:"选择视频"
+                                  })
+                              }}>
+                              </div>
+                            </div>
+                        </div>
+                      </Fragment>
+                          ):(
+                            <div className="art-user-work__wrapper">{statusText}</div>
+                          )
+                       )
+                      }
+                      {
+                        statusText==="选择视频" ? <div className="art-user-work__uploadfile-mask">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div> : <div className="art-user-work__uploadfile-mask-success">
+                           <div className="art-icon art-icon-video-add"></div>
+                        </div>
+                      }
+                      {
+                        statusText==="选择视频" ?  <input type="file" className="art-user-work__uploadfile" id="fileUpload" onChange={this.fileChange}/>
+                        : ""
+                      }
                 </div>
                 <div className="art-user-work__upload-text">上传视频</div>
 

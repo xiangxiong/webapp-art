@@ -36,19 +36,13 @@ class OrderDetails extends PureComponent {
 
 
     showProduct = () => {
-        let {Details = [], ProviderName} = this.props.orderDetail;
+        let {Details = []} = this.props.orderDetail;
 
         return Details.map((detail, index) => {
             let {ProductName, Quantity, ImageName, LastPrice} = detail;
 
             return (
                 <div className="art-details__product" key={index.toString()}>
-
-                    <div className="art-details__product-title">
-                        <div className="art-details__product-title-name">{ProviderName}</div>
-                        <div className="art-details__product-title-count">{`共${Quantity}件`}</div>
-                    </div>
-
                     <div className="art-details__product-order">
                         <div className="art-details__product-order-img">
                             <div style={{
@@ -74,7 +68,7 @@ class OrderDetails extends PureComponent {
     };
 
     render() {
-        const {SOAmount = '', OrderNumber = '', UnixSODate = '', StatusName = '', Details = []} = this.props.orderDetail;
+        const {SOAmount = '', OrderNumber = '', UnixSODate = '', StatusName = '', Details = [], ProviderName, ProductCount} = this.props.orderDetail;
 
         let promotionList = Details.filter(detail => {
             return detail.PromotionId != 0;
@@ -87,11 +81,17 @@ class OrderDetails extends PureComponent {
                     style={{
                         height: '10px',
                         width: '100%',
-                        background:`url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
+                        background: `url(${PICTUREURL + 'fengexian.png'}) 0% 0% / cover`,
                     }}/>
                 <div className="art-details">
                     {this.showAddress({})}
                     <Space/>
+
+                    <div className="art-details__product-title">
+                        <div className="art-details__product-title-name">{ProviderName}</div>
+                        <div className="art-details__product-title-count">{`共${ProductCount}件`}</div>
+                    </div>
+
                     {this.showProduct()}
 
                     <div className="art-details__product">
@@ -111,16 +111,16 @@ class OrderDetails extends PureComponent {
                     <Space/>
 
                     {/*<div className="art-details__operation">
-                        <div className="art-details__operation-service">
-                            <span>联系客服</span>
-                        </div>
+                     <div className="art-details__operation-service">
+                     <span>联系客服</span>
+                     </div>
 
-                        <div className="art-details__operation-phone">
-                            <span>联系电话</span>
-                        </div>
-                    </div>
+                     <div className="art-details__operation-phone">
+                     <span>联系电话</span>
+                     </div>
+                     </div>
 
-                    <Space/>*/}
+                     <Space/>*/}
 
                     <div className="art-details__describe">
                         <p>{`订单编号：${OrderNumber}`}</p>

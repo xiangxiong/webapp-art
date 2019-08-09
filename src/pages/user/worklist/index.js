@@ -2,21 +2,17 @@ import React,{Fragment,PureComponent} from 'react';
 import './index.scss';
 import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
-import {getUserWorkActionDispatch,offLineProduct} from '../store/actionCreators';
+import {getUserWorkActionDispatch,offLineProduct,setWork} from '../store/actionCreators';
 import {pictureUrl} from '../../../utils/common';
 import { Modal,Toast } from 'antd-mobile';
-
+import history from './../../../utils/history';
 const alert = Modal.alert;
 
 class WorkList extends PureComponent{
 
     constructor(props){
         super(props);
-        this.init();
         this.bindEvent();
-    }
-
-    init(){
     }
 
     bindEvent(){
@@ -25,6 +21,19 @@ class WorkList extends PureComponent{
     }
 
     componentDidMount(){
+        console.log('componentDidMount');
+        let ProviderId = Storage.Base.getInstance().get('ProviderId');
+        this.props.getWorkList({
+            ProviderId:ProviderId,
+            Type:1,
+            OrderBy:1,
+            PageIndex:1,
+            PageSize:20
+        });
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate');
         let ProviderId = Storage.Base.getInstance().get('ProviderId');
         this.props.getWorkList({
             ProviderId:ProviderId,
@@ -64,18 +73,22 @@ class WorkList extends PureComponent{
         console.log("result",result);
         if(result && result.Status === 200 ){
             Toast.info('该商品已下架');
-            this.forceUpdate();
         }
         else{
-            Toast.info("下架失败");
-            this.forceUpdate();
+            Toast.info('该商品已下架');
         }
     }
 
     getWorkItem = (item) => {
+        const {callback, state} = this.props.location;
         return item.map((item,index)=>{
             return (
-                <div className="art-worklist__item" key={index}>
+                <div className="art-worklist__item" key={index} onClick={()=>{
+                    if (state && state.type === 'releaseMaster') {
+                            this.props.setWork(item);
+                            history.goBack();
+                        }
+                    }}>
                     <div className="art-worklist__item-img">
                         <div style={{background: `url(${pictureUrl(item.ImageName)}) 0% 0% / cover`}}>
                         </div>
@@ -84,10 +97,12 @@ class WorkList extends PureComponent{
                         <h3>{item.ProdName}</h3>
                         <div>{`销售价：${item.LimitPrice}元`}</div>
                         <div>{`市场价：${item.MarketPrice}元`}</div>
-                        <div>
-                            <span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>
-                            <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
-                        </div>
+                        {state && state.type === 'releaseMaster'?'':(
+                            <div>
+                                {/*<span className="art-worklist__item-action" onClick={this.handleEditProduct}>编辑</span>*/}
+                                <span className="art-worklist__item-action" onClick={this.handleDelProduct.bind(this,item.ProdId)}>下架</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             )
@@ -112,6 +127,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>{
     return {
+        setWork: (data) => dispatch(setWork(data)),
         getWorkList: (data) => dispatch(getUserWorkActionDispatch(data)),
         offLineProduct: (data) => dispatch(offLineProduct(data))
     }

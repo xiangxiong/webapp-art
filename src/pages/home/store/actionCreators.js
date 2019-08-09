@@ -8,6 +8,12 @@ import {
     showUserLikeProducts
 } from '../../shop/store/actionCreators';
 
+import {
+    masterCarouselAdList,
+    masterCommonAdList,
+    masterNewsPagerList
+} from '../../master/store/actionCreators';
+
 const carouselAdList = (DataList) => ({
     type: constants.CAROUSEL_AD_LIST,
     value: DataList
@@ -47,7 +53,9 @@ export const getAdvertList = (AppAdType) => {
                 } else if (AppAdType === 21) {
                     dispatch(shopCommonAdList(response.Data.DataList));
                 } else if (AppAdType === 3) {
+                    dispatch(masterCarouselAdList(response.Data.DataList));
                 } else if (AppAdType === 31) {
+                    dispatch(masterCommonAdList(response.Data.DataList));
                 } else if (AppAdType === 4) {
                 } else if (AppAdType === 41) {
                 } else if (AppAdType === 5) {
@@ -68,6 +76,7 @@ export const getNewsPagerList = (params) => {
                 } else if (params.CategoryId == 4) {
                     dispatch(shopNewsPagerList(response.Data.NewList));
                 } else if (params.CategoryId == 5) {
+                    dispatch(masterNewsPagerList(response.Data.NewList));
                 }
             });
     }
@@ -111,7 +120,6 @@ export const wxLogin = (params) =>{
 export const getUserLikeList = (params) => {
     return async () => {
         const result = await post(GuessUserLikeProducts,params);
-        console.log('result',result);
         return result;
     }
 }

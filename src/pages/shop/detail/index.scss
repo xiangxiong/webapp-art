@@ -1,10 +1,79 @@
 @import './../../../style/index.scss';
 
-.art-product{
+.art-product-shop{
     background: #FFFFFF;
 
+
+    &__autovideo{
+        height: 30px;
+        width: 100%;
+        z-index: 9999;
+        color: #FFFFFF;
+        position: absolute;
+        text-align: center;
+        top: 320px;
+
+        &>span:nth-child(1){
+            display: inline-block;
+            border-radius: 5px;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-right: 10px;
+            border:1px solid #FFFFFF;
+        }
+        &>span:nth-child(2){
+            display: inline-block;
+            border-radius: 5px;
+            border:1px solid #FFFFFF;
+            background: #E87908;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-left: 10px;
+        }
+    }
     &__detail{
-        margin-top: 1.2rem;
+        margin-top: 1.4rem;
+        &>h4{
+            font-size:20px;
+            font-family:MicrosoftYaHei-Bold;
+            font-weight:bold;
+            padding-top: 16px;
+            color:rgba(0,0,0,1);
+            padding-left: 15px;
+        }
+
+        &>p{
+            height:41px;
+            font-size:13px;
+            padding-left: 15px;
+            padding-top: 11px;
+            font-family:MicrosoftYaHei;
+            font-weight:400;
+            color:rgba(122,122,122,1);
+        }
+
+        &-font{
+            border-bottom: 1px solid #E7E7E7;
+
+            &>:nth-child(-n+2){
+                color: #C42125;
+            }
+            &>:nth-child(3){
+                color: #C42125;
+                font-size:26px;
+                font-weight:400;
+            }
+            &>:nth-child(4){
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    &__detailvideo{
+        margin-top: 1px;
 
         &>h4{
             font-size:20px;
@@ -104,7 +173,7 @@
 
         &-jump{
             width: 52px;
-            height:22px;
+            height:12px;
             border:1px solid rgba(229,137,48,1);
             margin: 0 auto;
             border-radius: 10px;
@@ -148,9 +217,11 @@
             width: 70%;
         }
         &>:nth-child(3){
-            width: 30%;
-            height: 46px;
-            margin-top: 12px;
+            width: 80px;
+            height: 26px;
+            line-height: 26px;
+            margin-top: 10px;
+            margin-right: 10px;
         }
     }
 
@@ -206,7 +277,7 @@
     &__tooBar{
         height: 55px;
         width: 100%;
-        background: #FF0000;
+        background: #FFFFFF;
         border-top: 1px solid #ddd;
         position:fixed;
         bottom: 0;
@@ -241,36 +312,22 @@
         }
 
         &>div:nth-child(3){
-            width: 15%;
+            width: 35%;
             text-align: center;
             border-right: 1px solid #ddd;
-
-            &>div{
-                position: relative;
-                top: 5px;
-                left: 13px;
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        &>div:nth-child(1){
-            width: 100%;
-            text-align: center;
-            border-right: 1px solid #ddd;
-            background: #E87908;
             line-height: 60px;
             font-size:18px;
             font-family:MicrosoftYaHei;
             font-weight:400;
-            color:#FFFFFF;
+            color:#333333;
+            background: #FFFFFF;
         }
 
-        &>div:nth-child(5){
-            width: 27%;
+        &>div:nth-child(4){
+            width: 35%;
             text-align: center;
             border-right: 1px solid #ddd;
-            background:#C52125;
+            background: #E87908;
             font-size:18px;
             font-family:MicrosoftYaHei;
             font-weight:400;
@@ -278,4 +335,8 @@
             line-height: 60px;
         }
     }
+}
+
+.prism-player{
+    height:3.14rem !important;
 }

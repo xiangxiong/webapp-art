@@ -1,0 +1,5 @@
+export const COMMUNITY_LIST = 'community/COMMUNITY_LIST';
+export const COMMUNITY_DETAIL = 'community/COMMUNITY_DETAIL';
+export const COMMUNITY_PUBLISH = 'community/COMMUNITY_PUBLISH';
+export const COMMUNITY_COMMENT_LIST = 'community/COMMUNITY_COMMENT_LIST';
+export const COMMUNITY_PUBLISH_TOPIC = 'community/COMMUNITY_PUBLISH_TOPIC';

@@ -73,7 +73,7 @@ class AddressList extends PureComponent {
     };
 
     render() {
-        const {addressList} = this.props;
+        const {addressList=[]} = this.props;
 
         return (
             <Fragment>

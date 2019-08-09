@@ -4,7 +4,7 @@ import './index.scss';
 import history from '../../../../utils/history';
 
 function handleOrderClick(index){
-     history.push('/orderList',{index});
+     history.push('/orderList',{index,type:'buy'});
 }
 
 
@@ -14,8 +14,8 @@ const OrderItem = (props) =>{
 
     return (
         <Fragment>
-              <div className="art-user__order">
-                            <h3 onClick={handleOrderClick.bind(null,0)}> 我的订单 </h3>
+              <div className="art-user__order" onClick={handleOrderClick.bind(null,0)}>
+                            <h3> 我的订单 </h3>
                             <div className="art-icon art-icon-order-arrow"></div>
                         </div>
                         <div className="art-user__order-list">

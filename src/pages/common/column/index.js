@@ -3,33 +3,40 @@
  */
 import React from 'react';
 import './index.scss';
-import {PICTUREURL} from '../../../utils/api';
+import {PRODUCTURL} from '../../../utils/api';
+import PropTypes from 'prop-types';
+import history from './../../../utils/history';
 
 const Column = (props) => {
-        const {leftImgUrl, rightImgUrl} = props;
-        
+        const {leftImgUrl, rightImgUrl,cloumnData} = props;
         return (
             <>
                     <div className="art-main__column">
                             <h2>栏目</h2>
                             <div className="art-main__column-content">
                                 <div className="art-main__column-content-recomand"
+                                onClick={()=>{ if(cloumnData && cloumnData[1].url){
+                                    history.push(cloumnData[0].url);
+                                }}}
                                 style={{
-                                    background:`url(${PICTUREURL + leftImgUrl})`,
+                                    background:`url(${PRODUCTURL + leftImgUrl})`,
                                     marginRight: "3px",
                                     backgroundSize: "100%"
                                 }}>
-                                    <h3>「 大师云集 」 </h3>
-                                    <p>上千件好物等你来选</p>
+                                    <h3>{ cloumnData && cloumnData[0].title } </h3>
+                                    <p>{ cloumnData && cloumnData[0].name } </p>
                                 </div>
                                 <div className="art-main__column-content-invent"
+                                onClick={()=>{ if(cloumnData && cloumnData[1].url){
+                                    history.push(cloumnData[1].url);
+                                 }}}
                                 style={{
-                                    background:`url(${PICTUREURL + rightImgUrl}) 100%`,
+                                    background:`url(${PRODUCTURL + rightImgUrl}) 100%`,
                                     marginLeft: "3px",
                                     backgroundSize: "100%"
                                 }}>
-                                    <h3>「 大师印象 」 </h3>
-                                    <p>邀请好友一起拼团</p>
+                                    <h3>{ cloumnData && cloumnData[1].title } </h3>
+                                    <p>{ cloumnData && cloumnData[1].name } </p>
                                 </div>
                             </div>
                     </div>
@@ -37,6 +44,10 @@ const Column = (props) => {
                     <div className="art-main__column-border"></div>
             </>
         )
+}
+
+PropTypes.PropTypes = {
+    cloumnData:PropTypes.object
 }
 
 export default Column;
