@@ -24,7 +24,7 @@ yarn start
 
 ### 购物车
 
-<img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCenter.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCentergif.gif" width="365" height="619"/>
+<img src="https://github.com/xiangxiong/webapp-art/blob/master/img/cart.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-art/blob/master/img/cart.gif" width="365" height="619"/>
 
 ## 项目结构
 
