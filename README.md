@@ -1,34 +1,68 @@
+## 前言
+此项目涉及微信授权登录、商品分类、社区、商家入驻、购物车、下单、支付、商品详情总计有55个单页的H5 微商城。整个项目还在不断的完善和不断优化当中.
 
-> 技术架构:
- * 1、react + redux + webpack 4.0. 
- * 2、组件库 antd-mobile.
- * 3、样式 sass.
- * 4、react ssr.
- * 5、rc-form.
- 
-> 目录结构
-* pages  页面.
-  * home 首页
-  * user 用户中心.
-    * address 地址管理
-    * order 订单管理.
-  * shop 艺商城.
-    * productDetails 商品详情.
-  * master 艺术大家.
-  * cart 购物车.
-  * user-login 用户登录.
-  * community 社区.
-  * product 产品详情.
+## 技术栈
+taro + redux + react + es6 + fetch + sass
 
-* components   公用组件库.
-* data   公用数据.
-* utils  公用类库.
-* statics  字体库和图片资料.
+## 项目运行
+```
+git clone https://github.com/xiangxiong/webapp-art.git
 
-> 约束
-* css 写法符合 bem 规范.
-* 公共配色和字体全部引用style 文件里面的.
-* 小图标全部引用icon.scss
-* 命名规范:
+cd webapp-art
 
-* branch
+yarn install
+
+npm run dev:weapp
+```
+
+## 部分截图
+
+
+## 项目结构
+
+```
+.
+├── config                                      // 配置文件
+├── dist                                        // 项目打包路径
+├── src                                         // 源码目录
+│   ├── components                              // 组件
+│   │   ├── button                              
+│   │   │   ├── index.js                        // 微信登录
+│   │   ├── checkbox                              
+│   │   │   ├── index.js                        // 选择列表组件
+│   │   ├── loading                              
+│   │   │   ├── index.js                        // 加载组件
+│   │   ├── modal                              
+│   │   │   ├── index.js                        // 弹窗
+│   │   ├── product                              
+│   │   │   ├── index.js                        // 产品列表
+│   │   ├── taro-plugin-canvas                              
+│   │   │   ├── index.js                        // canvas 生成海报组件
+│   ├── constants                               // 组件
+│   │   ├── api.js                              // api 接口常量
+│   ├── pages                                   // 组件
+│   │   ├── active                              // 活动模块
+│   │   │   ├── store                           
+│   │   │   │   ├── actionCreators.js    
+│   │   │   │   ├── constants.js   
+│   │   │   │   ├── index.js   
+│   │   │   │   ├── reducer.js              
+│   │   ├── order                               // 订单模块
+│   │   ├── p2p                                 // 贷款模块
+│   │   ├── pay                                 // 支付模块
+│   │   ├── product                             // 产品模块
+│   │   ├── user                                // 用户中心
+│   │   ├── utils                               // 工具类
+│   ├── store                                   
+│   │   ├── index.js                            // 全局store
+│   ├── style                                   
+│   │   ├── mixins                              // 公用的css 模块
+│   │   │   ├── default.scss                    // 全局sass变量
+│   │   ├── base.scss                           // 主题样式
+│   │   ├── element.scss                        // 抽象布局 scss
+│   │   ├── icon.scss                           // iconfont scss
+│   ├── utils                                   // 通用公用js
+│   ├── app.js                                  // 小程序入口
+│   ├── app.scss                                // 主题样式
+.
+```
