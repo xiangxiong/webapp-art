@@ -17,6 +17,7 @@ yarn start
 
 ## 部分截图
 
+<img src="https://github.com/xiangxiong/webapp-mp/blob/master/img/home.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-mp/blob/master/img/userCenter.gif" width="365" height="619"/>
 
 ## 项目结构
 
