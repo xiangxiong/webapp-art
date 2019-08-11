@@ -17,7 +17,14 @@ yarn start
 
 ## 部分截图
 
-<img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCenter.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCenter(1).gif" width="365" height="619"/>
+### 个人中心
+
+<img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCenter.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCentergif.gif" width="365" height="619"/>
+
+
+### 购物车
+
+<img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCenter.png" width="365" height="619"/> <img src="https://github.com/xiangxiong/webapp-art/blob/master/img/userCentergif.gif" width="365" height="619"/>
 
 ## 项目结构
 
