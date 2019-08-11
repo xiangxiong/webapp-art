@@ -2,7 +2,7 @@
 此项目涉及微信授权登录、商品分类、社区、商家入驻、购物车、下单、支付、商品详情总计有55个单页的H5 微商城。整个项目还在不断的完善和不断优化当中.
 
 ## 技术栈
-taro + redux + react + es6 + fetch + sass
+react + redux + react-router + es6 + axios + sass + antd-mobile
 
 ## 项目运行
 ```
@@ -12,7 +12,7 @@ cd webapp-art
 
 yarn install
 
-npm run dev:weapp
+yarn start
 ```
 
 ## 部分截图
