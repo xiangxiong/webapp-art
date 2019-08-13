@@ -8,28 +8,14 @@ const isEmpty = prop =>
     (prop.constructor === Object && Object.keys(prop).length === 0);
 
 const Loading = loadingProp => WrappedComponent => {
-
     return class LoadingHoc extends Component{
-        componentDidMount(){
-            this.startTimer = Date.now();
-        }
-
-        componentWillUpdate(nextProps){
-            if(!isEmpty(nextProps[loadingProp])){
-                this.endTimer = Date.now();
-            }
-        }
-
         render(){
-            const myProps = {
-                loadingTime: ((this.endTimer - this.startTimer) / 1000).toFixed(2)
-            }
-
+            console.log('this.props[loadingProp]',this.props[loadingProp]);
             return isEmpty(this.props[loadingProp]) ? (
-                <div className="loader"></div>
-            ) : (
-                <WrappedComponent {...this.props} {...myProps}/>
-            )
+                    <div className="loader" />
+              ) : (
+                <WrappedComponent {...this.props} />
+              );
         }
     }
 }
