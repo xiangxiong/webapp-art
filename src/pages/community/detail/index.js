@@ -46,7 +46,6 @@ function getCarouselList(data){
 };
 
 function dataFetchReducer(state,action){
-    console.log('action',action);
     switch(action.type){
         case "FETCH_INIT":
             return {
@@ -70,7 +69,6 @@ function dataFetchReducer(state,action){
 const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
     const [topicIds,setTopicIds] = useState(initTopicId);
     const [isRefesh,setIsRefesh] = useState(initRefresh);
-    const [playAuth,setPlayAuth] = useState();
     const [isShowVideo,setIsShowVideo] = useState(1);
     const [isSelectedVideo,setIsSelectedVideo] = useState(true);
     const [isSelectedImg,setIsSelectedImg] = useState(false);
@@ -104,7 +102,7 @@ const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
 }
 
 const CommunityDetail = (props) => {
-    var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
+    var productImg = '',productName = '',SalePrice = 0,ProductId = 0;
     const [isOpen,setIsOpen] = useState(false);
     const {dispatchCommunityDetail,detail,form,dispatchCommunityComment,dispatchCommunityCollectIn} = props;
     const [isHaveVideo,videoId,carouselData,topicIds,isShowVideo,isSelectedVideo,isSelectedImg,
@@ -192,8 +190,6 @@ const CommunityDetail = (props) => {
         </Fragment>
        )
     }
-
-    console.log('carouselData',carouselData);
 
     return (
         <Fragment>
