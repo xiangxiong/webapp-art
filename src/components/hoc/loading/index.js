@@ -6,6 +6,8 @@ import Load from './Load';
 const Loading = loadingProp => WrappedComponent => {
      class LoadingHoc extends Component{
         render(){
+            console.log('this.props',this.props);
+            
             return isEmpty(this.props[loadingProp]) ? (
                 <Load/>
               ) : (
@@ -13,7 +15,7 @@ const Loading = loadingProp => WrappedComponent => {
               );
         }
     }
-    
+
     LoadingHoc.displayName = `WithLoadingHoc(${getDisplayName(
       WrappedComponent
     )})`;

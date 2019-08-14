@@ -10,17 +10,34 @@ import { createForm } from 'rc-form';
 import history from './../../../utils/history';
 import _ from 'lodash';
 import {getUrlParam} from './../../../utils/common';
+import {compose } from 'redux'
+import {Loading} from './../../../components/hoc';
 
-var carouselData = [
-];
-// {ImgUrl:'/public/upload/mallproduct/2019-06-15/art_96ee3cc9-d3bc-45d2-aa08-da41953a53fd.jpg'}
+const initAliplayer = (async(dispatchVideoPalyer,videoId)=>{
+    try{
+        const result = await dispatchVideoPalyer({
+            VedioId:videoId
+        });
+         // eslint-disable-next-line no-undef
+        new Aliplayer({
+                id: 'player-con',
+                width: '100%',
+                autoplay: true,
+                vid : videoId,
+                playauth : result.Data.PlayAuth
+                // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
+            },function(player){
+                console.log('播放器创建好了。')
+            });
+    }
+    catch(e){
+    }
+})
 
-const CommunityDetail = ({dispatchCommunityDetail,detail,form,
-    dispatchCommunityComment,dispatchCommunityCollectIn,dispatchVideoPalyer,location}) =>{
-    const [isOpen,setIsOpen] = useState(false);
+const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
     const [carouselData,setCarouselData] = useState([]);
-    const [topicIds,setTopicIds] = useState(getUrlParam('topicId'));
-    const [isRefesh,setIsRefesh] = useState();
+    const [topicIds,setTopicIds] = useState(initTopicId);
+    const [isRefesh,setIsRefesh] = useState(initRefresh);
     const [videoId,setVideoId] = useState();
     const [playAuth,setPlayAuth] = useState();
     const [isHaveVideo,setIsHaveVideo] = useState();
@@ -28,50 +45,47 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     const [isSelectedVideo,setIsSelectedVideo] = useState(true);
     const [isSelectedImg,setIsSelectedImg] = useState(false);
 
-    async function getCommunityDeteilApi(){
-        var params ={
-            TopicId:topicIds,
-            CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
-            CommentCount:3,
-            HasChoicenessProvider:false,
-            HasProductsRecommend:false,
-            HasRelatedRecommend:false
-        };
-        const result = await dispatchCommunityDetail(params);
-        setVideoId(result.Data.VideoId);
-        var  carouselList =[];
-        carouselList.push({
-            ImgUrl:result.Data.TopicMainImg
-        });
-
-        if(result.Data.TopicImgs.length>0){
-            result.Data.TopicImgs.map((item,index)=>{
-                carouselList.push({
-                    ImgUrl:item.ImageName
-                });
-                console.log('item.ImageName',item.ImageName);
-            });
-        }
-        setCarouselData(carouselList);
-        setIsHaveVideo(result.Data.IsHaveVideo)
-        initAliplayer(result.Data.VideoId);
-    }
-    
     useEffect(()=>{
-        console.log('useEffect');
+        async function getCommunityDeteilApi(){
+            var params = {
+                TopicId:topicIds,
+                CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
+                CommentCount:3,
+                HasChoicenessProvider:false,
+                HasProductsRecommend:false,
+                HasRelatedRecommend:false
+            };
+            var  carouselList = [];
+            const result = await dispatchCommunityDetail(params);
+            setVideoId(result.Data.VideoId);
+            carouselList.push({
+                ImgUrl:result.Data.TopicMainImg
+            });
+            if(result.Data.TopicImgs.length>0){
+                result.Data.TopicImgs.map(item => carouselList.push({ImgUrl:item.ImageName}));
+            }
+            setCarouselData(carouselList);
+            setIsHaveVideo(result.Data.IsHaveVideo);
+            initAliplayer(result.Data.VideoId);
+        };
         getCommunityDeteilApi();
     },[isRefesh]);
 
+    return [{carouselData,topicIds,isRefesh,videoId,playAuth,isHaveVideo,isShowVideo,isSelectedVideo,isSelectedImg},
+        setIsRefesh,setPlayAuth,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg]
+}
 
-    useLayoutEffect(()=>{
-        console.log('useLayoutEffect');
-        getCommunityDeteilApi();
-    },[])
-    
-    const { getFieldProps } = form;
-    const {LoginName,ImageName,TopicMainImg,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
-    const imgUrl = ImageName,topicMainImg = PRODIMGURL + TopicMainImg;
+const CommunityDetail = (props) => {
+
     var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
+    const [isOpen,setIsOpen] = useState(false);
+    const {dispatchCommunityDetail,detail,form,dispatchCommunityComment,dispatchCommunityCollectIn} = props;
+    const [{carouselData,topicIds,videoId,isHaveVideo,
+        isShowVideo,isSelectedVideo,isSelectedImg},setIsRefesh,
+        ,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg] = CommunityDataApi(getUrlParam('topicId'),dispatchCommunityDetail);
+    const { getFieldProps } = form;
+    const {LoginName,ImageName,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
+    const imgUrl = ImageName;
 
     for(var item in ProductInfo){
         if(item === "ImgPath"){
@@ -87,28 +101,6 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
             SalePrice = ProductInfo[item]
         }
     }
-
-    async function initAliplayer(videoId){
-        try{
-            const result = await dispatchVideoPalyer({
-                VedioId:videoId
-            });
-             // eslint-disable-next-line no-undef
-            var player = new Aliplayer({
-                    id: 'player-con',
-                    width: '100%',
-                    autoplay: true,
-                    vid : videoId,
-                    playauth : result.Data.PlayAuth
-                    // cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',  
-                },function(player){
-                    console.log('播放器创建好了。')
-                });
-        }
-        catch(e){
-        }
-    }
-
     const handleSendComment = useCallback(async()=>{ 
         const {count} = form.getFieldsValue();
         if(_.isEmpty(count)){
@@ -163,28 +155,19 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
     })
 
     const isNullProduct = () =>{
-        console.log('productName',productName);
-        if(productName){
-            return (
-                 <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
-                    {TopicContent}
-                 </div>
-                )
-        }else{
-            return (
-                <Fragment>
-                    { isHaveVideo===0 && <div className="art-community-detail__whitespace"></div>} 
+        return  productName ? ( <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
+            {TopicContent}
+        </div>) : 
+        (<Fragment>
+            { isHaveVideo===0 && <div className="art-community-detail__whitespace"></div>} 
                     <div className={isSelectedImg && isHaveVideo>0 ? 'art-community-detail__video-desc' : 'art-community-detail__desc'}>
                         {TopicContent}
                     </div>
-                </Fragment>
-                )
-        }
+        </Fragment>
+       )
     }
-    
-    return (
 
-        
+    return (
         <Fragment>
             <PublicHeader title="社区详情"/>
             <div className="art-community-detail">
@@ -202,26 +185,21 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                         <span style={{backgroundColor: isSelectedVideo ? '#E87908':'#F3F3F3',color: isSelectedVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={()=>{handleVideoClick()}}>视频</span>
                         <span style={{backgroundColor: isSelectedImg ? '#E87908':'#F3F3F3',color: isSelectedImg ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={()=>{handleImageClick()}}>图片</span> 
                     </div> 
-
-                
                 {
                     productName &&  <div className={ isShowVideo? isHaveVideo >0 ? 'art-community-detail__shop-video':'art-community-detail__shop' :'art-community-detail__shop'}>
-                    <img src={productImg}/>
-                    <span className="art-community-detail__shop-container">
-                        <h3 className="art-community-detail__shop-title">{productName}</h3>
-                        <span className="art-community-detail__shop-price">
-                            ￥ {SalePrice}  <i>￥ {SalePrice}</i>
+                        <img src={productImg}/>
+                        <span className="art-community-detail__shop-container">
+                            <h3 className="art-community-detail__shop-title">{productName}</h3>
+                            <span className="art-community-detail__shop-price">
+                                ￥ {SalePrice}  <i>￥ {SalePrice}</i>
+                            </span>
                         </span>
-                    </span>
-                    <span className="art-community-detail__shop-like" onClick={()=>{history.push('./detail',{ProductId:ProductId})}}>购买</span>
-                </div>
-
+                        <span className="art-community-detail__shop-like" onClick={()=>{history.push('./detail',{ProductId:ProductId})}}>购买</span>
+                    </div>
                 }
-            
                  {
                      isNullProduct()
                  }
-
                  <div className="art-community-detail__comment-list">
                      {
                        TopicComments && TopicComments.map((item,index)=>(
@@ -254,10 +232,10 @@ const CommunityDetail = ({dispatchCommunityDetail,detail,form,
                     </List.Item>
                 </List>
             </Modal>
-           
         </Fragment>
     )
 }
+
 
 const mapStateToProps = state =>{
     return {
@@ -273,6 +251,9 @@ const mapStateToDispatch = dispatch => ({
     dispatchVideoPalyer:(data)=>dispatch(actionCreators.dispatchVideoPalyer(data))
 });
 
-const CommunityDetailWrapper = createForm()(React.memo(CommunityDetail));
+// const CommunityDetailWrapper = compose(createForm()(React.memo(CommunityDetail)))  ;
+// export default connect(mapStateToProps,mapStateToDispatch)(CommunityDetailWrapper);
 
-export default connect(mapStateToProps,mapStateToDispatch)(CommunityDetailWrapper);
+const enhance = compose(connect(mapStateToProps,mapStateToDispatch),createForm())
+
+export default enhance(CommunityDetail)
