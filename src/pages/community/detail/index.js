@@ -1,4 +1,4 @@
-import React,{Fragment,useEffect,useState,useCallback,useLayoutEffect} from 'react';
+import React,{Fragment,useEffect,useState,useCallback,useReducer,useLayoutEffect} from 'react';
 import PublicHeader from './../../../components/header';
 import './index.scss';
 import CarouselBanner from '../../common/carousel';
@@ -11,7 +11,7 @@ import history from './../../../utils/history';
 import _ from 'lodash';
 import {getUrlParam} from './../../../utils/common';
 import {compose } from 'redux'
-import {Loading} from './../../../components/hoc';
+import {User} from './../../../components/hoc';
 
 const initAliplayer = (async(dispatchVideoPalyer,videoId)=>{
     try{
@@ -32,21 +32,51 @@ const initAliplayer = (async(dispatchVideoPalyer,videoId)=>{
     }
     catch(e){
     }
-})
+});
+
+function getCarouselList(data){
+    var carouselList =[];
+    carouselList.push({
+        ImgUrl:data.TopicMainImg
+    });
+    if(data.TopicImgs.length>0){
+        data.TopicImgs.map(item => carouselList.push({ImgUrl:item.ImageName}));
+    }
+    return carouselList;
+};
+
+function dataFetchReducer(state,action){
+    console.log('action',action);
+    switch(action.type){
+        case "FETCH_INIT":
+            return {
+                ...state,
+                isHaveVideo:0,
+                videoId:'',
+                carouselData:[]
+            }
+        case "FETCH_SUCCESS":
+            return {
+                ...state,
+                isHaveVideo:action.payload.IsHaveVideo,
+                videoId:action.payload.VideoId,
+                carouselData:getCarouselList(action.payload)
+            }
+        default:
+            throw new Error();
+    }
+}
 
 const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
-    const [carouselData,setCarouselData] = useState([]);
     const [topicIds,setTopicIds] = useState(initTopicId);
     const [isRefesh,setIsRefesh] = useState(initRefresh);
-    const [videoId,setVideoId] = useState();
     const [playAuth,setPlayAuth] = useState();
-    const [isHaveVideo,setIsHaveVideo] = useState();
     const [isShowVideo,setIsShowVideo] = useState(1);
     const [isSelectedVideo,setIsSelectedVideo] = useState(true);
     const [isSelectedImg,setIsSelectedImg] = useState(false);
 
     useEffect(()=>{
-        async function getCommunityDeteilApi(){
+        const getCommunityDeteilApi = async () =>{
             var params = {
                 TopicId:topicIds,
                 CustomerId:Storage.Base.getInstance().get("userInfo").CustomerId,
@@ -55,32 +85,32 @@ const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
                 HasProductsRecommend:false,
                 HasRelatedRecommend:false
             };
-            var  carouselList = [];
+            dispatch({type:'FETCH_INIT'});
             const result = await dispatchCommunityDetail(params);
-            setVideoId(result.Data.VideoId);
-            carouselList.push({
-                ImgUrl:result.Data.TopicMainImg
-            });
-            if(result.Data.TopicImgs.length>0){
-                result.Data.TopicImgs.map(item => carouselList.push({ImgUrl:item.ImageName}));
-            }
-            setCarouselData(carouselList);
-            setIsHaveVideo(result.Data.IsHaveVideo);
+            dispatch({type:"FETCH_SUCCESS",payload:result.Data});
             initAliplayer(result.Data.VideoId);
         };
         getCommunityDeteilApi();
     },[isRefesh]);
 
-    return [{carouselData,topicIds,isRefesh,videoId,playAuth,isHaveVideo,isShowVideo,isSelectedVideo,isSelectedImg},
+    const [state,dispatch] = useReducer(dataFetchReducer,{
+        isHaveVideo:0,
+        videoId:'',
+        carouselData:[]
+    });
+
+    return [state,{topicIds,isRefesh,playAuth,isShowVideo,isSelectedVideo,isSelectedImg},
         setIsRefesh,setPlayAuth,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg]
 }
 
 const CommunityDetail = (props) => {
 
+    console.log('props',props);
+
     var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
     const [isOpen,setIsOpen] = useState(false);
     const {dispatchCommunityDetail,detail,form,dispatchCommunityComment,dispatchCommunityCollectIn} = props;
-    const [{carouselData,topicIds,videoId,isHaveVideo,
+    const [isHaveVideo,videoId,carouselData,{topicIds,
         isShowVideo,isSelectedVideo,isSelectedImg},setIsRefesh,
         ,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg] = CommunityDataApi(getUrlParam('topicId'),dispatchCommunityDetail);
     const { getFieldProps } = form;
@@ -236,7 +266,6 @@ const CommunityDetail = (props) => {
     )
 }
 
-
 const mapStateToProps = state =>{
     return {
         detail:state.community.get('detail')
@@ -251,9 +280,6 @@ const mapStateToDispatch = dispatch => ({
     dispatchVideoPalyer:(data)=>dispatch(actionCreators.dispatchVideoPalyer(data))
 });
 
-// const CommunityDetailWrapper = compose(createForm()(React.memo(CommunityDetail)))  ;
-// export default connect(mapStateToProps,mapStateToDispatch)(CommunityDetailWrapper);
-
-const enhance = compose(connect(mapStateToProps,mapStateToDispatch),createForm())
+const enhance = compose(connect(mapStateToProps,mapStateToDispatch),createForm(),User)
 
 export default enhance(CommunityDetail)
