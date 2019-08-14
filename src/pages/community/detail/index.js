@@ -99,23 +99,19 @@ const CommunityDataApi = (initTopicId,dispatchCommunityDetail,initRefresh) => {
         carouselData:[]
     });
 
-    return [state,{topicIds,isRefesh,playAuth,isShowVideo,isSelectedVideo,isSelectedImg},
-        setIsRefesh,setPlayAuth,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg]
+    return [state.isHaveVideo,state.videoId,state.carouselData,topicIds,isShowVideo,isSelectedVideo,isSelectedImg,
+        setIsRefesh,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg]
 }
 
 const CommunityDetail = (props) => {
-
-    console.log('props',props);
-
     var productImg = '',productName = '',SalePrice = 0,ProductId = 0,VideoId = 0;
     const [isOpen,setIsOpen] = useState(false);
     const {dispatchCommunityDetail,detail,form,dispatchCommunityComment,dispatchCommunityCollectIn} = props;
-    const [isHaveVideo,videoId,carouselData,{topicIds,
-        isShowVideo,isSelectedVideo,isSelectedImg},setIsRefesh,
-        ,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg] = CommunityDataApi(getUrlParam('topicId'),dispatchCommunityDetail);
-    const { getFieldProps } = form;
+    const [isHaveVideo,videoId,carouselData,topicIds,isShowVideo,isSelectedVideo,isSelectedImg,
+            setIsRefesh,setIsShowVideo,setIsSelectedVideo,setIsSelectedImg] = CommunityDataApi(getUrlParam('topicId'),dispatchCommunityDetail,false);
     const {LoginName,ImageName,ProductInfo,TopicContent,CommentCount,TopicComments,CustomerId,IsCollected} = detail;
     const imgUrl = ImageName;
+    const { getFieldProps } = form;
 
     for(var item in ProductInfo){
         if(item === "ImgPath"){
@@ -163,9 +159,9 @@ const CommunityDetail = (props) => {
             ObjId:CustomerId
         };
         const result = await dispatchCommunityCollectIn(params);
-        if(result && result.Status === 200){
+        if(result && result.Status === 200) {
             islike ? Toast.success("已关注",1) : Toast.success("取消关注",1);
-        }else{
+        } else {
             Toast.fail("网络异常");
         }
         setIsRefesh(Math.random());
@@ -197,6 +193,8 @@ const CommunityDetail = (props) => {
        )
     }
 
+    console.log('carouselData',carouselData);
+
     return (
         <Fragment>
             <PublicHeader title="社区详情"/>
@@ -208,8 +206,9 @@ const CommunityDetail = (props) => {
                      }
                  </div>
                  {
-                   isShowVideo ? isHaveVideo >0 ? <div className="prism-player" id="player-con"></div> : <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
-                   : carouselData.length > 0 ? <CarouselBanner imgHeight="3.14rem" data={carouselData}/> : ""
+                    isShowVideo ? isHaveVideo >0 ? <div className="prism-player" id="player-con"></div> : 
+                     <CarouselBanner imgHeight="3.14rem" data={carouselData}/> 
+                     : carouselData.length > 0 ? <CarouselBanner imgHeight="3.14rem" data={carouselData}/> : ""
                  }
                     <div className="art-community-detail__autovideo">
                         <span style={{backgroundColor: isSelectedVideo ? '#E87908':'#F3F3F3',color: isSelectedVideo ? '#FFFFFF':'rgba(122,122,122,1)'}} onClick={()=>{handleVideoClick()}}>视频</span>
