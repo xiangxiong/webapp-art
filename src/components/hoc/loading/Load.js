@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 
-const ActivityIndicator = () =>{
+const Load = () =>{
   return (
     <div className="loading_container">
         <div className="load_img" style={{backgroundPositionY:'-(positionY%7)*2.5 rem'}}>
@@ -13,4 +13,4 @@ const ActivityIndicator = () =>{
   )
 }
 
-export default ActivityIndicator;
+export default Load;

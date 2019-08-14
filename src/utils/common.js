@@ -6,6 +6,11 @@ export const isEmpty = prop =>
     (prop.hasOwnProperty("length") && prop.length === 0) ||
     (prop.constructor === Object && Object.keys(prop).length === 0);
 
+export const getDisplayName = WrappedComponent => {
+    return (
+        WrappedComponent.displayName || WrappedComponent.name || "User"
+    );
+}
 
 export const pictureUrl = (url) => {
     if (!url) {

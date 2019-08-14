@@ -1,18 +1,26 @@
 import React,{Component} from 'react';
 import './index.scss';
 import {isEmpty} from './../../../utils/common';
-import ActivityIndicator from './ActivityIndicator';
+import Load from './Load';
+import {getDisplayName} from './../../../utils/common';
+
 
 const Loading = loadingProp => WrappedComponent => {
-    return class LoadingHoc extends Component{
+     class LoadingHoc extends Component{
         render(){
             return isEmpty(this.props[loadingProp]) ? (
-                <ActivityIndicator/>
+                <Load/>
               ) : (
                 <WrappedComponent {...this.props} />
               );
         }
     }
+
+    LoadingHoc.displayName = `WithLoadingHoc(${getDisplayName(
+      WrappedComponent
+    )})`;
+
+    return LoadingHoc;
 }
 
 export default Loading;

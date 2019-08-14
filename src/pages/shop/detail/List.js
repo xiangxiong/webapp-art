@@ -1,11 +1,11 @@
 import React from 'react';
-import Loading from "./../../../components/hoc/loading";
 import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 import {Toast} from 'antd-mobile';
+import {Loading,User} from './../../../components/hoc';
 
 class List extends React.Component{
     constructor(props){
@@ -54,12 +54,12 @@ class List extends React.Component{
               this.setState({
                   isCreateVideo:true
               })
-      }
+    }
   
-      handleBuy = () => {
+    handleBuy = () => {
           console.log('this.props.shopWorthGoodsDetail', this.props.shopWorthGoodsDetail);
           history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
-      };
+    };
   
       addBuy = (ProductId) => {
           let storage = Storage.Base.getInstance();
@@ -69,9 +69,8 @@ class List extends React.Component{
       };
   
       handleCollection = (ProductId) => {
-          let storage = Storage.Base.getInstance();
-          let CustomerId = storage.get('userInfo').CustomerId;
-          let Token = storage.get('userInfo').Token;
+          let CustomerId = this.props.CustomerId,
+              Token = this.props.Token;
           this.props.getCollectin({CustomerId, Token, CollectType: 1, ObjId: ProductId});
       };
   
@@ -264,10 +263,8 @@ class List extends React.Component{
                     </div>
                 </div>
             </>
-            // <div data={this.props.data}>List</div>
         )
     }
 }
 
-
-export default Loading('shopWorthGoodsDetail')(List);
+export default User(Loading('shopWorthGoodsDetail')(List));

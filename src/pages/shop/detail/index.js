@@ -8,7 +8,8 @@ import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 import {getModifyCart, dispatchVideoPalyer} from '../../cart/store/actionCreators';
 import {Toast} from 'antd-mobile';
-import Loading from "./../../../components/hoc/loading";
+// import Loading from "./../../../components/hoc/loading";
+import {Loading,User} from './../../../components/hoc';
 import List from './List';
 
 class Detail extends React.Component{
@@ -24,8 +25,6 @@ class Detail extends React.Component{
             isSelectedImg:false
         }
     }
-
-  
 
     componentDidMount(){
         console.log('this.props componentDidMount');
@@ -43,8 +42,6 @@ class Detail extends React.Component{
             });
         });
     }
-
-
 
     render() {
         return (
