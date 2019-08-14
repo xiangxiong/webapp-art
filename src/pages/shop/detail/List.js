@@ -3,11 +3,8 @@ import Loading from "./../../../components/hoc/loading";
 import './index.scss';
 import CarouselBanner from './../../common/carousel';
 import PublicHeader from './../../../components/header';
-import {connect} from 'react-redux';
-import {getWorthGoodsDetail, getProductComment, getCollectin, getProductDetail} from '../store/actionCreators';
 import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
-import {getModifyCart, dispatchVideoPalyer} from '../../cart/store/actionCreators';
 import {Toast} from 'antd-mobile';
 
 class List extends React.Component{
@@ -15,6 +12,85 @@ class List extends React.Component{
         super();
         this.state = {isShowVideo:false, isHaveVideo:false,isSelectdVideo:false,isSelectedImg:false};
     }
+
+    componentDidUpdate(){
+        if(this.state.isShowVideo){
+            this.setupPlayer();
+        }
+    }
+
+    componentWillUnmount(){
+        if(this.player){
+            this.player.dispose();
+        }
+    }
+
+    async setupPlayer(){
+          var props = {};
+              const result = await this.props.dispatchVideoPalyer({
+                  VedioId: this.state.videoId
+              });
+              this.isLiving = true;
+              // eslint-disable-next-line no-undef
+              this.player = new Aliplayer({
+                  id: 'player-detail',
+                  autoplay: true,
+                  isLive:true,
+                  width:"100%",
+                  vid: this.state.videoId,
+                  playauth: result.Data.PlayAuth,
+                  height:"5.6rem",
+                  playsinline:true,
+                  controlBarVisibility:'hover',
+                  useH5Prism:true,
+                  useFlashPrism:false,
+                  x5_video_position:'top',
+                  //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+                  x5_type:'h5' //
+              });
+              this.player.on('play',()=>{
+                console.log('play');
+              });
+              this.setState({
+                  isCreateVideo:true
+              })
+      }
+  
+      handleBuy = () => {
+          console.log('this.props.shopWorthGoodsDetail', this.props.shopWorthGoodsDetail);
+          history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
+      };
+  
+      addBuy = (ProductId) => {
+          let storage = Storage.Base.getInstance();
+          let CustomerId = storage.get('userInfo').CustomerId;
+          this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
+          Toast.success("加入成功");
+      };
+  
+      handleCollection = (ProductId) => {
+          let storage = Storage.Base.getInstance();
+          let CustomerId = storage.get('userInfo').CustomerId;
+          let Token = storage.get('userInfo').Token;
+          this.props.getCollectin({CustomerId, Token, CollectType: 1, ObjId: ProductId});
+      };
+  
+      handleImageClick = () => {
+          this.setState({
+              isShowVideo: false,
+              isSelectdVideo: false,
+              isSelectedImg:true
+          });
+      }
+  
+      handleVideoClick = () => {
+          this.setState({
+              isShowVideo: true,
+              isSelectdVideo: true,
+              isSelectedImg:false
+          })
+      }
+
     render(){
         let {
             MainImgs = [],
@@ -27,13 +103,14 @@ class List extends React.Component{
             ProdId,
             IsCollect
         } = this.props.shopWorthGoodsDetail;
-        const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount, CooperationWay, ProviderId} = Provider;
-        let carouselData = MainImgs.map((mainImg) => {
-            return {ImgUrl: mainImg}
-        });
-        let {TotalRecords, DataList = []} = this.props.showProductComment;
-        const {isShowVideo, isHaveVideo,isSelectdVideo,isSelectedImg} = this.state;
 
+        const {ImageName, ProviderName, ProductCount, MonthSalesCount, FansCount, CooperationWay, ProviderId} = Provider;
+        
+        let carouselData = MainImgs.map(mainImg=>({ImgUrl: mainImg}));
+
+        let {TotalRecords, DataList = []} = this.props.showProductComment;
+        
+        const {isShowVideo, isHaveVideo,isSelectdVideo,isSelectedImg} = this.state;
 
         return (
             <>
@@ -193,4 +270,4 @@ class List extends React.Component{
 }
 
 
-export default Loading('data')(List);
+export default Loading('shopWorthGoodsDetail')(List);

@@ -11,7 +11,7 @@ import {Toast} from 'antd-mobile';
 import Loading from "./../../../components/hoc/loading";
 import List from './List';
 
-class Detail extends PureComponent{
+class Detail extends React.Component{
 
     constructor(){
         super();
@@ -25,16 +25,7 @@ class Detail extends PureComponent{
         }
     }
 
-    componentDidUpdate(){
-        if(this.state.isShowVideo){
-            // this.setupPlayer();
-        }
-        setTimeout(()=>{
-            this.setState({
-                data:[1]
-            });
-        },3000);
-    }
+  
 
     componentDidMount(){
         console.log('this.props componentDidMount');
@@ -53,16 +44,17 @@ class Detail extends PureComponent{
         });
     }
 
-    componentWillUnmount(){
-        // if(this.player){
-        //     this.player.dispose();
-        // }
-    }
+
 
     render() {
         return (
             <>
-                <List shopWorthGoodsDetail={this.props.shopWorthGoodsDetail}  data={this.state.data}/>
+              <List 
+                showProductComment={this.props.showProductComment}
+                shopWorthGoodsDetail={this.props.shopWorthGoodsDetail}  
+                getModifyCart={this.props.getModifyCart}
+                getCollectin={this.props.getCollectin}
+                />
             </>
         )
     }
