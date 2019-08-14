@@ -1,15 +1,8 @@
 import React, {PureComponent, Fragment} from 'react';
 import './index.scss';
-import CarouselBanner from './../../common/carousel';
-import PublicHeader from './../../../components/header';
 import {connect} from 'react-redux';
 import {getWorthGoodsDetail, getProductComment, getCollectin, getProductDetail} from '../store/actionCreators';
-import  {pictureUrl} from '../../../utils/common';
-import history from './../../../utils/history';
 import {getModifyCart, dispatchVideoPalyer} from '../../cart/store/actionCreators';
-import {Toast} from 'antd-mobile';
-// import Loading from "./../../../components/hoc/loading";
-import {Loading,User} from './../../../components/hoc';
 import List from './List';
 
 class Detail extends React.Component{

@@ -98,7 +98,7 @@ class Main extends PureComponent{
                     pushList.push(object);
                  }
             }
-
+            
             this.setState({
                 show:true
             });
@@ -187,17 +187,17 @@ class Main extends PureComponent{
     
     handleScroll(event){
         console.log('event');
-        let scrollTop = document.getElementsByClassName('am-tabs-content-wrap')[0].scrollTop;
-        if(scrollTop>100){
-            this.setState({
-                show:true
-            });
-        }
-        else{
-            this.setState({
-                show:false
-            });
-        }
+        // let scrollTop = document.getElementsByClassName('am-tabs-content-wrap')[0].scrollTop;
+        // if(scrollTop>100){
+        //     this.setState({
+        //         show:true
+        //     });
+        // }
+        // else{
+        //     this.setState({
+        //         show:false
+        //     });
+        // }
     }
 
     componentWillMount(){

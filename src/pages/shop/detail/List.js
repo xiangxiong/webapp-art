@@ -6,6 +6,7 @@ import  {pictureUrl} from '../../../utils/common';
 import history from './../../../utils/history';
 import {Toast} from 'antd-mobile';
 import {Loading,User} from './../../../components/hoc';
+import {Cart} from './../../../components/hooks/';
 
 class List extends React.Component{
     constructor(props){
@@ -61,34 +62,33 @@ class List extends React.Component{
           history.push('./submitorder', {productList: [this.props.shopWorthGoodsDetail]});
     };
   
-      addBuy = (ProductId) => {
-          let storage = Storage.Base.getInstance();
-          let CustomerId = storage.get('userInfo').CustomerId;
+    addBuy = (ProductId) => {
+          let CustomerId = this.props.CustomerId;
           this.props.getModifyCart({CustomerId, CartId: 0, ProductId, Quantity: 1});
           Toast.success("加入成功");
-      };
+    };
   
-      handleCollection = (ProductId) => {
+    handleCollection = (ProductId) => {
           let CustomerId = this.props.CustomerId,
               Token = this.props.Token;
           this.props.getCollectin({CustomerId, Token, CollectType: 1, ObjId: ProductId});
-      };
+    };
   
-      handleImageClick = () => {
+    handleImageClick = () => {
           this.setState({
               isShowVideo: false,
               isSelectdVideo: false,
               isSelectedImg:true
           });
-      }
+    }
   
-      handleVideoClick = () => {
+    handleVideoClick = () => {
           this.setState({
               isShowVideo: true,
               isSelectdVideo: true,
               isSelectedImg:false
           })
-      }
+    }
 
     render(){
         let {
@@ -255,12 +255,15 @@ class List extends React.Component{
                         }}>
                         立即购买
                     </div>
-                    <div
-                        onClick={() => {
-                            this.addBuy(ProdId)
-                        }}
-                    >加入购物车
-                    </div>
+                    <Cart
+                         CustomerId={this.props.CustomerId} 
+                         getModifyCart={this.props.getModifyCart} 
+                         render={({addCart})=>{
+                            return (
+                                <div onClick={() => addCart(ProdId)}>加入购物车</div>
+                            )
+                    }}/>
+                    
                 </div>
             </>
         )

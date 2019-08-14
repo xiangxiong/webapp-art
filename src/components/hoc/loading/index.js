@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import './index.scss';
-import {isEmpty} from './../../../utils/common';
+import {isEmpty,getDisplayName} from './../../../utils/common';
 import Load from './Load';
-import {getDisplayName} from './../../../utils/common';
-
 
 const Loading = loadingProp => WrappedComponent => {
      class LoadingHoc extends Component{
@@ -15,7 +13,7 @@ const Loading = loadingProp => WrappedComponent => {
               );
         }
     }
-
+    
     LoadingHoc.displayName = `WithLoadingHoc(${getDisplayName(
       WrappedComponent
     )})`;
