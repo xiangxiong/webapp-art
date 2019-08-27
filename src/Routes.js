@@ -29,7 +29,6 @@ import ShopHomePage from './pages/shop/home';
 import Search from './pages/search/index';
 import MasterDetail from './pages/master/detail';
 import Loadable from "react-loadable"; 
-import Loading from './components/loading';
 import Group from './pages/group';
 import GroupDetail from './pages/group/detail';
 import OrderReturnGoods from './pages/order/returnGoods';
@@ -43,24 +42,6 @@ import ShopCategroy from './pages/category/shop';
 import CategroyList from './pages/category/list';
 import Agreement from './pages/agreement/index';
 import HtmlViewer from './pages/agreement/html/htmlViewer';
-
-const LoadCategory = Loadable({
-    loader: () => import("./pages/category"),
-    loading: Loading,
-    timeout: 1000
-});
-
-const LoadMasterDetail = Loadable({
-    loader: () => import("./pages/master/detail"),
-    loading: Loading,
-    timeout: 1000
-});
-
-const LoadHome = Loadable({
-    loader: () => import("./pages/home"),
-    loading: Loading,
-    timeout: 1000
-});
 
 export default [
     {

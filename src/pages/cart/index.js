@@ -1,18 +1,12 @@
-import React, {Fragment,useCallback,useEffect,useState,useRef} from 'react';
+import React, {Fragment,useCallback,useEffect,useState} from 'react';
 import {Checkbox,List,Modal, Toast} from 'antd-mobile';
 import './index.scss';
 import {getQueryCarList, getModifyCart, getBatchDelCart} from './store/actionCreators';
 import {connect} from 'react-redux';
-import  {pictureUrl,} from '../../utils/common';
 import history from '../../utils/history';
 import {PRODIMGURL} from '../../utils/api';
 import PublicHeader from './../../components/header';
 const CheckboxItem = Checkbox.CheckboxItem;
-var productList = {};
-var selectAllProducts = [],selectImgs=[];
-let allTotalPrice = 0;
-let allTotalCount = 0;
-let allProducts =[];
 let imgs = [];
 
  async function useUpdateItem(product,type,events){
@@ -23,7 +17,7 @@ let imgs = [];
         Quantity: type === 'sub' ? product.Quantity - 1 :  product.Quantity + 1
     };
 
-    if(type == 'add'){
+    if(type === 'add'){
         if(payload.Quantity>=product.AvailableQuantity){
             Toast.info('超过库存上线');
             return;

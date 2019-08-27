@@ -4,7 +4,6 @@ import {getDisplayName} from './../../../utils/common';
 const User = WrappedComponent => {
     class UserHoc extends Component{
         render(){
-
             let storage = Storage.Base.getInstance(),
                 users = {
                     CustomerId:storage.get('userInfo').CustomerId,
