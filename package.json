@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "better-scroll": "^1.15.2",
     "classnames": "^2.2.6",
     "event-property": "^1.2.3",
